@@ -1,0 +1,16 @@
+# png y jpg
+*.jpg
+*.png
+
+# gz
+*.gz
+
+# aux bbl blg log out
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+
+# carpeta
+/_minted-Resumen_Comandos
