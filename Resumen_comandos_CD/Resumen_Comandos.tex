@@ -962,7 +962,14 @@ Lista de comandos:
 \end{itemize}
 %	SUBSECCION
 \subsection{Repositorios}
-Para abrir Git en el proyecto, se debe hacer clic derecho Git Bash Here en la carpeta donde se ubica dicho proyecto. Una vez abierto, con \texttt{git init} se inicia un nuevo repositorio con una rama llamada Master. Luego, se envía el archivo al repositorio con \texttt{git add nom-archivo.extension} para cada archivo, sin embargo, también se pueden añadir todos los archivos con \texttt{git add .}. \\
+Para abrir Git en el proyecto, se debe hacer clic derecho Git Bash Here en la carpeta donde se ubica dicho proyecto. Una vez abierto, se puede crear un nuevo repositorio con \texttt{git init} en la rama Master o main.
+
+Con el comando \texttt{git add nom-archivo.extension} se puede enviar archivos al repositorio. Si se quieren subir todos los archivos, se debe usar el comando \texttt{git add .}.
+
+Una vez que se hayan realizado todos los cambios en los archivos, se le puede añadir un comentario con \texttt{git commit -m "Mensaje"} y se suben con \texttt{git push origin nom-rama}.
+
+Si los archivos fueron modificados en GitHub, se pueden bajar al computador con \texttt{git pull}.
+
 Lista de comandos: 
 \begin{enumerate}
 \item \texttt{git status}: ver el estado del proyecto.
@@ -971,11 +978,15 @@ Lista de comandos:
 \item \texttt{git log --stat}: sirve para visualizar los commits y muestra un pequeño resumen de lo modificado, como la cantidad de líneas e inserciones.
 \item \texttt{git log --oneline}: muestra un código que identifica al commit.
 \item \texttt{git checkout codigo-commit}: actualiza el archivo para que coincida con el commit señalado en el código-commit. Una vez que se vuelve a un commit anterior, los otros que están en medio se borran. Por esta razón se recomienda trabajar con ramas.
-\item \texttt{git rm --cached nom-archivo.extension}: para volver un paso atrás. Si se quiere hacer con todos los archivos: \texttt{git rm --cached .}.
-\item \texttt{git clone direccion-del-repositorio}: clonar un repositorio.
+\item \texttt{git rm --cached nom-archivo.extension}: deja de rastrear un archivo sin eliminarlo del directorio de trabajo. Si se quiere hacer con todos los archivos: \texttt{git rm --cached .}.
+\item \texttt{git clone direccion-del-repositorio}: clonar un repositorio en el computador.
+\item \texttt{touch nom$\_$archivo.extension}: crea un archivo.
 \item \texttt{clear}: limpiar la pantalla.
 \end{enumerate}
-Para que git ignore ciertos archivos, se debe crear un archivo llamado .gitignore que contenga las extensiones de los proyectos (Ejemplo: *.mp4) o el nombre de este (Ejemplo: proy1.txt).
+%	SUBSECCION
+\subsection{.gitignore}
+El archivo .gitignore se crea con fines de que Git ignore ciertos archivos. Para crearlo, se puede hacer mediante la consola de Git con \texttt{touch .gitignore}. Luego de crearlo, se puede abrir con cualquier aplicación y escribir los archivos que se desean ignorar. Se deben escribir los nombres de los proyectos, como mi$\_$proyecto.txt, o se pueden ignorar todas las extensiones, como *.txt.
+
 %	SUBSECCION
 \subsection{Ramas}
 Una rama en Git es una versión del código de un proyecto, las cuales ayudan a mantener el orden en el control de versiones. El control de versiones es la práctica de gestionar los cambios que se realizan sobre un código. Cuando se habla del estado en el que se encuentra, se refiere a la versión, revisión o edición de este. \\
@@ -990,9 +1001,6 @@ Comandos:
 \item \texttt{git branch -d nombre-rama}: eliminar una rama solo si la rama se ha fusionado. De lo contrario, usar \texttt{-D} que elimina la rama independientemente de su estado de fusión.
 \item \texttt{git branch -d nombre-remoto/nombre-rama}: eliminar una rama remota de VSCode. Generalmente, \texttt{nombre-remoto} es origin.
 \end{itemize}
-
-%	SECCION
-\section{GitHub}
 
 %
 %	CAPITULO
