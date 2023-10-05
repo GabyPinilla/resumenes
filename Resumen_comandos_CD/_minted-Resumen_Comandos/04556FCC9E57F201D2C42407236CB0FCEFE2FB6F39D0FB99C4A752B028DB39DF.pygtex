@@ -1,0 +1,10 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} Media aritmética.}
+\PYG{n+nf}{mean}\PYG{p}{()}
+\PYG{c+c1}{\PYGZsh{} Valor máximo.}
+\PYG{n+nf}{max}\PYG{p}{()}
+\PYG{c+c1}{\PYGZsh{} Desviación estándar.}
+\PYG{n+nf}{sd}\PYG{p}{()}
+\PYG{c+c1}{\PYGZsh{} Correlación.}
+\PYG{n+nf}{cor}\PYG{p}{(}\PYG{n}{x}\PYG{o}{=}\PYG{n}{var}\PYG{o}{\PYGZhy{}}\PYG{n}{x}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{y}\PYG{o}{=}\PYG{n}{var}\PYG{o}{\PYGZhy{}}\PYG{n}{y}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{method}\PYG{o}{=}\PYG{l+s}{\PYGZsq{}pearson o kendall o spearman\PYGZsq{}}\PYG{p}{)}
+\end{Verbatim}

@@ -1,0 +1,21 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} Se inicia un diagrama y se le pueden agregar capas con +.}
+\PYG{n+nf}{ggplot}\PYG{p}{()}
+\PYG{c+c1}{\PYGZsh{} Dataset.}
+\PYG{n}{data}
+\PYG{c+c1}{\PYGZsh{} Usa puntos para crear diagramas (figura geométrica).}
+\PYG{n+nf}{geom\PYGZus{}función}\PYG{p}{()}
+\PYG{c+c1}{\PYGZsh{} Define cómo se aplican las variables a las propiedades visuales.}
+\PYG{n}{mapping}\PYG{+w}{ }\PYG{c+c1}{\PYGZsh{} Va junto a la función aes()}
+\PYG{c+c1}{\PYGZsh{} Especifica qué variables aplicar a los ejes x e y, como el color (color),}
+\PYG{c+c1}{\PYGZsh{} color de relleno (fill), forma de puntos (shape), tipo de línea (linetype)}
+\PYG{c+c1}{\PYGZsh{} y tamaño (size).}
+\PYG{n+nf}{aes}\PYG{p}{()}
+\PYG{c+c1}{\PYGZsh{} Grado de transparencia del color.}
+\PYG{n+nf}{alpha}\PYG{p}{()}
+\PYG{c+c1}{\PYGZsh{} Se pueden introducir etiquetas como title=\PYGZdq{}\PYGZdq{}, subtitle=\PYGZdq{}\PYGZdq{}, caption=\PYGZdq{}\PYGZdq{}.}
+\PYG{n}{labs}
+\PYG{c+c1}{\PYGZsh{} Se utiliza para agregar texto dentro de la cuadrícula.}
+\PYG{n+nf}{anotate}\PYG{p}{(}\PYG{n}{text}\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{} Más información en https://ggplot2.tidyverse.org/reference/annotate.html}
+\end{Verbatim}

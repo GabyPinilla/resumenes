@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{ggsave}\PYG{p}{(}“\PYG{n}{nombre}\PYG{o}{\PYGZhy{}}\PYG{n}{gráfico.tipo}\PYG{o}{\PYGZhy{}}\PYG{n}{archivo}”\PYG{p}{,}\PYG{+w}{ }\PYG{n}{width}\PYG{o}{=}\PYG{n}{ancho}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{height}\PYG{o}{=}\PYG{n}{largo}\PYG{p}{)}\PYG{+w}{ }\PYG{c+c1}{\PYGZsh{} del paquete ggplot2. Ejemplo:}
+\PYG{n+nf}{ggsave}\PYG{p}{(}“\PYG{n}{Pingüinos.png}”\PYG{p}{)}
+\end{Verbatim}

@@ -1,0 +1,15 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} Crea diagramas de dispersion.}
+\PYG{n+nf}{geom\PYGZus{}point}\PYG{p}{()}
+\PYG{c+c1}{\PYGZsh{} Crea graficos de barra.}
+\PYG{n+nf}{geom\PYGZus{}bar}\PYG{p}{()}
+\PYG{c+c1}{\PYGZsh{} Gráfico de líneas.}
+\PYG{n+nf}{geom\PYGZus{}line}\PYG{p}{()}
+\PYG{c+c1}{\PYGZsh{} Suavizado. Crea una línea de tendencia.}
+\PYG{n+nf}{geom\PYGZus{}smooth}\PYG{p}{()}
+\PYG{c+c1}{\PYGZsh{} Crea un histograma.}
+\PYG{n+nf}{geom\PYGZus{}histogram}\PYG{p}{()}
+\PYG{c+c1}{\PYGZsh{} Crea un diagrama de dispersión y agrega una pequeña cantidad de ruido}
+\PYG{c+c1}{\PYGZsh{}  aleatorio para lidiar con la superposición de puntos.}
+\PYG{n+nf}{geom\PYGZus{}jitter}\PYG{p}{()}
+\end{Verbatim}

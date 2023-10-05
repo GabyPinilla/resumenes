@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{ggplot}\PYG{p}{(}\PYG{n}{data}\PYG{p}{,}\PYG{+w}{ }\PYG{n+nf}{aes}\PYG{p}{(}\PYG{n}{x}\PYG{o}{=}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{y}\PYG{o}{=}\PYG{p}{))}\PYG{o}{+}\PYG{+w}{ }\PYG{n+nf}{geom\PYGZus{}point}\PYG{p}{()}\PYG{+w}{ }\PYG{o}{+}\PYG{+w}{  }\PYG{n+nf}{geom\PYGZus{}smooth}\PYG{p}{(}\PYG{n}{method}\PYG{o}{=}”\PYG{n}{gam}”\PYG{p}{,}\PYG{+w}{ }\PYG{n}{formula}\PYG{+w}{ }\PYG{o}{=}\PYG{+w}{ }\PYG{n}{y}\PYG{+w}{ }\PYG{o}{\PYGZti{}}\PYG{+w}{ }\PYG{n+nf}{s}\PYG{p}{(}\PYG{n}{x}\PYG{p}{))}
+\end{Verbatim}

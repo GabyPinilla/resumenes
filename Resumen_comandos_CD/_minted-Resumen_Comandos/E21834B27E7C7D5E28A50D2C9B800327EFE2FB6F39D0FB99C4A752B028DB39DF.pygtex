@@ -1,0 +1,14 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{}Muestra el tipo de datos}
+\PYG{n+nf}{str}\PYG{p}{(}\PYG{n}{df}\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{}Devuelve el min, max, media, mediana, 1er y 3r cuartil. skimr}
+\PYG{n+nf}{summary}\PYG{p}{(}\PYG{n}{df}\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{} skimr}
+\PYG{n+nf}{skim\PYGZus{}without\PYGZus{}charts}\PYG{p}{(}\PYG{n}{df}\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{} Skimr}
+\PYG{n+nf}{skim}\PYG{p}{(}\PYG{n}{df}\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{} Devuelve el numero de filas y columnas.}
+\PYG{n+nf}{glimpse}\PYG{p}{(}\PYG{n}{df}\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{} Muestra solo las primeras seis filas.}
+\PYG{n+nf}{head}\PYG{p}{(}\PYG{n}{df}\PYG{p}{)}
+\end{Verbatim}

@@ -1,0 +1,6 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} Facetar el diagrama con una variable.}
+\PYG{n+nf}{facet\PYGZus{}wrap}\PYG{p}{(}\PYG{o}{\PYGZti{}}\PYG{n}{variable}\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{} Facetar el diagrama con dos variables.}
+\PYG{n+nf}{facet\PYGZus{}grid}\PYG{p}{(}\PYG{n}{var1}\PYG{o}{\PYGZti{}}\PYG{n}{var2}\PYG{p}{)}
+\end{Verbatim}

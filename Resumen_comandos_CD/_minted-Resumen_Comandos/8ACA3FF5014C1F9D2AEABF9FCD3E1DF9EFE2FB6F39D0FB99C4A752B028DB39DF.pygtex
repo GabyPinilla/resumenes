@@ -1,0 +1,12 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} Se usa para elegir qué variable se quiere ordenar.}
+\PYG{n+nf}{arrange}\PYG{p}{()}
+\PYG{c+c1}{\PYGZsh{} Para ordenar de forma descendente.}
+\PYG{n+nf}{arrange}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{} Agrupa.}
+\PYG{n+nf}{group\PYGZus{}by}\PYG{p}{()}
+\PYG{c+c1}{\PYGZsh{} Filtra los datos.}
+\PYG{n+nf}{filter}\PYG{p}{()}
+\PYG{c+c1}{\PYGZsh{} Excluye valores NA.}
+\PYG{n+nf}{drop\PYGZus{}na}\PYG{p}{()}
+\end{Verbatim}

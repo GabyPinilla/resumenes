@@ -1,0 +1,8 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} Divide datos en columnas separadas.}
+\PYG{n+nf}{separate}\PYG{p}{(}\PYG{n}{df}\PYG{p}{,}\PYG{n}{columna}\PYG{o}{\PYGZhy{}}\PYG{n}{a}\PYG{o}{\PYGZhy{}}\PYG{n}{separar}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{into}\PYG{o}{=}\PYG{n+nf}{c}\PYG{p}{(}\PYG{l+s}{\PYGZsq{}nom\PYGZhy{}col\PYGZhy{}nueva\PYGZsq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s}{\PYGZsq{}nom\PYGZhy{}col\PYGZhy{}nueva\PYGZhy{}2\PYGZsq{}}\PYG{p}{),}\PYG{+w}{ }\PYG{n}{sep}\PYG{o}{=}\PYG{+w}{ }\PYG{l+s}{\PYGZsq{}tipo\PYGZhy{}de\PYGZhy{}separador\PYGZsq{}}\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{} Permite fusionar columnas entre sí.}
+\PYG{n+nf}{unite}\PYG{p}{(}\PYG{n}{df}\PYG{p}{,}\PYG{+w}{ }\PYG{l+s}{\PYGZsq{}nom\PYGZhy{}col\PYGZsq{}}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{col}\PYG{o}{\PYGZhy{}}\PYG{n}{a}\PYG{o}{\PYGZhy{}}\PYG{n}{combinar}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{col}\PYG{o}{\PYGZhy{}}\PYG{n}{a}\PYG{o}{\PYGZhy{}}\PYG{n}{combinar}\PYG{l+m}{\PYGZhy{}2}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{sep}\PYG{o}{=}\PYG{l+s}{\PYGZsq{}separador\PYGZsq{}}\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{} Se puede usar para añadir columnas con cálculos.}
+\PYG{n+nf}{mutate}\PYG{p}{()}
+\end{Verbatim}
