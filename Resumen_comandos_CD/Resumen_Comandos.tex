@@ -579,9 +579,9 @@ Finalmente, para leer un archivo en formato csv:
 \end{lstlisting}
 
 %	SECCION
-\section{Manipulación de datos}
+\section{Conceptos previos}
 %	SUBSECCION
-\subsection{Strings}
+\subsection{Manipulación de strings}
 Los strings son cadenas de textos que contienen una secuencia de caracteres, como palabras. Se definen usando comillas simples o dobles y se pueden realizar operaciones con ellas.
 
 Para interactuar con el usuario, se usan los comandos \texttt{\textcolor{magenta}{print}} y \texttt{\textcolor{magenta}{input}}. El primero imprime un mensaje en pantalla, mientras que el segundo permite que el usuario ingrese datos.
@@ -702,31 +702,56 @@ Set: no permite tener elementos repetidos. Guardará solo los datos que no se re
 \begin{lstlisting}[language=Python]
 	set_1 = {'banana', 'manzana', 'pera'}
 \end{lstlisting}
+
+%	SECCION
+\section{Limpieza, orden y transformación de datos}
+
 %	SUBSECCION
-\subsection{NumPy Arrays}
-NumPy es una librería de Python conocida por los NumPy Arrays o ndarray, una estructura de datos que puede ser de una dimensión (vector), dos dimensiones (matriz), tres (cubo) o más.
+\subsection{Librerías}
+Las librerías que más se usan en Python para la ciencia de datos son Pandas, NumPy, Scikit-learn y Matplotlib.
+
+NumPy se especializa en el cálculo y análisis de datos, la cual permite manejar datos de forma rápida por medio de los NumPy Arrays o ndarray, una estructura de datos que puede ser de una dimensión (vector), dos dimensiones (matriz), tres (cubo) o más.
 
 Por lo general, se importa con el alias np:
 \mint{Python}|import numpy as np|
-Una vez que se importa la librería, 
-%	SUBSECCION
-\subsection{Tipos de datos de Pandas}
-Pandas es una librería la cual permite manipular y analizar estructuras de datos. Se basa en NumPy y proporciona los siguientes tipos de datos:
+
+Por otro lado, la librería Pandas permite manipular y analizar estructuras de datos. Se basa en NumPy y proporciona los siguientes tipos de datos:
 \begin{enumerate}
 	\item Series: Estructuras de una dimensión.
 	\item DataFrame: Estructura de dos dimensiones.
 	\item Panel: Estructura de tres dimensiones.
 \end{enumerate}
 
-
-
+%	SUBSECCION
+\subsection{Tipos de datos de Pandas}
 
 
 %	SUBSECCION
-\subsection{Filtrado}
+\subsection{Resúmenes de datos}
 
-%	SUBSECCION
-\subsection{Orden}
+%	SUbSECCION
+\subsection{Manipulación de datos}
+
+%	SUBSUBSECCION
+\subsubsection{Transformación de datos}
+
+%	SUBSUBSECCION
+\subsubsection{Búsqueda de valores}
+
+%	SUBSUBSECCION
+\subsubsection{Quitar duplicados, espacios en blanco...}
+
+%	SUBSUBSECCION
+\subsubsection{Filtros}
+
+%	SUBSUBSECCION
+\subsubsection{Orden}
+
+%	SECCION
+\section{Análisis}
+
+%	SECCION
+\section{Visualización}
 
 
 
