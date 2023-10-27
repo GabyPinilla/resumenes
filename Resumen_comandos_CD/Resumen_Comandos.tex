@@ -987,6 +987,60 @@ ggsave(“Pingüinos.png”)
 %
 %	CAPITULO
 \chapter{Markdown}
+Markdown es un lenguaje usado en documentos donde existen dos tipos de celdas: una de texto y otra de código. Las celdas de texto están formateadas con este lenguaje, lo que lo hace fácil y simple de escribir.
+
+Tanto Colab como R permiten insertar ecuaciones usando la notación de LaTeX y personalizar la escritura con código HTML.
+
+
+Se le puede dar formato a la escritura con los siguientes comandos:
+\begin{enumerate}
+	\item \textit{Cursiva}: *texto*
+	\item \textbf{Negrita}: **texto**
+	\item Tachado: ~~texto~~
+	\item \textcolor{blue}{\underline{Enlaces}}: [Clic aquí](aquiVaElEnlace)
+	\item Monoespaciado: `texto`
+	\item Imagen: ![Una imagen](linkDeLaImagen)
+\end{enumerate}
+
+Los encabezados en Markdown se inician con un numeral. Mientras más numerales tenga, más pequeño es el encabezado.
+
+$\#$ Capítulo 1: {\LARGE Capítulo 1:}
+
+$\#\#$ Sección 1: {\Large Sección 1:}
+
+$\#\#\#$ Subsección: {\large Subsección:}
+
+Se pueden insertar bloques de código en las celdas de texto usando las comillas ``.
+
+\texttt{```python}
+	
+\texttt{import pandas as pd
+	```}
+
+De esta forma, el código en la celda tendrá un formato especial:
+\begin{lstlisting}[language=Python]
+	import pandas as pd
+\end{lstlisting}
+
+
+Se pueden crear listas ordenadas:
+\begin{enumerate}
+	\item Propiedad 1
+	\item Propiedad 2
+	\item Propiedad 3
+\end{enumerate}
+Y listas desordenadas con guiones (-) o asteriscos (*):
+
+- Propiedad 1
+
+- Propiedad 2
+
+- Propiedad 3
+
+
+Es posible insertar líneas horizontales con tres asteriscos (***) o tres guiones (---).
+
+
 %
 %	CAPITULO
 \chapter{Git y GitHub}
@@ -1280,7 +1334,7 @@ Luego, arrastrar las vistas desde la lista de Hojas hacia el dashboard.
 \chapter{Glosario de términos de programación}
 La siguiente lista muestra las traducciones al español de los términos de programación en inglés más usados.
 \begin{enumerate}
-	\item Array: Arreglo.
+	\item Array: Arreglo, listas.
 	\item Dataset: Conjunto de datos.
 	\item Debugging: Depuración.
 	\item Default: Predeterminado.
