@@ -739,43 +739,260 @@ import matplotlib.pyplot as plt
 \end{lstlisting}
 
 %	SUBSECCION
-\subsection{Tipos de datos de Pandas}
+\subsection{NumPy Arrays}
+Un NumPy Array se puede crear a partir de una lista usando el comando np.array:
+\begin{lstlisting}[language=Python]
+	# Arreglo 1d
+	a = np.array([1,2,3,4,5])
+	# Arreglo 2d
+	b = np.array([[3,4,5],
+				 [4,3,2]])
+\end{lstlisting}
+O por medio de no.arrange, el cual crea un arreglo de una dimensión con valores del 0 a n:
+\begin{lstlisting}[language=Python]
+	# Sintaxis
+	# a = np.arrange(inicio, fin-1,paso)
+	d = np.arrange(3,8,1)
+\end{lstlisting}
 
+Propiedades:
+\begin{lstlisting}[language=Python]
+	# Dimension del arreglo
+	arreglo.ndim
+	
+	# Forma del arreglo (filas,columnas)
+	arreglo.shape
+	
+	# Cantidad de datos en el arreglo
+	arreglo.size
+\end{lstlisting}
+
+Para buscar valores en un arreglo, Python toma cada fila como un arreglo, donde el primero tendrá índice cero. Lo mismo ocurre con sus columnas, como se muestra a continuación:
+\begin{lstlisting}[language=Python]
+#       0  1  2
+array([[1, 0, 3], # indice 0
+      [2, 6, 9],  # indice 1
+      [4, 5, 8]]) # indice 2
+\end{lstlisting}
+De esta forma, para seleccionar el número 6, se debe insertar arreglo[1,1].
+
+
+Generación de números aleatorios:
+\begin{lstlisting}[language=Python]
+	# Crea un arreglo de numeros aleatorios entre 0 y 1
+	a_1 = np.random.default_rng(n)
+	
+	# Genera n valores aleatorios que siguen una distribucion normal.
+	normal(media, desv_estandar,n)
+	
+	# Genera n numeros aleatorios entre el 0 y fin-1.
+	integers(fin-1, size = n)
+	
+	# Genera n numeros aleatorios entre el 0 y fin-1 sin repetirse.
+	choice(fin-1, size = n, replace = False)
+\end{lstlisting}
+%	SUBSECCION
+\subsection{Tipos de datos de Pandas}
+%	SUBSUBSECCION
+\subsubsection{Series}
+Las Series se definen bajo la siguiente sintaxis:
+\begin{lstlisting}[language=Python]
+	Series(data=datos, index= indices, dtype='int') # tipo de dato
+\end{lstlisting}
+
+Por ejemplo:
+\begin{lstlisting}[language=Python]
+	# Serie creada con una lista de numeros
+	s = Series([1,2,3,4,5,6], dtype='int')
+	
+	# Serie creada a partir de un diccionario
+	sdiccionario = pd.Series({'Bajo':1.40, 'Medio':1.60, 'Alto:170'})
+\end{lstlisting}
+
+%	SUBSECCION
+\subsubsection{DataFrame}
+Un DataFrame es una tabla similar a las hojas de cálculo de Excel. Posee filas y columnas. Las columnas solo puede tener datos de un solo tipo y poseen un encabezado. Cada fila se identifica por un índice único.
+
+Es posible crear un DataFrame mediante listas de diccionarios, listas de listas, un array, etc. Se utiliza el siguiente código:
+\begin{lstlisting}[language=Python]
+	df = pd.DataFrame(data = datos, index = 'filas', columns = 'columnas', dtype = 'int')
+# index=False: retorna indices numericos
+\end{lstlisting}
+
+Ejemplo de un DataFrame:
+\begin{lstlisting}[language=Python]
+indice = ['mes 1', 'mes 2', 'mes 3', 'mes 4', 'mes 5']
+df1 = pd.DataFrame({'mes': ['marzo', 'abril', 'mayo', 'junio', 'julio'], 'ventas': np.random.randint(1,100, 5)}, index = indice)
+df1
+\end{lstlisting}
+Esto mostrará un resultado similar a:
+\begin{figure}[H] 
+	\centering 
+	\includegraphics[width=0.25\linewidth]{tabladf1.png}
+	\caption{DataFrame df1 en Colab}
+\end{figure}
+
+De la misma forma que en un NumPy Array, se pueden seleccionar datos específicos mediante un localizador de etiquetas con loc o índices con iloc:
+\begin{lstlisting}[language=Python]
+	# Busca el numero ubicado en la fila con indice 3 y columna con indice 1
+	df1.iloc[3,1]
+	# 21
+	
+	# Busca los datos entre marzo y mayo de df1
+	df1.loc['mes 1': 'mes 3'] # puede ser el nombre de una fila o columna
+	#        mes   ventas
+	# mes 1  marzo   18
+	# mes 2  abril   79
+	# mes 3  mayo    18
+\end{lstlisting}
+%	SUBSECCION
+\subsection{Importación datos}
+La importación de datos se hace mediante el comando pd.read$\_$csv en el caso de un archivo .csv.
+\begin{lstlisting}[language=Python]
+	df = pd.read_csv('archivo.csv', index_col = 'nom_indice')
+\end{lstlisting}
 
 %	SUBSECCION
 \subsection{Resúmenes de datos}
+Por defecto, la función head() muestra las primeras cinco filas del DataFrame. De lo contrario, el comando tail() muestra las últimas cinco:
+\begin{lstlisting}[language=Python]
+	# Muestra los primeros 5 datos
+	df.head()
+	
+	# Muestra los ultimos 5
+	df.tail()
+\end{lstlisting}
+
+Devuelve una tabla con la media, mediana, desviación estándar, máximo, mínimo y los percentiles del DataFrame:
+\begin{lstlisting}[language=Python]
+	df.describe()
+\end{lstlisting}
+
+Tipo de datos de las columnas del DataFrame:
+\begin{lstlisting}[language=Python]
+	df.info()
+\end{lstlisting}
+
 
 %	SUbSECCION
 \subsection{Manipulación de datos}
 
+
+
 %	SUBSUBSECCION
 \subsubsection{Transformación de datos}
+
 
 %	SUBSUBSECCION
 \subsubsection{Búsqueda de valores}
 
 %	SUBSUBSECCION
 \subsubsection{Quitar duplicados, espacios en blanco...}
-
+Elimina datos np.nan:
+\begin{lstlisting}[language=Python]
+	df.dropna()
+	
+	# Borrando definitivamente los valores nulos
+	df.dropna(inplace=True)
+	
+	# Creando un df nuevo sin nulos
+	df_nuevo = df.dropna()
+	
+	# Reemplazando los valores nulos con 0
+	df.dropna(0)
+\end{lstlisting}
 %	SUBSUBSECCION
 \subsubsection{Filtros}
+Con Pandas se pueden filtrar datos por condiciones, columnas, filas.
+
+
+Filtrando por columnas:
+\begin{lstlisting}[language=Python]
+	# Devuelve los valores de la columna ventas de df
+	df['ventas']
+	
+	# Devuelve las columnas mes y ventas
+	df[['mes','ventas']]
+\end{lstlisting}
+
+Filtrando por filas:
+\begin{lstlisting}[language=Python]
+	# POR INDICE
+	# Devuelve la fila con indice 0
+	df.iloc[0]
+	
+	# Devuelve desde la primera fila hasta la 4ta
+	df.iloc[0:5]
+	
+	# Devuelve la fila con indice 0 y la 2
+	df.iloc[[0,2]]
+	
+	# POR ETIQUETAS
+	# Seleccionando las etiquetas ventas y annos
+	df.loc[['ventas', 'anno']]
+\end{lstlisting}
+
+Filtrando por condiciones:
+\begin{lstlisting}[language=Python]
+	# Devuelve los datos del df donde las ventas son mayores a 1000
+	df[df['ventas']>1000]
+	
+	# Devuelve los datos del df donde las ventas son mayores a 1000 y el mes es igual a abril
+	df[(df['ventas']>1000) & (df['mes'] == 'abril')]
+	
+	# Devuelve los meses que contienen la subcadena a, como marzo, abril, mayo, agosto
+	df[df['mes'].str.contains('a')]
+\end{lstlisting}
 
 %	SUBSUBSECCION
 \subsubsection{Orden}
+sort
+
+%	SUBSUBSECCION
+\subsubsection{Agrupación de datos}
+En Pandas se utiliza groupby para agrupar datos de una columna para aplicarle funciones como la media, suma, etc.
+\begin{figure}[H] 
+	\centering 
+	\includegraphics[width=0.4\linewidth]{tabladf2.png}
+	\caption{DataFrame}
+\end{figure}
+El DataFrame anterior muestra cada país con su número de seguidores y menciones. Se que quiere agrupar el promedio de ambas columnas según su país, se debe aplicar el siguiente comando:
+\begin{lstlisting}[language=Python]
+	# Devuelve el promedio de los datos agrupados por sus paises
+	df.groupby('pais').mean()
+\end{lstlisting}
+Y devolverá la siguiente tabla:
+\begin{figure}[H] 
+	\centering 
+	\includegraphics[width=0.4\linewidth]{tablagroupby.png}
+	\caption{DataFrame agrupado según su país}
+\end{figure}
+Por otro lado, si se necesitan aplicar más funciones de agregación, se debe añadir el comando agg con un diccionario de las columnas y las funciones:
+\begin{lstlisting}[language=Python]
+	# Devuelve la suma de seguidores y el promedio de menciones de df agreupados por pais
+	df.groupby('pais').agg({'seguidores': 'sum', 'menciones': 'mean'})
+\end{lstlisting}
+
+\begin{figure}[H] 
+	\centering 
+	\includegraphics[width=0.4\linewidth]{tablagroupby2.png}
+	\caption{DataFrame agrupado según su país}
+\end{figure}
+
 
 %	SECCION
 \section{Análisis}
 
 %	SECCION
 \section{Visualización}
-
+Para graficar en Pandas se utiliza la librería matplotlib
+\begin{lstlisting}[language=Python]
+	import matplotlib.pyplot as plt
+\end{lstlisting}
 
 % -----------------------------------------------------------
 
-Para mostrar n número de filas del conjunto de datos:
-\begin{lstlisting}[language=Python]
-nom-ds.head(n)
-\end{lstlisting}
+
 
 Nombres de las columnas del conjunto de datos:
 \begin{lstlisting}[language=Python]
@@ -793,24 +1010,13 @@ Para visualizar una muestra del dataset:
 nom-ds.sample(num-de-registros)
 \end{lstlisting}
 
-Información del dataset:
-\begin{lstlisting}[language=Python]
-nom-ds.info()
-\end{lstlisting}
 
-Localizar índice:
-\begin{lstlisting}[language=Python]
-nom-ds.iloc[indice]
-\end{lstlisting}
 
 %	SECCION
 \section{Análisis y visualización}
 %	SUBSECCION
 \subsection{Cálculos matemáticos}
-Dimensión del conjunto de datos:
-\begin{lstlisting}[language=Python]
-nom-ds.shape
-\end{lstlisting}
+
 
 %
 %	CAPITULO
