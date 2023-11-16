@@ -37,10 +37,13 @@ help(package = "datasets")
 
 En R, una función posee la siguiente sintaxis: **nombre_funcion()**. Dentro de los paréntesis, van los argumentos de la función. Algunas funciones básicas definidas de R son:
 
--   sum()
--   mean()
--   max()
--   min()
+- `sum()`: suma.
+- `mean()`: promedio.
+- `max()`: máximo.
+- `min()`: mínimo.
+- `sqrt()`: raiz cuadrada.
+- `sort()`: ordena los valores de menor a mayor.
+- `unique()`: muestra valores únicos.
 
 Las funciones también pueden ser definidas por el usuario usando la siguiente sintaxis:
 
@@ -208,6 +211,16 @@ Ejemplo:
 is.character(432)
 ```
 
+# NA y NULL
+La diferencia entre NA y NULL es que NULL representa datos inexistentes y NA datos faltantes o no disponibles. 
+
+Es posible eliminar estos valores usando `drop_na()` de la librería tidyr. Se puede usar en una sola columna o en todas las columnas del marco de datos:
+```
+drop_na(df, column = "nombre columna")
+```
+Si se especifica `column = NULL`, se eliminarán todas las filas que contengan un valor NA en el marco de datos.
+
+
 # Condicionales
 
 ## if
@@ -220,7 +233,7 @@ if (condicion){
 }
 ```
 
-### ifesle
+### ifelse
 
 ```         
 ifelse(vector, valor_si_es_TRUE, valor_si_es_FALSE)
@@ -373,7 +386,7 @@ seq(3:16)
 
 ### Repetición
 
-En R, se puede repitir un número n veces usando `rep(numero, num_de_repeticiones)`:
+En R, se puede repetir un número n veces usando `rep(numero, num_de_repeticiones)`:
 
 ```{r}
 # Repite el 12 cinco veces
@@ -382,10 +395,127 @@ rep(12, 5)
 
 ### Función all y any
 
+Las funciones `all` y `any` se utilizan para hacer comprobaciones lógicas en vectores.
+
+- `all()`: si todos los elementos de un vector son TRUE, devolverá TRUE. De lo contrario, si hay uno que sea FALSE, devolverá FALSE. Ejemplo:
+```{r}
+# Comprueba si todos los elementos son mayores a 5
+y<-1:20
+all(y>5)
+```
+- `any()`: si al menos uno de los elementos es TRUE, devolverá TRUE. Si todos son FALSE, devolverá FALSE. Ejemplo:
+```{r}
+# Comprueba si hay al menos un elemento menor a 5
+x<-1:10
+any(x<5)
+```
 ## Matriz
 
-## Array
+Una matriz es una estructura de datos que posee filas y columnas. Contiene elementos del mismo tipo.
 
+Para crear una matriz, se utiliza la función `matrix()`:
+```
+matrix(rango, nrow= n_filas, ncol=n_col)
+```
+Por ejemplo:
+```{r}
+# Creando una matriz de datos NA
+z<-matrix(nrow=4,ncol=3)
+z
+```
+```{r}
+z1<-matrix(1:6, nrow=2, ncol=3)
+z1
+```
+Se pueden crear matrices con `rbind` y `cbind`:
+```{r}
+# Vectores
+vec1 <- 1:4
+vec2 <- 5:8
+# cbind usa cada vector como una columna
+vec3 <- cbind(vec1, vec2)
+vec3
+```
+```{r}
+# rbind usa cada vector como una fila
+vec3 <- rbind(vec1, vec2)
+vec3
+```
+
+### Propiedades
+Usando las matrices anteriores, es posible cambiar el nombre de las filas y las columnas mediante los siguientes comandos.
+
+Para ponerle nombre a las filas, se usa `rownames()`:
+```{r}
+rownames(z1) <- c("Fila_1", "Fila_2")
+z1
+```
+Para nombrar las columnas se usa `colnames()`:
+```{r}
+colnames(z1) <- c("Col_1", "Col_2", "Col_3")
+z1
+```
+
+```{r}
+m <- matrix(1:12, nrow=3, ncol=4)
+m
+```
+```{r}
+m2 <- matrix(12:23, nrow=4, ncol=3)
+m2
+```
+
+```{r}
+# Devuelve la dimension de una matriz
+dim(m)
+```
+```{r}
+# Transpone una matriz
+t(m)
+```
+
+```{r}
+# Multiplicacion entre matrices
+m %*% m2
+```
+Siendo A una matriz y B otra matriz:
+```
+# Producto cruzado
+crossprod(a,b) # t(A) %*% B
+tcrossprod(A,B) # A %*% t(B)
+
+#Producto de Kronecker
+A %x% B
+
+# Potencia
+A %^% 2
+
+# Potencia elemento a elemento
+A^2
+
+# Determinante
+det(A)
+
+# Diagonal
+diag(A)
+
+# Diagonal secundaria
+diag(apply(A,2,rev))
+
+# Matriz diagonal
+diag(c(1,2,3,4,5))
+
+# Matriz identidad
+diag(3)
+
+# Autovalores
+# Se almacenan en el elemento values
+eigen(A)$values
+
+# Autovectores
+# Se almacenan en el elemento vectors
+eigen(A)$vectors
+```
 ## Listas
 
 ## Dataframe
