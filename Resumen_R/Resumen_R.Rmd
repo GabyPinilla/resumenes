@@ -517,8 +517,207 @@ eigen(A)$values
 eigen(A)$vectors
 ```
 ## Listas
+Para crear una lista, se usa `list`:
+```{r}
+mi_lista <- list("elemento1", "elemento2", 3, 4)
+mi_lista
+```
+
+Extraer elementos de una lista:
+```{r}
+# Extrayendo el primer elemento
+mi_lista[1]
+```
+
+Número de elementos de una lista:
+```{r}
+length(mi_lista)
+```
+Para borrar elementos de una lista:
+```{r}
+# Borrando el elemento 2 de mi_lista
+mi_lista[[2]] <- NULL # es equivalente a mi_lista[-2]
+mi_lista
+```
+### Lista de listas
+Es posible crear una lista de listas usando `list` y agregando listas dentro de su paréntesis:
+```
+lista_de_lista <- list(lista_1, lista_2, lista_3)
+```
+
+Ejemplo de una lista de listas:
+```{r}
+# Lista vacia
+lista_de_listas <- list()
+lista_de_listas <- vector("list", length = 5)
+# Creando lista de 5 listas con 5 elementos
+for (j in 1:5){
+  lista_de_listas[[j]] <- c(12,34,654,76,23)
+}
+lista_de_listas
+```
+Para acceder a sus elementos
+```{r}
+# Primera lista
+lista_de_listas[[1]]
+# Extrayendo el segundo elemento de la tercera lista
+lista_de_listas[[3]][2]
+```
+### Concatenar listas
+Se usan los siguientes códigos para concatenar listas:
+```
+# Los elementos de la 2da lista se agregan a la 1ra
+append(lista_1, lista_2)
+
+# Concatenando con c
+c(lista_1, lista_2)
+
+# Con do.call, se le puede aplicar una funcion a las listas, en este caso c concatena las listas
+do.call(c, list(lista_1, lista_2))
+
+```
+### Propiedades
+```
+# Elementos comunes en dos listas
+intersect(lista_1, lista_2)
+
+# Elementos diferentes en dos listas
+setdiff(lista_1, lista_2) # Responde a que esta en lista_1 que no esta en lista_2
+
+# Comparar elementos iguales en dos listas:
+lista_1 %in% lista_2
+# o
+compare.list(lista_1, lista_2)
+
+# Convertir una lista en un vector
+unlist(lista, use.names=FALSE) # Convierte toda la lista a vector
+# o
+unlist(lista[[1]], use.names=FALSE) # Convierte el primer elemento a vector
+
+# Convertir una lista en dataframe
+data.frame(matrix(unlist(lista), nrow=length(lista), byrow=TRUE))
+# o
+do.call(rbind.data.frame, lista)
+```
 
 ## Dataframe
+Para crear un dataframe,  se usa `data.frame` y los nombres de las columnas se pueden definir con vectores:
+```
+datos <- data.frame(nom_columna = vector_1, nombre_columna2 = vector_2)
+```
+
+### Mostrando los datos
+
+```
+# Tipo de datos
+str(df)
+
+# Devuelve solo las primeras 6 filas
+head(df)
+
+# Devuelve el numero de columnas y filas del df
+glimpse(df)
+
+# Devuelve un resumen estadistico
+summary(df)
+
+#
+skim(df)
+
+#
+skim_without_charts(df)
+
+# Especifica ciertas columnas o las excluye con un -
+select(columna)
+# Las excluye con
+select(-columna)
+```
+### Cargando conjunto de datos
+```
+data(conjunto_de_datos)
+```
+Luego de cargar el conjunto de datos, se pueden acceder a los datos del dataframe con:
+```
+df$nom_columna
+# o
+df[,numero_columna]
+```
+También, se pueden agregar filas y columnas a un dataframe:
+```
+df$columna <- df$nueva_columna
+```
+O eliminar columnas
+```
+df_2 <- df[,-c(1,2)]
+```
+
+### Ordenando los datos de un dataframe
+```
+#  Se usa para elegir la variable que se quiere ordenar
+arrange(df, columna)
+# Ordena de forma descendiente
+arrange(df, desc(columna))
+
+# Agrupa
+group_by(columna)
+
+# Calculando la media de una columna
+summarise(df, nueva_columna = mean(columna))
+
+# Crea subconjuntos
+subset(df, criterio)
+
+# Crea nuevas variables que se calculan por medio de otras
+mutate(df, operacion)
+```
+
+### Modificando los nombres de las columnas
+```
+# Cambia de nombre las columnas
+rename(nueva_columna = antigua_columna)
+
+# Pone nombres en mayusculas
+rename_witch(df, toupper)
+# En minusculas
+rename_with(df, tolower)
+
+# Verifica si los nombres de las columnas son exclusivos y coherentes
+clean_names()
+
+# Devuelve los nombres de las columnas del df
+col_names(df)
+
+# Cambia nombres de las columnas
+col_names(df)[nombre_columna_a_cambiar] <- c("columna_nueva")
+```
+
+### Transformación de datos
+```
+# Divide los datos en columnas separadas
+separate(df, columna_a_separar, into = c("nombre_nueva_columna", ...), sep= ",")
+
+# Fusiona columnas
+unite(df, "nombre_columna", columna_a_combinar, columna_a_combinar2, sep=",")
+
+
+# Une dos dataframe, donde df_1 es el primer df a unir y df2 el segundo, by
+# es o son las variables que se van a usar para unirlos y all.x indica si 
+# todos los registros del primer df deben incluirse en la union. 
+# Lo mismo para all.y, pero con el segundo df
+merge(df_1, df_2, by = "variable", all.x = TRUE, all.y =TRUE, ...)
+```
+### Canalización
+Una canalización toma el resultado de una instrucción y lo convierte en la entrada de la siguiente instrucción:
+```
+Primero() %>% Segundo() %>%
+  Tercero()
+```
+
+### Función anidada
+Es una función que está contenida dentro de otra función. Se leen desde adentro hacia afuera:
+```
+Tercero(Segundo(Primero(x)))
+```
 
 # Bibliografía
 
