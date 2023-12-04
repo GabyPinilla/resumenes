@@ -29,7 +29,8 @@ numbers=left,
 numbersep=5pt,                  
 showspaces=false,                
 showstringspaces=false,
-showtabs=false,                  
+showtabs=false,
+breaklines=true % las lineas de codigo se rompen si son muy largas                  
 }
 % Python
 \lstdefinestyle{estilopython}{
@@ -47,7 +48,8 @@ showtabs=false,
     numbersep=5pt,                  
     showspaces=false,                
     showstringspaces=false,
-    showtabs=false,                  
+    showtabs=false,
+    breaklines=true % las lineas de codigo se rompen si son muy largas                  
 }
 % R es usado con minted
 
@@ -747,7 +749,7 @@ a = np.array([1,2,3,4,5])
 
 # Arreglo 2d
 b = np.array([[3,4,5],
-			 [4,3,2]])
+	      [4,3,2]])
 \end{lstlisting}
 O por medio de no.arrange, el cual crea un arreglo de una dimensión con valores del 0 a n:
 \begin{lstlisting}[language=Python]
@@ -771,9 +773,9 @@ arreglo.size
 Para buscar valores en un arreglo, Python toma cada fila como un arreglo, donde el primero tendrá índice cero. Lo mismo ocurre con sus columnas, como se muestra a continuación:
 \begin{lstlisting}[language=Python]
 #       0  1  2
-array([[1, 0, 3], # indice 0
-      [2, 6, 9],  # indice 1
-      [4, 5, 8]]) # indice 2
+array([[1, 0, 3],  # indice 0
+       [2, 6, 9],  # indice 1
+       [4, 5, 8]]) # indice 2
 \end{lstlisting}
 De esta forma, para seleccionar el número 6, se debe insertar arreglo[1,1].
 
@@ -875,22 +877,49 @@ df.info()
 \end{lstlisting}
 
 
-%	SUbSECCION
+%	SUBSECCION
 \subsection{Manipulación de datos}
-
-
 
 %	SUBSUBSECCION
 \subsubsection{Transformación de datos}
+Cuando se trabaja con fechas, es posible que estos valores aparezcan de tipo string. Para transformarlos a un formato de fecha, se ocupa pd.to$\_$datetime():
+\begin{lstlisting}[language=Python]
+df['fecha']= pd.to_datetime(df['fecha'])
+\end{lstlisting}
+Luego, es posible acceder a los métodos de las fechas usando .dt:
+\begin{lstlisting}[language=Python]
+# Accediendo a los annos de las fechas
+df['fecha'].dt.year
 
+# Accediendo a los meses de las fechas
+df['fecha'].dt.month
+
+# Accediendo a los nombres de los meses de las fechas
+df['fecha'].dt.month_name()
+
+# Accediendo a los dias de las fechas
+df['fecha'].dt.day
+
+# Convirtiendo a formato de fecha y hora especificando el formato
+df['fecha'] = pd.to_datetime(df['fecha'], format='%d-%m-%Y')
+\end{lstlisting}
 
 %	SUBSUBSECCION
 \subsubsection{Búsqueda de valores}
+Además de iloc y loc, se puede buscar valores en un DataFrame con isin(), en el cual se le debe indicar entre paréntesis los valores a buscar:
+\begin{lstlisting}[language=Python]
+# Devuelve el df donde encuentre los valores 23 y 45 en la columna1
+df[df.columna1.isin([23,45])]
+\end{lstlisting}
 
 %	SUBSUBSECCION
 \subsubsection{Quitar duplicados, espacios en blanco...}
 Elimina datos np.nan:
 \begin{lstlisting}[language=Python]
+# Devuelve la cantidad de nulos en cada columna
+df.isna().sum()	
+
+# Borra las columnas y filas que tengan datos faltantes
 df.dropna()
 	
 # Borrando definitivamente los valores nulos
@@ -901,6 +930,18 @@ df_nuevo = df.dropna()
 	
 # Reemplazando los valores nulos con 0
 df.dropna(0)
+
+# Reemplazando los valores nulos con 0
+df.fillna(0)
+\end{lstlisting}
+
+Quitar filas duplicadas:
+\begin{lstlisting}[language=Python]
+# Devuelve los valores duplicados de columna1
+df[df.duplicated(subset=['columna1'])]
+
+# Borrando duplicados de las columnas columna1 y columna2 de df
+df_sin_duplicados = df.drop_duplicates(subset=['columna1', 'columna2'])
 \end{lstlisting}
 %	SUBSUBSECCION
 \subsubsection{Filtros}
@@ -982,6 +1023,22 @@ df.groupby('pais').agg({'seguidores': 'sum', 'menciones': 'mean'})
 	\includegraphics[width=0.4\linewidth]{tablagroupby2.png}
 	\caption{DataFrame agrupado según su país}
 \end{figure}
+
+%	SUBSECCION
+\subsection{Cruce de tablas}
+Con la librería Pandas, se pueden cruzar dos tablas mediante merge(), donde la primera tabla será la tabla derecha (tabla1) y la segunda la izquierda (tabla2):
+\begin{lstlisting}[language=Python]
+# Cruce entre tabla1 y tabla2
+df_merged = df_tabla1.merge(df_tabla2, left_on = 'col1_t1', right_on = 'col1_t2', how='inner', validate = 'many_to_one')
+\end{lstlisting}
+Sus parámetros son:
+\begin{itemize}
+	\item left$\_$on: Columnas a cruzar por la izquierda.
+	\item right$\_$on: Columnas a cruzar por la derecha.
+	\item on: En el caso de que ambas columnas tengan el mismo nombre, se usa on y se escribe el nombre de la columna.
+	\item how: Es el tipo de cruce. Puede ser left, right, inner, outer o cross.
+	\item validate: Comprueba si el cruce es del tipo indicado. Puede ser one$\_$to$\_$one, one$\_$to$\_$many, many$\_$to$\_$one, many$\_$to$\_$many.
+\end{itemize}
 
 %	SECCION
 \section{Estadística}
@@ -1070,9 +1127,28 @@ df.describe()
 \subsection{Ley de los grandes números}
 La ley de los grandes números establece que a mayor número de ensayos, tenderá a estar más cerca de la media.
 
-\begin{lstlisting}[language=Python]
-	
-\end{lstlisting}
+%	SUBSECCION
+\subsection{Probabilidad}
+La probabilidad es una medida que determina qué tan posible es que ocurra un evento. Para calcularla, se utilizan las siguientes definiciones básicas:
+\begin{enumerate}
+	\item Experimento aleatorio: Es un experimento cuyo resultado está determinado por el azar.
+	\item Espacio muestral ($\Omega$): Es el conjunto de todos los resultados posibles de un experimento.
+	\item Evento (A, B, ...): Es un conjunto de resultados posibles, es decir, un subconjunto del espacio muestral.
+	\item Probabilidad (P(A), P(B), ...): Es un valor que se le asigna a un evento entre 0 y 1, donde 0 es imposible y 1 es seguro de que ocurra.
+	\item Complemento ($A^c$): Es la probabilidad de que un evento no ocurra. Si P(A) es la probabilidad de que ocurra un evento A, entonces P($A^c$)=1-(P(A)) es la probabilidad de que no ocurra A.
+	\item Intersección ($A\cap B$): Son todos los elementos que son de un evento A y un evento B.
+	\item Unión ($A \cup B$): Son todos los elementos de A y todos los elementos de B.
+	\item Probabilidad clásica: Se basa en que todos los resultados del espacio muestral tienen la misma probabilidad.
+	\item Probabilidad frecuencial: Se calcula dividiendo el número de veces que ocurre un evento y el total de repeticiones del experimento.
+	\item Probabilidad condicional (P(A/B) o P(A$\vert$B)): Es la probabilidad de que ocurra un evento sabiendo que sucede otro evento.
+\end{enumerate}
+
+%	SUBSUBSECCION
+\subsubsection{Probabilidad condicional}
+
+
+
+
 
 %	SECCION
 \section{Análisis}
@@ -1081,7 +1157,7 @@ La ley de los grandes números establece que a mayor número de ensayos, tender�
 \section{Visualización}
 Para graficar en Pandas se utiliza la librería matplotlib
 \begin{lstlisting}[language=Python]
-	import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 \end{lstlisting}
 
 % -----------------------------------------------------------
@@ -1319,7 +1395,7 @@ Se pueden insertar bloques de código en las celdas de texto usando las comillas
 
 De esta forma, el código en la celda tendrá un formato especial:
 \begin{lstlisting}[language=Python]
-	import pandas as pd
+import pandas as pd
 \end{lstlisting}
 
 
