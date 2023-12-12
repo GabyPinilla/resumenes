@@ -1041,8 +1041,11 @@ Sus parámetros son:
 \end{itemize}
 
 %	SECCION
-\section{Estadística}
-\subsection{Tipos de datos en estadística}
+\section{Probabilidad y estadística}
+% SUBSECCION
+\subsection{Estadística}
+%SUBSUBSECCION
+\subsubsection{Tipos de datos en estadística}
 En estadística, existen diferentes tipos de datos que se clasifican en:
 \begin{enumerate}
 	\item Variables cualitativas ordinales: son variables que pueden ser ordenadas o poseen un tipo de jerarquía.
@@ -1051,8 +1054,8 @@ En estadística, existen diferentes tipos de datos que se clasifican en:
 	\item Variables cuantitativas continuas: son las variables que representan una medición en escalas continuas.
 \end{enumerate}
 
-%	SUBSECCION
-\subsection{Medidas de tendencia central}
+%	SUBSUBSECCION
+\subsubsection{Medidas de tendencia central}
 Las medidas de tendencia central son medidas estadísticas que se utilizan para resumir un conjunto de valores. Las medidas más comunes son:
 
 \begin{itemize}
@@ -1073,8 +1076,8 @@ moda = df['columna'].mode()
 mediana = df['columna'].median()
 \end{lstlisting}
 
-%	SUBSECCION
-\subsection{Indicadores de posición}
+%	SUBSUBSECCION
+\subsubsection{Indicadores de posición}
 Mientras que los indicadores de posición son indicadores estadísticos que se utilizan para resumir los valores en uno solo o dividirlos en intervalos del mismo tamaño. Dentro de ellos se encuentran:
 \begin{itemize}
 	\item Percentiles
@@ -1097,8 +1100,8 @@ Lo mismo con los cuartiles:
 # Cuartiles
 cuartil = df['columna'].quantile([0, 0.25, 0.50, 0.75, 1])
 \end{lstlisting}
-%	SUBSECCION
-\subsection{Medidas de dispersión}
+%	SUBSUBSECCION
+\subsubsection{Medidas de dispersión}
 A diferencia de las medidas de tendencia central que entregan una idea sobre la ubicación central de los datos, las medidas de dispersión se utilizan para describir el cambio o dispersión de un conjunto. Algunas son:
 \begin{itemize}
 	\item Rango
@@ -1123,9 +1126,7 @@ des_estandar = df['columna'].std()
 df.describe()
 \end{lstlisting}
 
-%	SUBSECCION
-\subsection{Ley de los grandes números}
-La ley de los grandes números establece que a mayor número de ensayos, tenderá a estar más cerca de la media.
+
 
 %	SUBSECCION
 \subsection{Probabilidad}
@@ -1134,22 +1135,103 @@ La probabilidad es una medida que determina qué tan posible es que ocurra un ev
 	\item Experimento aleatorio: Es un experimento cuyo resultado está determinado por el azar.
 	\item Espacio muestral ($\Omega$): Es el conjunto de todos los resultados posibles de un experimento.
 	\item Evento (A, B, ...): Es un conjunto de resultados posibles, es decir, un subconjunto del espacio muestral.
-	\item Probabilidad (P(A), P(B), ...): Es un valor que se le asigna a un evento entre 0 y 1, donde 0 es imposible y 1 es seguro de que ocurra.
+	\item Probabilidad (P(A), P(B), ...): Es un valor que se le asigna a un evento entre 0 y 1, donde 0 es imposible y 1 es seguro de que ocurra. Se obtiene dividiendo el número de casos favorables por el número total de resultados posibles.
 	\item Complemento ($A^c$): Es la probabilidad de que un evento no ocurra. Si P(A) es la probabilidad de que ocurra un evento A, entonces P($A^c$)=1-(P(A)) es la probabilidad de que no ocurra A.
 	\item Intersección ($A\cap B$): Son todos los elementos que son de un evento A y un evento B.
 	\item Unión ($A \cup B$): Son todos los elementos de A y todos los elementos de B.
 	\item Probabilidad clásica: Se basa en que todos los resultados del espacio muestral tienen la misma probabilidad.
 	\item Probabilidad frecuencial: Se calcula dividiendo el número de veces que ocurre un evento y el total de repeticiones del experimento.
-	\item Probabilidad condicional (P(A/B) o P(A$\vert$B)): Es la probabilidad de que ocurra un evento sabiendo que sucede otro evento.
 \end{enumerate}
 
 %	SUBSUBSECCION
 \subsubsection{Probabilidad condicional}
+La probabilidad condicional se refiere a que suceda un evento (A) sabiendo que sucede otro (B). Se expresa como:
+\begin{equation}
+	P(A|B)
+\end{equation}
+Y se lee la probabilidad de A dado B, la cual se puede calcular por medio del Teorema de Bayes:
+\begin{gather}
+	P(A \cap B) = P(B) * P(A/B) \\
+	\Rightarrow P(A|B) = \frac{P(A \cap B)}{P(B)}
+\end{gather}
 
+En Python, se pueden calcular probabilidades por medio de los siguientes comandos:
+\begin{lstlisting}[language=Python]
+\\ conteo
+conteo = df['columna1'].value_counts()['valor1']
 
+\\ Conteo de cada registro
+conteo_grupal = df['columna1'].value_counts()
 
+\\ Conteo con condiciones
+condicion1 = df['columna1'] == 'valor1'
+condicion2 = df['columna2'] == 'valor2'
 
+interseccion = (condicion1 & condicion2).sum()
+union = (condicion1 | condicion2).sum()
+\end{lstlisting}
 
+%	SUBSUBSECCION
+\subsubsection{Variable aleatoria}
+Se define variable aleatoria a una función que asigna un valor numérico a los resultados de un experimento aleatorio. Se clasifican en dos tipos:
+\begin{enumerate}
+	\item Variables aleatorias continuas: pueden tomar cualquier valor dentro de un rango continuo de números reales.
+	\item Variables aleatorias discretas: son aquellas que pueden tomar un número finito o infinito numerable de valores posibles.
+\end{enumerate}
+
+%	SUBSUBSECCION
+\subsubsection{Distribución de probabilidad}
+La distribución de probabilidad de una variable aleatoria es una función que asigna a cada evento la probabilidad de que este ocurra. Describe cómo se distribuyen las probabilidades de los valores que puede tomar la variable.
+
+Para una variable aleatoria continua, puede tomar cualquier valor dentro de un cierto rango. Se definen por medio de una función de probabilidad:
+\begin{equation}
+	P(a \leqslant X \leqslant b) = \int_{a}^{b} f(x)dx
+\end{equation}
+La cual representa el área debajo de la curva de f(x) en el intervalo (a,b).
+
+\subsubsection{Distribución binomial}
+La distribución binomial es una distribución de probabilidad que describe el número de veces que un evento aparece en una cantidad de experimentos. Los experimentos deben ser independientes entre sí, solo deben tener dos posibles resultados (éxito y fracaso) y la probabilidad de éxito debe ser constante para todos los experimentos.
+
+Si se repite el experimento n veces, la probabilidad de tener k éxitos es de:
+\begin{equation}
+	P(k) = \frac{n!}{k! (n-k)!}p^{k}(1-p)^{n-k}
+\end{equation}
+donde:
+\begin{itemize}
+	\item P(k): es la probabilidad de que ocurra k éxitos.
+	\item n: número total de experimentos.
+	\item k: número de éxitos deseados.
+	\item p: probabilidad de éxito en cada experimento.
+	\item 1-p: probabilidad de fracaso.
+\end{itemize}
+Por ejemplo, si se lanza una moneda al aire 10 veces y la probabilidad de tener sello es de 0,5, la probabilidad de tener 5 caras es:
+\begin{gather}
+	P(5) = \frac{10!}{5! (10-5)!}0,5^{5}(1-0,5)^{10-5} \\
+	P(5) = \frac{10!}{5! (10-5)!}0,5^{5}(0,5)^{5} \\
+	0,2373
+\end{gather}
+
+%	SUBSUBSECCION
+\subsubsection{Distribución normal}
+La distribución normal es una curva que tiene forma de campana, donde la mayoría de los valores de la variable aleatoria se encuentran agrupados cerca de la media, y pocos valores en los extremos de ésta.
+
+La distribución normal se puede utilizar para calcular la probabilidad de que una variable aleatoria continua tome un valor dentro de un cierto rango. Se caracteriza por su función de densidad de probabilidad, la cual describe la curva y la probabilidad de que un valor ocurra:
+\begin{equation}
+	f(x) = \frac{1}{\sigma \sqrt{2 \pi}} e^{-0,5(\frac{x - \mu}{\sigma})^2}
+\end{equation}
+Una distribución normal posee simetría, donde la media, la mediana y la moda son iguales. Además, tiene una forma unimodal, los extremos son infinitos y posee parámetros de media y desviación estándar.
+
+%	SUBSUBSECCION
+\subsubsection{Ley de los grandes números}
+La ley de los grandes números establece que a medida que aumenta el número de repeticiones de un experimento (aumenta el tamaño de la muestra), la media tiende a acercarse a la media teórica de la distribución de probabilidad.
+
+Ley débil: indica que la media muestral se acerca a la media poblacional cuando el tamaño de la muestra aumenta.
+
+Ley fuerte: la muestra tiende a la media poblacional en la medida que el tamaño de la muestra tiende a infinito.
+
+% SUBSUBSECCION
+\subsubsection{Teorema del límite central}
+El teorema del límite central establece que la distribución de la suma o media de una gran cantidad de variables aleatorias tiende a aproximarse a una distribución normal. Para esto, las variables aleatorias deben ser independientes entre sí, tener la misma distribución (media y varianza) y el tamaño de la muestra debe ser lo suficientemente grande.
 %	SECCION
 \section{Análisis}
 
@@ -1737,7 +1819,5 @@ La siguiente lista muestra las traducciones al español de los términos de prog
 % NOTAS:
 % Doble comillas: ``"
 % https://es.wikibooks.org/wiki/Manual_de_LaTeX/Listados_de_código/Listados_con_minted
-
-
 
 \end{document}
