@@ -1232,14 +1232,93 @@ Ley fuerte: la muestra tiende a la media poblacional en la medida que el tamaño
 % SUBSUBSECCION
 \subsubsection{Teorema del límite central}
 El teorema del límite central establece que la distribución de la suma o media de una gran cantidad de variables aleatorias tiende a aproximarse a una distribución normal. Para esto, las variables aleatorias deben ser independientes entre sí, tener la misma distribución (media y varianza) y el tamaño de la muestra debe ser lo suficientemente grande.
-%	SECCION
-\section{Análisis}
 
 %	SECCION
-\section{Visualización}
-Para graficar en Pandas se utiliza la librería matplotlib
+\section{Análisis y visualización}
+\subsection{Gráficas con matplotlib y seaborn}
+Para crear visualizaciones en Python, por lo general se usan las librerías matplotlib y seaborn. Se deben seguir los siguientes pasos para poder hacer un gráfico:
+\begin{enumerate}
+	\item Importar las bibliotecas.
+	\item Crear la figura.
+	\item Agregar los datos.
+	\item Agregar ejes.
+\end{enumerate}
+Un ejemplo de un gráfico de barras en matplotlib:
+
 \begin{lstlisting}[language=Python]
+# Importando la libreria
 import matplotlib.pyplot as plt
+
+# Datos
+x = [1, 2, 3, 4, 5]
+y = [2, 4, 6, 12, 20]
+
+# Creando el grafico de lineas
+plt.plot(x, y, marker='o', label = 'Linea')
+
+# Agregando los nombres de los ejes
+plt.xlabel('Eje X') # Eje x
+plt.ylabel('Eje Y') # Eje y
+plt.title('Grafico de Ejemplo') # Titulo
+
+# Para agregar una leyenda
+plt.legend()
+
+# Mostrando el grafico
+plt.show()
+\end{lstlisting}
+Se verá de la siguiente forma:
+\begin{figure}[H] 
+	\centering 
+	\includegraphics[width=0.7\linewidth]{graficoplt.png}
+	\caption{Gráfica de ejemplo}
+\end{figure}
+
+Parámetros:
+\begin{lstlisting}[language=Python]
+# Agrega cuadricula de fondo
+plt.grid(True)
+
+# marker: da opciones de la forma de los puntos
+plt.plot(x, y, marker='o', label = 'Linea')
+plt.plot(x, y, marker='-', label = 'Linea')
+
+# markersize: grosor de los puntos
+plt.plot(x, y, marker='o', markersize=6, label = 'Linea')
+
+# linestyle: configura el tipo de linea
+plt.plot(x, y, marker='o', linestyle='-' label = 'Linea')
+
+# color: agrega color a la linea
+plt.plot(x, y, color='b', label = 'Linea') # linea azul
+plt.plot(x, y, color='r', label = 'Linea') # linea roja
+\end{lstlisting}
+
+En seaborn, un gráfico de líneas sería de la siguiente forma:
+\begin{lstlisting}[language=Python]
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# Datos
+x = [1, 2, 3, 4, 5]
+y = [2, 4, 6, 12, 20]
+
+# Creando el grafico de linea
+sns.lineplot(x=x, y=y, label='Linea')
+
+# Agregando los nombres de los ejes
+plt.xlabel('Eje X')
+plt.ylabel('Eje Y')
+plt.title('Grafico de linea')
+
+# Mostrando el grafico
+plt.show()
+\end{lstlisting}
+
+Es posible configurar el tamaño de la figura con:
+\begin{lstlisting}[language=Python]
+# Configurando el tamanno a 8 x 6 pulgadas
+plt.figure(figsize=(8,6))
 \end{lstlisting}
 
 % -----------------------------------------------------------
@@ -1263,9 +1342,6 @@ nom-ds.sample(num-de-registros)
 \end{lstlisting}
 
 
-
-%	SECCION
-\section{Análisis y visualización}
 %	SUBSECCION
 \subsection{Cálculos matemáticos}
 
