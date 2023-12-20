@@ -34,22 +34,18 @@ breaklines=true % las lineas de codigo se rompen si son muy largas
 }
 % Python
 \lstdefinestyle{estilopython}{
-    backgroundcolor=\color{backcolour},   
-    commentstyle=\color{Green},
-    keywordstyle=\color{magenta},
-    numberstyle=\tiny\color{codegray},
-    stringstyle=\color{Orange},
-    basicstyle=\ttfamily\footnotesize,
-    breakatwhitespace=false,         
-    breaklines=true,                 
-    captionpos=b,                    
-    keepspaces=true,                 
-    numbers=left,                    
-    numbersep=5pt,                  
-    showspaces=false,                
-    showstringspaces=false,
-    showtabs=false,
-    breaklines=true % las lineas de codigo se rompen si son muy largas                  
+	language=Python,
+	backgroundcolor=\color{backcolour},
+	numberstyle=\tiny\color{codegray},
+	numbers=left,
+	basicstyle=\ttfamily,
+	keywordstyle=\color{blue}\ttfamily,
+	keywordstyle=[2]\color{Purple}\ttfamily,
+	keywords={as},
+	keywords=[2]{marker, label},
+	stringstyle=\color{ForestGreen}\ttfamily,
+	commentstyle=\color{gray}\ttfamily,
+	breaklines=true % las lineas de codigo se rompen si son muy largas               
 }
 % R es usado con minted
 
@@ -878,7 +874,7 @@ df.info()
 
 
 %	SUBSECCION
-\subsection{Manipulación de datos}
+\subsection{Manipulación y limpieza de datos}
 
 %	SUBSUBSECCION
 \subsubsection{Transformación de datos}
@@ -913,7 +909,7 @@ df[df.columna1.isin([23,45])]
 \end{lstlisting}
 
 %	SUBSUBSECCION
-\subsubsection{Quitar duplicados, espacios en blanco...}
+\subsubsection{Tratamiento de datos nulos}
 Elimina datos np.nan:
 \begin{lstlisting}[language=Python]
 # Devuelve la cantidad de nulos en cada columna
@@ -934,7 +930,19 @@ df.dropna(0)
 # Reemplazando los valores nulos con 0
 df.fillna(0)
 \end{lstlisting}
+Otra forma de buscar valores nulos en un DataFrame:
+\begin{lstlisting}[language=Python]
+missing_values = df.apply(lambda x: sum(x.isnull()),axis=0)
+\end{lstlisting}
+Desglosando el código:
 
+\begin{itemize}
+	\item df.apply(): aplica una función a lo largo de un eje del DataFrame. Como axis = 0, lo aplica a lo largo de las columnas.
+	\item lambda x: sum(x.isnull()): la función lambda toma una columna x y calcula la suma de sus valores nulos, es decir, devuelve la cantidad de valores nulos de dicha columna.
+\end{itemize}
+
+%	SUBSUBSECCION
+\subsubsection{Tratamiento de datos duplicados}
 Quitar filas duplicadas:
 \begin{lstlisting}[language=Python]
 # Devuelve los valores duplicados de columna1
@@ -943,10 +951,34 @@ df[df.duplicated(subset=['columna1'])]
 # Borrando duplicados de las columnas columna1 y columna2 de df
 df_sin_duplicados = df.drop_duplicates(subset=['columna1', 'columna2'])
 \end{lstlisting}
+
+Es posible tratar los datos faltantes rellenando con la media o la mediana:
+\begin{lstlisting}[language=Python]
+# Rellenando con la media
+df['columna'].fillna(df['columna'].mean(), inplace=True)
+\end{lstlisting}
+
+%	SUBSUBSECCION
+\subsubsection{Tratamiento de datos atípicos}
+Una forma de limpiar datos atípicos de una muestra es mediante el método del rango intercuartílico (IQR), el cual consiste en eliminar los datos que estén fuera de Q3+1.5*IQR o de Q1-1.5*IQR, donde IQR se define como el cuartil 3 (Q3) menos el cuartil 1 (Q1). Los valores fuera de este rango se consideran atípicos.
+
+En Python, esto se puede hacer de la siguiente forma:
+\begin{lstlisting}[language=Python]
+# Filtrando valores atipicos
+data = df['columna']
+Q1 = np.percentile(data, 25)
+Q3 = np.percentile(data, 75)
+IQR = Q3 - Q1
+lower_bound = Q1 - 1.5 * IQR
+upper_bound = Q3 + 1.5 * IQR
+var_num=var_num.iloc[np.where((data>= lower_bound) * (data <= upper_bound))]
+
+df.reset_index(drop=True, inplace=True)
+\end{lstlisting}
+Es posible visualizar los datos atípicos mediante un boxplot.
 %	SUBSUBSECCION
 \subsubsection{Filtros}
 Con Pandas se pueden filtrar datos por condiciones, columnas, filas.
-
 
 Filtrando por columnas:
 \begin{lstlisting}[language=Python]
@@ -1293,7 +1325,28 @@ plt.plot(x, y, marker='o', linestyle='-' label = 'Linea')
 plt.plot(x, y, color='b', label = 'Linea') # linea azul
 plt.plot(x, y, color='r', label = 'Linea') # linea roja
 \end{lstlisting}
+marker también posee:
+\begin{itemize}
+	\item .: punto.
+	\item ,: píxel.
+	\item $\wedge$: triángulo hacia arriba.
+	\item v: triángulo hacia abajo.
+	\item s: cuadrado.
+	\item +: cruz.
+	\item *: estrella.
+	\item x: cruz diagonal.
+	\item D: diamante.
+	\item p: pentágono.
+\end{itemize}
 
+Es posible configurar el tamaño de la figura con:
+\begin{lstlisting}[language=Python]
+	# Configurando el tamanno a 8 x 6 pulgadas
+	plt.figure(figsize=(8,6))
+\end{lstlisting}
+
+%	SUBSUBSECCION
+\subsubsection{Gráfico de líneas}
 En seaborn, un gráfico de líneas sería de la siguiente forma:
 \begin{lstlisting}[language=Python]
 import seaborn as sns
@@ -1306,7 +1359,7 @@ y = [2, 4, 6, 12, 20]
 # Creando el grafico de linea
 sns.lineplot(x=x, y=y, label='Linea')
 
-# Agregando los nombres de los ejes
+# Agregando etiquetas y titulo
 plt.xlabel('Eje X')
 plt.ylabel('Eje Y')
 plt.title('Grafico de linea')
@@ -1315,36 +1368,179 @@ plt.title('Grafico de linea')
 plt.show()
 \end{lstlisting}
 
-Es posible configurar el tamaño de la figura con:
+%	SUBSUBSECCION
+\subsubsection{Histograma}
+Con matplotlib, se puede construir un histograma de la siguiente forma:
 \begin{lstlisting}[language=Python]
-# Configurando el tamanno a 8 x 6 pulgadas
-plt.figure(figsize=(8,6))
+import matplotlib.pyplot as plt
+
+# Creando un histograma con 10 bins de color azul transparente
+plt.hist(x, color='blue', alpha=.4, bins=10, label='x')
+# Agregando titulo
+plt.title('Histograma de la variable x')
+# Leyenda
+plt.legend() 
 \end{lstlisting}
 
-% -----------------------------------------------------------
-
-
-
-Nombres de las columnas del conjunto de datos:
+Para construir un histograma en seaborn:
 \begin{lstlisting}[language=Python]
-nom-ds.columns
+import seaborn as sns
+import matplotlib.pyplot as plt	
+
+# Construyendo el histograma
+sns.histplot(data=df, bins=10, color='skyblue')
+# Agregando etiquetas y titulo
+plt.title('Histograma con sns.histplot()')
+plt.xlabel('Valores')
+plt.ylabel('Frecuencia')
+# Mostrando el grafico
+plt.show()
+\end{lstlisting}
+Donde:
+\begin{itemize}
+	\item data: datos.
+	\item bins: cantidad de barras.
+\end{itemize}
+
+Con displot:
+\begin{lstlisting}[language=Python]
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+sns.displot(data, color='skyblue',bins=10)
+# Agregando etiquetas y titulo
+plt.title('Histograma con sns.displot()')
+plt.xlabel('Valores')
+plt.ylabel('Frecuencia')
+# Mostrando el grafico
+plt.show()
+\end{lstlisting}
+displot permite utilizar otros parámetros, como por ejemplo permite construir dos histogramas en uno:
+\begin{lstlisting}[language=Python]
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# Creando un objeto en el cual grafique los datos de data correspondientes a mean_perimeter distinguiendo por el valor de diagnosis
+ax = sns.displot(data=df, x='mean_perimeter',  hue='diagnosis', fill=True)
+
+# Agregando etiquetas y titulo
+ax.set(xlabel='Media del Perimetro por Diagnostico',ylabel='Densidad', title='Perimetro v/s densidad')
+# Mostrando el grafico
+plt.show()
 \end{lstlisting}
 
-Renombrar columnas, primero se crea un diccionario y luego se utiliza el comando \texttt{\textcolor{magenta}{rename}}:
+%	SUBSUBSECCION
+\subsubsection{Distribución normal}
+Para crear una gráfica que represente una distribución normal, primero se debe crear un arreglo de valores equidistantes entre el valor mínimo y el máximo de los datos con linspace. Luego, se crea una función llamada pdf que calcula el valor de la función de distribución de probabilidad normal para finalmente construir el histograma.
 \begin{lstlisting}[language=Python]
-columnas= {'nom-col-1':'nom-col-nueva-1',...}
-nom-ds=nom-ds.rename(columns=columnas)
+from scipy.stats import norm
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# Calculando el maximo y el minimo de los datos
+minimo = df['columna'].min()
+maximo = df['columna'].max()
+
+# Arreglo de valores equidistantes
+x = np.linspace(minimo, maximo)
+
+# Crando la funcion pdf
+# 'sigma' funciona como 'escala'
+pdf = norm.pdf(x, loc=mu, scale=sigma)
+
+
+# Construyendo un histograma
+# 'density=True' construye el histograma haciendo que la suma de todas las areas de las barras sea igual a 1, para representar las probabilidades
+plt.hist(maths, bins=100, density=True, alpha=0.5, label='Muestra') #alpha=0.5 da un 50% de transparencia
+
+# Graficando la distribucion normal
+plt.plot(x, pdf, color='red', label='PDF')
+# Agregando etiquetas y titulo
+plt.xlabel('x')
+plt.ylabel('Densidad de probabilidad normalizada')
+plt.title('Distribuciones comparadas')
+# Leyenda
+plt.legend()
+# Mostrando el grafico
+plt.show()
 \end{lstlisting}
 
-Para visualizar una muestra del dataset:
+%	SUBSUBSECCION
+\subsubsection{Boxplot}
+Anteriormente, se mencionó que se pueden visualizar de mejor manera los datos atípicos de una muestra con un boxplot.
 \begin{lstlisting}[language=Python]
-nom-ds.sample(num-de-registros)
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# df
+data = {
+	'Grupo': ['A', 'A', 'B', 'B', 'B', 'C', 'C', 'C', 'C'],
+	'Valor': [5, 8, 12, 15, 20, 7, 10, 14, 18]
+}
+
+df = pd.DataFrame(data)
+
+# Creaando un boxplot
+sns.boxplot(x='Grupo', y='Valor', data=df)
+
+# Agregando etiquetas y titulo
+plt.xlabel('Grupo')
+plt.ylabel('Valor')
+plt.title('Boxplot por Grupo')
+
+# Mostrando el grafico
+plt.show()
+\end{lstlisting}
+Se verá de la siguiente forma:
+\begin{figure}[H] 
+	\centering 
+	\includegraphics[width=0.7\linewidth]{boxplot1.png}
+	\caption{Boxplot}
+\end{figure}
+Donde un boxplot con valores atípicos se vería de la siguiente forma:
+
+\begin{figure}[H] 
+	\centering 
+	\includegraphics[width=0.7\linewidth]{boxplot2.png}
+	\caption{Boxplot con valores atípicos}
+\end{figure}
+
+%	SUBSUBSECCION
+\subsubsection{Gráfico de barras}
+\begin{lstlisting}[language=Python]
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# Creando el grafico de barras
+sns.barplot(x=grouped_data.index, y=grouped_data.values) # Agregando etiquetas y titulo
+plt.xlabel('x')
+plt.ylabel('y')
+plt.title('Grafica de barras')
+# Etiquetas a las barras
+custom_labels = ['Barra 1', 'Barra 2']
+plt.xticks(range(len(custom_labels)), custom_labels)
+# Mostrando el grafico
+plt.show()
 \end{lstlisting}
 
+%	SUBSUBSECCION
+\subsubsection{Scatterplot}
+\begin{lstlisting}[language=Python]
+import seaborn as sns
+import matplotlib.pyplot as plt
 
-%	SUBSECCION
-\subsection{Cálculos matemáticos}
-
+sns.set(style='whitegrid')
+# Creando el grafico
+sns.scatterplot(x='x', y='y', hue='columna', data=df, palette='Set1')
+plt.xlabel('x')
+plt.ylabel('y')
+plt.title('Grafica scatterplot')
+# Mostrando el grafico
+plt.show()
+\end{lstlisting}
+El parámetro hue especifica que se utilizará una columna del DataFrame para colorear los puntos de la gráfica. palette='Set1' especifica la paleta de colores que se utilizará para colorearla.
 
 %
 %	CAPITULO
