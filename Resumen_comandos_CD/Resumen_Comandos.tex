@@ -838,7 +838,7 @@ df1.iloc[3,1]
 # 21
 	
 # Busca los datos entre marzo y mayo de df1
-df1.loc['mes 1': 'mes 3'] # puede ser el nombre de una fila o columna
+df1.loc[:,['mes 1': 'mes 3']] # puede ser el nombre de una fila o columna
 #        mes   ventas
 # mes 1  marzo   18
 # mes 2  abril   79
@@ -1266,6 +1266,72 @@ Ley fuerte: la muestra tiende a la media poblacional en la medida que el tamaño
 El teorema del límite central establece que la distribución de la suma o media de una gran cantidad de variables aleatorias tiende a aproximarse a una distribución normal. Para esto, las variables aleatorias deben ser independientes entre sí, tener la misma distribución (media y varianza) y el tamaño de la muestra debe ser lo suficientemente grande.
 
 %	SECCION
+\section{Estadística inferencial}
+La estadística inferencial busca describir por medio de una muestra cómo puede ser la población. Posee parámetros, los cuales son indicadores que corresponden a la población, y estimadores, los que están asociados a la muestra:
+
+\begin{center}
+\begin{tabular}{|c|c|c|}
+	\hline
+	Nombre & Parámetro & Estimador \\
+	\hline
+	Media & $\mu$ & $\bar{x}$ \\
+	\hline
+	Varianza & $\sigma^2$ & $S^{2}$ \\
+	\hline
+	Desviación & $\sigma$ & $S$ \\
+	\hline
+	Proporción & p & $\hat{p}$ \\
+	\hline
+\end{tabular}
+\end{center}
+
+A través de los estadísticos de prueba, se puede relación un indicador estadístico con su respectivo estimador, lo cual permite hacer inferencia estadística de una muestra de datos.
+
+Si una variable aleatoria X es tal que $X \sim N(\mu,\sigma)$ y ${x_1, x_2, \hdots, x_n}$ es una muestra aleatoria de X, entonces:
+
+Si se conoce el valor de $\sigma$:
+\begin{equation}
+	(\bar{x}-\mu) \frac{\sqrt{n}}{\sigma} \sim N(0,1)
+\end{equation}
+donde $\bar{x}-\mu$ es el error muestral definido como la diferencia entre los resultados de una muestra y los resultados que se habrían obtenido si se hubiera analizado toda la población.
+
+De lo contrario, se puede usar el estimador S:
+\begin{equation}
+	(\bar{x}-\mu) \frac{\sqrt{n}}{S} \sim t_{n-1}
+\end{equation}
+
+
+Si X es una variable aleatoria y ${x_1, x_2, \hdots, x_n}$ es una muestra aleatoria de X ($n>30$):
+
+Si X tiene una distribución desconocida y se conoce S:
+\begin{equation}
+	(\bar{x}-\mu) \frac{\sqrt{n}}{S} \approx N(0,1)
+\end{equation}
+Si X tiene distribución Bernouilli con probabilidad p:
+\begin{equation}
+	\frac{\hat{p} -p}{\sqrt{p(1-p)}} \sim N(0,1)
+\end{equation}
+
+Cuando la muestra es menor que 30 o la desviación estándar de la población es desconocida, se utiliza la distribución t, o distribución de Student.
+\begin{equation}
+	t = (\bar{X} - \mu )\frac{\sqrt{n}}{S}
+\end{equation}
+donde t es el estadístico de prueba t que se utiliza para evaluar la diferencia entre la media muestral y la media poblacional.
+
+\subsection{Prueba de hipótesis}
+Una prueba de hipótesis se utiliza para evaluar si una afirmación sobre una población es compatible con la evidencia observada. Para realizar una prueba de hipótesis se siguen los siguientes pasos:
+\begin{enumerate}
+	\item Formular la hipótesis nula (H0), afirmación inicial que se somete a prueba, y alternativa (H1), afirmación alternativa a la nula.
+	\item Establecer el nivel de significancia ($\alpha$), el cual se refiere a la probabilidad de rechazar la hipótesis nula cuando es verdadera. Se usan valores como 0,05 o 0,01.
+	\item Elegir y calcular el estadístico de prueba.
+	\item Determinación de la región crítica, la cual se refiere al área de la distribución de probabilidad donde se encuentran los valores que llevarían a rechazar la hipótesis nula.
+	\item Tomar una decisión comparando el valor obtenido del estadístico de prueba y los valores de la región crítica.
+\end{enumerate}
+
+
+
+
+%	SECCION
 \section{Análisis y visualización}
 \subsection{Gráficas con matplotlib y seaborn}
 Para crear visualizaciones en Python, por lo general se usan las librerías matplotlib y seaborn. Se deben seguir los siguientes pasos para poder hacer un gráfico:
@@ -1275,7 +1341,7 @@ Para crear visualizaciones en Python, por lo general se usan las librerías matp
 	\item Agregar los datos.
 	\item Agregar ejes.
 \end{enumerate}
-Un ejemplo de un gráfico de barras en matplotlib:
+Un ejemplo de un gráfico de líneas en matplotlib:
 
 \begin{lstlisting}[language=Python]
 # Importando la libreria
@@ -1341,8 +1407,8 @@ marker también posee:
 
 Es posible configurar el tamaño de la figura con:
 \begin{lstlisting}[language=Python]
-	# Configurando el tamanno a 8 x 6 pulgadas
-	plt.figure(figsize=(8,6))
+# Configurando el tamanno a 8 x 6 pulgadas
+plt.figure(figsize=(8,6))
 \end{lstlisting}
 
 %	SUBSUBSECCION
@@ -1367,7 +1433,12 @@ plt.title('Grafico de linea')
 # Mostrando el grafico
 plt.show()
 \end{lstlisting}
-
+Mostrará el siguiente gráfico:
+\begin{figure}[H] 
+	\centering 
+	\includegraphics[width=0.7\linewidth]{graficosns.png}
+	\caption{Gráfico de líneas con sns}
+\end{figure}
 %	SUBSUBSECCION
 \subsubsection{Histograma}
 Con matplotlib, se puede construir un histograma de la siguiente forma:
@@ -1379,7 +1450,7 @@ plt.hist(x, color='blue', alpha=.4, bins=10, label='x')
 # Agregando titulo
 plt.title('Histograma de la variable x')
 # Leyenda
-plt.legend() 
+plt.legend()
 \end{lstlisting}
 
 Para construir un histograma en seaborn:
