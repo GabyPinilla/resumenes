@@ -1322,15 +1322,199 @@ donde t es el estadístico de prueba t que se utiliza para evaluar la diferencia
 Una prueba de hipótesis se utiliza para evaluar si una afirmación sobre una población es compatible con la evidencia observada. Para realizar una prueba de hipótesis se siguen los siguientes pasos:
 \begin{enumerate}
 	\item Formular la hipótesis nula (H0), afirmación inicial que se somete a prueba, y alternativa (H1), afirmación alternativa a la nula.
-	\item Establecer el nivel de significancia ($\alpha$), el cual se refiere a la probabilidad de rechazar la hipótesis nula cuando es verdadera. Se usan valores como 0,05 o 0,01.
-	\item Elegir y calcular el estadístico de prueba.
+	\item Establecer el nivel de significancia ($\alpha$), el cual se refiere a la probabilidad de rechazar la hipótesis nula cuando es verdadera. Se usan valores como 0,05 o 0,01. Con esto, se puede calcular el nivel de confianza definido como 1 - $\alpha$.
+	\item Elegir y calcular el estadístico de prueba dependiendo de los valores conocidos. En este paso, se calcula los valores p.
 	\item Determinación de la región crítica, la cual se refiere al área de la distribución de probabilidad donde se encuentran los valores que llevarían a rechazar la hipótesis nula.
-	\item Tomar una decisión comparando el valor obtenido del estadístico de prueba y los valores de la región crítica.
+	\item Tomar una decisión comparando el valor obtenido del estadístico de prueba y los valores de la región crítica, es decir, el valor p y la significancia.
 \end{enumerate}
 
+Para decidir si se rechaza H0 se usa el siguiente criterio:
+\begin{itemize}
+	\item Si valor p $>$ significancia, no se rechaza H0.
+	\item Si valor p $\leqslant$ significancia, se rechaza H0.
+\end{itemize}
+Sin embargo, cuando el estadístico de prueba cae dentro de la región crítica se rechaza H0, sugiriendo que hay evidencia suficiente para respaldar H1.
+
+%	SECCION
+\section{Regresión}
+La regresión es un proceso estadístico que se usa para modelar la relación entre una variable dependiente (y) y una o dos independientes (x).
+
+\subsection{Coeficiente de correlación}
+La correlación es una medida que evalúa la relación entre dos o más variables.
+
+Si los puntos parecen seguir una recta en un gráfico, podría corresponder a una correlación lineal, la cual se cuantifica mediante el coeficiente de correlación de Pearson. Este coeficiente toma valores entre -1 y 1, donde:
+\begin{itemize}
+	\item -1: indica una correlación negativa perfecta. Señala que una variable aumenta mientras la otra disminuye.
+	\item 0: indica que no hay relación lineal entre las variables.
+	\item 1: indica una correlación positiva perfecta. Señala que ambas variables aumentan o disminuyen.
+\end{itemize}
+Un coeficiente de correlación cercano a 1 o -1 indicará que el modelo se ajusta a los datos.
+
+Si la relación entre las variables no es lineal, se debe utilizar otro tipo de correlación, como el coeficiente de correlación de Spearman o el de Kendall.
+
+\subsection{Regresión lineal}
+La regresión lineal se utiliza para encontrar la mejor línea recta que se ajusta a los datos para luego predecir los valores de la variable dependiente en función de la variable independiente.
+
+\begin{figure}[H] 
+	\centering 
+	\includegraphics[width=0.5\linewidth]{regresion_lineal.jpg}
+	\caption{Gráfico}
+\end{figure}
+
+Se modela mediante la ecuación de la recta, la cual tiene la siguiente forma:
+\begin{equation}
+	y = b_0 + b_1 * x \pm c
+\end{equation}
+donde:
+\begin{itemize}
+	\item y: variable dependiente que se intenta predecir. Variable target.
+	\item x: variable independiente.
+	\item $b_0$: intersección de la recta con el eje Y, llamada intercepto.
+	\item $b_1$: pendiente de la recta.
+	\item c: término de error.
+\end{itemize}
+El objetivo de la regresión lineal es encontrar los valores de $b_0$ y $b_1$ que minimicen la suma de los cuadrados de errores, más conocido como el método de los mínimos cuadrados.
+
+Otros parámetro de la regresión lineal son los valores p de los coeficientes. Un valor p bajo indica que la variable independiente tiene un efecto significativo sobre la variable dependiente.
+
+En Python, se puede realizar una regresión lineal simple y calcular sus parámetros por medio del siguiente código:
+\begin{lstlisting}[language=Python]
+from scipy import stats
+
+# Antes de realizar la regresion, se deben seleccionar las columnas
+datos= df[["variable_independiente", "variable_target"]]
+
+# Regresion lineal simple
+sns.lmplot(x="variable_independiente", y="variable_target", data=datos)
+plt.title("Regresion lineal entre variable_independiente y variable_target")
+plt.xlabel("variable_independiente")
+plt.ylabel("variable_target")
+
+# Calculando los parametros
+slope, intercept, r_value, p_value, std_err = stats.linregress(datos["variable_independiente"], datos["variable_target"])
+
+# Mostrando el grafico completo
+plt.show()
+
+# Imprimiendo los parametros
+print(f"Pendiente: {slope}")
+print(f"Intercepto: {intercept}")
+print(f"Error estandar: {std_err}")
+print(f"Coef. de correlacion: {r_value}")
+\end{lstlisting}
+
+Es posible hacer un modelo de regresión lineal con Statsmodels mediante la función OLS(), la cual busca minimizar los cuadrados de los residuos.
+\begin{lstlisting}[language=Python]
+import statsmodels.api as sm
+
+# Definiendo las variables predictoras (X) y la variable de respuesta (y)
+X = df["variable_independiente"]
+y = df["variable_target"]
+
+# Agregando una constante al predictor (intercepto)
+X = sm.add_constant(X)
+
+# Creando el modelo de regresion lineal
+model = sm.OLS(y, X).fit()
+
+# Obteniendo los resultados del modelo
+results = model.summary()
+
+# Imprimiendo los resultados
+print(results)
+
+# Graficando la regresion lineal
+plt.scatter(df["variable_independiente"], df["variable_target"], label="Datos")
+plt.plot(df["variable_independiente"], model.predict(X), color='red', label="Regresion Lineal")
+plt.title("Regresion lineal entre variable_independiente y variable target")
+plt.xlabel("variable_independiente")
+plt.ylabel("variable_target")
+plt.legend()
+plt.show()
+\end{lstlisting}
+Los resultados de esta regresión entrega los siguientes estadísticos:
+\begin{enumerate}
+	\item r-squared: r cuadrado. Varía entre 0 y 1, y corresponde a la variabilidad de la variable dependiente. Un r cuadrado alto indica que el modelo se ajusta bien a los datos.
+	\item Adj. r-squared: r cuadrado ajustado. Penaliza (disminuye con respecto al r cuadrado) por añadir variables que no contribuyen significativamente a explicar la variabilidad de la variable dependiente.
+	\item F-statistic: F estadístico. Un alto valor del estadístico F con un valor p bajo implica que al menos una de las variables independientes tiene un efecto significativo en la variable dependiente.
+	\item coef: coeficientes. Representan las pendientes de las variables independientes.
+\end{enumerate}
+Nota: La variabilidad describe la dispersión de los puntos alrededor de una medida central. La significancia se refiere a la probabilidad de que los resultados de una prueba estadística sean improbables bajo la suposición de que la hipótesis nula (H0) sea cierta.
+
+\subsubsection{Regresión lineal múltiple}
+Para aplicar Statsmodels y obtener un modelo de regresión para dos o más variables independientes, se transforma una variable categórica en numérica usando get.dummies:
+\begin{lstlisting}[language=Python]
+# Paso 1: Definiendo variables predictoras (X) y variable de respuesta (y)
+X = df[['variable_independiente', 'variable_categorica']]  # Largo de la aleta y sexo como variables independientes
+y = df['variable_target']  # Peso como variable dependiente
+
+# Codificando la variable categorica usando get dummies
+X_encoded = pd.get_dummies(X, columns=['variable_categorica'], prefix=['variable_categorica'])
+
+# Paso 2: Agregando una constante (intercepto) a las variables predictoras
+X_encoded = sm.add_constant(X_encoded)
+
+# Paso 3: Creando el modelo de regresion lineal
+model = sm.OLS(y, X_encoded).fit()
+
+# Paso 4: Obteniendo resultados del modelo
+results = model.summary()
+
+predictions = model.predict(X_encoded)
+
+# Calculando el Error Cuadratico Medio (MSE)
+mse = ((y - predictions) ** 2).mean()
+
+# Calculando el Error Cuadratico Medio Explicado (EMSE)
+emse = mse / ((y - y.mean()) ** 2).mean()
+
+# Calculando el valor R cuadrado del modelo
+r2 = model.rsquared
+
+print(results)
+print(f"MSE: {mse:.2f}")
+print(f"EMSE: {emse:.2f}")
+print(f"R cuadrado: {r2:.2f}")
+\end{lstlisting}
+
+\subsubsection{Métricas de evaluación del modelo}
+Las métricas de evaluación del modelo evalúan el rendimiento de un modelo de regresión. Señalan qué tan bien se ajusta el modelo a los datos y cómo se comporta en la predicción de futuros valores.
+\begin{itemize}
+	\item Error medio absoluto (MAE): Calcula el promedio de las diferencias absolutas entre los valores predichos y los valores reales. Mientras menor el MAE, mejor será el ajuste del modelo.
+	\item Error cuadrático medio (MSE): Calcula el promedio de los cuadrados de las diferencias entre los valores predichos y los valores reales. Mientras más bajo sea el MSE, mejor será el ajuste.
+	\item Raíz del error cuadrático medio (RMSE): Es la raíz cuadrada del MSE.
+\end{itemize}
+
+\subsection{Residuos}
+Los residuos son la diferencia entre los valores y los valores predichos por el modelo. Evalúan la calidad del ajusto del modelo. Si los residuos son menores, el modelo es más preciso.
+
+Para graficar los residuos, se utiliza el siguiente código:
+\begin{lstlisting}[language=Python]
+residuals = datos["variable_target"] - (slope * datos["variable_independiente"] + intercept)
+
+# Mostrando el grafico de los residuos
+plt.figure()
+plt.scatter(datos["variable_independiente"], residuals)
+plt.axhline(y=0, color='r', linestyle='--')
+plt.title("Grafico de Residuos")
+plt.xlabel("variable_independiente")
+plt.ylabel("Residuos")
+plt.show()
+\end{lstlisting}
+El gráfico de residuos puede darse de las siguientes formas:
+\begin{figure}[H] 
+	\centering 
+	\includegraphics[width=0.5\linewidth]{residuos.jpg}
+	\caption{Gráficas de residuos}
+\end{figure}
+De las figuras anteriores, la figura a presenta un patrón de residuos al azar donde no hay tendencias. La b y c presentan tendencias, lo que podría indicar que la relación entre las variables no es la indicada. La d, e y f tienen una dispersión irregular, donde la varianza de los residuos aumenta conforme aumentan los valores, lo cual indica que aumenta la variabilidad y su media.
+
+\subsection{Regresión logística}
 
 
-
+\begin{lstlisting}[language=Python]
+	
+\end{lstlisting}
 %	SECCION
 \section{Análisis y visualización}
 \subsection{Gráficas con matplotlib y seaborn}
