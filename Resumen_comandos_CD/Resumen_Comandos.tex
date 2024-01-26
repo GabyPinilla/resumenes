@@ -1353,7 +1353,7 @@ Un coeficiente de correlación cercano a 1 o -1 indicará que el modelo se ajust
 Si la relación entre las variables no es lineal, se debe utilizar otro tipo de correlación, como el coeficiente de correlación de Spearman o el de Kendall.
 
 \subsection{Regresión lineal}
-La regresión lineal se utiliza para encontrar la mejor línea recta que se ajusta a los datos para luego predecir los valores de la variable dependiente en función de la variable independiente.
+La regresión lineal se utiliza para encontrar la mejor línea recta que se ajusta a los datos para luego predecir los valores de la variable dependiente en función de la variable independiente. Mediante esta regresión, se busca predecir un número.
 
 \begin{figure}[H] 
 	\centering 
@@ -1510,7 +1510,88 @@ El gráfico de residuos puede darse de las siguientes formas:
 De las figuras anteriores, la figura a presenta un patrón de residuos al azar donde no hay tendencias. La b y c presentan tendencias, lo que podría indicar que la relación entre las variables no es la indicada. La d, e y f tienen una dispersión irregular, donde la varianza de los residuos aumenta conforme aumentan los valores, lo cual indica que aumenta la variabilidad y su media.
 
 \subsection{Regresión logística}
+La regresión logística se emplea para determinar la probabilidad de que un evento pertenezca a una de dos o más categorías. Se busca relacionar un conjunto de variables independientes con una dependiente, usando coeficientes que determinan un modelo lineal. Esta regresión busca predecir categorías.
 
+Por medio de la función logarítima o logit, transforma la salida en una escala log-odds con la función Sigmoide:
+\begin{equation}
+	f(x) = \frac{1}{1+e^{-x}}
+\end{equation}
+La función logística devuelve valores entre 0 (no/falso) y 1 (sí/verdadero) para la variable dependiente. Los valores por sobre 0.5 se pueden interpretar como una probabilidad mayoritaria de que ocurra un evento (clase 1), mientras que por debajo de 0.5 indica una probabilidad mayoritaria de que no ocurra (clase 0). Se define un umbral de decisión para definir una categoría como positiva y otra negativa.
+
+\begin{figure}[H] 
+	\centering 
+	\includegraphics[width=0.5\linewidth]{graficologistica.jpg}
+	\caption{Gráfico de la función logística}
+\end{figure}
+
+En Python, se aplica la función LogisticRegresion() de sci-kit learn.
+\begin{lstlisting}[language=Python]
+# Libreria
+from sklearn.linear_model import LogisticRegression
+
+# Variables
+X = df[['var_1', 'var_2', 'var_3']]
+y = df[['var_y']]
+
+# Modelando
+LogReg = LogisticRegression()
+
+# Ajustando el modelo
+LogReg.fit(X, y)
+
+# Predicciones
+y_pred = LogReg.predict(X)
+\end{lstlisting}
+
+\subsubsection{Tipos de regresión logística}
+Los tipos de regresión logística son binaria y multinomial:
+\begin{enumerate}
+	\item La regresión logística binaria es un modelo estadístico que se utiliza para problemas de clasificación binaria donde la variable dependiente tiene dos categorías posibles, etiquetados como 0 y 1, sí y no, etc. La función Sigmoide usa la función logística para modelar la probabilidad de que la variable dependiente pertenezca a la categoría 1 (clase positiva).
+	\item Por otro lado, la regresión logística multinomial se utiliza para problemas de clasificación con más de dos categorías mutuamente excluyentes. La función Softmax en la regresión logística multinomial, se usa para modelar la probabilidad de pertenecer a cada una de las categorías. Asigna probabilidades a cada categoría, dando la suma de ellas igual a 1. Puede predecir varias categorías distintas. Se utiliza en problemas de clasificación multiclase.
+\end{enumerate}
+
+\subsubsection{Métricas de evaluación}
+\begin{enumerate}
+	\item Exactitud: Absoluto del porcentaje que se predijo correctamente.
+	Mide la proporción de las predicciones que son correctas.
+	\item Precisión: Se busca minimizar los falsos positivos. Mide cuando algo positivo sea realmente positivo.
+	\item Sensibilidad: Mide de todas las clases positivas, cuántas de ellas se identifican.
+	\item Puntuación F1: Promedio armónico entre precisión y sensibilidad.
+\end{enumerate}
+
+Cuando se quiere optimizar sobre precisión, se aumenta el umbral. Se quiere estar seguro de que sea positivo.
+Cuando se quiere optimizar sobre la sensibilidad, se baja el umbral. Esto se hace para capturar a todas las clases positivas.
+\begin{lstlisting}[language=Python]
+from sklearn.metrics import accuracy_score, classification_report
+
+# Precision
+accuracy = accuracy_score(y, y_pred)
+
+# Reporte que incluye precision, sensibilidad y f1
+reporte = classification_report(y, y_pred)
+\end{lstlisting}
+
+\subsubsection{Matriz de confusión}
+La matriz de confusión cuantifica los casos falsos positivos, falsos negativos, verdaderos positivos y verdaderos negativos.
+\begin{lstlisting}[language=Python]
+from sklearn.metrics import confusion_matrix
+
+# Matriz de confusion
+confusion = confusion_matrix(y, y_pred)
+\end{lstlisting}
+
+\subsubsection{Curva ROC-AUC}
+ROC (Receiver Operating Characteristic, o característica operativa del receptor) es una gráfica que contrasta las tasas de falsos positivos y falsos negativos.  
+\begin{figure}[H] 
+	\centering 
+	\includegraphics[width=0.6\linewidth]{curvaroc.jpg}
+	\caption{Gráfica de la curva ROC}
+\end{figure}
+
+El área bajo la curva (AUC) se utiliza como resumen del rendimiento del modelo. El AUC-ROC varía entre 0 y 1, donde un valor más cercano a 1 indica un mejor rendimiento.
+
+\subsubsection{Curva PRC}
+La curva PRC (Precision-Recall, o precisión-sensibilidad) contrasta la precisión con la sensibilidad para diferentes umbrales. El AUC-PRC varía entre 0 y 1, donde un valor más cercano a 1 indica un mejor rendimiento. Si el valor es 1, significa que el modelo puede lograr una precisión perfecta y una sensibilidad perfecta.
 
 \begin{lstlisting}[language=Python]
 	
