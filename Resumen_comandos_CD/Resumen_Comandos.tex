@@ -1562,10 +1562,16 @@ Los tipos de regresión logística son binaria y multinomial:
 Cuando se quiere optimizar sobre precisión, se aumenta el umbral. Se quiere estar seguro de que sea positivo.
 Cuando se quiere optimizar sobre la sensibilidad, se baja el umbral. Esto se hace para capturar a todas las clases positivas.
 \begin{lstlisting}[language=Python]
-from sklearn.metrics import accuracy_score, classification_report
+from sklearn.metrics import accuracy_score, precision_score, recall_score, classification_report
+
+# Exactitud
+accuracy = accuracy_score(y, y_pred)
 
 # Precision
-accuracy = accuracy_score(y, y_pred)
+precision = precision_score(y, y_pred)
+
+# Sensibilidad
+recall = recall_score(y, y_pred)
 
 # Reporte que incluye precision, sensibilidad y f1
 reporte = classification_report(y, y_pred)
@@ -1573,12 +1579,58 @@ reporte = classification_report(y, y_pred)
 
 \subsubsection{Matriz de confusión}
 La matriz de confusión cuantifica los casos falsos positivos, falsos negativos, verdaderos positivos y verdaderos negativos.
+\begin{figure}[H] 
+	\centering 
+	\includegraphics[width=0.6\linewidth]{matrizconfusionexplicacion.jpg}
+	\caption{Matriz de confusión}
+\end{figure}
+donde:
+\begin{itemize}
+	\item Verdaderos positivos: son los casos en que los datos reales son 1 (Verdadero) y la predicción también es 1.
+	\item Verdaderos negativos: son los casos en que los datos reales son 0 (Falso) y la predicción también es 0.
+	\item Falsos positivos: son los casos en que los datos reales son 0 y la predicción es 1. El modelo ha pronosticado incorrectamente.
+	\item Falsos negativos: son los casos en que los datos reales son 1 y la predicción es 0. El modelo ha pronosticado incorrectamente.
+\end{itemize}
+El escenario ideal es que el modelo no de falsos positivos ni falsos negativos.
+
+En Python, la matriz de confusión se hace de la siguiente forma:
 \begin{lstlisting}[language=Python]
-from sklearn.metrics import confusion_matrix
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 
 # Matriz de confusion
 confusion = confusion_matrix(y, y_pred)
+
+# Visualizando la matriz de confusion
+vis = ConfusionMatrixDisplay(confusion)
+vis.plot()
+
+# Tambien, se puede visualizar de la siguiente forma
+ConfusionMatrixDisplay.from_predictions(y, y_pred)
 \end{lstlisting}
+
+La siguiente gráfica muestra una la matriz de confusión. En ella, se puede apreciar que los verdaderos positivos están en la esquina inferior derecha y los verdaderos negativos en la esquina superior izquierda.
+\begin{figure}[H] 
+	\centering 
+	\includegraphics[width=0.6\linewidth]{matrizconfusionejemplo.png}
+	\caption{Ejemplo de matriz de confusión}
+\end{figure}
+Para evitar confusiones, es posible cambiar el nombre de los ejes a verdadero y falso, o true y false de la siguiente manera:
+\begin{lstlisting}[language=Python]
+	from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+	
+	# Matriz de confusion
+	confusion = confusion_matrix(y, y_pred)
+	
+	# Visualizando la matriz de confusion cambiando el nombre de los ejes
+	vis = ConfusionMatrixDisplay(confusion, display_labels =[False, True])
+	vis.plot()
+\end{lstlisting}
+Resultando en:
+\begin{figure}[H] 
+	\centering 
+	\includegraphics[width=0.6\linewidth]{matrizconfusionejemplo2.png}
+	\caption{Ejemplo de matriz de confusión}
+\end{figure}
 
 \subsubsection{Curva ROC-AUC}
 ROC (Receiver Operating Characteristic, o característica operativa del receptor) es una gráfica que contrasta las tasas de falsos positivos y falsos negativos.  
