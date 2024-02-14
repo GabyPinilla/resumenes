@@ -11,6 +11,7 @@
 \usepackage[hidelinks]{hyperref} %Para clikear las pag webs
 \usepackage{listings} % color de los bloques de código
 \usepackage{minted}
+\usemintedstyle{vs}
 \usepackage[dvipsnames]{xcolor} %color de las letras
 % DEFINIENDO COLORES DE LOS CODIGOS
 % SQL
@@ -32,21 +33,7 @@ showstringspaces=false,
 showtabs=false,
 breaklines=true % las lineas de codigo se rompen si son muy largas                  
 }
-% Python
-\lstdefinestyle{estilopython}{
-	language=Python,
-	backgroundcolor=\color{backcolour},
-	numberstyle=\tiny\color{codegray},
-	numbers=left,
-	basicstyle=\ttfamily,
-	keywordstyle=\color{blue}\ttfamily,
-	keywordstyle=[2]\color{Purple}\ttfamily,
-	keywords={as},
-	keywords=[2]{marker, label},
-	stringstyle=\color{ForestGreen}\ttfamily,
-	commentstyle=\color{gray}\ttfamily,
-	breaklines=true % las lineas de codigo se rompen si son muy largas               
-}
+% Python es usado con minted
 % R es usado con minted
 
 \begin{document}
@@ -519,1701 +506,6 @@ Google Sheets: =IMPORTRANGE(), el cual permite especificar un rango de celdas en
 \end{itemize}
 %
 %	CAPITULO
-\chapter{Python}
-% \texttt{\textcolor{magenta}{}}
-\lstset{style=estilopython}
-%	SECCION
-\section{Notas previas...}
-\begin{enumerate}
-\item Python es un lenguaje de programación orientado a objetos de alto nivel.
-\item Los tipos de datos en Python son int (números enteros), float (decimales), string (cadenas de texto) y booleanos.
-\item Los strings se escriben entre comillas simples o dobles.
-\item Los comentarios se hacen con el numeral ($\#$). Los comentarios que contengan más de una línea se hacen en un bloque de tres comillas simples:
-\begin{lstlisting}[language=Python]
-# Esto es un comentario
-	
-'''
-Esto
-es un
-comentario
-'''
-\end{lstlisting}
-\end{enumerate}
-
-%	SECCION
-\section{Librerías}
-En ciencia de datos, las librerías más usadas son NumPy, Matplotlib y Pandas.
-%	SUBSECCION
-\subsection{Importación de datos}
-Para importar las librerías, se utiliza el comando \texttt{\textcolor{magenta}{import}} y, usualmente, se le asigna un alias:
-\begin{lstlisting}[language=Python]
-import libreria as alias
-\end{lstlisting}
-Si se quiere importar solo una función de una librería:
-\begin{lstlisting}[language=Python]
-from libreria import funcion as alias
-\end{lstlisting}
-Ejemplo:
-\begin{lstlisting}[language=Python]
-# Funcion que genera un numero aleatorio entre 0 y 10
-import random
-num = random.randit(0, 10)
-print('El numero es ', num)
-\end{lstlisting}
-
-
-En Google Colaboratory, se importan los datos de drive con Pandas:
-\begin{lstlisting}[language=Python]
-from google.colab import drive
-drive.mount('/content/drive')
-\end{lstlisting}
-Luego, ir a Archivos $>$ Drive $>$ Copiar ruta de acceso. Se debe importar la librería Pandas con un alias:
-\begin{lstlisting}[language=Python]
-import pandas as pd
-\end{lstlisting}
-Finalmente, para leer un archivo en formato csv:
-\begin{lstlisting}[language=Python]
-nom_ds = pd.read_csv('ruta-del-archivo.csv')
-\end{lstlisting}
-
-%	SECCION
-\section{Conceptos previos}
-%	SUBSECCION
-\subsection{Manipulación de strings}
-Los strings son cadenas de textos que contienen una secuencia de caracteres, como palabras. Se definen usando comillas simples o dobles y se pueden realizar operaciones con ellas.
-
-Para interactuar con el usuario, se usan los comandos \texttt{\textcolor{magenta}{print}} y \texttt{\textcolor{magenta}{input}}. El primero imprime un mensaje en pantalla, mientras que el segundo permite que el usuario ingrese datos.
-\begin{lstlisting}[language=Python]
-# Imprimir texto en pantalla
-print('Hola mundo')
-	
-# Toma informacion y la puede guardar en una variable
-nombre=input('Cual es tu nombre?')
-	
-# Sustituir variables en un string
-print(f'Tu nombre es: {nombre}')
-	
-# Concatenacion
-print('hola' + ' '+ 'mundo')
-# salida: hola mundo
-	
-# Repeticion
-print('Ja' * 4)
-# salida: JaJaJaJa
-\end{lstlisting}
-
-
-Para transformar un número a string:
-\begin{lstlisting}[language=Python]
-str(15)
-# salida: 15
-	
-print('Quiero ' + str(15) + ' panes')
-\end{lstlisting}
-Y de un string a número:
-\begin{lstlisting}[language=Python]
-edad = int(input('Cual es tu edad?'))
-\end{lstlisting}
-
-Operaciones con strings:
-\begin{lstlisting}[language=Python]
-texto = 'Hola a todos'
-# 1. lower(): convierte los caracteres a minusculas
-texto_1 = texto.lower()
-print(texto_1)
-# salida: hola a todos
-	
-# 2. upper(): convierte los caracteres a mayusculas
-texto_2 = texto.upper()
-print(texto_2)
-# salida: HOLA A TODOS
-	
-# 3. replace(sub, new_sub): reemplaza texto por uno nuevo
-texto_3 = texto.replace('todos','Marta')
-print(texto_3)
-# salida: Hola a Marta
-	
-# 4. split(sep): divide una cadena en una lista con un separador
-textonuevo = 'Hola,Josesa'
-lista = textonuevo.split(',')
-print(lista)
-# salida: ['Hola', 'Josefa']
-	
-# 5. strip(): elimina los espacios en blanco al inicio y final de una cadena
-otrotexto = '	Hola	'
-texto_4 = otrotexto.strip()
-print(texto_4)
-# salida: Hola
-\end{lstlisting}
-
-%	SUBSECCION
-\subsection{Estructuras de datos}
-Listas o arreglos: son secuencias de elementos ordenados por un índice, empezando por el 0.
-\begin{lstlisting}[language=Python]
-# Crear una lista
-lista_1 = ['elemento0', 'elemento1', 'elemento2']
-print(lista_1) # Imprime la lista
-	
-# Para acceder a los elementos de la lista:
-print(lista_1[0])
-# salida: elemento0
-	
-print(lista_1[2]) # o print(lista_1[-1])
-# salida: elemento2
-	
-# Para agregar un elemento al final de la lista
-lista_1.append('elemento3')
-print(lista_1)
-# salida: ['elemento0', 'elemento1', 'elemento2', 'elemento3']
-	
-# Para obtener la longitud
-longitud = len(lista_1)
-print(longitud)
-# salida: 4
-\end{lstlisting}
-
-Diccionarios: es una colección de par clave-valor. Su sintaxis es $\{clave: valor\}$:
-\begin{lstlisting}[language=Python]
-diccionario_1={'nombre':'Marcelo',
-	'apellido':'Soto',
-	'ciudad':'Santiago',
-	'edad':38,
-	'profesion':'Presidente'}
-	
-# Imprimir un valor
-print({diccionario_1['profesion']})
-# salida: Presidente
-	
-# Agregar un nuevo par clave-valor
-diccionario_1['estado civil'] = 'Soltero'
-\end{lstlisting}
-
-Tuplas: las tupla no se pueden modificar después de haber sido creada.
-\begin{lstlisting}[language=Python]
-tupla_1=('elemento0', 'elemento1', 'elemento3')
-	
-# Para que devuelva 'elemento0'
-tupla_1[0]
-\end{lstlisting}
-
-Set: no permite tener elementos repetidos. Guardará solo los datos que no se repiten.
-\begin{lstlisting}[language=Python]
-set_1 = {'banana', 'manzana', 'pera'}
-\end{lstlisting}
-
-%	SECCION
-\section{Limpieza, orden y transformación de datos}
-
-%	SUBSECCION
-\subsection{Bibliotecas}
-Las bibliotecas que más se usan en Python para la ciencia de datos son Pandas, NumPy, Scikit-learn y Matplotlib.
-
-NumPy se especializa en el cálculo y análisis de datos, la cual permite manejar datos de forma rápida por medio de los NumPy Arrays o ndarray, una estructura de datos que puede ser de una dimensión (vector), dos dimensiones (matriz), tres (cubo) o más.
-
-Por lo general, se importa con el alias np:
-\begin{lstlisting}[language=Python]
-import numpy as np
-\end{lstlisting}
-Por otro lado, la biblioteca Pandas permite manipular y analizar estructuras de datos. Se basa en NumPy y proporciona los siguientes tipos de datos:
-\begin{enumerate}
-	\item Series: Estructuras de una dimensión.
-	\item DataFrame: Estructura de dos dimensiones.
-	\item Panel: Estructura de tres dimensiones.
-\end{enumerate}
-Se importa bajo el alias de pd:
-\begin{lstlisting}[language=Python]
-import pandas as pd
-\end{lstlisting}
-
-
-Scikit-learn es una biblioteca de aprendizaje automático que proporciona acceso a algoritmos comunes.
-\\
-
-Matplotlib se especializa en la generación de gráficos en dos dimensiones y personalización de estos. Se pueden crear diagramas de barras, mapas de calor, histogramas y más.
-
-Por lo general, se importa con el alias plt:
-\begin{lstlisting}[language=Python]
-import matplotlib.pyplot as plt
-\end{lstlisting}
-
-%	SUBSECCION
-\subsection{NumPy Arrays}
-Un NumPy Array se puede crear a partir de una lista usando el comando np.array:
-\begin{lstlisting}[language=Python]
-# Arreglo 1d
-a = np.array([1,2,3,4,5])
-
-# Arreglo 2d
-b = np.array([[3,4,5],
-	      [4,3,2]])
-\end{lstlisting}
-O por medio de no.arrange, el cual crea un arreglo de una dimensión con valores del 0 a n:
-\begin{lstlisting}[language=Python]
-# Sintaxis
-# a = np.arrange(inicio, fin-1,paso)
-d = np.arrange(3,8,1)
-\end{lstlisting}
-
-Propiedades:
-\begin{lstlisting}[language=Python]
-# Dimension del arreglo
-arreglo.ndim
-	
-# Forma del arreglo (filas,columnas)
-arreglo.shape
-	
-# Cantidad de datos en el arreglo
-arreglo.size
-\end{lstlisting}
-
-Para buscar valores en un arreglo, Python toma cada fila como un arreglo, donde el primero tendrá índice cero. Lo mismo ocurre con sus columnas, como se muestra a continuación:
-\begin{lstlisting}[language=Python]
-#       0  1  2
-array([[1, 0, 3],  # indice 0
-       [2, 6, 9],  # indice 1
-       [4, 5, 8]]) # indice 2
-\end{lstlisting}
-De esta forma, para seleccionar el número 6, se debe insertar arreglo[1,1].
-
-
-Generación de números aleatorios:
-\begin{lstlisting}[language=Python]
-# Crea un arreglo de numeros aleatorios entre 0 y 1
-a_1 = np.random.default_rng(n)
-	
-# Genera n valores aleatorios que siguen una distribucion normal.
-normal(media, desv_estandar,n)
-	
-# Genera n numeros aleatorios entre el 0 y fin-1.
-integers(fin-1, size = n)
-	
-# Genera n numeros aleatorios entre el 0 y fin-1 sin repetirse.
-choice(fin-1, size = n, replace = False)
-\end{lstlisting}
-%	SUBSECCION
-\subsection{Tipos de datos de Pandas}
-%	SUBSUBSECCION
-\subsubsection{Series}
-Las Series se definen bajo la siguiente sintaxis:
-\begin{lstlisting}[language=Python]
-Series(data=datos, index= indices, dtype='int') # tipo de dato
-\end{lstlisting}
-
-Por ejemplo:
-\begin{lstlisting}[language=Python]
-# Serie creada con una lista de numeros
-s = Series([1,2,3,4,5,6], dtype='int')
-	
-# Serie creada a partir de un diccionario
-sdiccionario = pd.Series({'Bajo':1.40, 'Medio':1.60, 'Alto:170'})
-\end{lstlisting}
-
-%	SUBSECCION
-\subsubsection{DataFrame}
-Un DataFrame es una tabla similar a las hojas de cálculo de Excel. Posee filas y columnas. Las columnas solo puede tener datos de un solo tipo y poseen un encabezado. Cada fila se identifica por un índice único.
-
-Es posible crear un DataFrame mediante listas de diccionarios, listas de listas, un array, etc. Se utiliza el siguiente código:
-\begin{lstlisting}[language=Python]
-df = pd.DataFrame(data = datos, index = 'filas', columns = 'columnas', dtype = 'int')
-# index=False: retorna indices numericos
-\end{lstlisting}
-
-Ejemplo de un DataFrame:
-\begin{lstlisting}[language=Python]
-indice = ['mes 1', 'mes 2', 'mes 3', 'mes 4', 'mes 5']
-df1 = pd.DataFrame({'mes': ['marzo', 'abril', 'mayo', 'junio', 'julio'], 'ventas': np.random.randint(1,100, 5)}, index = indice)
-df1
-\end{lstlisting}
-Esto mostrará un resultado similar a:
-\begin{figure}[H] 
-	\centering 
-	\includegraphics[width=0.25\linewidth]{tabladf1.png}
-	\caption{DataFrame df1 en Colab}
-\end{figure}
-
-De la misma forma que en un NumPy Array, se pueden seleccionar datos específicos mediante un localizador de etiquetas con loc o índices con iloc:
-\begin{lstlisting}[language=Python]
-# Busca el numero ubicado en la fila con indice 3 y columna con indice 1
-df1.iloc[3,1]
-# 21
-	
-# Busca los datos entre marzo y mayo de df1
-df1.loc[:,['mes 1': 'mes 3']] # puede ser el nombre de una fila o columna
-#        mes   ventas
-# mes 1  marzo   18
-# mes 2  abril   79
-# mes 3  mayo    18
-\end{lstlisting}
-%	SUBSECCION
-\subsection{Importación datos}
-La importación de datos se hace mediante el comando pd.read$\_$csv en el caso de un archivo .csv.
-\begin{lstlisting}[language=Python]
-df = pd.read_csv('archivo.csv', index_col = 'nom_indice')
-\end{lstlisting}
-
-%	SUBSECCION
-\subsection{Resúmenes de datos}
-Por defecto, la función head() muestra las primeras cinco filas del DataFrame. De lo contrario, el comando tail() muestra las últimas cinco:
-\begin{lstlisting}[language=Python]
-# Muestra los primeros 5 datos
-df.head()
-	
-# Muestra los ultimos 5
-df.tail()
-\end{lstlisting}
-
-Devuelve una tabla con la media, mediana, desviación estándar, máximo, mínimo y los percentiles del DataFrame:
-\begin{lstlisting}[language=Python]
-df.describe()
-\end{lstlisting}
-
-Tipo de datos de las columnas del DataFrame:
-\begin{lstlisting}[language=Python]
-df.info()
-\end{lstlisting}
-
-
-%	SUBSECCION
-\subsection{Manipulación y limpieza de datos}
-
-%	SUBSUBSECCION
-\subsubsection{Transformación de datos}
-Cuando se trabaja con fechas, es posible que estos valores aparezcan de tipo string. Para transformarlos a un formato de fecha, se ocupa pd.to$\_$datetime():
-\begin{lstlisting}[language=Python]
-df['fecha']= pd.to_datetime(df['fecha'])
-\end{lstlisting}
-Luego, es posible acceder a los métodos de las fechas usando .dt:
-\begin{lstlisting}[language=Python]
-# Accediendo a los annos de las fechas
-df['fecha'].dt.year
-
-# Accediendo a los meses de las fechas
-df['fecha'].dt.month
-
-# Accediendo a los nombres de los meses de las fechas
-df['fecha'].dt.month_name()
-
-# Accediendo a los dias de las fechas
-df['fecha'].dt.day
-
-# Convirtiendo a formato de fecha y hora especificando el formato
-df['fecha'] = pd.to_datetime(df['fecha'], format='%d-%m-%Y')
-\end{lstlisting}
-
-%	SUBSUBSECCION
-\subsubsection{Búsqueda de valores}
-Además de iloc y loc, se puede buscar valores en un DataFrame con isin(), en el cual se le debe indicar entre paréntesis los valores a buscar:
-\begin{lstlisting}[language=Python]
-# Devuelve el df donde encuentre los valores 23 y 45 en la columna1
-df[df.columna1.isin([23,45])]
-\end{lstlisting}
-
-%	SUBSUBSECCION
-\subsubsection{Tratamiento de datos nulos}
-Elimina datos np.nan:
-\begin{lstlisting}[language=Python]
-# Devuelve la cantidad de nulos en cada columna
-df.isna().sum()	
-
-# Borra las columnas y filas que tengan datos faltantes
-df.dropna()
-	
-# Borrando definitivamente los valores nulos
-df.dropna(inplace=True)
-	
-# Creando un df nuevo sin nulos
-df_nuevo = df.dropna()
-	
-# Reemplazando los valores nulos con 0
-df.dropna(0)
-
-# Reemplazando los valores nulos con 0
-df.fillna(0)
-\end{lstlisting}
-Otra forma de buscar valores nulos en un DataFrame:
-\begin{lstlisting}[language=Python]
-missing_values = df.apply(lambda x: sum(x.isnull()),axis=0)
-\end{lstlisting}
-Desglosando el código:
-
-\begin{itemize}
-	\item df.apply(): aplica una función a lo largo de un eje del DataFrame. Como axis = 0, lo aplica a lo largo de las columnas.
-	\item lambda x: sum(x.isnull()): la función lambda toma una columna x y calcula la suma de sus valores nulos, es decir, devuelve la cantidad de valores nulos de dicha columna.
-\end{itemize}
-
-%	SUBSUBSECCION
-\subsubsection{Tratamiento de datos duplicados}
-Quitar filas duplicadas:
-\begin{lstlisting}[language=Python]
-# Devuelve los valores duplicados de columna1
-df[df.duplicated(subset=['columna1'])]
-
-# Borrando duplicados de las columnas columna1 y columna2 de df
-df_sin_duplicados = df.drop_duplicates(subset=['columna1', 'columna2'])
-\end{lstlisting}
-
-Es posible tratar los datos faltantes rellenando con la media o la mediana:
-\begin{lstlisting}[language=Python]
-# Rellenando con la media
-df['columna'].fillna(df['columna'].mean(), inplace=True)
-\end{lstlisting}
-
-%	SUBSUBSECCION
-\subsubsection{Tratamiento de datos atípicos}
-Una forma de limpiar datos atípicos de una muestra es mediante el método del rango intercuartílico (IQR), el cual consiste en eliminar los datos que estén fuera de Q3+1.5*IQR o de Q1-1.5*IQR, donde IQR se define como el cuartil 3 (Q3) menos el cuartil 1 (Q1). Los valores fuera de este rango se consideran atípicos.
-
-En Python, esto se puede hacer de la siguiente forma:
-\begin{lstlisting}[language=Python]
-# Filtrando valores atipicos
-data = df['columna']
-Q1 = np.percentile(data, 25)
-Q3 = np.percentile(data, 75)
-IQR = Q3 - Q1
-lower_bound = Q1 - 1.5 * IQR
-upper_bound = Q3 + 1.5 * IQR
-var_num=var_num.iloc[np.where((data>= lower_bound) * (data <= upper_bound))]
-
-df.reset_index(drop=True, inplace=True)
-\end{lstlisting}
-Es posible visualizar los datos atípicos mediante un boxplot.
-%	SUBSUBSECCION
-\subsubsection{Filtros}
-Con Pandas se pueden filtrar datos por condiciones, columnas, filas.
-
-Filtrando por columnas:
-\begin{lstlisting}[language=Python]
-# Devuelve los valores de la columna ventas de df
-df['ventas']
-	
-# Devuelve las columnas mes y ventas
-df[['mes','ventas']]
-\end{lstlisting}
-
-Filtrando por filas:
-\begin{lstlisting}[language=Python]
-# POR INDICE
-# Devuelve la fila con indice 0
-df.iloc[0]
-	
-# Devuelve desde la primera fila hasta la 4ta
-df.iloc[0:5]
-	
-# Devuelve la fila con indice 0 y la 2
-df.iloc[[0,2]]
-	
-# POR ETIQUETAS
-# Seleccionando las etiquetas ventas y annos
-df.loc[['ventas', 'anno']]
-\end{lstlisting}
-
-Filtrando por condiciones:
-\begin{lstlisting}[language=Python]
-# Devuelve los datos del df donde las ventas son mayores a 1000
-df[df['ventas']>1000]
-	
-# Devuelve los datos del df donde las ventas son mayores a 1000 y el mes es igual a abril
-df[(df['ventas']>1000) & (df['mes'] == 'abril')]
-	
-# Devuelve los meses que contienen la subcadena a, como marzo, abril, mayo, agosto
-df[df['mes'].str.contains('a')]
-\end{lstlisting}
-
-%	SUBSUBSECCION
-\subsubsection{Orden}
-Para ordenar los datos de en DataFrame, se usa la función sort$\_$values, seguida de la columna la cual se quiere ordenar y luego si se quiere ordenar de forma creciente o decreciente.
-\begin{lstlisting}[language=Python]
-df.sort_values(by = 'columna_a_ordenar', ascending=True, inplace=False)
-\end{lstlisting}
-
-%	SUBSUBSECCION
-\subsubsection{Agrupación de datos}
-En Pandas se utiliza groupby para agrupar datos de una columna para aplicarle funciones como la media, suma, etc.
-\begin{figure}[H] 
-	\centering 
-	\includegraphics[width=0.4\linewidth]{tabladf2.png}
-	\caption{DataFrame}
-\end{figure}
-El DataFrame anterior muestra cada país con su número de seguidores y menciones. Se que quiere agrupar el promedio de ambas columnas según su país, se debe aplicar el siguiente comando:
-\begin{lstlisting}[language=Python]
-# Devuelve el promedio de los datos agrupados por sus paises
-df.groupby('pais').mean()
-\end{lstlisting}
-Y devolverá la siguiente tabla:
-\begin{figure}[H] 
-	\centering 
-	\includegraphics[width=0.4\linewidth]{tablagroupby.png}
-	\caption{DataFrame agrupado según su país}
-\end{figure}
-Por otro lado, si se necesitan aplicar más funciones de agregación, se debe añadir el comando agg con un diccionario de las columnas y las funciones:
-\begin{lstlisting}[language=Python]
-# Devuelve la suma de seguidores y el promedio de menciones de df agreupados por pais
-df.groupby('pais').agg({'seguidores': 'sum', 'menciones': 'mean'})
-\end{lstlisting}
-
-\begin{figure}[H] 
-	\centering 
-	\includegraphics[width=0.4\linewidth]{tablagroupby2.png}
-	\caption{DataFrame agrupado según su país}
-\end{figure}
-
-%	SUBSECCION
-\subsection{Cruce de tablas}
-Con la librería Pandas, se pueden cruzar dos tablas mediante merge(), donde la primera tabla será la tabla derecha (tabla1) y la segunda la izquierda (tabla2):
-\begin{lstlisting}[language=Python]
-# Cruce entre tabla1 y tabla2
-df_merged = df_tabla1.merge(df_tabla2, left_on = 'col1_t1', right_on = 'col1_t2', how='inner', validate = 'many_to_one')
-\end{lstlisting}
-Sus parámetros son:
-\begin{itemize}
-	\item left$\_$on: Columnas a cruzar por la izquierda.
-	\item right$\_$on: Columnas a cruzar por la derecha.
-	\item on: En el caso de que ambas columnas tengan el mismo nombre, se usa on y se escribe el nombre de la columna.
-	\item how: Es el tipo de cruce. Puede ser left, right, inner, outer o cross.
-	\item validate: Comprueba si el cruce es del tipo indicado. Puede ser one$\_$to$\_$one, one$\_$to$\_$many, many$\_$to$\_$one, many$\_$to$\_$many.
-\end{itemize}
-
-%	SECCION
-\section{Probabilidad y estadística}
-% SUBSECCION
-\subsection{Estadística}
-%SUBSUBSECCION
-\subsubsection{Tipos de datos en estadística}
-En estadística, existen diferentes tipos de datos que se clasifican en:
-\begin{enumerate}
-	\item Variables cualitativas ordinales: son variables que pueden ser ordenadas o poseen un tipo de jerarquía.
-	\item Variables cualitativas nominales: son variables que no pueden ser ordenadas. Se utilizan para clasificar elementos.
-	\item Variables cuantitativas discretas: son variables que representan un conteo donde los valores formar un conjunto finito.
-	\item Variables cuantitativas continuas: son las variables que representan una medición en escalas continuas.
-\end{enumerate}
-
-%	SUBSUBSECCION
-\subsubsection{Medidas de tendencia central}
-Las medidas de tendencia central son medidas estadísticas que se utilizan para resumir un conjunto de valores. Las medidas más comunes son:
-
-\begin{itemize}
-	\item Media aritmética
-	\item Moda
-	\item Mediana
-\end{itemize}
-
-En Python, es posible calcular las medidas de tendencia central mediante las siguientes fórmulas:
-\begin{lstlisting}[language=Python]
-# Media
-media = df['columna'].mean()
-
-# Moda
-moda = df['columna'].mode()
-
-# Mediana
-mediana = df['columna'].median()
-\end{lstlisting}
-
-%	SUBSUBSECCION
-\subsubsection{Indicadores de posición}
-Mientras que los indicadores de posición son indicadores estadísticos que se utilizan para resumir los valores en uno solo o dividirlos en intervalos del mismo tamaño. Dentro de ellos se encuentran:
-\begin{itemize}
-	\item Percentiles
-	\item Cuartiles
-	\item Quintiles
-	\item Deciles
-\end{itemize}
-En Python, se pueden calcular usando quantile y escribiendo el percentil. Por ejemplo, si se quiere obtener un percentil en específico:
-\begin{lstlisting}[language=Python]
-# Percentiles
-percentil = df['columna'].quantile(0.30)
-\end{lstlisting}
-O los quintiles de una columna:
-\begin{lstlisting}[language=Python]
-# Quintiles
-quintil = df['columna'].quantile([0, 0.2, 0.4, 0.6, 0.8, 1])
-\end{lstlisting}
-Lo mismo con los cuartiles:
-\begin{lstlisting}[language=Python]
-# Cuartiles
-cuartil = df['columna'].quantile([0, 0.25, 0.50, 0.75, 1])
-\end{lstlisting}
-%	SUBSUBSECCION
-\subsubsection{Medidas de dispersión}
-A diferencia de las medidas de tendencia central que entregan una idea sobre la ubicación central de los datos, las medidas de dispersión se utilizan para describir el cambio o dispersión de un conjunto. Algunas son:
-\begin{itemize}
-	\item Rango
- 	\item Rango intercuartil
- 	\item Desviación media
- 	\item Desviación estándar
- 	\item Varianza
- 	\item Coeficiente de variación
-\end{itemize}
-En Python, se pueden obtener de la siguiente forma:
-\begin{lstlisting}[language=Python]
-# Rango
-rango = df['columna'].max() - df['columna'].min()
-	
-# Rango intercuartil
-rango_inter = df['columna'].quantile(0.75) - df['columna'].quantile(0.25)
-
-# Desviacion estandar
-des_estandar = df['columna'].std()
-
-# Devuelve indicadores estadisticos
-df.describe()
-\end{lstlisting}
-
-
-
-%	SUBSECCION
-\subsection{Probabilidad}
-La probabilidad es una medida que determina qué tan posible es que ocurra un evento. Para calcularla, se utilizan las siguientes definiciones básicas:
-\begin{enumerate}
-	\item Experimento aleatorio: Es un experimento cuyo resultado está determinado por el azar.
-	\item Espacio muestral ($\Omega$): Es el conjunto de todos los resultados posibles de un experimento.
-	\item Evento (A, B, ...): Es un conjunto de resultados posibles, es decir, un subconjunto del espacio muestral.
-	\item Probabilidad (P(A), P(B), ...): Es un valor que se le asigna a un evento entre 0 y 1, donde 0 es imposible y 1 es seguro de que ocurra. Se obtiene dividiendo el número de casos favorables por el número total de resultados posibles.
-	\item Complemento ($A^c$): Es la probabilidad de que un evento no ocurra. Si P(A) es la probabilidad de que ocurra un evento A, entonces P($A^c$)=1-(P(A)) es la probabilidad de que no ocurra A.
-	\item Intersección ($A\cap B$): Son todos los elementos que son de un evento A y un evento B.
-	\item Unión ($A \cup B$): Son todos los elementos de A y todos los elementos de B.
-	\item Probabilidad clásica: Se basa en que todos los resultados del espacio muestral tienen la misma probabilidad.
-	\item Probabilidad frecuencial: Se calcula dividiendo el número de veces que ocurre un evento y el total de repeticiones del experimento.
-\end{enumerate}
-
-%	SUBSUBSECCION
-\subsubsection{Probabilidad condicional}
-La probabilidad condicional se refiere a que suceda un evento (A) sabiendo que sucede otro (B). Se expresa como:
-\begin{equation}
-	P(A|B)
-\end{equation}
-Y se lee la probabilidad de A dado B, la cual se puede calcular por medio del Teorema de Bayes:
-\begin{gather}
-	P(A \cap B) = P(B) * P(A/B) \\
-	\Rightarrow P(A|B) = \frac{P(A \cap B)}{P(B)}
-\end{gather}
-
-En Python, se pueden calcular probabilidades por medio de los siguientes comandos:
-\begin{lstlisting}[language=Python]
-\\ conteo
-conteo = df['columna1'].value_counts()['valor1']
-
-\\ Conteo de cada registro
-conteo_grupal = df['columna1'].value_counts()
-
-\\ Conteo con condiciones
-condicion1 = df['columna1'] == 'valor1'
-condicion2 = df['columna2'] == 'valor2'
-
-interseccion = (condicion1 & condicion2).sum()
-union = (condicion1 | condicion2).sum()
-\end{lstlisting}
-
-%	SUBSUBSECCION
-\subsubsection{Variable aleatoria}
-Se define variable aleatoria a una función que asigna un valor numérico a los resultados de un experimento aleatorio. Se clasifican en dos tipos:
-\begin{enumerate}
-	\item Variables aleatorias continuas: pueden tomar cualquier valor dentro de un rango continuo de números reales.
-	\item Variables aleatorias discretas: son aquellas que pueden tomar un número finito o infinito numerable de valores posibles.
-\end{enumerate}
-
-%	SUBSUBSECCION
-\subsubsection{Distribución de probabilidad}
-La distribución de probabilidad de una variable aleatoria es una función que asigna a cada evento la probabilidad de que este ocurra. Describe cómo se distribuyen las probabilidades de los valores que puede tomar la variable.
-
-Para una variable aleatoria continua, puede tomar cualquier valor dentro de un cierto rango. Se definen por medio de una función de probabilidad:
-\begin{equation}
-	P(a \leqslant X \leqslant b) = \int_{a}^{b} f(x)dx
-\end{equation}
-La cual representa el área debajo de la curva de f(x) en el intervalo (a,b).
-
-\subsubsection{Distribución binomial}
-La distribución binomial es una distribución de probabilidad que describe el número de veces que un evento aparece en una cantidad de experimentos. Los experimentos deben ser independientes entre sí, solo deben tener dos posibles resultados (éxito y fracaso) y la probabilidad de éxito debe ser constante para todos los experimentos.
-
-Si se repite el experimento n veces, la probabilidad de tener k éxitos es de:
-\begin{equation}
-	P(k) = \frac{n!}{k! (n-k)!}p^{k}(1-p)^{n-k}
-\end{equation}
-donde:
-\begin{itemize}
-	\item P(k): es la probabilidad de que ocurra k éxitos.
-	\item n: número total de experimentos.
-	\item k: número de éxitos deseados.
-	\item p: probabilidad de éxito en cada experimento.
-	\item 1-p: probabilidad de fracaso.
-\end{itemize}
-Por ejemplo, si se lanza una moneda al aire 10 veces y la probabilidad de tener sello es de 0,5, la probabilidad de tener 5 caras es:
-\begin{gather}
-	P(5) = \frac{10!}{5! (10-5)!}0,5^{5}(1-0,5)^{10-5} \\
-	P(5) = \frac{10!}{5! (10-5)!}0,5^{5}(0,5)^{5} \\
-	0,2373
-\end{gather}
-
-%	SUBSUBSECCION
-\subsubsection{Distribución normal}
-La distribución normal es una curva que tiene forma de campana, donde la mayoría de los valores de la variable aleatoria se encuentran agrupados cerca de la media, y pocos valores en los extremos de ésta.
-
-La distribución normal se puede utilizar para calcular la probabilidad de que una variable aleatoria continua tome un valor dentro de un cierto rango. Se caracteriza por su función de densidad de probabilidad, la cual describe la curva y la probabilidad de que un valor ocurra:
-\begin{equation}
-	f(x) = \frac{1}{\sigma \sqrt{2 \pi}} e^{-0,5(\frac{x - \mu}{\sigma})^2}
-\end{equation}
-Una distribución normal posee simetría, donde la media, la mediana y la moda son iguales. Además, tiene una forma unimodal, los extremos son infinitos y posee parámetros de media y desviación estándar.
-
-%	SUBSUBSECCION
-\subsubsection{Ley de los grandes números}
-La ley de los grandes números establece que a medida que aumenta el número de repeticiones de un experimento (aumenta el tamaño de la muestra), la media tiende a acercarse a la media teórica de la distribución de probabilidad.
-
-Ley débil: indica que la media muestral se acerca a la media poblacional cuando el tamaño de la muestra aumenta.
-
-Ley fuerte: la muestra tiende a la media poblacional en la medida que el tamaño de la muestra tiende a infinito.
-
-% SUBSUBSECCION
-\subsubsection{Teorema del límite central}
-El teorema del límite central establece que la distribución de la suma o media de una gran cantidad de variables aleatorias tiende a aproximarse a una distribución normal. Para esto, las variables aleatorias deben ser independientes entre sí, tener la misma distribución (media y varianza) y el tamaño de la muestra debe ser lo suficientemente grande.
-
-%	SECCION
-\section{Estadística inferencial}
-La estadística inferencial busca describir por medio de una muestra cómo puede ser la población. Posee parámetros, los cuales son indicadores que corresponden a la población, y estimadores, los que están asociados a la muestra:
-
-\begin{center}
-\begin{tabular}{|c|c|c|}
-	\hline
-	Nombre & Parámetro & Estimador \\
-	\hline
-	Media & $\mu$ & $\bar{x}$ \\
-	\hline
-	Varianza & $\sigma^2$ & $S^{2}$ \\
-	\hline
-	Desviación & $\sigma$ & $S$ \\
-	\hline
-	Proporción & p & $\hat{p}$ \\
-	\hline
-\end{tabular}
-\end{center}
-
-A través de los estadísticos de prueba, se puede relación un indicador estadístico con su respectivo estimador, lo cual permite hacer inferencia estadística de una muestra de datos.
-
-Si una variable aleatoria X es tal que $X \sim N(\mu,\sigma)$ y ${x_1, x_2, \hdots, x_n}$ es una muestra aleatoria de X, entonces:
-
-Si se conoce el valor de $\sigma$:
-\begin{equation}
-	(\bar{x}-\mu) \frac{\sqrt{n}}{\sigma} \sim N(0,1)
-\end{equation}
-donde $\bar{x}-\mu$ es el error muestral definido como la diferencia entre los resultados de una muestra y los resultados que se habrían obtenido si se hubiera analizado toda la población.
-
-De lo contrario, se puede usar el estimador S:
-\begin{equation}
-	(\bar{x}-\mu) \frac{\sqrt{n}}{S} \sim t_{n-1}
-\end{equation}
-
-
-Si X es una variable aleatoria y ${x_1, x_2, \hdots, x_n}$ es una muestra aleatoria de X ($n>30$):
-
-Si X tiene una distribución desconocida y se conoce S:
-\begin{equation}
-	(\bar{x}-\mu) \frac{\sqrt{n}}{S} \approx N(0,1)
-\end{equation}
-Si X tiene distribución Bernouilli con probabilidad p:
-\begin{equation}
-	\frac{\hat{p} -p}{\sqrt{p(1-p)}} \sim N(0,1)
-\end{equation}
-
-Cuando la muestra es menor que 30 o la desviación estándar de la población es desconocida, se utiliza la distribución t, o distribución de Student.
-\begin{equation}
-	t = (\bar{X} - \mu )\frac{\sqrt{n}}{S}
-\end{equation}
-donde t es el estadístico de prueba t que se utiliza para evaluar la diferencia entre la media muestral y la media poblacional.
-
-\subsection{Prueba de hipótesis}
-Una prueba de hipótesis se utiliza para evaluar si una afirmación sobre una población es compatible con la evidencia observada. Para realizar una prueba de hipótesis se siguen los siguientes pasos:
-\begin{enumerate}
-	\item Formular la hipótesis nula (H0), afirmación inicial que se somete a prueba, y alternativa (H1), afirmación alternativa a la nula.
-	\item Establecer el nivel de significancia ($\alpha$), el cual se refiere a la probabilidad de rechazar la hipótesis nula cuando es verdadera. Se usan valores como 0,05 o 0,01. Con esto, se puede calcular el nivel de confianza definido como 1 - $\alpha$.
-	\item Elegir y calcular el estadístico de prueba dependiendo de los valores conocidos. En este paso, se calcula los valores p.
-	\item Determinación de la región crítica, la cual se refiere al área de la distribución de probabilidad donde se encuentran los valores que llevarían a rechazar la hipótesis nula.
-	\item Tomar una decisión comparando el valor obtenido del estadístico de prueba y los valores de la región crítica, es decir, el valor p y la significancia.
-\end{enumerate}
-
-Para decidir si se rechaza H0 se usa el siguiente criterio:
-\begin{itemize}
-	\item Si valor p $>$ significancia, no se rechaza H0.
-	\item Si valor p $\leqslant$ significancia, se rechaza H0.
-\end{itemize}
-Sin embargo, cuando el estadístico de prueba cae dentro de la región crítica se rechaza H0, sugiriendo que hay evidencia suficiente para respaldar H1.
-
-%	SECCION
-\section{Regresión}
-La regresión es un proceso estadístico que se usa para modelar la relación entre una variable dependiente (y) y una o dos independientes (x).
-
-\subsection{Coeficiente de correlación}
-La correlación es una medida que evalúa la relación entre dos o más variables.
-
-Si los puntos parecen seguir una recta en un gráfico, podría corresponder a una correlación lineal, la cual se cuantifica mediante el coeficiente de correlación de Pearson. Este coeficiente toma valores entre -1 y 1, donde:
-\begin{itemize}
-	\item -1: indica una correlación negativa perfecta. Señala que una variable aumenta mientras la otra disminuye.
-	\item 0: indica que no hay relación lineal entre las variables.
-	\item 1: indica una correlación positiva perfecta. Señala que ambas variables aumentan o disminuyen.
-\end{itemize}
-Un coeficiente de correlación cercano a 1 o -1 indicará que el modelo se ajusta a los datos.
-
-Si la relación entre las variables no es lineal, se debe utilizar otro tipo de correlación, como el coeficiente de correlación de Spearman o el de Kendall.
-
-\subsection{Regresión lineal}
-La regresión lineal se utiliza para encontrar la mejor línea recta que se ajusta a los datos para luego predecir los valores de la variable dependiente en función de la variable independiente. Mediante esta regresión, se busca predecir un número.
-
-\begin{figure}[H] 
-	\centering 
-	\includegraphics[width=0.5\linewidth]{regresion_lineal.jpg}
-	\caption{Gráfico}
-\end{figure}
-
-Se modela mediante la ecuación de la recta, la cual tiene la siguiente forma:
-\begin{equation}
-	y = b_0 + b_1 * x \pm c
-\end{equation}
-donde:
-\begin{itemize}
-	\item y: variable dependiente que se intenta predecir. Variable target.
-	\item x: variable independiente.
-	\item $b_0$: intersección de la recta con el eje Y, llamada intercepto.
-	\item $b_1$: pendiente de la recta.
-	\item c: término de error.
-\end{itemize}
-El objetivo de la regresión lineal es encontrar los valores de $b_0$ y $b_1$ que minimicen la suma de los cuadrados de errores, más conocido como el método de los mínimos cuadrados.
-
-Otros parámetro de la regresión lineal son los valores p de los coeficientes. Un valor p bajo indica que la variable independiente tiene un efecto significativo sobre la variable dependiente.
-
-En Python, se puede realizar una regresión lineal simple y calcular sus parámetros por medio del siguiente código:
-\begin{lstlisting}[language=Python]
-from scipy import stats
-
-# Antes de realizar la regresion, se deben seleccionar las columnas
-datos= df[["variable_independiente", "variable_target"]]
-
-# Regresion lineal simple
-sns.lmplot(x="variable_independiente", y="variable_target", data=datos)
-plt.title("Regresion lineal entre variable_independiente y variable_target")
-plt.xlabel("variable_independiente")
-plt.ylabel("variable_target")
-
-# Calculando los parametros
-slope, intercept, r_value, p_value, std_err = stats.linregress(datos["variable_independiente"], datos["variable_target"])
-
-# Mostrando el grafico completo
-plt.show()
-
-# Imprimiendo los parametros
-print(f"Pendiente: {slope}")
-print(f"Intercepto: {intercept}")
-print(f"Error estandar: {std_err}")
-print(f"Coef. de correlacion: {r_value}")
-\end{lstlisting}
-
-Es posible hacer un modelo de regresión lineal con Statsmodels mediante la función OLS(), la cual busca minimizar los cuadrados de los residuos.
-\begin{lstlisting}[language=Python]
-import statsmodels.api as sm
-
-# Definiendo las variables predictoras (X) y la variable de respuesta (y)
-X = df["variable_independiente"]
-y = df["variable_target"]
-
-# Agregando una constante al predictor (intercepto)
-X = sm.add_constant(X)
-
-# Creando el modelo de regresion lineal
-model = sm.OLS(y, X).fit()
-
-# Obteniendo los resultados del modelo
-results = model.summary()
-
-# Imprimiendo los resultados
-print(results)
-
-# Graficando la regresion lineal
-plt.scatter(df["variable_independiente"], df["variable_target"], label="Datos")
-plt.plot(df["variable_independiente"], model.predict(X), color='red', label="Regresion Lineal")
-plt.title("Regresion lineal entre variable_independiente y variable target")
-plt.xlabel("variable_independiente")
-plt.ylabel("variable_target")
-plt.legend()
-plt.show()
-\end{lstlisting}
-Los resultados de esta regresión entrega los siguientes estadísticos:
-\begin{enumerate}
-	\item r-squared: r cuadrado. Varía entre 0 y 1, y corresponde a la variabilidad de la variable dependiente. Un r cuadrado alto indica que el modelo se ajusta bien a los datos.
-	\item Adj. r-squared: r cuadrado ajustado. Penaliza (disminuye con respecto al r cuadrado) por añadir variables que no contribuyen significativamente a explicar la variabilidad de la variable dependiente.
-	\item F-statistic: F estadístico. Un alto valor del estadístico F con un valor p bajo implica que al menos una de las variables independientes tiene un efecto significativo en la variable dependiente.
-	\item coef: coeficientes. Representan las pendientes de las variables independientes.
-\end{enumerate}
-Nota: La variabilidad describe la dispersión de los puntos alrededor de una medida central. La significancia se refiere a la probabilidad de que los resultados de una prueba estadística sean improbables bajo la suposición de que la hipótesis nula (H0) sea cierta.
-
-\subsubsection{Regresión lineal múltiple}
-Para aplicar Statsmodels y obtener un modelo de regresión para dos o más variables independientes, se transforma una variable categórica en numérica usando get.dummies:
-\begin{lstlisting}[language=Python]
-# Paso 1: Definiendo variables predictoras (X) y variable de respuesta (y)
-X = df[['variable_independiente', 'variable_categorica']]  # Largo de la aleta y sexo como variables independientes
-y = df['variable_target']  # Peso como variable dependiente
-
-# Codificando la variable categorica usando get dummies
-X_encoded = pd.get_dummies(X, columns=['variable_categorica'], prefix=['variable_categorica'])
-
-# Paso 2: Agregando una constante (intercepto) a las variables predictoras
-X_encoded = sm.add_constant(X_encoded)
-
-# Paso 3: Creando el modelo de regresion lineal
-model = sm.OLS(y, X_encoded).fit()
-
-# Paso 4: Obteniendo resultados del modelo
-results = model.summary()
-
-predictions = model.predict(X_encoded)
-
-# Calculando el Error Cuadratico Medio (MSE)
-mse = ((y - predictions) ** 2).mean()
-
-# Calculando el Error Cuadratico Medio Explicado (EMSE)
-emse = mse / ((y - y.mean()) ** 2).mean()
-
-# Calculando el valor R cuadrado del modelo
-r2 = model.rsquared
-
-print(results)
-print(f"MSE: {mse:.2f}")
-print(f"EMSE: {emse:.2f}")
-print(f"R cuadrado: {r2:.2f}")
-\end{lstlisting}
-
-\subsubsection{Métricas de evaluación del modelo}
-Las métricas de evaluación del modelo evalúan el rendimiento de un modelo de regresión. Señalan qué tan bien se ajusta el modelo a los datos y cómo se comporta en la predicción de futuros valores.
-\begin{itemize}
-	\item Error medio absoluto (MAE): Calcula el promedio de las diferencias absolutas entre los valores predichos y los valores reales. Mientras menor el MAE, mejor será el ajuste del modelo.
-	\item Error cuadrático medio (MSE): Calcula el promedio de los cuadrados de las diferencias entre los valores predichos y los valores reales. Mientras más bajo sea el MSE, mejor será el ajuste.
-	\item Raíz del error cuadrático medio (RMSE): Es la raíz cuadrada del MSE.
-\end{itemize}
-
-\subsection{Residuos}
-Los residuos son la diferencia entre los valores y los valores predichos por el modelo. Evalúan la calidad del ajusto del modelo. Si los residuos son menores, el modelo es más preciso.
-
-Para graficar los residuos, se utiliza el siguiente código:
-\begin{lstlisting}[language=Python]
-residuals = datos["variable_target"] - (slope * datos["variable_independiente"] + intercept)
-
-# Mostrando el grafico de los residuos
-plt.figure()
-plt.scatter(datos["variable_independiente"], residuals)
-plt.axhline(y=0, color='r', linestyle='--')
-plt.title("Grafico de Residuos")
-plt.xlabel("variable_independiente")
-plt.ylabel("Residuos")
-plt.show()
-\end{lstlisting}
-El gráfico de residuos puede darse de las siguientes formas:
-\begin{figure}[H] 
-	\centering 
-	\includegraphics[width=0.5\linewidth]{residuos.jpg}
-	\caption{Gráficas de residuos}
-\end{figure}
-De las figuras anteriores, la figura a presenta un patrón de residuos al azar donde no hay tendencias. La b y c presentan tendencias, lo que podría indicar que la relación entre las variables no es la indicada. La d, e y f tienen una dispersión irregular, donde la varianza de los residuos aumenta conforme aumentan los valores, lo cual indica que aumenta la variabilidad y su media.
-
-\subsection{Regresión logística}
-La regresión logística se emplea para determinar la probabilidad de que un evento pertenezca a una de dos o más categorías. Se busca relacionar un conjunto de variables independientes con una dependiente, usando coeficientes que determinan un modelo lineal. Esta regresión busca predecir categorías.
-
-Por medio de la función logarítima o logit, transforma la salida en una escala log-odds con la función Sigmoide:
-\begin{equation}
-	f(x) = \frac{1}{1+e^{-x}}
-\end{equation}
-La función logística devuelve valores entre 0 (no/falso) y 1 (sí/verdadero) para la variable dependiente. Los valores por sobre 0.5 se pueden interpretar como una probabilidad mayoritaria de que ocurra un evento (clase 1), mientras que por debajo de 0.5 indica una probabilidad mayoritaria de que no ocurra (clase 0). Se define un umbral de decisión para definir una categoría como positiva y otra negativa.
-
-\begin{figure}[H] 
-	\centering 
-	\includegraphics[width=0.5\linewidth]{graficologistica.jpg}
-	\caption{Gráfico de la función logística}
-\end{figure}
-
-En Python, se aplica la función LogisticRegresion() de sci-kit learn.
-\begin{lstlisting}[language=Python]
-# Libreria
-from sklearn.linear_model import LogisticRegression
-
-# Variables
-X = df[['var_1', 'var_2', 'var_3']]
-y = df[['var_y']]
-
-# Modelando
-LogReg = LogisticRegression()
-
-# Ajustando el modelo
-LogReg.fit(X, y)
-
-# Predicciones
-y_pred = LogReg.predict(X)
-\end{lstlisting}
-
-\subsubsection{Tipos de regresión logística}
-Los tipos de regresión logística son binaria y multinomial:
-\begin{enumerate}
-	\item La regresión logística binaria es un modelo estadístico que se utiliza para problemas de clasificación binaria donde la variable dependiente tiene dos categorías posibles, etiquetados como 0 y 1, sí y no, etc. La función Sigmoide usa la función logística para modelar la probabilidad de que la variable dependiente pertenezca a la categoría 1 (clase positiva).
-	\item Por otro lado, la regresión logística multinomial se utiliza para problemas de clasificación con más de dos categorías mutuamente excluyentes. La función Softmax en la regresión logística multinomial, se usa para modelar la probabilidad de pertenecer a cada una de las categorías. Asigna probabilidades a cada categoría, dando la suma de ellas igual a 1. Puede predecir varias categorías distintas. Se utiliza en problemas de clasificación multiclase.
-\end{enumerate}
-
-\subsubsection{Métricas de evaluación}
-\begin{enumerate}
-	\item Exactitud: Absoluto del porcentaje que se predijo correctamente.
-	Mide la proporción de las predicciones que son correctas.
-	\item Precisión: Se busca minimizar los falsos positivos. Mide cuando algo positivo sea realmente positivo.
-	\item Sensibilidad: Mide de todas las clases positivas, cuántas de ellas se identifican.
-	\item Puntuación F1: Promedio armónico entre precisión y sensibilidad.
-\end{enumerate}
-
-Cuando se quiere optimizar sobre precisión, se aumenta el umbral. Se quiere estar seguro de que sea positivo.
-Cuando se quiere optimizar sobre la sensibilidad, se baja el umbral. Esto se hace para capturar a todas las clases positivas.
-\begin{lstlisting}[language=Python]
-from sklearn.metrics import accuracy_score, precision_score, recall_score, classification_report
-
-# Exactitud
-accuracy = accuracy_score(y, y_pred)
-
-# Precision
-precision = precision_score(y, y_pred)
-
-# Sensibilidad
-recall = recall_score(y, y_pred)
-
-# Reporte que incluye precision, sensibilidad y f1
-reporte = classification_report(y, y_pred)
-\end{lstlisting}
-
-\subsubsection{Matriz de confusión}
-La matriz de confusión cuantifica los casos falsos positivos, falsos negativos, verdaderos positivos y verdaderos negativos.
-\begin{figure}[H] 
-	\centering 
-	\includegraphics[width=0.6\linewidth]{matrizconfusionexplicacion.jpg}
-	\caption{Matriz de confusión}
-\end{figure}
-donde:
-\begin{itemize}
-	\item Verdaderos positivos: son los casos en que los datos reales son 1 (Verdadero) y la predicción también es 1.
-	\item Verdaderos negativos: son los casos en que los datos reales son 0 (Falso) y la predicción también es 0.
-	\item Falsos positivos: son los casos en que los datos reales son 0 y la predicción es 1. El modelo ha pronosticado incorrectamente.
-	\item Falsos negativos: son los casos en que los datos reales son 1 y la predicción es 0. El modelo ha pronosticado incorrectamente.
-\end{itemize}
-El escenario ideal es que el modelo no de falsos positivos ni falsos negativos.
-
-En Python, la matriz de confusión se hace de la siguiente forma:
-\begin{lstlisting}[language=Python]
-from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
-
-# Matriz de confusion
-confusion = confusion_matrix(y, y_pred)
-
-# Visualizando la matriz de confusion
-vis = ConfusionMatrixDisplay(confusion)
-vis.plot()
-
-# Tambien, se puede visualizar de la siguiente forma
-ConfusionMatrixDisplay.from_predictions(y, y_pred)
-\end{lstlisting}
-
-La siguiente gráfica muestra una la matriz de confusión. En ella, se puede apreciar que los verdaderos positivos están en la esquina inferior derecha y los verdaderos negativos en la esquina superior izquierda.
-\begin{figure}[H] 
-	\centering 
-	\includegraphics[width=0.6\linewidth]{matrizconfusionejemplo.png}
-	\caption{Ejemplo de matriz de confusión}
-\end{figure}
-Para evitar confusiones, es posible cambiar el nombre de los ejes a verdadero y falso, o true y false de la siguiente manera:
-\begin{lstlisting}[language=Python]
-	from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
-	
-	# Matriz de confusion
-	confusion = confusion_matrix(y, y_pred)
-	
-	# Visualizando la matriz de confusion cambiando el nombre de los ejes
-	vis = ConfusionMatrixDisplay(confusion, display_labels =[False, True])
-	vis.plot()
-\end{lstlisting}
-Resultando en:
-\begin{figure}[H] 
-	\centering 
-	\includegraphics[width=0.6\linewidth]{matrizconfusionejemplo2.png}
-	\caption{Ejemplo de matriz de confusión}
-\end{figure}
-
-\subsubsection{Curva ROC-AUC}
-ROC (Receiver Operating Characteristic, o característica operativa del receptor) es una gráfica que contrasta las tasas de falsos positivos y falsos negativos.  
-\begin{figure}[H] 
-	\centering 
-	\includegraphics[width=0.6\linewidth]{curvaroc.jpg}
-	\caption{Gráfica de la curva ROC}
-\end{figure}
-
-El área bajo la curva (AUC) se utiliza como resumen del rendimiento del modelo. El AUC-ROC varía entre 0 y 1, donde un valor más cercano a 1 indica un mejor rendimiento.
-
-\subsubsection{Curva PRC}
-La curva PRC (Precision-Recall, o precisión-sensibilidad) contrasta la precisión con la sensibilidad para diferentes umbrales. El AUC-PRC varía entre 0 y 1, donde un valor más cercano a 1 indica un mejor rendimiento. Si el valor es 1, significa que el modelo puede lograr una precisión perfecta y una sensibilidad perfecta.
-
-\begin{lstlisting}[language=Python]
-	
-\end{lstlisting}
-%	SECCION
-\section{Análisis y visualización}
-\subsection{Gráficas con matplotlib y seaborn}
-Para crear visualizaciones en Python, por lo general se usan las librerías matplotlib y seaborn. Se deben seguir los siguientes pasos para poder hacer un gráfico:
-\begin{enumerate}
-	\item Importar las bibliotecas.
-	\item Crear la figura.
-	\item Agregar los datos.
-	\item Agregar ejes.
-\end{enumerate}
-Un ejemplo de un gráfico de líneas en matplotlib:
-
-\begin{lstlisting}[language=Python]
-# Importando la libreria
-import matplotlib.pyplot as plt
-
-# Datos
-x = [1, 2, 3, 4, 5]
-y = [2, 4, 6, 12, 20]
-
-# Creando el grafico de lineas
-plt.plot(x, y, marker='o', label = 'Linea')
-
-# Agregando los nombres de los ejes
-plt.xlabel('Eje X') # Eje x
-plt.ylabel('Eje Y') # Eje y
-plt.title('Grafico de Ejemplo') # Titulo
-
-# Para agregar una leyenda
-plt.legend()
-
-# Mostrando el grafico
-plt.show()
-\end{lstlisting}
-Se verá de la siguiente forma:
-\begin{figure}[H] 
-	\centering 
-	\includegraphics[width=0.7\linewidth]{graficoplt.png}
-	\caption{Gráfica de ejemplo}
-\end{figure}
-
-Parámetros:
-\begin{lstlisting}[language=Python]
-# Agrega cuadricula de fondo
-plt.grid(True)
-
-# marker: da opciones de la forma de los puntos
-plt.plot(x, y, marker='o', label = 'Linea')
-plt.plot(x, y, marker='-', label = 'Linea')
-
-# markersize: grosor de los puntos
-plt.plot(x, y, marker='o', markersize=6, label = 'Linea')
-
-# linestyle: configura el tipo de linea
-plt.plot(x, y, marker='o', linestyle='-' label = 'Linea')
-
-# color: agrega color a la linea
-plt.plot(x, y, color='b', label = 'Linea') # linea azul
-plt.plot(x, y, color='r', label = 'Linea') # linea roja
-\end{lstlisting}
-marker también posee:
-\begin{itemize}
-	\item .: punto.
-	\item ,: píxel.
-	\item $\wedge$: triángulo hacia arriba.
-	\item v: triángulo hacia abajo.
-	\item s: cuadrado.
-	\item +: cruz.
-	\item *: estrella.
-	\item x: cruz diagonal.
-	\item D: diamante.
-	\item p: pentágono.
-\end{itemize}
-
-Es posible configurar el tamaño de la figura con:
-\begin{lstlisting}[language=Python]
-# Configurando el tamanno a 8 x 6 pulgadas
-plt.figure(figsize=(8,6))
-\end{lstlisting}
-
-%	SUBSUBSECCION
-\subsubsection{Gráfico de líneas}
-En seaborn, un gráfico de líneas sería de la siguiente forma:
-\begin{lstlisting}[language=Python]
-import seaborn as sns
-import matplotlib.pyplot as plt
-
-# Datos
-x = [1, 2, 3, 4, 5]
-y = [2, 4, 6, 12, 20]
-
-# Creando el grafico de linea
-sns.lineplot(x=x, y=y, label='Linea')
-
-# Agregando etiquetas y titulo
-plt.xlabel('Eje X')
-plt.ylabel('Eje Y')
-plt.title('Grafico de linea')
-
-# Mostrando el grafico
-plt.show()
-\end{lstlisting}
-Mostrará el siguiente gráfico:
-\begin{figure}[H] 
-	\centering 
-	\includegraphics[width=0.7\linewidth]{graficosns.png}
-	\caption{Gráfico de líneas con sns}
-\end{figure}
-%	SUBSUBSECCION
-\subsubsection{Histograma}
-Con matplotlib, se puede construir un histograma de la siguiente forma:
-\begin{lstlisting}[language=Python]
-import matplotlib.pyplot as plt
-
-# Creando un histograma con 10 bins de color azul transparente
-plt.hist(x, color='blue', alpha=.4, bins=10, label='x')
-# Agregando titulo
-plt.title('Histograma de la variable x')
-# Leyenda
-plt.legend()
-\end{lstlisting}
-
-Para construir un histograma en seaborn:
-\begin{lstlisting}[language=Python]
-import seaborn as sns
-import matplotlib.pyplot as plt	
-
-# Construyendo el histograma
-sns.histplot(data=df, bins=10, color='skyblue')
-# Agregando etiquetas y titulo
-plt.title('Histograma con sns.histplot()')
-plt.xlabel('Valores')
-plt.ylabel('Frecuencia')
-# Mostrando el grafico
-plt.show()
-\end{lstlisting}
-Donde:
-\begin{itemize}
-	\item data: datos.
-	\item bins: cantidad de barras.
-\end{itemize}
-
-Con displot:
-\begin{lstlisting}[language=Python]
-import seaborn as sns
-import matplotlib.pyplot as plt
-
-sns.displot(data, color='skyblue',bins=10)
-# Agregando etiquetas y titulo
-plt.title('Histograma con sns.displot()')
-plt.xlabel('Valores')
-plt.ylabel('Frecuencia')
-# Mostrando el grafico
-plt.show()
-\end{lstlisting}
-displot permite utilizar otros parámetros, como por ejemplo permite construir dos histogramas en uno:
-\begin{lstlisting}[language=Python]
-import seaborn as sns
-import matplotlib.pyplot as plt
-
-# Creando un objeto en el cual grafique los datos de data correspondientes a mean_perimeter distinguiendo por el valor de diagnosis
-ax = sns.displot(data=df, x='mean_perimeter',  hue='diagnosis', fill=True)
-
-# Agregando etiquetas y titulo
-ax.set(xlabel='Media del Perimetro por Diagnostico',ylabel='Densidad', title='Perimetro v/s densidad')
-# Mostrando el grafico
-plt.show()
-\end{lstlisting}
-
-%	SUBSUBSECCION
-\subsubsection{Distribución normal}
-Para crear una gráfica que represente una distribución normal, primero se debe crear un arreglo de valores equidistantes entre el valor mínimo y el máximo de los datos con linspace. Luego, se crea una función llamada pdf que calcula el valor de la función de distribución de probabilidad normal para finalmente construir el histograma.
-\begin{lstlisting}[language=Python]
-from scipy.stats import norm
-import seaborn as sns
-import matplotlib.pyplot as plt
-
-# Calculando el maximo y el minimo de los datos
-minimo = df['columna'].min()
-maximo = df['columna'].max()
-
-# Arreglo de valores equidistantes
-x = np.linspace(minimo, maximo)
-
-# Crando la funcion pdf
-# 'sigma' funciona como 'escala'
-pdf = norm.pdf(x, loc=mu, scale=sigma)
-
-
-# Construyendo un histograma
-# 'density=True' construye el histograma haciendo que la suma de todas las areas de las barras sea igual a 1, para representar las probabilidades
-plt.hist(maths, bins=100, density=True, alpha=0.5, label='Muestra') #alpha=0.5 da un 50% de transparencia
-
-# Graficando la distribucion normal
-plt.plot(x, pdf, color='red', label='PDF')
-# Agregando etiquetas y titulo
-plt.xlabel('x')
-plt.ylabel('Densidad de probabilidad normalizada')
-plt.title('Distribuciones comparadas')
-# Leyenda
-plt.legend()
-# Mostrando el grafico
-plt.show()
-\end{lstlisting}
-
-%	SUBSUBSECCION
-\subsubsection{Boxplot}
-Anteriormente, se mencionó que se pueden visualizar de mejor manera los datos atípicos de una muestra con un boxplot.
-\begin{lstlisting}[language=Python]
-import pandas as pd
-import numpy as np
-import seaborn as sns
-import matplotlib.pyplot as plt
-
-# df
-data = {
-	'Grupo': ['A', 'A', 'B', 'B', 'B', 'C', 'C', 'C', 'C'],
-	'Valor': [5, 8, 12, 15, 20, 7, 10, 14, 18]
-}
-
-df = pd.DataFrame(data)
-
-# Creaando un boxplot
-sns.boxplot(x='Grupo', y='Valor', data=df)
-
-# Agregando etiquetas y titulo
-plt.xlabel('Grupo')
-plt.ylabel('Valor')
-plt.title('Boxplot por Grupo')
-
-# Mostrando el grafico
-plt.show()
-\end{lstlisting}
-Se verá de la siguiente forma:
-\begin{figure}[H] 
-	\centering 
-	\includegraphics[width=0.7\linewidth]{boxplot1.png}
-	\caption{Boxplot}
-\end{figure}
-Donde un boxplot con valores atípicos se vería de la siguiente forma:
-
-\begin{figure}[H] 
-	\centering 
-	\includegraphics[width=0.7\linewidth]{boxplot2.png}
-	\caption{Boxplot con valores atípicos}
-\end{figure}
-
-%	SUBSUBSECCION
-\subsubsection{Gráfico de barras}
-\begin{lstlisting}[language=Python]
-import seaborn as sns
-import matplotlib.pyplot as plt
-
-# Creando el grafico de barras
-sns.barplot(x=grouped_data.index, y=grouped_data.values) # Agregando etiquetas y titulo
-plt.xlabel('x')
-plt.ylabel('y')
-plt.title('Grafica de barras')
-# Etiquetas a las barras
-custom_labels = ['Barra 1', 'Barra 2']
-plt.xticks(range(len(custom_labels)), custom_labels)
-# Mostrando el grafico
-plt.show()
-\end{lstlisting}
-
-%	SUBSUBSECCION
-\subsubsection{Scatterplot}
-\begin{lstlisting}[language=Python]
-import seaborn as sns
-import matplotlib.pyplot as plt
-
-sns.set(style='whitegrid')
-# Creando el grafico
-sns.scatterplot(x='x', y='y', hue='columna', data=df, palette='Set1')
-plt.xlabel('x')
-plt.ylabel('y')
-plt.title('Grafica scatterplot')
-# Mostrando el grafico
-plt.show()
-\end{lstlisting}
-El parámetro hue especifica que se utilizará una columna del DataFrame para colorear los puntos de la gráfica. palette='Set1' especifica la paleta de colores que se utilizará para colorearla.
-
-%
-%	CAPITULO
-\chapter{R}
-% \texttt{\textcolor{red}{}}
-%	SECCION
-\section{Notas previas...}
-\begin{enumerate}
-\item 
-\end{enumerate}
-%	SECCION
-\section{Paquetes}
-Los paquetes en R incluyen funciones, documentación sobre estas mismas, muestras de conjuntos de datos y pruebas para verificar el código. R incluye un conjunto de paquetes denominados Base R. \\
-Existe una colección de paquetes llamado Tidyverse que contiene los siguientes paquetes:
-\begin{enumerate}
-\item ggplot2: se usa para visualizar datos y crear visualizaciones.
-\item tidyr: se usa para la limpieza de datos.
-\item readr: se usa para importar datos.
-\item dplyr: ofrece funciones que ayudan a la manipulación de datos.
-\end{enumerate}
-
-
-Otros paquetes:
-\begin{enumerate}
-\item here
-\item skimr: facilita el resumen de los datos.
-\item janitor
-\end{enumerate}
-
-Para ver los paquetes instalados:
-\begin{minted}{R}
-installed.packages()
-\end{minted}
-
-
-Para cargar paquetes:
-\begin{minted}{R}
-library(paquete)
-\end{minted}
-%	SECCION
-\section{Limpieza}
-%	SUBSECCION
-\subsection{Resúmenes de datos}
-Funciones para obtener resúmenes de los marcos de datos:
-\begin{minted}{R}
-#Muestra el tipo de datos
-str(df)
-#Devuelve el min, max, media, mediana, 1er y 3r cuartil. skimr
-summary(df)
-# skimr
-skim_without_charts(df)
-# Skimr
-skim(df)
-# Devuelve el numero de filas y columnas.
-glimpse(df)
-# Muestra solo las primeras seis filas.
-head(df)
-\end{minted}
-%	SECCION
-\section{Orden}
-\begin{minted}{R}
-# Se usa para elegir qué variable se quiere ordenar.
-arrange()
-# Para ordenar de forma descendente.
-arrange(-)
-# Agrupa.
-group_by()
-# Filtra los datos.
-filter()
-# Excluye valores NA.
-drop_na()
-\end{minted}
-%	SECCION
-\section{Transformación de datos}
-\begin{minted}[breaklines, breakanywhere]{R}
-# Divide datos en columnas separadas.
-separate(df,columna-a-separar, into=c('nom-col-nueva', 'nom-col-nueva-2'), sep= 'tipo-de-separador')
-# Permite fusionar columnas entre sí.
-unite(df, 'nom-col', col-a-combinar, col-a-combinar-2, sep='separador')
-# Se puede usar para añadir columnas con cálculos.
-mutate()
-\end{minted}
-%	SECCION
-\section{Cálculos matemáticos}
-\begin{minted}{R}
-# Media aritmética.
-mean()
-# Valor máximo.
-max()
-# Desviación estándar.
-sd()
-# Correlación.
-cor(x=var-x, y=var-y, method='pearson o kendall o spearman')
-\end{minted}
-%	SECCION
-\section{Visualización}
-Se utiliza la función ggplot para crear gráficas:
-\begin{minted}[breaklines, breakanywhere]{R}
-ggplot((data=df) + geom_función(mapping=aes(x=var-x, y=var-y, color=var1, shape=var2, size=var3, alpha=var4))), (color= color-para-todos-los-puntos) + labs() + annotate(text)
-\end{minted}
-
-
-Conceptos de la función ggplot:
-\begin{minted}[breaklines, breakanywhere]{R}
-# Se inicia un diagrama y se le pueden agregar capas con +.
-ggplot()
-# Dataset.
-data
-# Usa puntos para crear diagramas (figura geométrica).
-geom_función()
-# Define cómo se aplican las variables a las propiedades visuales.
-mapping # Va junto a la función aes()
-# Especifica qué variables aplicar a los ejes x e y, como el color (color),
-# color de relleno (fill), forma de puntos (shape), tipo de línea (linetype)
-# y tamaño (size).
-aes()
-# Grado de transparencia del color.
-alpha()
-# Se pueden introducir etiquetas como title="", subtitle="", caption="".
-labs
-# Se utiliza para agregar texto dentro de la cuadrícula.
-anotate(text)
-# Más información en https://ggplot2.tidyverse.org/reference/annotate.html
-\end{minted}
-
-
-Funciones geom:
-\begin{minted}{R}
-# Crea diagramas de dispersion.
-geom_point()
-# Crea graficos de barra.
-geom_bar()
-# Gráfico de líneas.
-geom_line()
-# Suavizado. Crea una línea de tendencia.
-geom_smooth()
-# Crea un histograma.
-geom_histogram()
-# Crea un diagrama de dispersión y agrega una pequeña cantidad de ruido
-#  aleatorio para lidiar con la superposición de puntos.
-geom_jitter()
-\end{minted}
-Cuando se usa la función geom$\_$bar, R cuenta automáticamente cuantas veces aparece cada valor x en los datos y muestra los recuentos en el eje y. Por esta razón, se puede poner en el código solo el eje x. Se puede usar fill para llenar de color las barras. \\
-En el caso de geom$\_$histogram, los argumentos de esta funcion son bins=numero, el cual hace referencia al numero de intervalos y binwidth=numero es la amplitud de los intervalos.
-%	SUBSECCION
-\subsection{Suavizado}
-El suavizado permite detectar una tendencia de datos aun cuando no se pueda notar con facilidad una tendencia en los puntos de datos graficados. En ggplot2, suma una línea de suavizado como otra capa en un diagrama. Ayuda a que los diagramas sean más legibles.
-\begin{enumerate}
-\item El suavizado LOESS es óptimo para suavizar diagramas con menos de 1000 puntos.
-\begin{minted}[breaklines, breakanywhere]{R}
-ggplot(data, aes(x=, y=))+ geom_point() + geom_smooth(method=”loess”)
-\end{minted}
-\item El suavizado GAM es útil para suavizar diagramas con un gran numero de puntos.
-\begin{minted}[breaklines, breakanywhere]{R}
-ggplot(data, aes(x=, y=))+ geom_point() +  geom_smooth(method=”gam”, formula = y ~ s(x))
-\end{minted}
-\end{enumerate}
-%	SUBSECCION
-\subsection{Estética y facetas}
-Una faceta es una cara o sección de un objeto. Sirve para comparar datos. Permiten mostrar grupos más pequeños, o subconjuntos, de datos.
-\begin{minted}{R}
-# Facetar el diagrama con una variable.
-facet_wrap(~variable)
-# Facetar el diagrama con dos variables.
-facet_grid(var1~var2)
-\end{minted}
-%	SUBSECCION
-\subsection{Guardar gráficas}
-Para guardar una gráfica se puede exportar desde RStudio o usar la función:
-\begin{minted}[breaklines, breakanywhere]{R} 
-ggsave(“nombre-gráfico.tipo-archivo”, width=ancho, height=largo) # del paquete ggplot2. Ejemplo:
-ggsave(“Pingüinos.png”)
-\end{minted}
-%
-%	CAPITULO
-\chapter{Markdown}
-Markdown es un lenguaje usado en documentos donde existen dos tipos de celdas: una de texto y otra de código. Las celdas de texto están formateadas con este lenguaje, lo que lo hace fácil y simple de escribir.
-
-Tanto Colab como R permiten insertar ecuaciones usando la notación de LaTeX y personalizar la escritura con código HTML.
-
-
-Se le puede dar formato a la escritura con los siguientes comandos:
-\begin{enumerate}
-	\item \textit{Cursiva}: *texto*
-	\item \textbf{Negrita}: **texto**
-	\item Tachado: ~~texto~~
-	\item \textcolor{blue}{\underline{Enlaces}}: [Clic aquí](aquiVaElEnlace)
-	\item Monoespaciado: `texto`
-	\item Imagen: ![Una imagen](linkDeLaImagen)
-\end{enumerate}
-
-Los encabezados en Markdown se inician con un numeral. Mientras más numerales tenga, más pequeño es el encabezado.
-
-$\#$ Capítulo 1: {\LARGE Capítulo 1:}
-
-$\#\#$ Sección 1: {\Large Sección 1:}
-
-$\#\#\#$ Subsección: {\large Subsección:}
-
-Se pueden insertar bloques de código en las celdas de texto usando las comillas ``.
-
-\texttt{```python}
-	
-\texttt{import pandas as pd
-	```}
-
-De esta forma, el código en la celda tendrá un formato especial:
-\begin{lstlisting}[language=Python]
-import pandas as pd
-\end{lstlisting}
-
-
-Se pueden crear listas ordenadas:
-\begin{enumerate}
-	\item Propiedad 1
-	\item Propiedad 2
-	\item Propiedad 3
-\end{enumerate}
-Y listas desordenadas con guiones (-) o asteriscos (*):
-
-- Propiedad 1
-
-- Propiedad 2
-
-- Propiedad 3
-
-
-Es posible insertar líneas horizontales con tres asteriscos (***) o tres guiones (---).
-
-
-%
-%	CAPITULO
-\chapter{Git y GitHub}
-%	SECCION
-\section{Git}
-Se puede hacer correr desde la cmd con el comando \texttt{git}. \\
-Lista de comandos:
-\begin{itemize}
-\item \texttt{git config --global user.name "nom-usuario"}: se configura el nombre de usuario que va entre las comillas. Para configurar el email se debe poner \texttt{git config --global user.email} seguido del email entre comillas.
-\item \texttt{git config user.name}: para ver el nombre de usuario. Para ver el email es \texttt{git config user.email}
-\end{itemize}
-%	SUBSECCION
-\subsection{Repositorios}
-Para abrir Git en el proyecto, se debe hacer clic derecho Git Bash Here en la carpeta donde se ubica dicho proyecto. Una vez abierto, se puede crear un nuevo repositorio con \texttt{git init} en la rama Master o main.
-
-Con el comando \texttt{git add nom-archivo.extension} se puede enviar archivos al repositorio. Si se quieren subir todos los archivos, se debe usar el comando \texttt{git add .}.
-
-Una vez que se hayan realizado todos los cambios en los archivos, se le puede añadir un comentario con \texttt{git commit -m "Mensaje"} y se suben con \texttt{git push origin nom-rama}.
-
-Si los archivos fueron modificados en GitHub, se pueden bajar al computador con \texttt{git pull}.
-
-Lista de comandos: 
-\begin{enumerate}
-\item \texttt{git status}: ver el estado del proyecto.
-\item \texttt{git commit -m "mensaje"}: se utiliza para tomar una instantánea del proyecto y dejar un mensaje con los cambios realizados en este.
-\item \texttt{git log}: para ver todos los mensajes y cambios que han realizado los autores.
-\item \texttt{git log --stat}: sirve para visualizar los commits y muestra un pequeño resumen de lo modificado, como la cantidad de líneas e inserciones.
-\item \texttt{git log --oneline}: muestra un código que identifica al commit.
-\item \texttt{git checkout codigo-commit}: actualiza el archivo para que coincida con el commit señalado en el código-commit. Una vez que se vuelve a un commit anterior, los otros que están en medio se borran. Por esta razón se recomienda trabajar con ramas.
-\item \texttt{git rm --cached nom-archivo.extension}: deja de rastrear un archivo sin eliminarlo del directorio de trabajo. Si se quiere hacer con todos los archivos: \texttt{git rm --cached .}.
-\item \texttt{git clone direccion-del-repositorio}: clonar un repositorio en el computador.
-\item \texttt{touch nom$\_$archivo.extension}: crea un archivo.
-\item \texttt{clear}: limpiar la pantalla.
-\end{enumerate}
-%	SUBSECCION
-\subsection{.gitignore}
-El archivo .gitignore se crea con fines de que Git ignore ciertos archivos. Para crearlo, se puede hacer mediante la consola de Git con \texttt{touch .gitignore}. Luego de crearlo, se puede abrir con cualquier aplicación y escribir los archivos que se desean ignorar. Se deben escribir los nombres de los proyectos, como mi$\_$proyecto.txt, o se pueden ignorar todas las extensiones, como *.txt.
-
-%	SUBSECCION
-\subsection{Ramas}
-Una rama en Git es una versión del código de un proyecto, las cuales ayudan a mantener el orden en el control de versiones. El control de versiones es la práctica de gestionar los cambios que se realizan sobre un código. Cuando se habla del estado en el que se encuentra, se refiere a la versión, revisión o edición de este. \\
-Cada repositorio en Git comienza con una rama principal predeterminada llamada master. \\
-Git almacena una serie de instantáneas al ejecutar el comando commit junto con los metadatos de quién lo haya modificado. \\
-Comandos:
-\begin{itemize}
-\item \texttt{git branch}: devuelve la cantidad de ramas que tiene un proyecto.
-\item \texttt{git checkout rama}: cambia de rama.
-\item \texttt{git checkout -b nombre-rama}: crear una rama.
-\item \texttt{git merge nombre-rama}: unir ramas. El código de nombre-rama se une al de la rama en la que se está trabajando.
-\item \texttt{git branch -d nombre-rama}: eliminar una rama solo si la rama se ha fusionado. De lo contrario, usar \texttt{-D} que elimina la rama independientemente de su estado de fusión.
-\item \texttt{git branch -d nombre-remoto/nombre-rama}: eliminar una rama remota de VSCode. Generalmente, \texttt{nombre-remoto} es origin.
-\end{itemize}
-
-%
-%	CAPITULO
 \chapter{Tableau Public}
 Tableau Public es una plataforma para crear y compartir visualizaciones de datos en línea.
 
@@ -2278,7 +570,7 @@ Una hoja de trabajo es un espacio donde se puede construir la visualización de 
 		\item Las dimensiones son los datos categóricos. Su fin es clasificar la información. Los tipos de dimensiones son: fechas, cadenas de texto, booleanos (verdadero o falso) y rol geográfico. Ejemplo: género, estado civil.
 		\item Las medidas son datos de origen cuantitativos que asignan valores a las dimensiones. Los tipos de medidas son: números y rol geográfico (latitud y longitud). Ejemplo: cantidad de habitantes.
 	\end{itemize}
-	  En este mismo panel, se encuentran datos de color azules, los cuales corresponden a datos discretos. Se tratan como finitos. Por el contrario, los verdes son datos continuos. Se tratan como un intervalo infinito.
+	En este mismo panel, se encuentran datos de color azules, los cuales corresponden a datos discretos. Se tratan como finitos. Por el contrario, los verdes son datos continuos. Se tratan como un intervalo infinito.
 	\item Marcas: en la tarjeta de marcas se configura la forma en que las dimensiones y medidas serán representadas. Sus elementos son: Tipo de marca: el cual indica la forma en la que se van a graficar los datos; Color: permite cambiar los colores de la visualización; Tamaño: varía el tamaño de la visualización; Texto: permite definir el texto de la etiqueta a mostrar en la gráfica; Detalle: permite agregar información a las marcas; Descripción emergente: permite que al pasar el mouse por una marca se muestre una descripción emergente con información.
 	\begin{figure}[H] 
 		\centering 
@@ -2449,6 +741,1716 @@ Luego, arrastrar las vistas desde la lista de Hojas hacia el dashboard.
 
 %
 %	CAPITULO
+\chapter{Python}
+% \texttt{\textcolor{blue}{}}
+%	SECCION
+\section{Notas previas...}
+\begin{enumerate}
+	\item Python es un lenguaje de programación orientado a objetos de alto nivel.
+	\item Los tipos de datos en Python son int (números enteros), float (decimales), string (cadenas de texto) y booleanos.
+	\item Los strings se escriben entre comillas simples o dobles.
+	\item Los comentarios se hacen con el numeral ($\#$). Los comentarios que contengan más de una línea se hacen en un bloque de tres comillas simples:
+	\begin{minted}[breaklines, breakanywhere]{Python}
+# Esto es un comentario
+		
+'''
+Esto
+es un
+comentario
+'''
+	\end{minted}
+\end{enumerate}
+
+%	SECCION
+\section{Librerías}
+En ciencia de datos, las librerías más usadas son NumPy, Matplotlib y Pandas.
+%	SUBSECCION
+\subsection{Importación de datos}
+Para importar las librerías, se utiliza el comando \texttt{\textcolor{blue}{import}} y, usualmente, se le asigna un alias:
+\begin{minted}[breaklines, breakanywhere]{Python}
+import libreria as alias
+\end{minted}
+Si se quiere importar solo una función de una librería:
+\begin{minted}[breaklines, breakanywhere]{Python}
+from libreria import funcion as alias
+\end{minted}
+Ejemplo:
+\begin{minted}[breaklines, breakanywhere]{Python}
+# Funcion que genera un numero aleatorio entre 0 y 10
+import random
+num = random.randit(0, 10)
+print('El numero es ', num)
+\end{minted}
+
+
+En Google Colaboratory, se importan los datos de drive con Pandas:
+\begin{minted}[breaklines, breakanywhere]{Python}
+from google.colab import drive
+drive.mount('/content/drive')
+\end{minted}
+Luego, ir a Archivos $>$ Drive $>$ Copiar ruta de acceso. Se debe importar la librería Pandas con un alias:
+\begin{minted}[breaklines, breakanywhere]{Python}
+import pandas as pd
+\end{minted}
+Finalmente, para leer un archivo en formato csv:
+\begin{minted}[breaklines, breakanywhere]{Python}
+nom_ds = pd.read_csv('ruta-del-archivo.csv')
+\end{minted}
+
+%	SECCION
+\section{Conceptos previos}
+%	SUBSECCION
+\subsection{Manipulación de strings}
+Los strings son cadenas de textos que contienen una secuencia de caracteres, como palabras. Se definen usando comillas simples o dobles y se pueden realizar operaciones con ellas.
+
+Para interactuar con el usuario, se usan los comandos \texttt{\textcolor{blue}{print}} y \texttt{\textcolor{blue}{input}}. El primero imprime un mensaje en pantalla, mientras que el segundo permite que el usuario ingrese datos.
+\begin{minted}[breaklines, breakanywhere]{Python}
+# Imprimir texto en pantalla
+print('Hola mundo')
+	
+# Toma informacion y la puede guardar en una variable
+nombre=input('Cual es tu nombre?')
+	
+# Sustituir variables en un string
+print(f'Tu nombre es: {nombre}')
+
+# Concatenacion
+print('hola' + ' '+ 'mundo')
+# salida: hola mundo
+	
+# Repeticion
+print('Ja' * 4)
+# salida: JaJaJaJa
+\end{minted}
+
+
+Para transformar un número a string:
+\begin{minted}[breaklines, breakanywhere]{Python}
+str(15)
+# salida: 15
+	
+print('Quiero ' + str(15) + ' panes')
+\end{minted}
+Y de un string a número:
+\begin{minted}[breaklines, breakanywhere]{Python}
+edad = int(input('Cual es tu edad?'))
+\end{minted}
+Operaciones con strings:
+\begin{minted}[breaklines, breakanywhere]{Python}
+texto = 'Hola a todos'
+# 1. lower(): convierte los caracteres a minusculas
+texto_1 = texto.lower()
+print(texto_1)
+# salida: hola a todos
+	
+# 2. upper(): convierte los caracteres a mayusculas
+texto_2 = texto.upper()
+print(texto_2)
+# salida: HOLA A TODOS
+	
+# 3. replace(sub, new_sub): reemplaza texto por uno nuevo
+texto_3 = texto.replace('todos','Marta')
+print(texto_3)
+# salida: Hola a Marta
+	
+# 4. split(sep): divide una cadena en una lista con un separador
+textonuevo = 'Hola,Josesa'
+lista = textonuevo.split(',')
+print(lista)
+# salida: ['Hola', 'Josefa']
+	
+# 5. strip(): elimina los espacios en blanco al inicio y final de una cadena
+otrotexto = '	Hola	'
+texto_4 = otrotexto.strip()
+print(texto_4)
+# salida: Hola
+\end{minted}
+
+%	SUBSECCION
+\subsection{Estructuras de datos}
+Listas o arreglos: son secuencias de elementos ordenados por un índice, empezando por el 0.
+\begin{minted}[breaklines, breakanywhere]{Python}
+# Crear una lista
+lista_1 = ['elemento0', 'elemento1', 'elemento2']
+print(lista_1) # Imprime la lista
+
+# Para acceder a los elementos de la lista:
+print(lista_1[0])
+# salida: elemento0
+	
+print(lista_1[2]) # o print(lista_1[-1])
+# salida: elemento2
+	
+# Para agregar un elemento al final de la lista
+lista_1.append('elemento3')
+print(lista_1)
+# salida: ['elemento0', 'elemento1', 'elemento2', 'elemento3']
+	
+# Para obtener la longitud
+longitud = len(lista_1)
+print(longitud)
+# salida: 4
+\end{minted}
+
+Diccionarios: es una colección de par clave-valor. Su sintaxis es $\{clave: valor\}$:
+\begin{minted}[breaklines, breakanywhere]{Python}
+diccionario_1={'nombre':'Marcelo',
+	'apellido':'Soto',
+	'ciudad':'Santiago',
+	'edad':38,
+	'profesion':'Presidente'}
+
+# Imprimir un valor
+print({diccionario_1['profesion']})
+# salida: Presidente
+	
+# Agregar un nuevo par clave-valor
+diccionario_1['estado civil'] = 'Soltero'
+\end{minted}
+
+Tuplas: las tupla no se pueden modificar después de haber sido creada.
+\begin{minted}[breaklines, breakanywhere]{Python}
+tupla_1=('elemento0', 'elemento1', 'elemento3')
+	
+# Para que devuelva 'elemento0'
+tupla_1[0]
+\end{minted}
+
+Set: no permite tener elementos repetidos. Guardará solo los datos que no se repiten.
+\begin{minted}[breaklines, breakanywhere]{Python}
+set_1 = {'banana', 'manzana', 'pera'}
+\end{minted}
+
+%	SECCION
+\section{Limpieza, orden y transformación de datos}
+
+%	SUBSECCION
+\subsection{Bibliotecas}
+Las bibliotecas que más se usan en Python para la ciencia de datos son Pandas, NumPy, Scikit-learn y Matplotlib.
+
+NumPy se especializa en el cálculo y análisis de datos, la cual permite manejar datos de forma rápida por medio de los NumPy Arrays o ndarray, una estructura de datos que puede ser de una dimensión (vector), dos dimensiones (matriz), tres (cubo) o más.
+
+Por lo general, se importa con el alias np:
+\begin{minted}[breaklines, breakanywhere]{Python}
+import numpy as np
+\end{minted}
+Por otro lado, la biblioteca Pandas permite manipular y analizar estructuras de datos. Se basa en NumPy y proporciona los siguientes tipos de datos:
+\begin{enumerate}
+	\item Series: Estructuras de una dimensión.
+	\item DataFrame: Estructura de dos dimensiones.
+	\item Panel: Estructura de tres dimensiones.
+\end{enumerate}
+Se importa bajo el alias de pd:
+\begin{minted}[breaklines, breakanywhere]{Python}
+import pandas as pd
+\end{minted}
+
+
+Scikit-learn es una biblioteca de aprendizaje automático que proporciona acceso a algoritmos comunes.
+\\
+
+Matplotlib se especializa en la generación de gráficos en dos dimensiones y personalización de estos. Se pueden crear diagramas de barras, mapas de calor, histogramas y más.
+
+Por lo general, se importa con el alias plt:
+\begin{minted}[breaklines, breakanywhere]{Python}
+import matplotlib.pyplot as plt
+\end{minted}
+
+%	SUBSECCION
+\subsection{NumPy Arrays}
+Un NumPy Array se puede crear a partir de una lista usando el comando \texttt{\textcolor{blue}{np.array}}:
+\begin{minted}[breaklines, breakanywhere]{Python}
+# Arreglo 1d
+a = np.array([1,2,3,4,5])
+	
+# Arreglo 2d
+b = np.array([[3,4,5],
+[4,3,2]])
+\end{minted}
+O por medio de \texttt{\textcolor{blue}{no.arrange}}, el cual crea un arreglo de una dimensión con valores del 0 a n:
+\begin{minted}[breaklines, breakanywhere]{Python}
+# Sintaxis
+# a = np.arrange(inicio, fin-1,paso)
+d = np.arrange(3,8,1)
+\end{minted}
+
+Propiedades:
+\begin{minted}[breaklines, breakanywhere]{Python}
+# Dimension del arreglo
+arreglo.ndim
+	
+# Forma del arreglo (filas,columnas)
+arreglo.shape
+	
+# Cantidad de datos en el arreglo
+arreglo.size
+\end{minted}
+
+Para buscar valores en un arreglo, Python toma cada fila como un arreglo, donde el primero tendrá índice cero. Lo mismo ocurre con sus columnas, como se muestra a continuación:
+\begin{minted}[breaklines, breakanywhere]{Python}
+#       0  1  2
+array([[1, 0, 3],  # indice 0
+	[2, 6, 9],  # indice 1
+	[4, 5, 8]]) # indice 2
+\end{minted}
+De esta forma, para seleccionar el número 6, se debe insertar \texttt{\textcolor{blue}{arreglo[1,1]}}.
+
+
+Generación de números aleatorios:
+\begin{minted}[breaklines, breakanywhere]{Python}
+# Crea un arreglo de numeros aleatorios entre 0 y 1
+a_1 = np.random.default_rng(n)
+	
+# Genera n valores aleatorios que siguen una distribucion normal.
+normal(media, desv_estandar,n)
+
+# Genera n numeros aleatorios entre el 0 y fin-1.
+integers(fin-1, size = n)
+	
+# Genera n numeros aleatorios entre el 0 y fin-1 sin repetirse.
+choice(fin-1, size = n, replace = False)
+\end{minted}
+%	SUBSECCION
+\subsection{Tipos de datos de Pandas}
+%	SUBSUBSECCION
+\subsubsection{Series}
+Las Series se definen bajo la siguiente sintaxis:
+\begin{minted}[breaklines, breakanywhere]{Python}
+Series(data=datos, index= indices, dtype='int') # tipo de dato
+\end{minted}
+
+Por ejemplo:
+\begin{minted}[breaklines, breakanywhere]{Python}
+# Serie creada con una lista de numeros
+s = Series([1,2,3,4,5,6], dtype='int')
+
+# Serie creada a partir de un diccionario
+sdiccionario = pd.Series({'Bajo':1.40, 'Medio':1.60, 'Alto:170'})
+\end{minted}
+
+%	SUBSECCION
+\subsubsection{DataFrame}
+Un DataFrame es una tabla similar a las hojas de cálculo de Excel. Posee filas y columnas. Las columnas solo puede tener datos de un solo tipo y poseen un encabezado. Cada fila se identifica por un índice único.
+
+Es posible crear un DataFrame mediante listas de diccionarios, listas de listas, un array, etc. Se utiliza el siguiente código:
+\begin{minted}[breaklines, breakanywhere]{Python}
+df = pd.DataFrame(data = datos, index = 'filas', columns = 'columnas', dtype = 'int')
+# index=False: retorna indices numericos
+\end{minted}
+
+Ejemplo de un DataFrame:
+\begin{minted}[breaklines, breakanywhere]{Python}
+indice = ['mes 1', 'mes 2', 'mes 3', 'mes 4', 'mes 5']
+df1 = pd.DataFrame({'mes': ['marzo', 'abril', 'mayo', 'junio', 'julio'], 'ventas': np.random.randint(1,100, 5)}, index = indice)
+df1
+\end{minted}
+Esto mostrará un resultado similar a:
+\begin{figure}[H] 
+	\centering 
+	\includegraphics[width=0.25\linewidth]{tabladf1.png}
+	\caption{DataFrame df1 en Colab}
+\end{figure}
+
+De la misma forma que en un NumPy Array, se pueden seleccionar datos específicos mediante un localizador de etiquetas con loc o índices con \texttt{\textcolor{blue}{iloc}}:
+\begin{minted}[breaklines, breakanywhere]{Python}
+# Busca el numero ubicado en la fila con indice 3 y columna con indice 1
+df1.iloc[3,1]
+# 21
+	
+# Busca los datos entre marzo y mayo de df1
+df1.loc[:,['mes 1': 'mes 3']] # puede ser el nombre de una fila o columna
+#        mes   ventas
+# mes 1  marzo   18
+# mes 2  abril   79
+# mes 3  mayo    18
+\end{minted}
+%	SUBSECCION
+\subsection{Importación datos}
+La importación de datos se hace mediante el comando \texttt{\textcolor{blue}{pd.read$\_$csv}} en el caso de un archivo .csv.
+\begin{minted}[breaklines, breakanywhere]{Python}
+df = pd.read_csv('archivo.csv', index_col = 'nom_indice')
+\end{minted}
+
+%	SUBSECCION
+\subsection{Resúmenes de datos}
+Por defecto, la función \texttt{\textcolor{blue}{head()}} muestra las primeras cinco filas del DataFrame. De lo contrario, el comando \texttt{\textcolor{blue}{tail()}} muestra las últimas cinco:
+\begin{minted}[breaklines, breakanywhere]{Python}
+# Muestra los primeros 5 datos
+df.head()
+	
+# Muestra los ultimos 5
+df.tail()
+\end{minted}
+
+Devuelve una tabla con la media, mediana, desviación estándar, máximo, mínimo y los percentiles del DataFrame:
+\begin{minted}[breaklines, breakanywhere]{Python}
+df.describe()
+\end{minted}
+
+Tipo de datos de las columnas del DataFrame:
+\begin{minted}[breaklines, breakanywhere]{Python}
+df.info()
+\end{minted}
+
+
+%	SUBSECCION
+\subsection{Manipulación y limpieza de datos}
+
+%	SUBSUBSECCION
+\subsubsection{Transformación de datos}
+Cuando se trabaja con fechas, es posible que estos valores aparezcan de tipo string. Para transformarlos a un formato de fecha, se ocupa \texttt{\textcolor{blue}{pd.to$\_$datetime()}}:
+\begin{minted}[breaklines, breakanywhere]{Python}
+df['fecha']= pd.to_datetime(df['fecha'])
+\end{minted}
+Luego, es posible acceder a los métodos de las fechas usando .dt:
+\begin{minted}[breaklines, breakanywhere]{Python}
+# Accediendo a los annos de las fechas
+df['fecha'].dt.year
+	
+# Accediendo a los meses de las fechas
+df['fecha'].dt.month
+	
+# Accediendo a los nombres de los meses de las fechas
+df['fecha'].dt.month_name()
+	
+# Accediendo a los dias de las fechas
+df['fecha'].dt.day
+	
+# Convirtiendo a formato de fecha y hora especificando el formato
+df['fecha'] = pd.to_datetime(df['fecha'], format='%d-%m-%Y')
+\end{minted}
+
+%	SUBSUBSECCION
+\subsubsection{Búsqueda de valores}
+Además de \texttt{\textcolor{blue}{iloc}} y \texttt{\textcolor{blue}{loc}}, se puede buscar valores en un DataFrame con \texttt{\textcolor{blue}{isin()}}, en el cual se le debe indicar entre paréntesis los valores a buscar:
+\begin{minted}[breaklines, breakanywhere]{Python}
+# Devuelve el df donde encuentre los valores 23 y 45 en la columna1
+df[df.columna1.isin([23,45])]
+\end{minted}
+
+%	SUBSUBSECCION
+\subsubsection{Tratamiento de datos nulos}
+Elimina datos \texttt{\textcolor{blue}{np.nan}}:
+\begin{minted}[breaklines, breakanywhere]{Python}
+# Devuelve la cantidad de nulos en cada columna
+df.isna().sum()	
+	
+# Borra las columnas y filas que tengan datos faltantes
+df.dropna()
+	
+# Borrando definitivamente los valores nulos
+df.dropna(inplace=True)
+	
+# Creando un df nuevo sin nulos
+df_nuevo = df.dropna()
+	
+# Reemplazando los valores nulos con 0
+df.dropna(0)
+	
+# Reemplazando los valores nulos con 0
+df.fillna(0)
+\end{minted}
+Otra forma de buscar valores nulos en un DataFrame:
+\begin{minted}[breaklines, breakanywhere]{Python}
+	missing_values = df.apply(lambda x: sum(x.isnull()),axis=0)
+\end{minted}
+Desglosando el código:
+
+\begin{itemize}
+	\item \texttt{\textcolor{blue}{df.apply()}}: aplica una función a lo largo de un eje del DataFrame. Como axis = 0, lo aplica a lo largo de las columnas.
+	\item \texttt{\textcolor{blue}{lambda x: sum(x.isnull())}}: la función lambda toma una columna x y calcula la suma de sus valores nulos, es decir, devuelve la cantidad de valores nulos de dicha columna.
+\end{itemize}
+
+%	SUBSUBSECCION
+\subsubsection{Tratamiento de datos duplicados}
+Quitar filas duplicadas:
+\begin{minted}[breaklines, breakanywhere]{Python}
+# Devuelve los valores duplicados de columna1
+df[df.duplicated(subset=['columna1'])]
+	
+# Borrando duplicados de las columnas columna1 y columna2 de df
+df_sin_duplicados = df.drop_duplicates(subset=['columna1', 'columna2'])
+\end{minted}
+
+Es posible tratar los datos faltantes rellenando con la media o la mediana:
+\begin{minted}[breaklines, breakanywhere]{Python}
+# Rellenando con la media
+df['columna'].fillna(df['columna'].mean(), inplace=True)
+\end{minted}
+
+%	SUBSUBSECCION
+\subsubsection{Tratamiento de datos atípicos}
+Una forma de limpiar datos atípicos de una muestra es mediante el método del rango intercuartílico (IQR), el cual consiste en eliminar los datos que estén fuera de Q3+1.5*IQR o de Q1-1.5*IQR, donde IQR se define como el cuartil 3 (Q3) menos el cuartil 1 (Q1). Los valores fuera de este rango se consideran atípicos.
+
+En Python, esto se puede hacer de la siguiente forma:
+\begin{minted}[breaklines, breakanywhere]{Python}
+# Filtrando valores atipicos
+data = df['columna']
+Q1 = np.percentile(data, 25)
+Q3 = np.percentile(data, 75)
+IQR = Q3 - Q1
+lower_bound = Q1 - 1.5 * IQR
+upper_bound = Q3 + 1.5 * IQR
+var_num=var_num.iloc[np.where((data>= lower_bound) * (data <= upper_bound))]
+
+df.reset_index(drop=True, inplace=True)
+\end{minted}
+Es posible visualizar los datos atípicos mediante un boxplot.
+%	SUBSUBSECCION
+\subsubsection{Filtros}
+Con Pandas se pueden filtrar datos por condiciones, columnas, filas.
+
+Filtrando por columnas:
+\begin{minted}[breaklines, breakanywhere]{Python}
+# Devuelve los valores de la columna ventas de df
+df['ventas']
+	
+# Devuelve las columnas mes y ventas
+df[['mes','ventas']]
+\end{minted}
+
+Filtrando por filas:
+\begin{minted}[breaklines, breakanywhere]{Python}
+# POR INDICE
+# Devuelve la fila con indice 0
+df.iloc[0]
+	
+# Devuelve desde la primera fila hasta la 4ta
+df.iloc[0:5]
+	
+# Devuelve la fila con indice 0 y la 2
+df.iloc[[0,2]]
+	
+# POR ETIQUETAS
+# Seleccionando las etiquetas ventas y annos
+df.loc[['ventas', 'anno']]
+\end{minted}
+
+Filtrando por condiciones:
+\begin{minted}[breaklines, breakanywhere]{Python}
+# Devuelve los datos del df donde las ventas son mayores a 1000
+df[df['ventas']>1000]
+	
+# Devuelve los datos del df donde las ventas son mayores a 1000 y el mes es igual a abril
+df[(df['ventas']>1000) & (df['mes'] == 'abril')]
+	
+# Devuelve los meses que contienen la subcadena a, como marzo, abril, mayo, agosto
+df[df['mes'].str.contains('a')]
+\end{minted}
+
+%	SUBSUBSECCION
+\subsubsection{Orden}
+Para ordenar los datos de en DataFrame, se usa la función \texttt{\textcolor{blue}{sort$\_$values}}, seguida de la columna la cual se quiere ordenar y luego si se quiere ordenar de forma creciente o decreciente.
+\begin{minted}[breaklines, breakanywhere]{Python}
+df.sort_values(by = 'columna_a_ordenar', ascending=True, inplace=False)
+\end{minted}
+
+%	SUBSUBSECCION
+\subsubsection{Agrupación de datos}
+En Pandas se utiliza \texttt{\textcolor{blue}{groupby()}} para agrupar datos de una columna para aplicarle funciones como la media, suma, etc.
+\begin{figure}[H] 
+	\centering 
+	\includegraphics[width=0.4\linewidth]{tabladf2.png}
+	\caption{DataFrame}
+\end{figure}
+El DataFrame anterior muestra cada país con su número de seguidores y menciones. Se que quiere agrupar el promedio de ambas columnas según su país, se debe aplicar el siguiente comando:
+\begin{minted}[breaklines, breakanywhere]{Python}
+# Devuelve el promedio de los datos agrupados por sus paises
+df.groupby('pais').mean()
+\end{minted}
+Y devolverá la siguiente tabla:
+\begin{figure}[H] 
+	\centering 
+	\includegraphics[width=0.4\linewidth]{tablagroupby.png}
+	\caption{DataFrame agrupado según su país}
+\end{figure}
+Por otro lado, si se necesitan aplicar más funciones de agregación, se debe añadir el comando \texttt{\textcolor{blue}{agg}} con un diccionario de las columnas y las funciones:
+\begin{minted}[breaklines, breakanywhere]{Python}
+# Devuelve la suma de seguidores y el promedio de menciones de df agreupados por pais
+df.groupby('pais').agg({'seguidores': 'sum', 'menciones': 'mean'})
+\end{minted}
+
+\begin{figure}[H] 
+	\centering 
+	\includegraphics[width=0.4\linewidth]{tablagroupby2.png}
+	\caption{DataFrame agrupado según su país}
+\end{figure}
+
+%	SUBSECCION
+\subsection{Cruce de tablas}
+Con la librería Pandas, se pueden cruzar dos tablas mediante \texttt{\textcolor{blue}{merge()}}, donde la primera tabla será la tabla derecha (tabla1) y la segunda la izquierda (tabla2):
+\begin{minted}[breaklines, breakanywhere]{Python}
+# Cruce entre tabla1 y tabla2
+df_merged = df_tabla1.merge(df_tabla2, left_on = 'col1_t1', right_on = 'col1_t2', how='inner', validate = 'many_to_one')
+\end{minted}
+Sus parámetros son:
+\begin{itemize}
+	\item \texttt{\textcolor{blue}{left$\_$on}}: Columnas a cruzar por la izquierda.
+	\item \texttt{\textcolor{blue}{right$\_$on}}: Columnas a cruzar por la derecha.
+	\item \texttt{\textcolor{blue}{on}}: En el caso de que ambas columnas tengan el mismo nombre, se usa on y se escribe el nombre de la columna.
+	\item \texttt{\textcolor{blue}{how}}: Es el tipo de cruce. Puede ser left, right, inner, outer o cross.
+	\item \texttt{\textcolor{blue}{validate}}: Comprueba si el cruce es del tipo indicado. Puede ser one$\_$to$\_$one, one$\_$to$\_$many, many$\_$to$\_$one, many$\_$to$\_$many.
+\end{itemize}
+
+%	SECCION
+\section{Probabilidad y estadística}
+% SUBSECCION
+\subsection{Estadística}
+%SUBSUBSECCION
+\subsubsection{Tipos de datos en estadística}
+En estadística, existen diferentes tipos de datos que se clasifican en:
+\begin{enumerate}
+	\item Variables cualitativas ordinales: son variables que pueden ser ordenadas o poseen un tipo de jerarquía.
+	\item Variables cualitativas nominales: son variables que no pueden ser ordenadas. Se utilizan para clasificar elementos.
+	\item Variables cuantitativas discretas: son variables que representan un conteo donde los valores formar un conjunto finito.
+	\item Variables cuantitativas continuas: son las variables que representan una medición en escalas continuas.
+\end{enumerate}
+
+%	SUBSUBSECCION
+\subsubsection{Medidas de tendencia central}
+Las medidas de tendencia central son medidas estadísticas que se utilizan para resumir un conjunto de valores. Las medidas más comunes son:
+
+\begin{itemize}
+	\item Media aritmética
+	\item Moda
+	\item Mediana
+\end{itemize}
+
+En Python, es posible calcular las medidas de tendencia central mediante las siguientes fórmulas:
+\begin{minted}[breaklines, breakanywhere]{Python}
+# Media
+media = df['columna'].mean()
+	
+# Moda
+moda = df['columna'].mode()
+	
+# Mediana
+mediana = df['columna'].median()
+\end{minted}
+
+%	SUBSUBSECCION
+\subsubsection{Indicadores de posición}
+Mientras que los indicadores de posición son indicadores estadísticos que se utilizan para resumir los valores en uno solo o dividirlos en intervalos del mismo tamaño. Dentro de ellos se encuentran:
+\begin{itemize}
+	\item Percentiles
+	\item Cuartiles
+	\item Quintiles
+	\item Deciles
+\end{itemize}
+En Python, se pueden calcular usando \texttt{\textcolor{blue}{quantile}} y escribiendo el percentil. Por ejemplo, si se quiere obtener un percentil en específico:
+\begin{minted}[breaklines, breakanywhere]{Python}
+# Percentiles
+percentil = df['columna'].quantile(0.30)
+\end{minted}
+O los quintiles de una columna:
+\begin{minted}[breaklines, breakanywhere]{Python}
+# Quintiles
+quintil = df['columna'].quantile([0, 0.2, 0.4, 0.6, 0.8, 1])
+\end{minted}
+Lo mismo con los cuartiles:
+\begin{minted}[breaklines, breakanywhere]{Python}
+# Cuartiles
+cuartil = df['columna'].quantile([0, 0.25, 0.50, 0.75, 1])
+\end{minted}
+%	SUBSUBSECCION
+\subsubsection{Medidas de dispersión}
+A diferencia de las medidas de tendencia central que entregan una idea sobre la ubicación central de los datos, las medidas de dispersión se utilizan para describir el cambio o dispersión de un conjunto. Algunas son:
+\begin{itemize}
+	\item Rango
+	\item Rango intercuartil
+	\item Desviación media
+	\item Desviación estándar
+	\item Varianza
+	\item Coeficiente de variación
+\end{itemize}
+En Python, se pueden obtener de la siguiente forma:
+\begin{minted}[breaklines, breakanywhere]{Python}
+# Rango
+rango = df['columna'].max() - df['columna'].min()
+	
+# Rango intercuartil
+rango_inter = df['columna'].quantile(0.75) - df['columna'].quantile(0.25)
+	
+# Desviacion estandar
+des_estandar = df['columna'].std()
+	
+# Devuelve indicadores estadisticos
+df.describe()
+\end{minted}
+
+
+
+%	SUBSECCION
+\subsection{Probabilidad}
+La probabilidad es una medida que determina qué tan posible es que ocurra un evento. Para calcularla, se utilizan las siguientes definiciones básicas:
+\begin{enumerate}
+	\item Experimento aleatorio: Es un experimento cuyo resultado está determinado por el azar.
+	\item Espacio muestral ($\Omega$): Es el conjunto de todos los resultados posibles de un experimento.
+	\item Evento (A, B, ...): Es un conjunto de resultados posibles, es decir, un subconjunto del espacio muestral.
+	\item Probabilidad (P(A), P(B), ...): Es un valor que se le asigna a un evento entre 0 y 1, donde 0 es imposible y 1 es seguro de que ocurra. Se obtiene dividiendo el número de casos favorables por el número total de resultados posibles.
+	\item Complemento ($A^c$): Es la probabilidad de que un evento no ocurra. Si P(A) es la probabilidad de que ocurra un evento A, entonces P($A^c$)=1-(P(A)) es la probabilidad de que no ocurra A.
+	\item Intersección ($A\cap B$): Son todos los elementos que son de un evento A y un evento B.
+	\item Unión ($A \cup B$): Son todos los elementos de A y todos los elementos de B.
+	\item Probabilidad clásica: Se basa en que todos los resultados del espacio muestral tienen la misma probabilidad.
+	\item Probabilidad frecuencial: Se calcula dividiendo el número de veces que ocurre un evento y el total de repeticiones del experimento.
+\end{enumerate}
+
+%	SUBSUBSECCION
+\subsubsection{Probabilidad condicional}
+La probabilidad condicional se refiere a que suceda un evento (A) sabiendo que sucede otro (B). Se expresa como:
+\begin{equation}
+	P(A|B)
+\end{equation}
+Y se lee la probabilidad de A dado B, la cual se puede calcular por medio del Teorema de Bayes:
+\begin{gather}
+	P(A \cap B) = P(B) * P(A/B) \\
+	\Rightarrow P(A|B) = \frac{P(A \cap B)}{P(B)}
+\end{gather}
+
+En Python, se pueden calcular probabilidades por medio de los siguientes comandos:
+\begin{minted}[breaklines, breakanywhere]{Python}
+\\ conteo
+conteo = df['columna1'].value_counts()['valor1']
+	
+\\ Conteo de cada registro
+conteo_grupal = df['columna1'].value_counts()
+	
+\\ Conteo con condiciones
+condicion1 = df['columna1'] == 'valor1'
+condicion2 = df['columna2'] == 'valor2'
+	
+interseccion = (condicion1 & condicion2).sum()
+union = (condicion1 | condicion2).sum()
+\end{minted}
+
+%	SUBSUBSECCION
+\subsubsection{Variable aleatoria}
+Se define variable aleatoria a una función que asigna un valor numérico a los resultados de un experimento aleatorio. Se clasifican en dos tipos:
+\begin{enumerate}
+	\item Variables aleatorias continuas: pueden tomar cualquier valor dentro de un rango continuo de números reales.
+	\item Variables aleatorias discretas: son aquellas que pueden tomar un número finito o infinito numerable de valores posibles.
+\end{enumerate}
+
+%	SUBSUBSECCION
+\subsubsection{Distribución de probabilidad}
+La distribución de probabilidad de una variable aleatoria es una función que asigna a cada evento la probabilidad de que este ocurra. Describe cómo se distribuyen las probabilidades de los valores que puede tomar la variable.
+
+Para una variable aleatoria continua, puede tomar cualquier valor dentro de un cierto rango. Se definen por medio de una función de probabilidad:
+\begin{equation}
+	P(a \leqslant X \leqslant b) = \int_{a}^{b} f(x)dx
+\end{equation}
+La cual representa el área debajo de la curva de f(x) en el intervalo (a,b).
+
+\subsubsection{Distribución binomial}
+La distribución binomial es una distribución de probabilidad que describe el número de veces que un evento aparece en una cantidad de experimentos. Los experimentos deben ser independientes entre sí, solo deben tener dos posibles resultados (éxito y fracaso) y la probabilidad de éxito debe ser constante para todos los experimentos.
+
+Si se repite el experimento n veces, la probabilidad de tener k éxitos es de:
+\begin{equation}
+	P(k) = \frac{n!}{k! (n-k)!}p^{k}(1-p)^{n-k}
+\end{equation}
+donde:
+\begin{itemize}
+	\item P(k): es la probabilidad de que ocurra k éxitos.
+	\item n: número total de experimentos.
+	\item k: número de éxitos deseados.
+	\item p: probabilidad de éxito en cada experimento.
+	\item 1-p: probabilidad de fracaso.
+\end{itemize}
+Por ejemplo, si se lanza una moneda al aire 10 veces y la probabilidad de tener sello es de 0,5, la probabilidad de tener 5 caras es:
+\begin{gather}
+	P(5) = \frac{10!}{5! (10-5)!}0,5^{5}(1-0,5)^{10-5} \\
+	P(5) = \frac{10!}{5! (10-5)!}0,5^{5}(0,5)^{5} \\
+	0,2373
+\end{gather}
+
+%	SUBSUBSECCION
+\subsubsection{Distribución normal}
+La distribución normal es una curva que tiene forma de campana, donde la mayoría de los valores de la variable aleatoria se encuentran agrupados cerca de la media, y pocos valores en los extremos de ésta.
+
+La distribución normal se puede utilizar para calcular la probabilidad de que una variable aleatoria continua tome un valor dentro de un cierto rango. Se caracteriza por su función de densidad de probabilidad, la cual describe la curva y la probabilidad de que un valor ocurra:
+\begin{equation}
+	f(x) = \frac{1}{\sigma \sqrt{2 \pi}} e^{-0,5(\frac{x - \mu}{\sigma})^2}
+\end{equation}
+Una distribución normal posee simetría, donde la media, la mediana y la moda son iguales. Además, tiene una forma unimodal, los extremos son infinitos y posee parámetros de media y desviación estándar.
+
+%	SUBSUBSECCION
+\subsubsection{Ley de los grandes números}
+La ley de los grandes números establece que a medida que aumenta el número de repeticiones de un experimento (aumenta el tamaño de la muestra), la media tiende a acercarse a la media teórica de la distribución de probabilidad.
+
+Ley débil: indica que la media muestral se acerca a la media poblacional cuando el tamaño de la muestra aumenta.
+
+Ley fuerte: la muestra tiende a la media poblacional en la medida que el tamaño de la muestra tiende a infinito.
+
+% SUBSUBSECCION
+\subsubsection{Teorema del límite central}
+El teorema del límite central establece que la distribución de la suma o media de una gran cantidad de variables aleatorias tiende a aproximarse a una distribución normal. Para esto, las variables aleatorias deben ser independientes entre sí, tener la misma distribución (media y varianza) y el tamaño de la muestra debe ser lo suficientemente grande.
+
+%	SECCION
+\section{Estadística inferencial}
+La estadística inferencial busca describir por medio de una muestra cómo puede ser la población. Posee parámetros, los cuales son indicadores que corresponden a la población, y estimadores, los que están asociados a la muestra:
+
+\begin{center}
+	\begin{tabular}{|c|c|c|}
+		\hline
+		Nombre & Parámetro & Estimador \\
+		\hline
+		Media & $\mu$ & $\bar{x}$ \\
+		\hline
+		Varianza & $\sigma^2$ & $S^{2}$ \\
+		\hline
+		Desviación & $\sigma$ & $S$ \\
+		\hline
+		Proporción & p & $\hat{p}$ \\
+		\hline
+	\end{tabular}
+\end{center}
+
+A través de los estadísticos de prueba, se puede relación un indicador estadístico con su respectivo estimador, lo cual permite hacer inferencia estadística de una muestra de datos.
+
+Si una variable aleatoria X es tal que $X \sim N(\mu,\sigma)$ y ${x_1, x_2, \hdots, x_n}$ es una muestra aleatoria de X, entonces:
+
+Si se conoce el valor de $\sigma$:
+\begin{equation}
+	(\bar{x}-\mu) \frac{\sqrt{n}}{\sigma} \sim N(0,1)
+\end{equation}
+donde $\bar{x}-\mu$ es el error muestral definido como la diferencia entre los resultados de una muestra y los resultados que se habrían obtenido si se hubiera analizado toda la población.
+
+De lo contrario, se puede usar el estimador S:
+\begin{equation}
+	(\bar{x}-\mu) \frac{\sqrt{n}}{S} \sim t_{n-1}
+\end{equation}
+
+
+Si X es una variable aleatoria y ${x_1, x_2, \hdots, x_n}$ es una muestra aleatoria de X ($n>30$):
+
+Si X tiene una distribución desconocida y se conoce S:
+\begin{equation}
+	(\bar{x}-\mu) \frac{\sqrt{n}}{S} \approx N(0,1)
+\end{equation}
+Si X tiene distribución Bernouilli con probabilidad p:
+\begin{equation}
+	\frac{\hat{p} -p}{\sqrt{p(1-p)}} \sim N(0,1)
+\end{equation}
+
+Cuando la muestra es menor que 30 o la desviación estándar de la población es desconocida, se utiliza la distribución t, o distribución de Student.
+\begin{equation}
+	t = (\bar{X} - \mu )\frac{\sqrt{n}}{S}
+\end{equation}
+donde t es el estadístico de prueba t que se utiliza para evaluar la diferencia entre la media muestral y la media poblacional.
+
+\subsection{Prueba de hipótesis}
+Una prueba de hipótesis se utiliza para evaluar si una afirmación sobre una población es compatible con la evidencia observada. Para realizar una prueba de hipótesis se siguen los siguientes pasos:
+\begin{enumerate}
+	\item Formular la hipótesis nula (H0), afirmación inicial que se somete a prueba, y alternativa (H1), afirmación alternativa a la nula.
+	\item Establecer el nivel de significancia ($\alpha$), el cual se refiere a la probabilidad de rechazar la hipótesis nula cuando es verdadera. Se usan valores como 0,05 o 0,01. Con esto, se puede calcular el nivel de confianza definido como 1 - $\alpha$.
+	\item Elegir y calcular el estadístico de prueba dependiendo de los valores conocidos. En este paso, se calcula los valores p.
+	\item Determinación de la región crítica, la cual se refiere al área de la distribución de probabilidad donde se encuentran los valores que llevarían a rechazar la hipótesis nula.
+	\item Tomar una decisión comparando el valor obtenido del estadístico de prueba y los valores de la región crítica, es decir, el valor p y la significancia.
+\end{enumerate}
+
+Para decidir si se rechaza H0 se usa el siguiente criterio:
+\begin{itemize}
+	\item Si valor p $>$ significancia, no se rechaza H0.
+	\item Si valor p $\leqslant$ significancia, se rechaza H0.
+\end{itemize}
+Sin embargo, cuando el estadístico de prueba cae dentro de la región crítica se rechaza H0, sugiriendo que hay evidencia suficiente para respaldar H1.
+
+%	SECCION
+\section{Regresión}
+La regresión es un proceso estadístico que se usa para modelar la relación entre una variable dependiente (y) y una o dos independientes (x).
+
+\subsection{Coeficiente de correlación}
+La correlación es una medida que evalúa la relación entre dos o más variables.
+
+Si los puntos parecen seguir una recta en un gráfico, podría corresponder a una correlación lineal, la cual se cuantifica mediante el coeficiente de correlación de Pearson. Este coeficiente toma valores entre -1 y 1, donde:
+\begin{itemize}
+	\item -1: indica una correlación negativa perfecta. Señala que una variable aumenta mientras la otra disminuye.
+	\item 0: indica que no hay relación lineal entre las variables.
+	\item 1: indica una correlación positiva perfecta. Señala que ambas variables aumentan o disminuyen.
+\end{itemize}
+Un coeficiente de correlación cercano a 1 o -1 indicará que el modelo se ajusta a los datos.
+
+Si la relación entre las variables no es lineal, se debe utilizar otro tipo de correlación, como el coeficiente de correlación de Spearman o el de Kendall.
+
+\subsection{Regresión lineal}
+La regresión lineal se utiliza para encontrar la mejor línea recta que se ajusta a los datos para luego predecir los valores de la variable dependiente en función de la variable independiente. Mediante esta regresión, se busca predecir un número.
+
+\begin{figure}[H] 
+	\centering 
+	\includegraphics[width=0.5\linewidth]{regresion_lineal.jpg}
+	\caption{Gráfico}
+\end{figure}
+
+Se modela mediante la ecuación de la recta, la cual tiene la siguiente forma:
+\begin{equation}
+	y = b_0 + b_1 * x \pm c
+\end{equation}
+donde:
+\begin{itemize}
+	\item y: variable dependiente que se intenta predecir. Variable target.
+	\item x: variable independiente.
+	\item $b_0$: intersección de la recta con el eje Y, llamada intercepto.
+	\item $b_1$: pendiente de la recta.
+	\item c: término de error.
+\end{itemize}
+El objetivo de la regresión lineal es encontrar los valores de $b_0$ y $b_1$ que minimicen la suma de los cuadrados de errores, más conocido como el método de los mínimos cuadrados.
+
+Otros parámetro de la regresión lineal son los valores p de los coeficientes. Un valor p bajo indica que la variable independiente tiene un efecto significativo sobre la variable dependiente.
+
+En Python, se puede realizar una regresión lineal simple y calcular sus parámetros por medio del siguiente código:
+\begin{minted}[breaklines, breakanywhere]{Python}
+from scipy import stats
+	
+# Antes de realizar la regresion, se deben seleccionar las columnas
+datos= df[["variable_independiente", "variable_target"]]
+	
+# Regresion lineal simple
+sns.lmplot(x="variable_independiente", y="variable_target", data=datos)
+plt.title("Regresion lineal entre variable_independiente y variable_target")
+plt.xlabel("variable_independiente")
+plt.ylabel("variable_target")
+
+# Calculando los parametros
+slope, intercept, r_value, p_value, std_err = stats.linregress(datos["variable_independiente"], datos["variable_target"])
+	
+# Mostrando el grafico completo
+plt.show()
+	
+# Imprimiendo los parametros
+print(f"Pendiente: {slope}")
+print(f"Intercepto: {intercept}")
+print(f"Error estandar: {std_err}")
+print(f"Coef. de correlacion: {r_value}")
+\end{minted}
+
+Es posible hacer un modelo de regresión lineal con Statsmodels mediante la función \texttt{\textcolor{blue}{OLS()}}, la cual busca minimizar los cuadrados de los residuos.
+\begin{minted}[breaklines, breakanywhere]{Python}
+import statsmodels.api as sm
+	
+# Definiendo las variables predictoras (X) y la variable de respuesta (y)
+X = df["variable_independiente"]
+y = df["variable_target"]
+
+# Agregando una constante al predictor (intercepto)
+X = sm.add_constant(X)
+	
+# Creando el modelo de regresion lineal
+model = sm.OLS(y, X).fit()
+	
+# Obteniendo los resultados del modelo
+results = model.summary()
+	
+# Imprimiendo los resultados
+print(results)
+	
+# Graficando la regresion lineal
+plt.scatter(df["variable_independiente"], df["variable_target"], label="Datos")
+plt.plot(df["variable_independiente"], model.predict(X), color='red', label="Regresion Lineal")
+plt.title("Regresion lineal entre variable_independiente y variable target")
+plt.xlabel("variable_independiente")
+plt.ylabel("variable_target")
+plt.legend()
+plt.show()
+\end{minted}
+Los resultados de esta regresión entrega los siguientes estadísticos:
+\begin{enumerate}
+	\item r-squared: r cuadrado. Varía entre 0 y 1, y corresponde a la variabilidad de la variable dependiente. Un r cuadrado alto indica que el modelo se ajusta bien a los datos.
+	\item Adj. r-squared: r cuadrado ajustado. Penaliza (disminuye con respecto al r cuadrado) por añadir variables que no contribuyen significativamente a explicar la variabilidad de la variable dependiente.
+	\item F-statistic: F estadístico. Un alto valor del estadístico F con un valor p bajo implica que al menos una de las variables independientes tiene un efecto significativo en la variable dependiente.
+	\item coef: coeficientes. Representan las pendientes de las variables independientes.
+\end{enumerate}
+Nota: La variabilidad describe la dispersión de los puntos alrededor de una medida central. La significancia se refiere a la probabilidad de que los resultados de una prueba estadística sean improbables bajo la suposición de que la hipótesis nula (H0) sea cierta.
+
+\subsubsection{Regresión lineal múltiple}
+Para aplicar Statsmodels y obtener un modelo de regresión para dos o más variables independientes, se transforma una variable categórica en numérica usando \texttt{\textcolor{blue}{get.dummies}}:
+\begin{minted}[breaklines, breakanywhere]{Python}
+# Paso 1: Definiendo variables predictoras (X) y variable de respuesta (y)
+X = df[['variable_independiente', 'variable_categorica']]  # Largo de la aleta y sexo como variables independientes
+y = df['variable_target']  # Peso como variable dependiente
+	
+# Codificando la variable categorica usando get dummies
+X_encoded = pd.get_dummies(X, columns=['variable_categorica'], prefix=['variable_categorica'])
+	
+# Paso 2: Agregando una constante (intercepto) a las variables predictoras
+X_encoded = sm.add_constant(X_encoded)
+	
+# Paso 3: Creando el modelo de regresion lineal
+model = sm.OLS(y, X_encoded).fit()
+	
+# Paso 4: Obteniendo resultados del modelo
+results = model.summary()
+	
+predictions = model.predict(X_encoded)
+	
+# Calculando el Error Cuadratico Medio (MSE)
+mse = ((y - predictions) ** 2).mean()
+	
+# Calculando el Error Cuadratico Medio Explicado (EMSE)
+emse = np.sqrt(mse)
+	
+# Calculando el valor R cuadrado del modelo
+r2 = model.rsquared
+	
+print(results)
+print(f"MSE: {mse:.2f}")
+print(f"EMSE: {emse:.2f}")
+print(f"R cuadrado: {r2:.2f}")
+\end{minted}
+
+\subsubsection{Métricas de evaluación del modelo}
+Las métricas de evaluación del modelo evalúan el rendimiento de un modelo de regresión. Señalan qué tan bien se ajusta el modelo a los datos y cómo se comporta en la predicción de futuros valores.
+\begin{itemize}
+	\item Error medio absoluto (MAE): Calcula el promedio de las diferencias absolutas entre los valores predichos y los valores reales. Mientras menor el MAE, mejor será el ajuste del modelo.
+	\item Error cuadrático medio (MSE): Calcula el promedio de los cuadrados de las diferencias entre los valores predichos y los valores reales. Mientras más bajo sea el MSE, mejor será el ajuste.
+	\item Raíz del error cuadrático medio (RMSE): Es la raíz cuadrada del MSE.
+\end{itemize}
+
+\subsection{Residuos}
+Los residuos son la diferencia entre los valores y los valores predichos por el modelo. Evalúan la calidad del ajusto del modelo. Si los residuos son menores, el modelo es más preciso.
+
+Para graficar los residuos, se utiliza el siguiente código:
+\begin{minted}[breaklines, breakanywhere]{Python}
+residuals = datos["variable_target"] - (slope * datos["variable_independiente"] + intercept)
+
+# Mostrando el grafico de los residuos
+plt.figure()
+plt.scatter(datos["variable_independiente"], residuals)
+plt.axhline(y=0, color='r', linestyle='--')
+plt.title("Grafico de Residuos")
+plt.xlabel("variable_independiente")
+plt.ylabel("Residuos")
+plt.show()
+\end{minted}
+El gráfico de residuos puede darse de las siguientes formas:
+\begin{figure}[H] 
+	\centering 
+	\includegraphics[width=0.5\linewidth]{residuos.jpg}
+	\caption{Gráficas de residuos}
+\end{figure}
+De las figuras anteriores, la figura a presenta un patrón de residuos al azar donde no hay tendencias. La b y c presentan tendencias, lo que podría indicar que la relación entre las variables no es la indicada. La d, e y f tienen una dispersión irregular, donde la varianza de los residuos aumenta conforme aumentan los valores, lo cual indica que aumenta la variabilidad y su media.
+
+\subsection{Regresión logística}
+La regresión logística se emplea para determinar la probabilidad de que un evento pertenezca a una de dos o más categorías. Se busca relacionar un conjunto de variables independientes con una dependiente, usando coeficientes que determinan un modelo lineal. Esta regresión busca predecir categorías.
+
+Por medio de la función logarítima o logit, transforma la salida en una escala log-odds con la función Sigmoide:
+\begin{equation}
+	f(x) = \frac{1}{1+e^{-x}}
+\end{equation}
+La función logística devuelve valores entre 0 (no/falso) y 1 (sí/verdadero) para la variable dependiente. Los valores por sobre 0.5 se pueden interpretar como una probabilidad mayoritaria de que ocurra un evento (clase 1), mientras que por debajo de 0.5 indica una probabilidad mayoritaria de que no ocurra (clase 0). Se define un umbral de decisión para definir una categoría como positiva y otra negativa.
+
+\begin{figure}[H] 
+	\centering 
+	\includegraphics[width=0.5\linewidth]{graficologistica.jpg}
+	\caption{Gráfico de la función logística}
+\end{figure}
+
+En Python, se aplica la función \texttt{\textcolor{blue}{LogisticRegresion()}} de sci-kit learn.
+\begin{minted}[breaklines, breakanywhere]{Python}
+# Libreria
+from sklearn.linear_model import LogisticRegression
+	
+# Variables
+X = df[['var_1', 'var_2', 'var_3']]
+y = df[['var_y']]
+	
+# Modelando
+LogReg = LogisticRegression()
+	
+# Ajustando el modelo
+LogReg.fit(X, y)
+	
+# Predicciones
+y_pred = LogReg.predict(X)
+\end{minted}
+
+\subsubsection{Tipos de regresión logística}
+Los tipos de regresión logística son binaria y multinomial:
+\begin{enumerate}
+	\item La regresión logística binaria es un modelo estadístico que se utiliza para problemas de clasificación binaria donde la variable dependiente tiene dos categorías posibles, etiquetados como 0 y 1, sí y no, etc. La función Sigmoide usa la función logística para modelar la probabilidad de que la variable dependiente pertenezca a la categoría 1 (clase positiva).
+	\item Por otro lado, la regresión logística multinomial se utiliza para problemas de clasificación con más de dos categorías mutuamente excluyentes. La función Softmax en la regresión logística multinomial, se usa para modelar la probabilidad de pertenecer a cada una de las categorías. Asigna probabilidades a cada categoría, dando la suma de ellas igual a 1. Puede predecir varias categorías distintas. Se utiliza en problemas de clasificación multiclase.
+\end{enumerate}
+
+\subsubsection{Métricas de evaluación}
+\begin{enumerate}
+	\item Exactitud: Absoluto del porcentaje que se predijo correctamente.
+	Mide la proporción de las predicciones que son correctas.
+	\item Precisión: Se busca minimizar los falsos positivos. Mide cuando algo positivo sea realmente positivo.
+	\item Sensibilidad: Mide de todas las clases positivas, cuántas de ellas se identifican.
+	\item Puntuación F1: Promedio armónico entre precisión y sensibilidad.
+\end{enumerate}
+
+Cuando se quiere optimizar sobre precisión, se aumenta el umbral. Se quiere estar seguro de que sea positivo.
+Cuando se quiere optimizar sobre la sensibilidad, se baja el umbral. Esto se hace para capturar a todas las clases positivas.
+\begin{minted}[breaklines, breakanywhere]{Python}
+from sklearn.metrics import accuracy_score, precision_score, recall_score, classification_report
+	
+# Exactitud
+accuracy = accuracy_score(y, y_pred)
+
+# Precision
+precision = precision_score(y, y_pred)
+	
+# Sensibilidad
+recall = recall_score(y, y_pred)
+	
+# Reporte que incluye precision, sensibilidad y f1
+reporte = classification_report(y, y_pred)
+\end{minted}
+
+\subsubsection{Matriz de confusión}
+La matriz de confusión cuantifica los casos falsos positivos, falsos negativos, verdaderos positivos y verdaderos negativos.
+\begin{figure}[H] 
+	\centering 
+	\includegraphics[width=0.6\linewidth]{matrizconfusionexplicacion.jpg}
+	\caption{Matriz de confusión}
+\end{figure}
+donde:
+\begin{itemize}
+	\item Verdaderos positivos: son los casos en que los datos reales son 1 (Verdadero) y la predicción también es 1.
+	\item Verdaderos negativos: son los casos en que los datos reales son 0 (Falso) y la predicción también es 0.
+	\item Falsos positivos: son los casos en que los datos reales son 0 y la predicción es 1. El modelo ha pronosticado incorrectamente.
+	\item Falsos negativos: son los casos en que los datos reales son 1 y la predicción es 0. El modelo ha pronosticado incorrectamente.
+\end{itemize}
+El escenario ideal es que el modelo no de falsos positivos ni falsos negativos.
+
+En Python, la matriz de confusión se hace de la siguiente forma:
+\begin{minted}[breaklines, breakanywhere]{Python}
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+	
+# Matriz de confusion
+confusion = confusion_matrix(y, y_pred)
+	
+# Visualizando la matriz de confusion
+vis = ConfusionMatrixDisplay(confusion)
+vis.plot()
+	
+# Tambien, se puede visualizar de la siguiente forma
+ConfusionMatrixDisplay.from_predictions(y, y_pred)
+\end{minted}
+
+La siguiente gráfica muestra una la matriz de confusión. En ella, se puede apreciar que los verdaderos positivos están en la esquina inferior derecha y los verdaderos negativos en la esquina superior izquierda.
+\begin{figure}[H] 
+	\centering 
+	\includegraphics[width=0.6\linewidth]{matrizconfusionejemplo.png}
+	\caption{Ejemplo de matriz de confusión}
+\end{figure}
+Para evitar confusiones, es posible cambiar el nombre de los ejes a verdadero y falso, o true y false de la siguiente manera:
+\begin{minted}[breaklines, breakanywhere]{Python}
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+	
+# Matriz de confusion
+confusion = confusion_matrix(y, y_pred)
+	
+# Visualizando la matriz de confusion cambiando el nombre de los ejes
+vis = ConfusionMatrixDisplay(confusion, display_labels =[False, True])
+vis.plot()
+\end{minted}
+Resultando en:
+\begin{figure}[H] 
+	\centering 
+	\includegraphics[width=0.6\linewidth]{matrizconfusionejemplo2.png}
+	\caption{Ejemplo de matriz de confusión}
+\end{figure}
+
+\subsubsection{Curva ROC-AUC}
+ROC (Receiver Operating Characteristic, o característica operativa del receptor) es una gráfica que contrasta las tasas de falsos positivos y falsos negativos.  
+\begin{figure}[H] 
+	\centering 
+	\includegraphics[width=0.6\linewidth]{curvaroc.jpg}
+	\caption{Gráfica de la curva ROC}
+\end{figure}
+
+El área bajo la curva (AUC) se utiliza como resumen del rendimiento del modelo. El AUC-ROC varía entre 0 y 1, donde un valor más cercano a 1 indica un mejor rendimiento.
+
+\subsubsection{Curva PRC}
+La curva PRC (Precision-Recall, o precisión-sensibilidad) contrasta la precisión con la sensibilidad para diferentes umbrales. El AUC-PRC varía entre 0 y 1, donde un valor más cercano a 1 indica un mejor rendimiento. Si el valor es 1, significa que el modelo puede lograr una precisión perfecta y una sensibilidad perfecta.
+
+\begin{minted}[breaklines, breakanywhere]{Python}
+	
+\end{minted}
+%	SECCION
+\section{Análisis y visualización}
+\subsection{Gráficas con matplotlib y seaborn}
+Para crear visualizaciones en Python, por lo general se usan las librerías matplotlib y seaborn. Se deben seguir los siguientes pasos para poder hacer un gráfico:
+\begin{enumerate}
+	\item Importar las bibliotecas.
+	\item Crear la figura.
+	\item Agregar los datos.
+	\item Agregar ejes.
+\end{enumerate}
+Un ejemplo de un gráfico de líneas en matplotlib:
+
+\begin{minted}[breaklines, breakanywhere]{Python}
+# Importando la libreria
+import matplotlib.pyplot as plt
+	
+# Datos
+x = [1, 2, 3, 4, 5]
+y = [2, 4, 6, 12, 20]
+	
+# Creando el grafico de lineas
+plt.plot(x, y, marker='o', label = 'Linea')
+	
+# Agregando los nombres de los ejes
+plt.xlabel('Eje X') # Eje x
+plt.ylabel('Eje Y') # Eje y
+plt.title('Grafico de Ejemplo') # Titulo
+	
+# Para agregar una leyenda
+plt.legend()
+	
+# Mostrando el grafico
+plt.show()
+\end{minted}
+Se verá de la siguiente forma:
+\begin{figure}[H] 
+	\centering 
+	\includegraphics[width=0.7\linewidth]{graficoplt.png}
+	\caption{Gráfica de ejemplo}
+\end{figure}
+
+Parámetros:
+\begin{minted}[breaklines, breakanywhere]{Python}
+# Agrega cuadricula de fondo
+plt.grid(True)
+	
+# marker: da opciones de la forma de los puntos
+plt.plot(x, y, marker='o', label = 'Linea')
+plt.plot(x, y, marker='-', label = 'Linea')
+	
+# markersize: grosor de los puntos
+plt.plot(x, y, marker='o', markersize=6, label = 'Linea')
+	
+# linestyle: configura el tipo de linea
+plt.plot(x, y, marker='o', linestyle='-' label = 'Linea')
+	
+# color: agrega color a la linea
+plt.plot(x, y, color='b', label = 'Linea') # linea azul
+plt.plot(x, y, color='r', label = 'Linea') # linea roja
+\end{minted}
+marker también posee:
+\begin{itemize}
+	\item .: punto.
+	\item ,: píxel.
+	\item $\wedge$: triángulo hacia arriba.
+	\item v: triángulo hacia abajo.
+	\item s: cuadrado.
+	\item +: cruz.
+	\item *: estrella.
+	\item x: cruz diagonal.
+	\item D: diamante.
+	\item p: pentágono.
+\end{itemize}
+
+Es posible configurar el tamaño de la figura con:
+\begin{minted}[breaklines, breakanywhere]{Python}
+# Configurando el tamanno a 8 x 6 pulgadas
+plt.figure(figsize=(8,6))
+\end{minted}
+
+%	SUBSUBSECCION
+\subsubsection{Gráfico de líneas}
+En seaborn, un gráfico de líneas sería de la siguiente forma:
+\begin{minted}[breaklines, breakanywhere]{Python}
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# Datos
+x = [1, 2, 3, 4, 5]
+y = [2, 4, 6, 12, 20]
+
+# Creando el grafico de linea
+sns.lineplot(x=x, y=y, label='Linea')
+
+# Agregando etiquetas y titulo
+plt.xlabel('Eje X')
+plt.ylabel('Eje Y')
+plt.title('Grafico de linea')
+
+# Mostrando el grafico
+plt.show()
+\end{minted}
+Mostrará el siguiente gráfico:
+\begin{figure}[H] 
+	\centering 
+	\includegraphics[width=0.7\linewidth]{graficosns.png}
+	\caption{Gráfico de líneas con sns}
+\end{figure}
+%	SUBSUBSECCION
+\subsubsection{Histograma}
+Con matplotlib, se puede construir un histograma de la siguiente forma:
+\begin{minted}[breaklines, breakanywhere]{Python}
+import matplotlib.pyplot as plt
+	
+# Creando un histograma con 10 bins de color azul transparente
+plt.hist(x, color='blue', alpha=.4, bins=10, label='x')
+# Agregando titulo
+plt.title('Histograma de la variable x')
+# Leyenda
+plt.legend()
+\end{minted}
+
+Para construir un histograma en seaborn:
+\begin{minted}[breaklines, breakanywhere]{Python}
+import seaborn as sns
+import matplotlib.pyplot as plt	
+	
+# Construyendo el histograma
+sns.histplot(data=df, bins=10, color='skyblue')
+# Agregando etiquetas y titulo
+plt.title('Histograma con sns.histplot()')
+plt.xlabel('Valores')
+plt.ylabel('Frecuencia')
+# Mostrando el grafico
+plt.show()
+\end{minted}
+Donde:
+\begin{itemize}
+	\item data: datos.
+	\item bins: cantidad de barras.
+\end{itemize}
+
+Con displot:
+\begin{minted}[breaklines, breakanywhere]{Python}
+import seaborn as sns
+import matplotlib.pyplot as plt
+	
+sns.displot(data, color='skyblue',bins=10)
+# Agregando etiquetas y titulo
+plt.title('Histograma con sns.displot()')
+plt.xlabel('Valores')
+plt.ylabel('Frecuencia')
+# Mostrando el grafico
+plt.show()
+\end{minted}
+displot permite utilizar otros parámetros, como por ejemplo permite construir dos histogramas en uno:
+\begin{minted}[breaklines, breakanywhere]{Python}
+import seaborn as sns
+import matplotlib.pyplot as plt
+	
+# Creando un objeto en el cual grafique los datos de data correspondientes a mean_perimeter distinguiendo por el valor de diagnosis
+ax = sns.displot(data=df, x='mean_perimeter',  hue='diagnosis', fill=True)
+	
+# Agregando etiquetas y titulo
+ax.set(xlabel='Media del Perimetro por Diagnostico',ylabel='Densidad', title='Perimetro v/s densidad')
+# Mostrando el grafico
+plt.show()
+\end{minted}
+
+%	SUBSUBSECCION
+\subsubsection{Distribución normal}
+Para crear una gráfica que represente una distribución normal, primero se debe crear un arreglo de valores equidistantes entre el valor mínimo y el máximo de los datos con \texttt{\textcolor{blue}{linspace}}. Luego, se crea una función llamada pdf que calcula el valor de la función de distribución de probabilidad normal para finalmente construir el histograma.
+\begin{minted}[breaklines, breakanywhere]{Python}
+from scipy.stats import norm
+import seaborn as sns
+import matplotlib.pyplot as plt
+	
+# Calculando el maximo y el minimo de los datos
+minimo = df['columna'].min()
+maximo = df['columna'].max()
+
+# Arreglo de valores equidistantes
+x = np.linspace(minimo, maximo)
+	
+# Crando la funcion pdf
+# 'sigma' funciona como 'escala'
+pdf = norm.pdf(x, loc=mu, scale=sigma)
+	
+	
+# Construyendo un histograma
+# 'density=True' construye el histograma haciendo que la suma de todas las areas de las barras sea igual a 1, para representar las probabilidades
+plt.hist(maths, bins=100, density=True, alpha=0.5, label='Muestra') #alpha=0.5 da un 50% de transparencia
+	
+# Graficando la distribucion normal
+plt.plot(x, pdf, color='red', label='PDF')
+# Agregando etiquetas y titulo
+plt.xlabel('x')
+plt.ylabel('Densidad de probabilidad normalizada')
+plt.title('Distribuciones comparadas')
+# Leyenda
+plt.legend()
+# Mostrando el grafico
+plt.show()
+\end{minted}
+
+%	SUBSUBSECCION
+\subsubsection{Boxplot}
+Anteriormente, se mencionó que se pueden visualizar de mejor manera los datos atípicos de una muestra con un boxplot.
+\begin{minted}[breaklines, breakanywhere]{Python}
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+	
+# df
+data = {
+	'Grupo': ['A', 'A', 'B', 'B', 'B', 'C', 'C', 'C', 'C'],
+	'Valor': [5, 8, 12, 15, 20, 7, 10, 14, 18]
+}
+	
+df = pd.DataFrame(data)
+
+# Creaando un boxplot
+sns.boxplot(x='Grupo', y='Valor', data=df)
+
+# Agregando etiquetas y titulo
+plt.xlabel('Grupo')
+plt.ylabel('Valor')
+plt.title('Boxplot por Grupo')
+	
+# Mostrando el grafico
+plt.show()
+\end{minted}
+Se verá de la siguiente forma:
+\begin{figure}[H] 
+	\centering 
+	\includegraphics[width=0.7\linewidth]{boxplot1.png}
+	\caption{Boxplot}
+\end{figure}
+Donde un boxplot con valores atípicos se vería de la siguiente forma:
+
+\begin{figure}[H] 
+	\centering 
+	\includegraphics[width=0.7\linewidth]{boxplot2.png}
+	\caption{Boxplot con valores atípicos}
+\end{figure}
+
+%	SUBSUBSECCION
+\subsubsection{Gráfico de barras}
+\begin{minted}[breaklines, breakanywhere]{Python}
+import seaborn as sns
+import matplotlib.pyplot as plt
+	
+# Creando el grafico de barras
+sns.barplot(x=grouped_data.index, y=grouped_data.values)
+	
+# Agregando etiquetas y titulo
+plt.xlabel('x')
+plt.ylabel('y')
+plt.title('Grafica de barras')
+	
+# Etiquetas a las barras
+custom_labels = ['Barra 1', 'Barra 2']
+plt.xticks(range(len(custom_labels)), custom_labels)
+# Mostrando el grafico
+plt.show()
+\end{minted}
+
+%	SUBSUBSECCION
+\subsubsection{Scatterplot}
+\begin{minted}[breaklines, breakanywhere]{Python}
+import seaborn as sns
+import matplotlib.pyplot as plt
+	
+sns.set(style='whitegrid')
+# Creando el grafico
+sns.scatterplot(x='x', y='y', hue='columna', data=df, palette='Set1')
+plt.xlabel('x')
+plt.ylabel('y')
+plt.title('Grafica scatterplot')
+# Mostrando el grafico
+plt.show()
+\end{minted}
+El parámetro \texttt{\textcolor{blue}{hue}} especifica que se utilizará una columna del DataFrame para colorear los puntos de la gráfica. \texttt{\textcolor{blue}{palette='Set1'}} especifica la paleta de colores que se utilizará para colorearla.
+
+%
+%	CAPITULO
+\chapter{R}
+% \texttt{\textcolor{red}{}}
+%	SECCION
+\section{Notas previas...}
+\begin{enumerate}
+\item 
+\end{enumerate}
+%	SECCION
+\section{Paquetes}
+Los paquetes en R incluyen funciones, documentación sobre estas mismas, muestras de conjuntos de datos y pruebas para verificar el código. R incluye un conjunto de paquetes denominados Base R. \\
+Existe una colección de paquetes llamado Tidyverse que contiene los siguientes paquetes:
+\begin{enumerate}
+\item ggplot2: se usa para visualizar datos y crear visualizaciones.
+\item tidyr: se usa para la limpieza de datos.
+\item readr: se usa para importar datos.
+\item dplyr: ofrece funciones que ayudan a la manipulación de datos.
+\end{enumerate}
+
+
+Otros paquetes:
+\begin{enumerate}
+\item here
+\item skimr: facilita el resumen de los datos.
+\item janitor
+\end{enumerate}
+
+Para ver los paquetes instalados:
+\begin{minted}{R}
+installed.packages()
+\end{minted}
+
+
+Para cargar paquetes:
+\begin{minted}{R}
+library(paquete)
+\end{minted}
+%	SECCION
+\section{Limpieza}
+%	SUBSECCION
+\subsection{Resúmenes de datos}
+Funciones para obtener resúmenes de los marcos de datos:
+\begin{minted}{R}
+#Muestra el tipo de datos
+str(df)
+#Devuelve el min, max, media, mediana, 1er y 3r cuartil. skimr
+summary(df)
+# skimr
+skim_without_charts(df)
+# Skimr
+skim(df)
+# Devuelve el numero de filas y columnas.
+glimpse(df)
+# Muestra solo las primeras seis filas.
+head(df)
+\end{minted}
+%	SECCION
+\section{Orden}
+\begin{minted}[breaklines, breakanywhere]{R}
+# Se usa para elegir qué variable se quiere ordenar.
+arrange()
+# Para ordenar de forma descendente.
+arrange(-)
+# Agrupa.
+group_by()
+# Filtra los datos.
+filter()
+# Excluye valores NA.
+drop_na()
+\end{minted}
+%	SECCION
+\section{Transformación de datos}
+\begin{minted}[breaklines, breakanywhere]{R}
+# Divide datos en columnas separadas.
+separate(df,columna-a-separar, into=c('nom-col-nueva', 'nom-col-nueva-2'), sep= 'tipo-de-separador')
+# Permite fusionar columnas entre sí.
+unite(df, 'nom-col', col-a-combinar, col-a-combinar-2, sep='separador')
+# Se puede usar para añadir columnas con cálculos.
+mutate()
+\end{minted}
+%	SECCION
+\section{Cálculos matemáticos}
+\begin{minted}{R}
+# Media aritmética.
+mean()
+# Valor máximo.
+max()
+# Desviación estándar.
+sd()
+# Correlación.
+cor(x=var-x, y=var-y, method='pearson o kendall o spearman')
+\end{minted}
+%	SECCION
+\section{Visualización}
+Se utiliza la función ggplot para crear gráficas:
+\begin{minted}[breaklines, breakanywhere]{R}
+ggplot((data=df) + geom_función(mapping=aes(x=var-x, y=var-y, color=var1, shape=var2, size=var3, alpha=var4))), (color= color-para-todos-los-puntos) + labs() + annotate(text)
+\end{minted}
+
+
+Conceptos de la función ggplot:
+\begin{minted}[breaklines, breakanywhere]{R}
+# Se inicia un diagrama y se le pueden agregar capas con +.
+ggplot()
+# Dataset.
+data
+# Usa puntos para crear diagramas (figura geométrica).
+geom_función()
+# Define cómo se aplican las variables a las propiedades visuales.
+mapping # Va junto a la función aes()
+# Especifica qué variables aplicar a los ejes x e y, como el color (color),
+# color de relleno (fill), forma de puntos (shape), tipo de línea (linetype)
+# y tamaño (size).
+aes()
+# Grado de transparencia del color.
+alpha()
+# Se pueden introducir etiquetas como title="", subtitle="", caption="".
+labs
+# Se utiliza para agregar texto dentro de la cuadrícula.
+anotate(text)
+# Más información en https://ggplot2.tidyverse.org/reference/annotate.html
+\end{minted}
+
+
+Funciones geom:
+\begin{minted}[breaklines, breakanywhere]{R}
+# Crea diagramas de dispersion.
+geom_point()
+# Crea graficos de barra.
+geom_bar()
+# Gráfico de líneas.
+geom_line()
+# Suavizado. Crea una línea de tendencia.
+geom_smooth()
+# Crea un histograma.
+geom_histogram()
+# Crea un diagrama de dispersión y agrega una pequeña cantidad de ruido aleatorio para lidiar con la superposición de puntos.
+geom_jitter()
+\end{minted}
+Cuando se usa la función geom$\_$bar, R cuenta automáticamente cuantas veces aparece cada valor x en los datos y muestra los recuentos en el eje y. Por esta razón, se puede poner en el código solo el eje x. Se puede usar fill para llenar de color las barras. \\
+En el caso de geom$\_$histogram, los argumentos de esta funcion son bins=numero, el cual hace referencia al numero de intervalos y binwidth=numero es la amplitud de los intervalos.
+%	SUBSECCION
+\subsection{Suavizado}
+El suavizado permite detectar una tendencia de datos aun cuando no se pueda notar con facilidad una tendencia en los puntos de datos graficados. En ggplot2, suma una línea de suavizado como otra capa en un diagrama. Ayuda a que los diagramas sean más legibles.
+\begin{enumerate}
+\item El suavizado LOESS es óptimo para suavizar diagramas con menos de 1000 puntos.
+\begin{minted}[breaklines, breakanywhere]{R}
+ggplot(data, aes(x=, y=))+ geom_point() + geom_smooth(method=”loess”)
+\end{minted}
+\item El suavizado GAM es útil para suavizar diagramas con un gran numero de puntos.
+\begin{minted}[breaklines, breakanywhere]{R}
+ggplot(data, aes(x=, y=))+ geom_point() +  geom_smooth(method=”gam”, formula = y ~ s(x))
+\end{minted}
+\end{enumerate}
+%	SUBSECCION
+\subsection{Estética y facetas}
+Una faceta es una cara o sección de un objeto. Sirve para comparar datos. Permiten mostrar grupos más pequeños, o subconjuntos, de datos.
+\begin{minted}{R}
+# Facetar el diagrama con una variable.
+facet_wrap(~variable)
+# Facetar el diagrama con dos variables.
+facet_grid(var1~var2)
+\end{minted}
+%	SUBSECCION
+\subsection{Guardar gráficas}
+Para guardar una gráfica se puede exportar desde RStudio o usar la función:
+\begin{minted}[breaklines, breakanywhere]{R} 
+ggsave(“nombre-gráfico.tipo-archivo”, width=ancho, height=largo) # del paquete ggplot2. Ejemplo:
+ggsave(“Pingüinos.png”)
+\end{minted}
+%
+%	CAPITULO
+\chapter{Markdown}
+Markdown es un lenguaje usado en documentos donde existen dos tipos de celdas: una de texto y otra de código. Las celdas de texto están formateadas con este lenguaje, lo que lo hace fácil y simple de escribir.
+
+Tanto Colab como R permiten insertar ecuaciones usando la notación de LaTeX y personalizar la escritura con código HTML.
+
+
+Se le puede dar formato a la escritura con los siguientes comandos:
+\begin{enumerate}
+	\item \textit{Cursiva}: *texto*
+	\item \textbf{Negrita}: **texto**
+	\item Tachado: ~~texto~~
+	\item \textcolor{blue}{\underline{Enlaces}}: [Clic aquí](aquiVaElEnlace)
+	\item Monoespaciado: `texto`
+	\item Imagen: ![Una imagen](linkDeLaImagen)
+\end{enumerate}
+
+Los encabezados en Markdown se inician con un numeral. Mientras más numerales tenga, más pequeño es el encabezado.
+
+$\#$ Capítulo 1: {\LARGE Capítulo 1:}
+
+$\#\#$ Sección 1: {\Large Sección 1:}
+
+$\#\#\#$ Subsección: {\large Subsección:}
+
+Se pueden insertar bloques de código en las celdas de texto usando las comillas ``.
+
+\texttt{```python}
+	
+\texttt{import pandas as pd
+	```}
+
+De esta forma, el código en la celda tendrá un formato especial:
+\begin{lstlisting}[language=Python]
+import pandas as pd
+\end{lstlisting}
+
+
+Se pueden crear listas ordenadas:
+\begin{enumerate}
+	\item Propiedad 1
+	\item Propiedad 2
+	\item Propiedad 3
+\end{enumerate}
+Y listas desordenadas con guiones (-) o asteriscos (*):
+
+- Propiedad 1
+
+- Propiedad 2
+
+- Propiedad 3
+
+
+Es posible insertar líneas horizontales con tres asteriscos (***) o tres guiones (---).
+
+%
+%	CAPITULO
+\chapter{Machine Learning}
+El aprendizaje automático (machine learning en inglés) permite que los computadores puedan identificar patrones y hacer predicciones por medio de modelos que analizan datos. En este contexto, un modelo toma una muestra como datos de entrada y entrega una predicción como salida.
+
+\section{Tipos de aprendizajes}
+Tipos de aprendizajes automáticos:
+\begin{enumerate}
+	\item Aprendizaje supervisado: Los modelos de aprendizaje supervisado utilizan ejemplos de entrada y su salida correspondiente. Se entrena con un conjunto de datos con ejemplo etiquetados, los cuales poseen atributos y una etiqueta, luego busca una función que pueda predecir las salidas para las nuevas entradas.  Este aprendizaje se divide en dos categorías: clasificación, la cual se utiliza para predecir la probabilidad de que algo pertenezca a una categoría (puede se binaria o multiclase), mientras que la regresión predice un valor numérico.
+	\item  Aprendizaje no supervisado: Este modelo hace predicciones a partir de conjuntos de datos que no tienen una salida o datos etiquetados. La etiqueta es la respuesta o valor que se quiere que el modelo prediga. Su objetivo es identificar patrones en los datos de entrada. En lugar de predecir una salida, busca agrupar los datos en función de características comunes. Posee dos categorías: la de clustering (segmentación), la cual utiliza algoritmos para agrupar los datos en grupos basados en similitudes mientras que en la reducción de dimensionalidad se utilizan técnicas para reducir la cantidad de variables en un conjunto.
+	\item Aprendizaje reforzado: En este modelo se realizan predicciones mediante recompensas o penalizaciones dependiendo de las acciones de un agente dentro de un entorno. Estas retroalimentaciones le permiten aprender a tomar mejores decisiones, creando un conjunto de reglas o política que define la mejor estrategia para obtener recompensas.
+	\item Inteligencia artificial generativa: Es una clase de modelos que crea contenido por medio de las entradas de un usuario. Ejemplo: crear imágenes, contar chistes, resumir artículos. Estos modelos se entrenan inicialmente con un enfoque no supervisado, donde aprende a imitar datos con los que se entrena. En algunas ocasiones, el modelo se entrena más mediante el aprendizaje supervisado o por refuerzo dependiendo de las tareas que se le pida realizar.
+\end{enumerate}
+
+
+%
+%	CAPITULO
+\chapter{Git y GitHub}
+%	SECCION
+\section{Git}
+Se puede hacer correr desde la cmd con el comando \texttt{git}. \\
+Lista de comandos:
+\begin{itemize}
+\item \texttt{git config --global user.name "nom-usuario"}: se configura el nombre de usuario que va entre las comillas. Para configurar el email se debe poner \texttt{git config --global user.email} seguido del email entre comillas.
+\item \texttt{git config user.name}: para ver el nombre de usuario. Para ver el email es \texttt{git config user.email}
+\end{itemize}
+%	SUBSECCION
+\subsection{Repositorios}
+Para abrir Git en el proyecto, se debe hacer clic derecho Git Bash Here en la carpeta donde se ubica dicho proyecto. Una vez abierto, se puede crear un nuevo repositorio con \texttt{git init} en la rama Master o main.
+
+Con el comando \texttt{git add nom-archivo.extension} se puede enviar archivos al repositorio. Si se quieren subir todos los archivos, se debe usar el comando \texttt{git add .}.
+
+Una vez que se hayan realizado todos los cambios en los archivos, se le puede añadir un comentario con \texttt{git commit -m "Mensaje"} y se suben con \texttt{git push origin nom-rama}.
+
+Si los archivos fueron modificados en GitHub, se pueden bajar al computador con \texttt{git pull}.
+
+Lista de comandos: 
+\begin{enumerate}
+\item \texttt{git status}: ver el estado del proyecto.
+\item \texttt{git commit -m "mensaje"}: se utiliza para tomar una instantánea del proyecto y dejar un mensaje con los cambios realizados en este.
+\item \texttt{git log}: para ver todos los mensajes y cambios que han realizado los autores.
+\item \texttt{git log --stat}: sirve para visualizar los commits y muestra un pequeño resumen de lo modificado, como la cantidad de líneas e inserciones.
+\item \texttt{git log --oneline}: muestra un código que identifica al commit.
+\item \texttt{git checkout codigo-commit}: actualiza el archivo para que coincida con el commit señalado en el código-commit. Una vez que se vuelve a un commit anterior, los otros que están en medio se borran. Por esta razón se recomienda trabajar con ramas.
+\item \texttt{git rm --cached nom-archivo.extension}: deja de rastrear un archivo sin eliminarlo del directorio de trabajo. Si se quiere hacer con todos los archivos: \texttt{git rm --cached .}.
+\item \texttt{git clone direccion-del-repositorio}: clonar un repositorio en el computador.
+\item \texttt{touch nom$\_$archivo.extension}: crea un archivo.
+\item \texttt{clear}: limpiar la pantalla.
+\end{enumerate}
+%	SUBSECCION
+\subsection{.gitignore}
+El archivo .gitignore se crea con fines de que Git ignore ciertos archivos. Para crearlo, se puede hacer mediante la consola de Git con \texttt{touch .gitignore}. Luego de crearlo, se puede abrir con cualquier aplicación y escribir los archivos que se desean ignorar. Se deben escribir los nombres de los proyectos, como mi$\_$proyecto.txt, o se pueden ignorar todas las extensiones, como *.txt.
+
+%	SUBSECCION
+\subsection{Ramas}
+Una rama en Git es una versión del código de un proyecto, las cuales ayudan a mantener el orden en el control de versiones. El control de versiones es la práctica de gestionar los cambios que se realizan sobre un código. Cuando se habla del estado en el que se encuentra, se refiere a la versión, revisión o edición de este. \\
+Cada repositorio en Git comienza con una rama principal predeterminada llamada master. \\
+Git almacena una serie de instantáneas al ejecutar el comando commit junto con los metadatos de quién lo haya modificado. \\
+Comandos:
+\begin{itemize}
+\item \texttt{git branch}: devuelve la cantidad de ramas que tiene un proyecto.
+\item \texttt{git checkout rama}: cambia de rama.
+\item \texttt{git checkout -b nombre-rama}: crear una rama.
+\item \texttt{git merge nombre-rama}: unir ramas. El código de nombre-rama se une al de la rama en la que se está trabajando.
+\item \texttt{git branch -d nombre-rama}: eliminar una rama solo si la rama se ha fusionado. De lo contrario, usar \texttt{-D} que elimina la rama independientemente de su estado de fusión.
+\item \texttt{git branch -d nombre-remoto/nombre-rama}: eliminar una rama remota de VSCode. Generalmente, \texttt{nombre-remoto} es origin.
+\end{itemize}
+
+%
+%	CAPITULO
+
 \chapter{Glosario de términos de programación}
 La siguiente lista muestra las traducciones al español de los términos de programación en inglés más usados.
 \begin{enumerate}
