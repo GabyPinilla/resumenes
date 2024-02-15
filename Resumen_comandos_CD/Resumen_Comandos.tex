@@ -1610,7 +1610,7 @@ plt.title("Regresion lineal entre variable_independiente y variable_target")
 plt.xlabel("variable_independiente")
 plt.ylabel("variable_target")
 
-# Calculando los parametros
+# Calculando los parametros para evaluar el modelo
 slope, intercept, r_value, p_value, std_err = stats.linregress(datos["variable_independiente"], datos["variable_target"])
 	
 # Mostrando el grafico completo
@@ -1796,6 +1796,7 @@ recall = recall_score(y, y_pred)
 # Reporte que incluye precision, sensibilidad y f1
 reporte = classification_report(y, y_pred)
 \end{minted}
+También, se puede evaluar el modelo mediante la matriz de confusión y las curvas ROC-AUC y PRC-AUC, las cuales se verán a continuación.
 
 \subsubsection{Matriz de confusión}
 La matriz de confusión cuantifica los casos falsos positivos, falsos negativos, verdaderos positivos y verdaderos negativos.
@@ -1869,8 +1870,7 @@ La curva PRC (Precision-Recall, o precisión-sensibilidad) contrasta la precisi�
 	
 \end{minted}
 %	SECCION
-\section{Análisis y visualización}
-\subsection{Gráficas con matplotlib y seaborn}
+\section{Gráficas con matplotlib y seaborn}
 Para crear visualizaciones en Python, por lo general se usan las librerías matplotlib y seaborn. Se deben seguir los siguientes pasos para poder hacer un gráfico:
 \begin{enumerate}
 	\item Importar las bibliotecas.
@@ -2066,12 +2066,18 @@ plt.plot(x, pdf, color='red', label='PDF')
 # Agregando etiquetas y titulo
 plt.xlabel('x')
 plt.ylabel('Densidad de probabilidad normalizada')
-plt.title('Distribuciones comparadas')
+plt.title('Distribucion')
 # Leyenda
 plt.legend()
 # Mostrando el grafico
 plt.show()
 \end{minted}
+La gráfica construirá una función representada por una línea roja sobre un histograma, resultando en una distribución normal:
+\begin{figure}[H] 
+	\centering 
+	\includegraphics[width=0.8\linewidth]{distnormalgrafico.png}
+	\caption{Gráfico de una distribución normal}
+\end{figure}
 
 %	SUBSUBSECCION
 \subsubsection{Boxplot}
@@ -2151,8 +2157,14 @@ plt.title('Grafica scatterplot')
 # Mostrando el grafico
 plt.show()
 \end{minted}
+
 El parámetro \texttt{\textcolor{blue}{hue}} especifica que se utilizará una columna del DataFrame para colorear los puntos de la gráfica. \texttt{\textcolor{blue}{palette='Set1'}} especifica la paleta de colores que se utilizará para colorearla.
 
+Se le puede añadir una línea recta para relacionar dos variable añadiendo el siguiente código:
+\begin{minted}[breaklines, breakanywhere]{Python}
+# Linea recta
+plt.plot(df['x'], df['y'], color='red')
+\end{minted}
 %
 %	CAPITULO
 \chapter{R}
