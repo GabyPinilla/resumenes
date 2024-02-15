@@ -2370,9 +2370,9 @@ Se pueden insertar bloques de código en las celdas de texto usando las comillas
 	```}
 
 De esta forma, el código en la celda tendrá un formato especial:
-\begin{lstlisting}[language=Python]
+\begin{minted}{Python}
 import pandas as pd
-\end{lstlisting}
+\end{minted}
 
 
 Se pueden crear listas ordenadas:
@@ -2397,14 +2397,164 @@ Es posible insertar líneas horizontales con tres asteriscos (***) o tres guione
 \chapter{Machine Learning}
 El aprendizaje automático (machine learning en inglés) permite que los computadores puedan identificar patrones y hacer predicciones por medio de modelos que analizan datos. En este contexto, un modelo toma una muestra como datos de entrada y entrega una predicción como salida.
 
+Las librerías más utilizadas en machine learning son:
+\begin{enumerate}
+	\item Scikit-learn: ofrece una amplia gama de herramientas para la selección de características, construcción y evaluación de modelos.
+	\item TensorFlow: se utiliza para construir y entrenar redes neuronales profundas en entornos distribuidos.
+	\item Keras: se ejecuta sobre TensorFlow. Proporciona una API simple para construir y entrenar redes neuronales.
+	\item PyTorch: proporciona una API dinámica y flexible. Se utiliza esencialmente para calcular gradientes de forma automática.
+	\item XGBoost.
+\end{enumerate}
+
+\subsection{Conceptos previos}
+Algunos conceptos de aprendizaje automático:
+\begin{itemize}
+	\item El entrenamiento se refiere a a que el modelo aprende por medio de ejemplos etiquetados.
+	\item Los ejemplos o instancias se refieren a un caso dentro de este conjunto de datos en el que se entrena o evalúa el modelo. Se compone por varias características. Puede ser pensada como una fila en una tabla donde cada columna representa una característica. Los ejemplos pueden ser etiquetados o sin etiqueta.
+	\item Los ejemplos de entrada se refieren a las variables independientes, predictores o atributo, mientras que los de salida son las etiquetas.
+	\item Las características son las propiedades que se utilizan para representar cada instancia o ejemplo en el set de datos sobre el que se entrena un modelo. Se refiere a los datos de entrada que el modelo usa para hacer sus predicciones.
+\end{itemize}
+
 \section{Tipos de aprendizajes}
 Tipos de aprendizajes automáticos:
 \begin{enumerate}
-	\item Aprendizaje supervisado: Los modelos de aprendizaje supervisado utilizan ejemplos de entrada y su salida correspondiente. Se entrena con un conjunto de datos con ejemplo etiquetados, los cuales poseen atributos y una etiqueta, luego busca una función que pueda predecir las salidas para las nuevas entradas.  Este aprendizaje se divide en dos categorías: clasificación, la cual se utiliza para predecir la probabilidad de que algo pertenezca a una categoría (puede se binaria o multiclase), mientras que la regresión predice un valor numérico.
-	\item  Aprendizaje no supervisado: Este modelo hace predicciones a partir de conjuntos de datos que no tienen una salida o datos etiquetados. La etiqueta es la respuesta o valor que se quiere que el modelo prediga. Su objetivo es identificar patrones en los datos de entrada. En lugar de predecir una salida, busca agrupar los datos en función de características comunes. Posee dos categorías: la de clustering (segmentación), la cual utiliza algoritmos para agrupar los datos en grupos basados en similitudes mientras que en la reducción de dimensionalidad se utilizan técnicas para reducir la cantidad de variables en un conjunto.
-	\item Aprendizaje reforzado: En este modelo se realizan predicciones mediante recompensas o penalizaciones dependiendo de las acciones de un agente dentro de un entorno. Estas retroalimentaciones le permiten aprender a tomar mejores decisiones, creando un conjunto de reglas o política que define la mejor estrategia para obtener recompensas.
-	\item Inteligencia artificial generativa: Es una clase de modelos que crea contenido por medio de las entradas de un usuario. Ejemplo: crear imágenes, contar chistes, resumir artículos. Estos modelos se entrenan inicialmente con un enfoque no supervisado, donde aprende a imitar datos con los que se entrena. En algunas ocasiones, el modelo se entrena más mediante el aprendizaje supervisado o por refuerzo dependiendo de las tareas que se le pida realizar.
+	\item Aprendizaje supervisado.
+	\item Aprendizaje no supervisado.
+	\item Aprendizaje reforzado.
+	\item Inteligencia artificial generativa.
 \end{enumerate}
+
+\subsection{Aprendizaje supervisado}
+Los modelos de aprendizaje supervisado se entrenan con conjuntos de datos etiquetados, es decir, ejemplos de entradas con sus correspondientes salidas. De esta forma, el modelo aprende a asociar los datos de entradas con sus correspondientes salidas para liego predecir la salida cuando se le presenten nuevos datos de entrada. Finalmente, se evalúa el modelo usando un conjunto de prueba, el cual también está conformado por datos etiquetados.
+
+Este aprendizaje se divide en dos categorías:
+\begin{enumerate}
+	\item Clasificación: se utiliza para predecir la probabilidad de que algo pertenezca a una categoría (puede se binaria o multiclase).
+	\item Regresión: predice un valor numérico.
+\end{enumerate}
+
+\subsubsection{Regresión lineal}
+En aprendizaje supervisado, la regresión lineal es un algoritmo que tiene como objetivo optimizar la capacidad de predicción del modelo sobre nuevos datos.
+
+Se debe tener en cuenta que al aplicar este algoritmo, se asume que las variables predictora y dependiente presentan una relación lineal.
+
+Para realizar una regresión lineal en Python, se debe dividir el conjunto de datos en dos: los datos de entrenamiento y los de prueba. Con \texttt{\textcolor{blue}{train$\_$test$\_$split()}} se dividen los datos, donde sus argumentos son:
+\begin{enumerate}
+	\item Características (X).
+	\item Etiquetas (y).
+	\item \texttt{\textcolor{blue}{test$\_$size}}: indica el porcentaje de los datos que se utilizará en el conjunto de prueba.
+	\item \texttt{\textcolor{blue}{random$\_$state}}: se utiliza para controlar la aleatoriedad en el modelo y obtener el mismo resultado al repetir la separación.
+\end{enumerate}
+Mientras que los datos de salida del comando son:
+\begin{enumerate}
+	\item \texttt{\textcolor{blue}{X$\_$train}}: contiene las variables independientes (características) del conjunto de entrenamiento, los cuales se utilizan para entrenar el modelo.
+	\item \texttt{\textcolor{blue}{X$\_$test}}: contiene las variables independientes del conjunto de prueba, el cual se utiliza para predecir.
+	\item \texttt{\textcolor{blue}{y$\_$train}}: contiene la variable dependiente (u objetivo) correspondiente a \texttt{\textcolor{blue}{X$\_$train}}. El modelo usa este conjunto para aprender de la relación entre las variables dependientes e independientes en el entrenamiento.
+	\item \texttt{\textcolor{blue}{y$\_$test}}: contiene la variable dependiente correspondiente a \texttt{\textcolor{blue}{X$\_$test}}. Se utiliza este conjunto para comparar las predicciones de \texttt{\textcolor{blue}{X$\_$test}} y evaluar qué tan precisas son.
+\end{enumerate}
+Luego, se crea una instancia del objeto de regresión lineal para entrenar el modelo con \texttt{\textcolor{blue}{X$\_$train}} e \texttt{\textcolor{blue}{y$\_$train}} y predecir con \texttt{\textcolor{blue}{X$\_$test}}, guardando las predicciones en \texttt{\textcolor{blue}{y$\_$pred}}. Finalmente, se evalúa el modelo mediante el error cuadrático medio y el $R^{2}$ usando \texttt{\textcolor{blue}{y$\_$test}} e \texttt{\textcolor{blue}{y$\_$pred}}.
+\begin{minted}{Python}
+import numpy as np
+from sklearn import linear_model
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error, r2_score
+
+# Definiendo las caracteristicas
+X = df['col_1']
+# Definiendo las etiquetas
+y = df['col_2']
+
+# Dividiendo los datos con train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size= 0.2, random_state=42)
+
+# Instanciando el objeto de la regresion lineal
+regr = linear_model.LinearRegression()
+
+# Entrenando el objeto
+regr.fit(X_train, y_train)
+
+# Prediciendo
+y_pred = regr.predict(X_test)
+
+# Coeficientes del modelo
+y_pred = regr.predict(X_test)
+print('Coeficientes: \n', regr.coef_)
+
+# Evaluando el modelo
+mse = mean_squared_error(y_test, y_pred)
+r2 = r2_score(y_test, y_pred)
+print(f'Error cuadratico medio: {mse}')
+print(f'r2: {r2}')
+\end{minted}
+
+Se pueden verificar las predicciones creando un scatterplot que considere datos reales y predichos por el modelo:
+\begin{minted}{Python}
+import matplotlib.pyplot as plt
+plt.scatterplot(y_test, y_pred)
+plt.xlabel('Datos reales')
+plt.ylabel('Predicciones')
+plt.title('Predicciones vs datos reales')
+plt.show()
+\end{minted}
+
+\subsection{Aprendizaje no supervisado}
+Este modelo hace predicciones a partir de conjuntos de datos que no tienen una salida o datos etiquetados. La etiqueta es la respuesta o valor que se quiere que el modelo prediga. Su objetivo es identificar patrones en los datos de entrada. En lugar de predecir una salida, busca agrupar los datos en función de características comunes.
+
+Posee dos categorías:
+\begin{enumerate}
+	\item Clustering (segmentación): utiliza algoritmos para agrupar los datos en grupos basados en similitudes.
+	\item Reducción de dimensionalidad: utilizan técnicas para reducir la cantidad de variables en un conjunto.
+\end{enumerate}
+
+\subsubsection{Clustering}
+El uso de los custers permite identificar patrones.
+
+\begin{minted}{Python}
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.cluster import KMeans
+from sklearn.decomposition import PCA
+
+# Obteniendo las imagenes
+imagenes = df.images[:20]
+# Obteniendo las etiquetas
+etiquetas = df.target[:20]
+
+# Configurando el subplot
+fig, axs = plt.subplots(4,5, figsize=(8,8))
+
+# Iterando sobre las imagenes y etiquetas
+for i, (imagen, etiqueta) in enumerate(zip(imagenes,etiquetas)):
+	# Obteniendo coordenadas del subplot actual
+	row = i // 5
+	col = i % 5
+	
+	# Mostrando la imagen en el subplot correspondiente
+	axs[row,col].imshow(imagen, cmap='gray')
+	axs[row,col].set_title(f'titulo: {etiqueta}')
+	axs[row,col].axis('off')
+	
+# Ajustando los espacios entre subplots
+plt.tight_layaout()
+
+plt.show()
+\end{minted}
+
+\subsubsection{Reducción de dimensionalidad}
+\begin{minted}{Python}
+X = df.data
+pca = PCA(n_components=2)
+X_pca = pca.fit_transform(X)
+
+print(X[0])
+print(X_pca[0])
+\end{minted}
+
+\subsection{Aprendizaje reforzado}
+En este modelo se realizan predicciones mediante recompensas o penalizaciones dependiendo de las acciones de un agente dentro de un entorno. Estas retroalimentaciones le permiten aprender a tomar mejores decisiones, creando un conjunto de reglas o política que define la mejor estrategia para obtener recompensas.
+
+\subsection{Inteligencia artificial generativa}
+Es una clase de modelos que crea contenido por medio de las entradas de un usuario. Ejemplo: crear imágenes, contar chistes, resumir artículos. Estos modelos se entrenan inicialmente con un enfoque no supervisado, donde aprende a imitar datos con los que se entrena. En algunas ocasiones, el modelo se entrena más mediante el aprendizaje supervisado o por refuerzo dependiendo de las tareas que se le pida realizar.
 
 
 %
