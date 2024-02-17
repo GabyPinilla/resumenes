@@ -1571,7 +1571,13 @@ Si los puntos parecen seguir una recta en un gráfico, podría corresponder a un
 Un coeficiente de correlación cercano a 1 o -1 indicará que el modelo se ajusta a los datos.
 
 Si la relación entre las variables no es lineal, se debe utilizar otro tipo de correlación, como el coeficiente de correlación de Spearman o el de Kendall.
-
+\subsection{Coeficiente de determinación}
+El coeficiente de correlación $R^{2}$ es una medida estadística que dice qué tanto se ajusta el modelo a los datos. En otras palabras, muestra qué tan cerca están los datos de la línea de tendencia. su valor va de 0 a 100$\%$, donde:
+\begin{itemize}
+	\item 0$\%$ indica que el modelo no explica la variabilidad de los datos.
+	\item 100$\%$ indica que el modelo explica toda la variabilidad de los datos.
+\end{itemize}
+La variabilidad, en estadística, se refiere a la distancia entre los datos y la media del conjunto de datos. Se puede cuantificar mediante la varianza, desviación estándar y el rango intercuartil. Una alta variabilidad en los datos significa que hay una alta dispersión en ellos, donde la diferencia entre los datos y la media del conjunto es mayor. Por el contrario, una baja variabilidad indica que los datos están más agrupados alrededor de la media del conjunto y la dispersión es menor.
 \subsection{Regresión lineal}
 La regresión lineal se utiliza para encontrar la mejor línea recta que se ajusta a los datos para luego predecir los valores de la variable dependiente en función de la variable independiente. Mediante esta regresión, se busca predecir un número.
 
@@ -2048,6 +2054,8 @@ import matplotlib.pyplot as plt
 # Calculando el maximo y el minimo de los datos
 minimo = df['columna'].min()
 maximo = df['columna'].max()
+mu = df['columna'].mean()
+sigma = df['columna'].std()
 
 # Arreglo de valores equidistantes
 x = np.linspace(minimo, maximo)
@@ -2059,7 +2067,7 @@ pdf = norm.pdf(x, loc=mu, scale=sigma)
 	
 # Construyendo un histograma
 # 'density=True' construye el histograma haciendo que la suma de todas las areas de las barras sea igual a 1, para representar las probabilidades
-plt.hist(maths, bins=100, density=True, alpha=0.5, label='Muestra') #alpha=0.5 da un 50% de transparencia
+plt.hist(x, bins=100, density=True, alpha=0.5, label='Muestra') #alpha=0.5 da un 50% de transparencia
 	
 # Graficando la distribucion normal
 plt.plot(x, pdf, color='red', label='PDF')
@@ -2078,6 +2086,12 @@ La gráfica construirá una función representada por una línea roja sobre un h
 	\includegraphics[width=0.8\linewidth]{distnormalgrafico.png}
 	\caption{Gráfico de una distribución normal}
 \end{figure}
+También, se puede hacer con la librería seaborn:
+\begin{minted}[breaklines, breakanywhere]{Python}
+# Histograma
+sns.histplot(x='x', data=df, kde=True)
+plt.show()
+\end{minted}
 
 %	SUBSUBSECCION
 \subsubsection{Boxplot}
@@ -2150,7 +2164,7 @@ import matplotlib.pyplot as plt
 	
 sns.set(style='whitegrid')
 # Creando el grafico
-sns.scatterplot(x='x', y='y', hue='columna', data=df, palette='Set1')
+sns.scatter(x='x', y='y', hue='columna', data=df, palette='Set1')
 plt.xlabel('x')
 plt.ylabel('y')
 plt.title('Grafica scatterplot')
@@ -2208,7 +2222,7 @@ library(paquete)
 %	SUBSECCION
 \subsection{Resúmenes de datos}
 Funciones para obtener resúmenes de los marcos de datos:
-\begin{minted}{R}
+\begin{minted}[breaklines, breakanywhere]{R}
 #Muestra el tipo de datos
 str(df)
 #Devuelve el min, max, media, mediana, 1er y 3r cuartil. skimr
@@ -2248,7 +2262,7 @@ mutate()
 \end{minted}
 %	SECCION
 \section{Cálculos matemáticos}
-\begin{minted}{R}
+\begin{minted}[breaklines, breakanywhere]{R}
 # Media aritmética.
 mean()
 # Valor máximo.
@@ -2323,7 +2337,7 @@ ggplot(data, aes(x=, y=))+ geom_point() +  geom_smooth(method=”gam”, formula
 %	SUBSECCION
 \subsection{Estética y facetas}
 Una faceta es una cara o sección de un objeto. Sirve para comparar datos. Permiten mostrar grupos más pequeños, o subconjuntos, de datos.
-\begin{minted}{R}
+\begin{minted}[breaklines, breakanywhere]{R}
 # Facetar el diagrama con una variable.
 facet_wrap(~variable)
 # Facetar el diagrama con dos variables.
@@ -2333,8 +2347,8 @@ facet_grid(var1~var2)
 \subsection{Guardar gráficas}
 Para guardar una gráfica se puede exportar desde RStudio o usar la función:
 \begin{minted}[breaklines, breakanywhere]{R} 
-ggsave(“nombre-gráfico.tipo-archivo”, width=ancho, height=largo) # del paquete ggplot2. Ejemplo:
-ggsave(“Pingüinos.png”)
+ggsave(“nombre-grafico.tipo-archivo”, width=ancho, height=largo) # del paquete ggplot2. Ejemplo:
+ggsave(“Pinguinos.png”)
 \end{minted}
 %
 %	CAPITULO
@@ -2370,7 +2384,7 @@ Se pueden insertar bloques de código en las celdas de texto usando las comillas
 	```}
 
 De esta forma, el código en la celda tendrá un formato especial:
-\begin{minted}{Python}
+\begin{minted}[breaklines, breakanywhere]{Python}
 import pandas as pd
 \end{minted}
 
@@ -2453,7 +2467,7 @@ Mientras que los datos de salida del comando son:
 	\item \texttt{\textcolor{blue}{y$\_$test}}: contiene la variable dependiente correspondiente a \texttt{\textcolor{blue}{X$\_$test}}. Se utiliza este conjunto para comparar las predicciones de \texttt{\textcolor{blue}{X$\_$test}} y evaluar qué tan precisas son.
 \end{enumerate}
 Luego, se crea una instancia del objeto de regresión lineal para entrenar el modelo con \texttt{\textcolor{blue}{X$\_$train}} e \texttt{\textcolor{blue}{y$\_$train}} y predecir con \texttt{\textcolor{blue}{X$\_$test}}, guardando las predicciones en \texttt{\textcolor{blue}{y$\_$pred}}. Finalmente, se evalúa el modelo mediante el error cuadrático medio y el $R^{2}$ usando \texttt{\textcolor{blue}{y$\_$test}} e \texttt{\textcolor{blue}{y$\_$pred}}.
-\begin{minted}{Python}
+\begin{minted}[breaklines, breakanywhere]{Python}
 import numpy as np
 from sklearn import linear_model
 from sklearn.model_selection import train_test_split
@@ -2488,7 +2502,7 @@ print(f'r2: {r2}')
 \end{minted}
 
 Se pueden verificar las predicciones creando un scatterplot que considere datos reales y predichos por el modelo:
-\begin{minted}{Python}
+\begin{minted}[breaklines, breakanywhere]{Python}
 import matplotlib.pyplot as plt
 plt.scatterplot(y_test, y_pred)
 plt.xlabel('Datos reales')
@@ -2496,6 +2510,13 @@ plt.ylabel('Predicciones')
 plt.title('Predicciones vs datos reales')
 plt.show()
 \end{minted}
+La siguiente gráfica mostrará qué tan cercanas son las predicciones hechas por el modelo (puntos azules) a los valores reales dependiendo de la alineación de los puntos con la recta:
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\linewidth]{prediccionesvsdatosreales.png}
+	\caption{Ejemplo de gráfica de predicciones vs datos reales}
+\end{figure}
 
 \subsection{Aprendizaje no supervisado}
 Este modelo hace predicciones a partir de conjuntos de datos que no tienen una salida o datos etiquetados. La etiqueta es la respuesta o valor que se quiere que el modelo prediga. Su objetivo es identificar patrones en los datos de entrada. En lugar de predecir una salida, busca agrupar los datos en función de características comunes.
@@ -2509,7 +2530,7 @@ Posee dos categorías:
 \subsubsection{Clustering}
 El uso de los custers permite identificar patrones.
 
-\begin{minted}{Python}
+\begin{minted}[breaklines, breakanywhere]{Python}
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
@@ -2541,7 +2562,7 @@ plt.show()
 \end{minted}
 
 \subsubsection{Reducción de dimensionalidad}
-\begin{minted}{Python}
+\begin{minted}[breaklines, breakanywhere]{Python}
 X = df.data
 pca = PCA(n_components=2)
 X_pca = pca.fit_transform(X)
