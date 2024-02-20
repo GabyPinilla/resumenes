@@ -2523,53 +2523,109 @@ Este modelo hace predicciones a partir de conjuntos de datos que no tienen una s
 
 Posee dos categorías:
 \begin{enumerate}
-	\item Clustering (segmentación): utiliza algoritmos para agrupar los datos en grupos basados en similitudes.
+	\item Clustering (segmentación): es una técnica que tiene como objetivo agrupar datos similares en grupos llamados clusters, donde un cluster es un conjunto de objetos que comparten características similares entre sí. Algunos algoritmos de clustering son K-means, Fuzzy CMean, DBSCAN o clustering jerárquico.
 	\item Reducción de dimensionalidad: utilizan técnicas para reducir la cantidad de variables en un conjunto.
 \end{enumerate}
 
-\subsubsection{Clustering}
-El uso de los custers permite identificar patrones.
+\subsubsection{K-means}
+El algoritmo K-means busca agrupar conjuntos de datos similares en clusteres. El proceso de este algoritmo es el siguiente:
+\begin{enumerate}
+	\item Inicialización: Se selecciona el número K de clusters y se inicializan los centroides de los K clusters de forma aleatoria o usando un método.
+	\item Asignación: A cada punto de datos se le asigna al cluster cuyo centroide esté más cerca.
+	\item Actualización: Se calculan nuevos centroides de los clusters.
+	\item Se repiten los pasos 2 y 3 con los nuevos centroides.
+\end{enumerate}
+Por medio del método del codo se puede determinar el número óptimo de clusters (K) en el algoritmo. El objetivo es identificar el valor de K donde se produce un cambio en la variabilidad explicada por los clusters.
 
+El procedimiento de este método consta de ejecutar el algoritmo K-means para un rango de valores de K para posteriormente calcular la sima de las distancias al cuadrado dentro de los clusteres para cada valor de K. Luego, se grafica el valor de K y la métrica intra cluster. Con esto, se puede buscar el punto en el gráfico donde se produce una disminución significativa en la métrica intracluster, el cual indica el número óptimo de clusters.
+
+El siguiente código muestra el método del codo para identificar el número óptimo de clusters y el algoritmo K-means usando el conjunto de datos Iris:
 \begin{minted}[breaklines, breakanywhere]{Python}
 import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
+from sklearn.datasets import load_iris
 from sklearn.cluster import KMeans
-from sklearn.decomposition import PCA
+import seaborn as sns
+from sklearn.metrics import silhouette_score
+from sklearn.metrics import davies_bouldin_score
+from sklearn.metrics import pairwise_distances
 
-# Obteniendo las imagenes
-imagenes = df.images[:20]
-# Obteniendo las etiquetas
-etiquetas = df.target[:20]
+import warnings
+warnings.filterwarnings('ignore')
 
-# Configurando el subplot
-fig, axs = plt.subplots(4,5, figsize=(8,8))
+# Cargando los datos
+iris = load_iris()
+X = pd.DataFrame(iris.data)
+X
 
-# Iterando sobre las imagenes y etiquetas
-for i, (imagen, etiqueta) in enumerate(zip(imagenes,etiquetas)):
-	# Obteniendo coordenadas del subplot actual
-	row = i // 5
-	col = i % 5
-	
-	# Mostrando la imagen en el subplot correspondiente
-	axs[row,col].imshow(imagen, cmap='gray')
-	axs[row,col].set_title(f'titulo: {etiqueta}')
-	axs[row,col].axis('off')
-	
-# Ajustando los espacios entre subplots
-plt.tight_layaout()
+# Metodo del codo
+# Definiendo una lista de valores de k
+k_values = range(2, 8)
+# Inicializando listas para almacenar las metricas
+inertia_values = []
 
+# Realizar clustering con diferentes valores de k y calcular las métricas
+for k in k_values:
+kmeans = KMeans(n_clusters=k, random_state=42) #random_state es una semilla para valores aleatorios
+kmeans.fit(X)
+labels = kmeans.labels_
+# Calcular la inercia
+inertia_values.append(kmeans.inertia_)
+
+# Graficando el metodo del codo utilizando la inercia
+plt.plot(k_values, inertia_values, 'bo-')
+plt.xlabel('Numero de clusters (k)')
+plt.ylabel('Inercia')
+plt.title('Metodo del Codo')
 plt.show()
 \end{minted}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\linewidth]{metodocodo.png}
+	\caption{Método del codo}
+\end{figure}
+El gráfico anterior muestra que el número óptimo de k es 3, por lo tanto:
+\begin{minted}[breaklines, breakanywhere]{Python}
+optimal_k = 3
+kmeans = KMeans(n_clusters=optimal_k, random_state=42)
+# Aplicando kmeans
+kmeans.fit(X)
+# Etiquetando los resutados
+labels = kmeans.labels_
+# Insertando una columna con las etiquetas de cluster
+X['clusters'] = labels 
+
+# Graficando los clusters en el espacio reducido por PCA
+# Se utiliza la segunda y la tercera columna
+plt.scatter(X.iloc[:, 1], X.iloc[:, 2], c=labels)
+#plt.xlabel('Componente Principal 1')
+#plt.ylabel('Componente Principal 2')
+plt.title('Clusters K-means (k=3)')
+plt.show()
+
+# Metricas de evaluacion
+# Puntuacion de silhouette
+silhouette_scores = silhouette_score(X, labels)
+# Indice de David Boulding
+dunn_index = davies_bouldin_score(X, labels)
+print(f'Silhoutte Score : {silhouette_scores}')
+print(f'Davies Bouldin Score : {dunn_index}')
+\end{minted}
+
+Para validar un modelo de clustering, se usan los siguientes métodos:
+\begin{itemize}
+	\item Distancia Intra Cluster (SSE): mide la coherencia de los objetos dentro de un mismo grupo. Cuanto menor sea la distancia intracluster, mayor la cohesión dentro de este.
+	\item Coeficiente de Silhouette: mide la cohesión y separación de los clusters. Devuelve un valor entre -1 y 1, donde 1 indica una buena separación entre los clusters y alta cohesión.
+	\item Índice de Davies-Bouldin: mide la similitud entre los clusters y distancia entre los centroides de estos. Un valor más bajo indica una mejor separación y cohesión de los clusters.
+	\item Validación de expertos: se refiere a la participación de personas con experiencia en el dominio de los datos para evaluar los resultados.
+\end{itemize}
+
+\subsubsection{Fuzzy C-Means (FCM)}
+
 
 \subsubsection{Reducción de dimensionalidad}
-\begin{minted}[breaklines, breakanywhere]{Python}
-X = df.data
-pca = PCA(n_components=2)
-X_pca = pca.fit_transform(X)
 
-print(X[0])
-print(X_pca[0])
-\end{minted}
 
 \subsection{Aprendizaje reforzado}
 En este modelo se realizan predicciones mediante recompensas o penalizaciones dependiendo de las acciones de un agente dentro de un entorno. Estas retroalimentaciones le permiten aprender a tomar mejores decisiones, creando un conjunto de reglas o política que define la mejor estrategia para obtener recompensas.
