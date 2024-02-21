@@ -2720,9 +2720,57 @@ plt.title(f'Clustering jerárquico - Enlace: {method} - s-score: {sc:.2f}')
 plt.tight_layout()
 plt.show()
 \end{minted}
+El criterio de enlace determina cómo se mide la distancia entre los clusters. Algunos de ellos son:
+\begin{itemize}
+	\item Enlace completo (Complete linkage): mide la distancia máxima entre todos los pares de puntos de datos de distintos clusters.
+	\item Enlace simple (Single linkage): mide la distancia mínima entre todos los pares de puntos de diferentes clusters.
+	\item Enlace promedio (Average linkage): devuelve la distancia promedio entre todos los pares de puntos de diferentes clusters.
+	\item Enlace de Ward (Ward's linkage): minimiza la suma de las diferencias cuadradas dentro del cluster al fusionar dos clusters.
+\end{itemize}
 
 \subsubsection{Dendograma}
+Un dendograma es una grádica que muestra la estructura de los clusters formados durante el proceso de agrupamiento.
 
+Se puede graficar un dendograma mediante el siguiente código:
+\begin{minted}[breaklines, breakanywhere]{Python}
+# Graficando los dendrogramas
+plt.figure(figsize=(12, 4))
+for i, method in enumerate(linkage_methods):
+# Clustering jerarquico con el metodo de enlace actual
+Z = linkage(X, method)
+
+# Convirtiendo la matriz de enlace a tipo float
+Z = Z.astype(float)
+
+# Graficando el dendrograma
+plt.subplot(1, 4, i+1)
+dendrogram(Z, labels=wine.target)
+plt.xlabel('Indice de muestra')
+plt.ylabel('Distancia')
+plt.title(f'Dendrograma - Enlace: {method}')
+
+plt.tight_layout()
+plt.show()
+\end{minted}
+
+Finalmente, se puede analizar el mejor cluster obtenido:
+\begin{minted}[breaklines, breakanywhere]{Python}
+clustering = AgglomerativeClustering(n_clusters=3, linkage='ward')
+labels = clustering.fit_predict(X)
+
+# Analizando los clusters obtenidos
+for cluster in range(3):
+	cluster_indices = np.where(labels == cluster)[0]
+	cluster_samples = wine.data[cluster_indices]
+	cluster_target = wine.target[cluster_indices]
+	cluster_name = wine.target_names[cluster]
+	print(f'Cluster {cluster}: {cluster_name}')
+	print(f'Numero de muestras: {len(cluster_samples)}')
+	print(f'Caracteristicas mas repres: {np.mean(cluster_samples,
+	axis=0)}')
+	print(f'Etiquetas reales en cluster: {np.unique(cluster_target)}')
+	print('---')
+\end{minted}
 \subsubsection{Reducción de dimensionalidad}
 
 
