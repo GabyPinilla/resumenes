@@ -2622,7 +2622,106 @@ Para validar un modelo de clustering, se usan los siguientes métodos:
 \end{itemize}
 
 \subsubsection{Fuzzy C-Means (FCM)}
+Esta técnica de clustering asigna a cada dato un grado de membresía difuso. Como consecuencia, un dato puede pertenecer a múltiples clusters.
 
+El algoritmo Fuzzy C-Means requiere de la especificación del parámetro fuzziness (m), el cual controla la difusión de las asignaciones de membresía. Si m es igual a 1, los datos pertenecen a un cluster o a otro. Si es mayor a 1, la pertenencia es difusa, lo que implica que los puntos pueden tener grados de pertenencia parciales a múltiples clusters. Mientras mayor sea m, más difusas son las asignaciones.
+
+El procedimiento es el siguiente:
+\begin{enumerate}
+	\item Inicialización: Se selecciona el número K de clusters y se inicializan los centroides de los K clusters de forma aleatoria y los grados de pertenencia para cada dato. Estos grados de pertenencia son valores entre 0 y 1.
+	\item Cálculo de los centroides: Se calculan los centroides ponderados usando los grados de pertenencia.
+	\item Actualización de los grados de pertenencia: Se actualizan los grados de pertenencia de cada punto usando una función de pertenencia que usa la distancia de los centroides.
+	\item Iteración: Se repiten los pasos 2 y 3 hasta que se alcance un criterio de convergencia.
+\end{enumerate}
+El siguiente código muestra la aplicación del algoritmo Fuzzy C-Means:
+\begin{minted}[breaklines, breakanywhere]{Python}
+# Instalar fuzzy
+# !pip install scikit-fuzzy
+import skfuzzy as fuzz
+
+# Definiendo una lista de posibles valores de m
+m_values = np.arange(1.1, 3.1, 0.1)
+
+# Inicializando listas para almacenar las metricas
+silhouette_scores_fuzzy = []
+davies_bouldin_scores_fuzzy = []
+
+# Clustering fuzzy
+for m in m_values:
+cntr, u, u0, d, jm, p, fpc = fuzz.cluster.cmeans(X.T, 3, m, error=0.005, maxiter=1000)
+labels = np.argmax(u, axis=0)
+
+# Silhouette
+silhouette_scores_fuzzy.append(silhouette_score(X, labels))
+
+# Davies bouldin
+dunn_index = davies_bouldin_score(X, labels)
+davies_bouldin_scores_fuzzy.append(dunn_index)
+
+# Buscando el valor optimo de m basado en silhouette
+optimal_index = np.argmax(silhouette_scores_fuzzy)
+optimal_m = m_values[optimal_index]
+
+# Clustering con el valor optimo
+optimal_cntr, optimal_u, optimal_u0, optimal_d, optimal_jm, optimal_p, optimal_fpc = fuzz.cluster.cmeans(X.T, 3, optimal_m, error=0.005, maxiter=1000)
+optimal_labels = np.argmax(optimal_u, axis=0)
+
+# Graficando los resultados
+plt.figure(figsize=(10, 4))
+plt.subplot(121)
+plt.scatter(X.iloc[:, 1], X.iloc[:, 2], c=wine.target, cmap='viridis')
+plt.title('Clasificación real')
+plt.subplot(122)
+plt.scatter(X.iloc[:, 1], X.iloc[:, 2], c=optimal_labels, cmap='viridis')
+plt.title('Clustering Fuzzy C-means')
+plt.show()
+
+# Imprimiendo el valor optimo de m
+print(f"Valor optimo de m: {optimal_m}")
+
+#Graficando Silhouette y Davies bouldin
+plt.figure(figsize=(8, 4))
+plt.plot(m_values, silhouette_scores_fuzzy, 'bo-', label='Puntuación de silueta')
+plt.plot(m_values, davies_bouldin_scores_fuzzy, 'ro-', label='Indice de Dunn')
+plt.xlabel('Valor de m')
+plt.ylabel('Metrica')
+plt.title('Evaluacion de Clustering Fuzzy C-means')
+plt.legend()
+plt.show()
+\end{minted}
+
+\subsubsection{Clustering jerárquico}
+Es un método de agrupamiento que crea una jerarquía de clusters, donde se agrupan en subgrupos más pequeños o se fusionan en grupos más grandes. No necesita un número de clusters. El algoritmo de clustering jerárquico puede ser de dos tipos: aglomerativo y divisivo.
+\begin{enumerate}
+	\item Clustering jerárquico aglomerativo: Inicia con cada punto de dato como un cluster individual. Luego, fusiona los clusters más cercanos. Repite este proceso hasta que todos los puntos estén en un solo cluster o se cumpla un criterio de detención.
+	\item Clustering jerárquico divisivo: Comienza con todos los puntos en un solo cluster para luego dividirlo en subclusters más pequeños. Esto se repite hasta que cada dato esté en su propio cluster o se cumpla un criterio de detención.
+\end{enumerate}
+\begin{minted}[breaklines, breakanywhere]{Python}
+from sklearn.cluster import AgglomerativeClustering
+from scipy.cluster.hierarchy import linkage, dendrogram
+
+# Clustering jerarquico con diferentes metodos de enlace. Para ello se crea una lista
+linkage_methods = ['ward', 'complete', 'average', 'single']
+
+plt.figure(figsize=(12, 8))
+for i, method in enumerate(linkage_methods):
+# Realizando clustering jerarquico con el metodo de enlace actual
+clustering = AgglomerativeClustering(n_clusters=3, linkage=method)
+labels = clustering.fit_predict(X)
+sc = silhouette_score(X, labels)
+
+# Graficando los puntos en un diagrama de dispersion para las dos primeras columnas
+plt.subplot(2, 2, i+1)
+plt.scatter(X.iloc[:, 0], X.iloc[:, 1], c=labels, cmap='viridis')
+plt.xlabel('Caracteristica 1')
+plt.ylabel('Caracteristica 2')
+plt.title(f'Clustering jerárquico - Enlace: {method} - s-score: {sc:.2f}')
+
+plt.tight_layout()
+plt.show()
+\end{minted}
+
+\subsubsection{Dendograma}
 
 \subsubsection{Reducción de dimensionalidad}
 
