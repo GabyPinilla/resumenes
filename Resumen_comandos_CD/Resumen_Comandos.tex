@@ -2518,6 +2518,104 @@ La siguiente gráfica mostrará qué tan cercanas son las predicciones hechas po
 	\caption{Ejemplo de gráfica de predicciones vs datos reales}
 \end{figure}
 
+
+\subsubsection{KNN (K-Nearest Neighbors)}
+Antes de usar KNN, es importante preparar los datos dividiendo los conjuntos de entrenamiento y prueba, manipulando los datos faltantes y normalizando las características. Luego, se entrena el modelo KNN ajustando el número de vecinos (n$\_$neighbors). Con el modelo entrenado, se pueden realizar predicciones sobre datos nuevos y evaluar su rendimiento.
+
+\begin{minted}[breaklines, breakanywhere]{Python}
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import accuracy_score
+	
+# Dividiendo los datos en caracteristicas (X) y target (y)
+X = datos.drop('target', axis=1)
+y = datos['target']
+	
+# Dividiendo los datos en conjuntos de entrenamiento (70) y prueba (30)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+	
+# Normalizando las caracteristicas (recomendado para KNN)
+scaler = StandardScaler()
+X_train_scaled = scaler.fit_transform(X_train)
+X_test_scaled = scaler.transform(X_test)
+	
+# Creando el modelo KNN
+knn = KNeighborsClassifier(n_neighbors=5)
+	
+# Entrenando el modelo
+knn.fit(X_train_scaled, y_train)
+	
+# Predicciones
+y_pred = knn.predict(X_test_scaled)
+	
+# Evaluando el modelo
+accuracy = accuracy_score(y_test, y_pred)
+print(f'Precision: {accuracy}')
+\end{minted}
+
+Se debe tener en cuenta que la elección del número de vecinos (n$\_$neighbors) es importante. Un número bajo puede hacer que el modelo sea sensible al ruido de los datos. Por otro lado, un número alto puede hacer que el modelo sea demasiado general.
+
+\subsubsection{Árboles de decisión}
+Los árboles de decisión se utilizan para la clasificación como para la regresión.
+
+Como en KNN, se deben preparar los datos y dividir los conjuntos de entrenamiento y prueba para entrenar el modelo y hacer predicciones.
+\begin{minted}[breaklines, breakanywhere]{Python}
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score
+
+# Dividiendo los datos en caracteristicas (X) y target (y)
+X = datos.drop('target', axis=1)
+y = datos['target']
+
+# Dividiendo los datos en conjuntos de entrenamiento (70) y prueba (30)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+
+# Creando el modelo
+modelo_arbol = DecisionTreeClassifier(tandom_state=42)
+
+# Entrenando el modelo
+modelo_arbol.fit(X_train, y_train)
+
+# Predicciones
+predicciones = modelo_arbol.predict(X_test)
+
+# Evaluando el modelo
+accuracy = accuracy_score(y_test, predicciones)
+\end{minted}
+
+\subsubsection{Naive Bayes}
+Naive Bayes es un conjunto de algoritmos de clasificación basados en el Teorema de Bayes. Se usa comúnmente para clasificar texto, como filtrado de spam.
+
+Al igual que en los modelos anteriores, se deben preparar los datos, dividir los conjuntos, crear y entrenar el modelo para hacer predicciones. Scikit-learn ofrece GaussianNB, MultinomialNB, BernoulliNB, entre otros. La elección depende de los datos. Por ejemplo, GaussianNB se usa para características con una distribución continua. MultinomialNB y BernoulliNB se usan para datos discretos.
+
+\begin{minted}[breaklines, breakanywhere]{Python}
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score
+from sklearn.naive_bayes import GaussianNB
+from sklearn.metrics import accuracy_score
+
+# Dividiendo los datos en caracteristicas (X) y target (y)
+X = datos.drop('target', axis=1)
+y = datos['target']
+
+# Dividiendo los datos en conjuntos de entrenamiento (70) y prueba (30)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+
+# Naive Bayes
+modelo_nb = GaussianNB()
+
+# Entrenando el modelo
+modelo_nb.fit(X_train, y_train)
+
+predicciones = modelo_nb.predict(X_test)
+
+# Evaluando el modelo
+accuracy = accuracy_score(y_test, predicciones)
+\end{minted}
+
 \subsection{Aprendizaje no supervisado}
 Este modelo hace predicciones a partir de conjuntos de datos que no tienen una salida o datos etiquetados. La etiqueta es la respuesta o valor que se quiere que el modelo prediga. Su objetivo es identificar patrones en los datos de entrada. En lugar de predecir una salida, busca agrupar los datos en función de características comunes.
 
