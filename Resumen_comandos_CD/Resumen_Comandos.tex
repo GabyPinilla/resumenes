@@ -13,6 +13,7 @@
 \usepackage{minted}
 \usemintedstyle{vs}
 \usepackage[dvipsnames]{xcolor} %color de las letras
+\setcounter{tocdepth}{4} % Incluye las secciones, subsecciones y subsubsecciones en el indice
 % DEFINIENDO COLORES DE LOS CODIGOS
 % SQL
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
@@ -1735,146 +1736,6 @@ El gráfico de residuos puede darse de las siguientes formas:
 \end{figure}
 De las figuras anteriores, la figura a presenta un patrón de residuos al azar donde no hay tendencias. La b y c presentan tendencias, lo que podría indicar que la relación entre las variables no es la indicada. La d, e y f tienen una dispersión irregular, donde la varianza de los residuos aumenta conforme aumentan los valores, lo cual indica que aumenta la variabilidad y su media.
 
-\subsection{Regresión logística}
-La regresión logística se emplea para determinar la probabilidad de que un evento pertenezca a una de dos o más categorías. Se busca relacionar un conjunto de variables independientes con una dependiente, usando coeficientes que determinan un modelo lineal. Esta regresión busca predecir categorías.
-
-Por medio de la función logarítima o logit, transforma la salida en una escala log-odds con la función Sigmoide:
-\begin{equation}
-	f(x) = \frac{1}{1+e^{-x}}
-\end{equation}
-La función logística devuelve valores entre 0 (no/falso) y 1 (sí/verdadero) para la variable dependiente. Los valores por sobre 0.5 se pueden interpretar como una probabilidad mayoritaria de que ocurra un evento (clase 1), mientras que por debajo de 0.5 indica una probabilidad mayoritaria de que no ocurra (clase 0). Se define un umbral de decisión para definir una categoría como positiva y otra negativa.
-
-\begin{figure}[H] 
-	\centering 
-	\includegraphics[width=0.5\linewidth]{graficologistica.jpg}
-	\caption{Gráfico de la función logística}
-\end{figure}
-
-En Python, se aplica la función \texttt{\textcolor{blue}{LogisticRegresion()}} de sci-kit learn.
-\begin{minted}[breaklines, breakanywhere]{Python}
-# Libreria
-from sklearn.linear_model import LogisticRegression
-	
-# Variables
-X = df[['var_1', 'var_2', 'var_3']]
-y = df[['var_y']]
-	
-# Modelando
-LogReg = LogisticRegression()
-	
-# Ajustando el modelo
-LogReg.fit(X, y)
-	
-# Predicciones
-y_pred = LogReg.predict(X)
-\end{minted}
-
-\subsubsection{Tipos de regresión logística}
-Los tipos de regresión logística son binaria y multinomial:
-\begin{enumerate}
-	\item La regresión logística binaria es un modelo estadístico que se utiliza para problemas de clasificación binaria donde la variable dependiente tiene dos categorías posibles, etiquetados como 0 y 1, sí y no, etc. La función Sigmoide usa la función logística para modelar la probabilidad de que la variable dependiente pertenezca a la categoría 1 (clase positiva).
-	\item Por otro lado, la regresión logística multinomial se utiliza para problemas de clasificación con más de dos categorías mutuamente excluyentes. La función Softmax en la regresión logística multinomial, se usa para modelar la probabilidad de pertenecer a cada una de las categorías. Asigna probabilidades a cada categoría, dando la suma de ellas igual a 1. Puede predecir varias categorías distintas. Se utiliza en problemas de clasificación multiclase.
-\end{enumerate}
-
-\subsubsection{Métricas de evaluación}
-\begin{enumerate}
-	\item Exactitud: Absoluto del porcentaje que se predijo correctamente.
-	Mide la proporción de las predicciones que son correctas.
-	\item Precisión: Se busca minimizar los falsos positivos. Mide cuando algo positivo sea realmente positivo.
-	\item Sensibilidad: Mide de todas las clases positivas, cuántas de ellas se identifican.
-	\item Puntuación F1: Promedio armónico entre precisión y sensibilidad.
-\end{enumerate}
-
-Cuando se quiere optimizar sobre precisión, se aumenta el umbral. Se quiere estar seguro de que sea positivo.
-Cuando se quiere optimizar sobre la sensibilidad, se baja el umbral. Esto se hace para capturar a todas las clases positivas.
-\begin{minted}[breaklines, breakanywhere]{Python}
-from sklearn.metrics import accuracy_score, precision_score, recall_score, classification_report
-	
-# Exactitud
-accuracy = accuracy_score(y, y_pred)
-
-# Precision
-precision = precision_score(y, y_pred)
-	
-# Sensibilidad
-recall = recall_score(y, y_pred)
-	
-# Reporte que incluye precision, sensibilidad y f1
-reporte = classification_report(y, y_pred)
-\end{minted}
-También, se puede evaluar el modelo mediante la matriz de confusión y las curvas ROC-AUC y PRC-AUC, las cuales se verán a continuación.
-
-\subsubsection{Matriz de confusión}
-La matriz de confusión cuantifica los casos falsos positivos, falsos negativos, verdaderos positivos y verdaderos negativos.
-\begin{figure}[H] 
-	\centering 
-	\includegraphics[width=0.6\linewidth]{matrizconfusionexplicacion.jpg}
-	\caption{Matriz de confusión}
-\end{figure}
-donde:
-\begin{itemize}
-	\item Verdaderos positivos: son los casos en que los datos reales son 1 (Verdadero) y la predicción también es 1.
-	\item Verdaderos negativos: son los casos en que los datos reales son 0 (Falso) y la predicción también es 0.
-	\item Falsos positivos: son los casos en que los datos reales son 0 y la predicción es 1. El modelo ha pronosticado incorrectamente.
-	\item Falsos negativos: son los casos en que los datos reales son 1 y la predicción es 0. El modelo ha pronosticado incorrectamente.
-\end{itemize}
-El escenario ideal es que el modelo no de falsos positivos ni falsos negativos.
-
-En Python, la matriz de confusión se hace de la siguiente forma:
-\begin{minted}[breaklines, breakanywhere]{Python}
-from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
-	
-# Matriz de confusion
-confusion = confusion_matrix(y, y_pred)
-	
-# Visualizando la matriz de confusion
-vis = ConfusionMatrixDisplay(confusion)
-vis.plot()
-	
-# Tambien, se puede visualizar de la siguiente forma
-ConfusionMatrixDisplay.from_predictions(y, y_pred)
-\end{minted}
-
-La siguiente gráfica muestra una la matriz de confusión. En ella, se puede apreciar que los verdaderos positivos están en la esquina inferior derecha y los verdaderos negativos en la esquina superior izquierda.
-\begin{figure}[H] 
-	\centering 
-	\includegraphics[width=0.6\linewidth]{matrizconfusionejemplo.png}
-	\caption{Ejemplo de matriz de confusión}
-\end{figure}
-Para evitar confusiones, es posible cambiar el nombre de los ejes a verdadero y falso, o true y false de la siguiente manera:
-\begin{minted}[breaklines, breakanywhere]{Python}
-from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
-	
-# Matriz de confusion
-confusion = confusion_matrix(y, y_pred)
-	
-# Visualizando la matriz de confusion cambiando el nombre de los ejes
-vis = ConfusionMatrixDisplay(confusion, display_labels =[False, True])
-vis.plot()
-\end{minted}
-Resultando en:
-\begin{figure}[H] 
-	\centering 
-	\includegraphics[width=0.6\linewidth]{matrizconfusionejemplo2.png}
-	\caption{Ejemplo de matriz de confusión}
-\end{figure}
-
-\subsubsection{Curva ROC-AUC}
-ROC (Receiver Operating Characteristic, o característica operativa del receptor) es una gráfica que contrasta las tasas de falsos positivos y falsos negativos.  
-\begin{figure}[H] 
-	\centering 
-	\includegraphics[width=0.6\linewidth]{curvaroc.jpg}
-	\caption{Gráfica de la curva ROC}
-\end{figure}
-
-El área bajo la curva (AUC) se utiliza como resumen del rendimiento del modelo. El AUC-ROC varía entre 0 y 1, donde un valor más cercano a 1 indica un mejor rendimiento.
-
-\subsubsection{Curva PRC}
-La curva PRC (Precision-Recall, o precisión-sensibilidad) contrasta la precisión con la sensibilidad para diferentes umbrales. El AUC-PRC varía entre 0 y 1, donde un valor más cercano a 1 indica un mejor rendimiento. Si el valor es 1, significa que el modelo puede lograr una precisión perfecta y una sensibilidad perfecta.
-
-\begin{minted}[breaklines, breakanywhere]{Python}
-	
-\end{minted}
 %	SECCION
 \section{Gráficas con matplotlib y seaborn}
 Para crear visualizaciones en Python, por lo general se usan las librerías matplotlib y seaborn. Se deben seguir los siguientes pasos para poder hacer un gráfico:
@@ -2446,6 +2307,112 @@ Este aprendizaje se divide en dos categorías:
 	\item Clasificación: se utiliza para predecir la probabilidad de que algo pertenezca a una categoría (puede se binaria o multiclase).
 	\item Regresión: predice un valor numérico.
 \end{enumerate}
+Antes de entrar en los algoritmos del aprendizaje supervisado, es importante tener en cuenta lo que es el overfitting y el underfitting, y las métricas de evaluación de los modelos.
+\subsubsection{Overfitting (Sobreajuste)}
+El sobreajuste ocurre cuando un modelo se ajusta de forma excesiva a los datos de entrenamiento. No aprende patrones para poder aplicarlo a datos nuevos. Su rendimiento es muy bueno en el conjunto de entrenamiento, pero pésimo en conjunto de prueba.
+
+Se puede identificar el sobreajuste cuando el rendimiento del modelo en el conjunto de entrenamiento es mejor que en el de conjunto de prueba.
+
+\subsubsection{Subajuste (Underfitting)}
+El subajuste ocurre cuando el modelo no logra capturar los patrones en los datos. Se ajusta bien a los datos de entrenamiento y tiene un rendimiento deficiente en el conjunto de entrenamiento y en el de prueba.
+
+Se puede identificar el subajuste cuando el modelo en el conjunto de entrenamiento y de prueba es bajo.
+
+\subsubsection{Métricas de evaluación}
+\begin{enumerate}
+	\item Exactitud (Accuracy): Absoluto del porcentaje que se predijo correctamente. Mide la proporción de las predicciones que son correctas.
+	\item Precisión (Precision): Se busca minimizar los falsos positivos. Mide cuando algo positivo sea realmente positivo. Minimiza los falsos positivos.
+	\item Sensibilidad (Recall): Evalúa cuántos de los casos positivos reales que fueron identificados de forma correcta por el modelo.
+	\item Puntuación F1 (F1-score): Promedio armónico entre precisión y sensibilidad. Es útil cuando se busca un balance entre ambas métricas.
+\end{enumerate}
+
+Cuando se quiere optimizar sobre precisión, se aumenta el umbral. Se quiere estar seguro de que sea positivo.
+
+Cuando se quiere optimizar sobre la sensibilidad, se baja el umbral. Esto se hace para capturar a todas las clases positivas.
+\begin{minted}[breaklines, breakanywhere]{Python}
+from sklearn.metrics import accuracy_score, precision_score, recall_score, classification_report
+
+# Exactitud
+accuracy = accuracy_score(y, y_pred)
+
+# Precision
+precision = precision_score(y, y_pred)
+
+# Sensibilidad
+recall = recall_score(y, y_pred)
+
+# Reporte que incluye precision, sensibilidad y f1
+reporte = classification_report(y, y_pred)
+\end{minted}
+También, se puede evaluar el modelo mediante la matriz de confusión y las curvas ROC-AUC y PRC-AUC, las cuales se verán a continuación.
+
+\subsubsection{Matriz de confusión}
+La matriz de confusión proporciona una matriz resumida las predicciones correctas e incorrectas. Cuantifica los casos falsos positivos, falsos negativos, verdaderos positivos y verdaderos negativos.
+\begin{figure}[H] 
+	\centering 
+	\includegraphics[width=0.6\linewidth]{matrizconfusionexplicacion.jpg}
+	\caption{Matriz de confusión}
+\end{figure}
+donde:
+\begin{itemize}
+	\item Verdaderos positivos: son los casos en que los datos reales son 1 (Verdadero) y la predicción también es 1.
+	\item Verdaderos negativos: son los casos en que los datos reales son 0 (Falso) y la predicción también es 0.
+	\item Falsos positivos: son los casos en que los datos reales son 0 y la predicción es 1. El modelo ha pronosticado incorrectamente.
+	\item Falsos negativos: son los casos en que los datos reales son 1 y la predicción es 0. El modelo ha pronosticado incorrectamente.
+\end{itemize}
+El escenario ideal es que el modelo no de falsos positivos ni falsos negativos.
+
+En Python, la matriz de confusión se hace de la siguiente forma:
+\begin{minted}[breaklines, breakanywhere]{Python}
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+	
+# Matriz de confusion
+confusion = confusion_matrix(y, y_pred)
+	
+# Visualizando la matriz de confusion
+vis = ConfusionMatrixDisplay(confusion)
+vis.plot()
+	
+# Tambien, se puede visualizar de la siguiente forma
+ConfusionMatrixDisplay.from_predictions(y, y_pred)
+\end{minted}
+
+La siguiente gráfica muestra una la matriz de confusión. En ella, se puede apreciar que los verdaderos positivos están en la esquina inferior derecha y los verdaderos negativos en la esquina superior izquierda.
+\begin{figure}[H] 
+	\centering 
+	\includegraphics[width=0.6\linewidth]{matrizconfusionejemplo.png}
+	\caption{Ejemplo de matriz de confusión}
+\end{figure}
+Para evitar confusiones, es posible cambiar el nombre de los ejes a verdadero y falso, o true y false de la siguiente manera:
+\begin{minted}[breaklines, breakanywhere]{Python}
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+	
+# Matriz de confusion
+confusion = confusion_matrix(y, y_pred)
+	
+# Visualizando la matriz de confusion cambiando el nombre de los ejes
+vis = ConfusionMatrixDisplay(confusion, display_labels =[False, True])
+vis.plot()
+\end{minted}
+Resultando en:
+\begin{figure}[H] 
+	\centering 
+	\includegraphics[width=0.6\linewidth]{matrizconfusionejemplo2.png}
+	\caption{Ejemplo de matriz de confusión}
+\end{figure}
+
+\subsubsection{Curva ROC-AUC}
+ROC (Receiver Operating Characteristic, o característica operativa del receptor) es una gráfica que contrasta las tasas de falsos positivos y falsos negativos.  
+\begin{figure}[H] 
+	\centering 
+	\includegraphics[width=0.6\linewidth]{curvaroc.jpg}
+	\caption{Gráfica de la curva ROC}
+\end{figure}
+
+El área bajo la curva (AUC) se utiliza como resumen del rendimiento del modelo. El AUC-ROC varía entre 0 y 1, donde un valor más cercano a 1 indica un mejor rendimiento.
+
+\subsubsection{Curva PRC}
+La curva PRC (Precision-Recall, o precisión-sensibilidad) contrasta la precisión con la sensibilidad para diferentes umbrales. El AUC-PRC varía entre 0 y 1, donde un valor más cercano a 1 indica un mejor rendimiento. Si el valor es 1, significa que el modelo puede lograr una precisión perfecta y una sensibilidad perfecta.
 
 \subsubsection{Regresión lineal}
 En aprendizaje supervisado, la regresión lineal es un algoritmo que tiene como objetivo optimizar la capacidad de predicción del modelo sobre nuevos datos.
@@ -2517,6 +2484,177 @@ La siguiente gráfica mostrará qué tan cercanas son las predicciones hechas po
 	\includegraphics[width=0.7\linewidth]{prediccionesvsdatosreales.png}
 	\caption{Ejemplo de gráfica de predicciones vs datos reales}
 \end{figure}
+\subsubsection{Regresión logística}
+La regresión logística se emplea para determinar la probabilidad de que un evento pertenezca a una de dos o más categorías. Se busca relacionar un conjunto de variables independientes con una dependiente, usando coeficientes que determinan un modelo lineal. Esta regresión busca predecir categorías.
+
+Por medio de la función logarítima o logit, transforma la salida en una escala log-odds con la función Sigmoide:
+\begin{equation}
+	f(x) = \frac{1}{1+e^{-x}}
+\end{equation}
+La función logística devuelve valores entre 0 (no/falso) y 1 (sí/verdadero) para la variable dependiente. Los valores por sobre 0.5 se pueden interpretar como una probabilidad mayoritaria de que ocurra un evento (clase 1), mientras que por debajo de 0.5 indica una probabilidad mayoritaria de que no ocurra (clase 0). Se define un umbral de decisión para definir una categoría como positiva y otra negativa.
+
+\begin{figure}[H] 
+	\centering 
+	\includegraphics[width=0.5\linewidth]{graficologistica.jpg}
+	\caption{Gráfico de la función logística}
+\end{figure}
+
+Existen dos tipos de regresión logística, la binaria y multinomial:
+\begin{enumerate}
+	\item La regresión logística binaria es un modelo estadístico que se utiliza para problemas de clasificación binaria donde la variable dependiente tiene dos categorías posibles, etiquetados como 0 y 1, sí y no, etc. La función Sigmoide usa la función logística para modelar la probabilidad de que la variable dependiente pertenezca a la categoría 1 (clase positiva).
+	\item Por otro lado, la regresión logística multinomial se utiliza para problemas de clasificación con más de dos categorías mutuamente excluyentes. La función Softmax en la regresión logística multinomial, se usa para modelar la probabilidad de pertenecer a cada una de las categorías. Asigna probabilidades a cada categoría, dando la suma de ellas igual a 1. Puede predecir varias categorías distintas. Se utiliza en problemas de clasificación multiclase.
+\end{enumerate}
+
+Para aplicar este modelo, se debe dividir el dataset en conjunto de entrenamiento y prueba. Se recomienda escalar las características (X) con \texttt{\textcolor{blue}{fit$\_$transform()}}. Luego, se eligen dos características para el gráfico
+
+\begin{minted}[breaklines, breakanywhere]{Python}
+# Librerias
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.datasets import load_breast_cancer
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.preprocessing import StandardScaler
+	
+# Variables predictoras
+X = df[['var_1', 'var_2', 'var_3']]
+# Variables objetivo (1 o 0 en el caso de la clasificacion binaria)
+y = df[['var_y']]
+
+# Escalando X
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
+# Seleccionando dos caracteristicas para el plot
+caracteristica1 = 0
+caracteristica2 = 1
+X_2d = X_scaled[:, [caracteristica1, caracteristica2]]
+
+# Dividiendo los datos en conjunto de prueba y entrenamiento
+X_train, X_test, y_train, y_test = train_test_split(X_2d, y, test_size=0.2, random_state=42)
+
+# Entrenando el modelo de regresion logistica
+LogReg = LogisticRegression()
+LogReg.fit(X_train, y_train)
+
+# Obteniendo los coeficientes y el intercepto del modelo
+coeficientes = LogReg.coef_
+intercepto = LogReg.intercept_
+
+Crear un meshgrid para el plot
+x_min, x_max = X_2d[:, 0].min() - 1, X_2d[:, 0].max() + 1
+y_min, y_max = X_2d[:, 1].min() - 1, X_2d[:, 1].max() + 1
+xx, yy = np.meshgrid(np.arange(x_min, x_max, 0.1),
+np.arange(y_min, y_max, 0.1))
+
+# Prediciendo las clases para cada punto del meshgrid
+Z = LogReg.predict(np.c_[xx.ravel(), yy.ravel()])
+Z = Z.reshape(xx.shape)
+
+# Grafico de las regiones de decision y los puntos de entrenamiento
+plt.figure(figsize=(8, 6))
+plt.contourf(xx, yy, Z, alpha=0.6, cmap=plt.cm.coolwarm)
+plt.scatter(X_train[:, 0], X_train[:, 1], c=y_train, cmap=plt.cm.coolwarm,
+edgecolors='k')
+plt.xlabel(caracteristica1)
+plt.ylabel(caracteristica2)
+plt.title('Regresion Logistica - Regiones de Decision')
+plt.colorbar(label='Clase')
+plt.show()
+\end{minted}
+
+\subsubsection{Support Vector Machine (SVM)}
+El SVM es un algoritmo utilizado para la clasificación y regresión. Busca maximizar la separabilidad entre clases en un espacio de características mediante los hiperplanos óptimos. Puede abordar problemas lineales y no lineales.
+
+Para aplicar el modelo, se deben cargar los datos, dividir el conjunto de de entrenamiento y prueba, escalar y entrenar el modelo. Al entrenarlo, se debe usar un kernel, el cual puede ser rbf (predeterminado), linear, poly o sigmoid.
+\begin{minted}{Python}
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib.gridspec import GridSpec
+import seaborn as sns
+from sklearn.datasets import make_blobs
+from sklearn.svm import SVC
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.pipeline import Pipeline
+from sklearn.metrics import classification_report
+
+# Variables predictoras
+X = df[['var_1', 'var_2', 'var_3']]
+# Variables objetivo (1 o 0 en el caso de la clasificacion binaria)
+y = df[['var_y']]
+
+# Dividiendo los datos en conjunto de prueba y entrenamiento
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Escalando las caracteristicas
+scaler = StandardScaler()
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
+
+# Entrenando el modelo
+svc_model = SVC(kernel='linear')
+svc_model.fit(X_train, y_train)
+
+# Prediciendo
+svc_model.predict(X_test)
+
+\end{minted}
+
+El algoritmo SVM posee tres hiperparámetros principales, el kernel, costo c y gamma.
+\begin{enumerate}
+	\item Kernel: es una función que realizan una transformación no lineal de los datos. Abordan problemas de clasificación no lineales. Los más comunes son lineal (linear), polinómico (poly), radial (rbf), sigmoide.
+	\item Costo c: determina cuánto se penalizan los errores en la clasificación de las muestras de entrenamiento. Un valor alto de c busca clasificar todos los ejemplos de entrenamiento de forma correcta, lo que puede llevar a un overfitting en el conjunto de entrenamiento. Mientras que un bajo valor de c permite que el modelo tenga un margen más amplio y un mayor número de errores en la clasificación de las muestras de entrenamiento, lo que puede resultar en un underfitting en el conjunto de entrenamiento.
+	\item Gamma: este parámetro es específico del kernel radial. Define hasta qué punto llega la influencia de un solo ejemplo de entrenamiento. Los valores bajos de gamma indican que el alcance de influencia de un punto de entrenamiento es más amplio, donde los puntos se afectan entre sí en un área más grande, lo que podría llevar a un overfitting. Por otro lado, un valor alto de gamma indica que el alcance de influencia de un punto de entrenamiento es más estrecho, donde los puntos afectan solo a los puntos cercanos en el espacio de las características.
+\end{enumerate}
+
+
+Para visualizar las diferencias de los kernels mediante gráficas:
+\begin{minted}{Python}
+# Variables predictoras
+X = df[['var_1', 'var_2', 'var_3']]
+# Variables objetivo (1 o 0 en el caso de la clasificacion binaria)
+y = df[['var_y']]
+
+# Entrenando el modelo lineal
+svc_model = SVC(kernel='linear', gamma=1)
+svc_model.fit(X, y)
+
+# Prediciendo las clases para todo el espacio de caracteristicas
+h = 0.02 # Tamanno del paso en el meshgrid
+x_min, x_max = X[:, 0].min() - 1, X[:, 0].max() + 1
+y_min, y_max = X[:, 1].min() - 1, X[:, 1].max() + 1
+xx, yy = np.meshgrid(np.arange(x_min, x_max, h), np.arange(y_min, y_max, h))
+Z = model.predict(np.c_[xx.ravel(), yy.ravel()])
+# Plot del resultado
+Z = Z.reshape(xx.shape)
+plt.contourf(xx, yy, Z, cmap=plt.cm.Paired, alpha=0.8)
+plt.scatter(X[:, 0], X[:, 1], c=y, cmap=plt.cm.Paired, edgecolors='k')
+plt.xlabel('Caracteristica 1')
+plt.ylabel('Caracteristica 2')
+plt.title('Support Vector Machine con Kernel Lineal')
+
+plt.subplot(1,2, 2)
+# Entrenando el modelo rbf
+model = SVC(kernel='rbf', gamma=1)
+model.fit(X, y)
+
+# Predeciendo las clases para todo el espacio de caracteristicas
+h = 0.02 # Tamanno del paso en el meshgrid
+x_min, x_max = X[:, 0].min() - 1, X[:, 0].max() + 1
+y_min, y_max = X[:, 1].min() - 1, X[:, 1].max() + 1
+xx, yy = np.meshgrid(np.arange(x_min, x_max, h), np.arange(y_min, y_max, h))
+Z = model.predict(np.c_[xx.ravel(), yy.ravel()])
+# Grafico del resultado
+Z = Z.reshape(xx.shape)
+plt.contourf(xx, yy, Z, cmap=plt.cm.Paired, alpha=0.8)
+plt.scatter(X[:, 0], X[:, 1], c=y, cmap=plt.cm.Paired, edgecolors='k')
+plt.xlabel('Caracteristica 1')
+plt.ylabel('Caracteristica 2')
+plt.title('Support Vector Machine con Kernel RBF')
+plt.show()
+\end{minted}
 
 
 \subsubsection{KNN (K-Nearest Neighbors)}
@@ -2573,7 +2711,7 @@ y = datos['target']
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
 
 # Creando el modelo
-modelo_arbol = DecisionTreeClassifier(tandom_state=42)
+modelo_arbol = DecisionTreeClassifier(random_state=42)
 
 # Entrenando el modelo
 modelo_arbol.fit(X_train, y_train)
@@ -2616,6 +2754,14 @@ predicciones = modelo_nb.predict(X_test)
 accuracy = accuracy_score(y_test, predicciones)
 \end{minted}
 
+Además de las métricas de evaluación accuracy, precision, recall, f1-score, también se puede usar la matriz de confusión, la cual debe llevar como argumento \texttt{\textcolor{blue}{y$\_$test}} y \texttt{\textcolor{blue}{y$\_$pred}}:
+\begin{minted}[breaklines, breakanywhere]{Python}
+# Matriz de confusion
+confusion = confusion_matrix(y_test, y_pred)
+# Visualizando la matriz de confusion cambiando el nombre de los ejes
+vis = ConfusionMatrixDisplay(confusion, display_labels =['False', 'True'])
+vis.plot()
+\end{minted}
 \subsection{Aprendizaje no supervisado}
 Este modelo hace predicciones a partir de conjuntos de datos que no tienen una salida o datos etiquetados. La etiqueta es la respuesta o valor que se quiere que el modelo prediga. Su objetivo es identificar patrones en los datos de entrada. En lugar de predecir una salida, busca agrupar los datos en función de características comunes.
 
@@ -2624,6 +2770,27 @@ Posee dos categorías:
 	\item Clustering (segmentación): es una técnica que tiene como objetivo agrupar datos similares en grupos llamados clusters, donde un cluster es un conjunto de objetos que comparten características similares entre sí. Algunos algoritmos de clustering son K-means, Fuzzy CMean, DBSCAN o clustering jerárquico.
 	\item Reducción de dimensionalidad: utilizan técnicas para reducir la cantidad de variables en un conjunto.
 \end{enumerate}
+Antes de entrar en detalle a los algoritmos de aprendizaje no supervisado, se debe tener en cuenta las métricas de evaluación para estos modelos.
+\subsubsection{Métricas de evaluación}
+Las métricas de evaluación para los modelos de aprendizaje no supervisados consta del puntaje de Silhouette y el de Davies Bouldin.
+\begin{minted}{Python}
+from sklearn.metrics import silhouette_score
+from sklearn.metrics import davies_bouldin_score
+# Metricas de evaluacion
+# Puntuacion de silhouette
+silhouette_scores = silhouette_score(X, labels)
+# Indice de David Boulding
+dunn_index = davies_bouldin_score(X, labels)
+print(f'Silhoutte Score : {silhouette_scores}')
+print(f'Davies Bouldin Score : {dunn_index}')
+\end{minted}
+Para validar un modelo de clustering, se usan los siguientes métodos:
+\begin{itemize}
+	\item Distancia Intra Cluster (SSE): mide la coherencia de los objetos dentro de un mismo grupo. Cuanto menor sea la distancia intracluster, mayor la cohesión dentro de este.
+	\item Coeficiente de Silhouette: mide la cohesión y separación de los clusters. Devuelve un valor entre -1 y 1, donde 1 indica una buena separación entre los clusters y alta cohesión.
+	\item Índice de Davies-Bouldin: mide la similitud entre los clusters y distancia entre los centroides de estos. Un valor más bajo indica una mejor separación y cohesión de los clusters.
+	\item Validación de expertos: se refiere a la participación de personas con experiencia en el dominio de los datos para evaluar los resultados.
+\end{itemize}
 
 \subsubsection{K-means}
 El algoritmo K-means busca agrupar conjuntos de datos similares en clusteres. El proceso de este algoritmo es el siguiente:
@@ -2710,14 +2877,6 @@ dunn_index = davies_bouldin_score(X, labels)
 print(f'Silhoutte Score : {silhouette_scores}')
 print(f'Davies Bouldin Score : {dunn_index}')
 \end{minted}
-
-Para validar un modelo de clustering, se usan los siguientes métodos:
-\begin{itemize}
-	\item Distancia Intra Cluster (SSE): mide la coherencia de los objetos dentro de un mismo grupo. Cuanto menor sea la distancia intracluster, mayor la cohesión dentro de este.
-	\item Coeficiente de Silhouette: mide la cohesión y separación de los clusters. Devuelve un valor entre -1 y 1, donde 1 indica una buena separación entre los clusters y alta cohesión.
-	\item Índice de Davies-Bouldin: mide la similitud entre los clusters y distancia entre los centroides de estos. Un valor más bajo indica una mejor separación y cohesión de los clusters.
-	\item Validación de expertos: se refiere a la participación de personas con experiencia en el dominio de los datos para evaluar los resultados.
-\end{itemize}
 
 \subsubsection{Fuzzy C-Means (FCM)}
 Esta técnica de clustering asigna a cada dato un grado de membresía difuso. Como consecuencia, un dato puede pertenecer a múltiples clusters.
