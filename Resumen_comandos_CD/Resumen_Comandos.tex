@@ -2524,6 +2524,7 @@ Sin embargo, la regresión lineal puede sufrir problemas como el overfitting. Pa
 	\item Regularización de Ridge (L2): esta norma penaliza los coeficientes usando el cuadrado de sus valores. Tiende a mantener sus coeficientes pequeños, lo que es útil cuando todas las características son relevantes.
 	\item ElasticNet: combina las normas L1 y L2, el cual busca un equilibrio entre la selección de características y la reducción de coeficientes.
 \end{enumerate}
+La regularización también se puede utilizar en la regresión logística, modelos de regresión polinomial, no lineal o de clasificación, como SVM, árboles de decisión y random forests.
 \subsubsection{Regresión logística}
 La regresión logística se emplea para determinar la probabilidad de que un evento pertenezca a una de dos o más categorías. Se busca relacionar un conjunto de variables independientes con una dependiente, usando coeficientes que determinan un modelo lineal. Esta regresión busca predecir categorías.
 
@@ -2607,7 +2608,7 @@ plt.show()
 El SVM es un algoritmo utilizado para la clasificación y regresión. Busca maximizar la separabilidad entre clases en un espacio de características mediante los hiperplanos óptimos. Puede abordar problemas lineales y no lineales.
 
 Para aplicar el modelo, se deben cargar los datos, dividir el conjunto de de entrenamiento y prueba, escalar y entrenar el modelo. Al entrenarlo, se debe usar un kernel, el cual puede ser rbf (predeterminado), linear, poly o sigmoid.
-\begin{minted}{Python}
+\begin{minted}[breaklines, breakanywhere]{Python}
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -2651,7 +2652,7 @@ El algoritmo SVM posee tres hiperparámetros principales, el kernel, costo c y g
 
 
 Para visualizar las diferencias de los kernels mediante gráficas:
-\begin{minted}{Python}
+\begin{minted}[breaklines, breakanywhere]{Python}
 # Variables predictoras
 X = df[['var_1', 'var_2', 'var_3']]
 # Variables objetivo (1 o 0 en el caso de la clasificacion binaria)
@@ -2775,6 +2776,52 @@ Son útiles cuando existe la sospecha de que la relación entre las característ
 \end{figure}
 
 El árbol inicia con un nodo raíz que contiene todos los datos de entrenamiento. En los siguientes pasos, se selecciona una característica y un cierto umbral que dividirá los datos en grupos. Luego, se calcula la predicción para cada región.
+
+El siguiente código muestra cómo aplicar el modelo a un set de datos junto al gráfico del árbol de regresión:
+\begin{minted}[breaklines, breakanywhere]{Python}
+import seaborn as sns
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeRegressor
+from sklearn.tree import plot_tree
+from sklearn.metrics import mean_squared_error
+
+# Convirtiendo las variables categoricas a numericas
+df = pd.get_dummies(df, drop_first=True)
+
+# Datos
+X = df.drop(['target'], axis=1)
+y = df['target']
+
+# Dividiendo el conjunto de datos en entrenamiento y prueba
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Creando y entrenando el modelo de arbol de regresion
+# Se fija la profundidad en 2 (max_depth)
+reg_tree = DecisionTreeRegressor(max_depth=2, random_state=42)
+reg_tree.fit(X_train, y_train)
+
+# Predicciones
+y_pred = reg_tree.predict(X_test)
+
+# MSE
+mse = mean_squared_error(y_test, y_pred)
+print("Error Cuadratico Medio (MSE):", mse)
+
+# Graficando el arbol de regresion
+plt.figure(figsize=(15, 8))
+plot_tree(reg_tree, feature_names=X.columns, filled=True, rounded=True)
+plt.show()
+\end{minted}
+Los árboles de decisión poseen cinco hiperparámetros importantes:
+\begin{enumerate}
+	\item Profundidad máxima (max$\_$depth): controla la cantidad de divisiones que puede tener el árbol. Si la profundidad es demasiado grande, puede ser más propenso al sobreajuste, aunque también puede capturar relaciones más complejas en los datos.
+	\item Número mínimo de muestras en una hoja (min$\_$samples$\_$leaf): establece el número mínimo de muestras que deben estar en una hoja. Si el valor que se establece es alto, el árbol tendrá hojas con más muestras. Un valor bajo puede llevar al overfitting.
+	\item Número mínimo de muestras para dividir (min$\_$samples$\_$split): define el número mínimo de muestras para que un nodo pueda dividirse. Un valor alto evita divisiones en regiones con pocas muestras, previniendo el overfitting.
+	\item Número máximo de nodos (max$\_$nodes): define el número máximo de nodos en el árbol.
+	\item Función de criterio (criterion): mide la calidad de una división. Los dos criterios más comunes son el error cuadrático medio (MSE) y la desviación absoluta media (MAE).
+\end{enumerate}
 
 \subsubsection{Naive Bayes}
 Naive Bayes es un conjunto de algoritmos de clasificación basados en el Teorema de Bayes. Se usa comúnmente para clasificar texto, como filtrado de spam.
