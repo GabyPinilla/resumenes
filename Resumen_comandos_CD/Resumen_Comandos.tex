@@ -1201,6 +1201,14 @@ Es posible visualizar los datos atípicos mediante un boxplot.
 \subsubsection{Filtros}
 Con Pandas se pueden filtrar datos por condiciones, columnas, filas.
 
+
+Para seleccionar datos de un tipo, como strings o int64 o booleanos, se usa:
+\begin{minted}[breaklines, breakanywhere]{Python}
+# Seleccionando solo columnas de tipo object del df
+df.select_dtypes(['object'])
+\end{minted}
+
+
 Filtrando por columnas:
 \begin{minted}[breaklines, breakanywhere]{Python}
 # Devuelve los valores de la columna ventas de df
@@ -1704,13 +1712,7 @@ print(f"EMSE: {emse:.2f}")
 print(f"R cuadrado: {r2:.2f}")
 \end{minted}
 
-\subsubsection{Métricas de evaluación del modelo}
-Las métricas de evaluación del modelo evalúan el rendimiento de un modelo de regresión. Señalan qué tan bien se ajusta el modelo a los datos y cómo se comporta en la predicción de futuros valores.
-\begin{itemize}
-	\item Error medio absoluto (MAE): Calcula el promedio de las diferencias absolutas entre los valores predichos y los valores reales. Mientras menor el MAE, mejor será el ajuste del modelo.
-	\item Error cuadrático medio (MSE): Calcula el promedio de los cuadrados de las diferencias entre los valores predichos y los valores reales. Mientras más bajo sea el MSE, mejor será el ajuste.
-	\item Raíz del error cuadrático medio (RMSE): Es la raíz cuadrada del MSE.
-\end{itemize}
+
 
 \subsection{Residuos}
 Los residuos son la diferencia entre los valores y los valores predichos por el modelo. Evalúan la calidad del ajusto del modelo. Si los residuos son menores, el modelo es más preciso.
@@ -2329,6 +2331,35 @@ Se puede identificar el subajuste cuando el modelo en el conjunto de entrenamien
 Cuando se quiere optimizar sobre precisión, se aumenta el umbral. Se quiere estar seguro de que sea positivo.
 
 Cuando se quiere optimizar sobre la sensibilidad, se baja el umbral. Esto se hace para capturar a todas las clases positivas.
+
+
+Otras métricas de evaluación que usualmente se usan en modelos de regresión son:
+\begin{itemize}
+	\item Error medio absoluto (MAE): Calcula el promedio de las diferencias absolutas entre los valores predichos y los valores reales. Mientras menor el MAE, mejor será el ajuste del modelo.
+	\item Error cuadrático medio (MSE): Calcula el promedio de los cuadrados de las diferencias entre los valores predichos y los valores reales. Mientras más bajo sea el MSE, mejor será el ajuste.
+	\item Raíz del error cuadrático medio (RMSE): Es la raíz cuadrada del MSE.
+\end{itemize}
+En Python se calculan como:
+
+\begin{minted}{Python}
+import numpy as np
+from sklearn.metrics import r2_score, mean_squared_error, mean_absolute_percentage_error
+
+# Calculando el Error Cuadratico Medio (MSE)
+mse = mean_squared_error(y_predict, y_test)
+
+# Calculando el Error Cuadratico Medio Explicado (MAPE)
+mape = mean_absolute_percentage_error(y_predict, y_test)
+
+# Calculando el valor R cuadrado del modelo
+r2 = r2_score(y_predict, y_test)
+
+print(results)
+print(f"MSE: {mse:.2f}")
+print(f"MAPE: {mape:.2f}")
+print(f"R cuadrado: {r2:.2f}")
+\end{minted}
+
 \begin{minted}[breaklines, breakanywhere]{Python}
 from sklearn.metrics import accuracy_score, precision_score, recall_score, classification_report
 
@@ -2414,12 +2445,8 @@ El área bajo la curva (AUC) se utiliza como resumen del rendimiento del modelo.
 \subsubsection{Curva PRC}
 La curva PRC (Precision-Recall, o precisión-sensibilidad) contrasta la precisión con la sensibilidad para diferentes umbrales. El AUC-PRC varía entre 0 y 1, donde un valor más cercano a 1 indica un mejor rendimiento. Si el valor es 1, significa que el modelo puede lograr una precisión perfecta y una sensibilidad perfecta.
 
-\subsubsection{Regresión lineal}
-En aprendizaje supervisado, la regresión lineal es un algoritmo que tiene como objetivo optimizar la capacidad de predicción del modelo sobre nuevos datos.
-
-Se debe tener en cuenta que al aplicar este algoritmo, se asume que las variables predictora y dependiente presentan una relación lineal.
-
-Para realizar una regresión lineal en Python, se debe dividir el conjunto de datos en dos: los datos de entrenamiento y los de prueba. Con \texttt{\textcolor{blue}{train$\_$test$\_$split()}} se dividen los datos, donde sus argumentos son:
+\subsubsection{División del set de datos}
+En el aprendizaje supervisado, los algoritmos deben ser aplicados posteriormente a la división del set de datos en un conjunto de entrenamiento (train) y en un conjunto de prueba (test), con \texttt{\textcolor{blue}{train$\_$test$\_$split()}}, donde sus argumentos son:
 \begin{enumerate}
 	\item Características (X).
 	\item Etiquetas (y).
@@ -2433,7 +2460,13 @@ Mientras que los datos de salida del comando son:
 	\item \texttt{\textcolor{blue}{y$\_$train}}: contiene la variable dependiente (u objetivo) correspondiente a \texttt{\textcolor{blue}{X$\_$train}}. El modelo usa este conjunto para aprender de la relación entre las variables dependientes e independientes en el entrenamiento.
 	\item \texttt{\textcolor{blue}{y$\_$test}}: contiene la variable dependiente correspondiente a \texttt{\textcolor{blue}{X$\_$test}}. Se utiliza este conjunto para comparar las predicciones de \texttt{\textcolor{blue}{X$\_$test}} y evaluar qué tan precisas son.
 \end{enumerate}
-Luego, se crea una instancia del objeto de regresión lineal para entrenar el modelo con \texttt{\textcolor{blue}{X$\_$train}} e \texttt{\textcolor{blue}{y$\_$train}} y predecir con \texttt{\textcolor{blue}{X$\_$test}}, guardando las predicciones en \texttt{\textcolor{blue}{y$\_$pred}}. Finalmente, se evalúa el modelo mediante el error cuadrático medio y el $R^{2}$ usando \texttt{\textcolor{blue}{y$\_$test}} e \texttt{\textcolor{blue}{y$\_$pred}}.
+Luego, se crea una instancia del objeto de regresión lineal para entrenar el modelo con \texttt{\textcolor{blue}{X$\_$train}} e \texttt{\textcolor{blue}{y$\_$train}} y predecir con \texttt{\textcolor{blue}{X$\_$test}}, guardando las predicciones en \texttt{\textcolor{blue}{y$\_$pred}}. Finalmente, se evalúa el modelo mediante las métricas de evaluación usando \texttt{\textcolor{blue}{y$\_$test}} e \texttt{\textcolor{blue}{y$\_$pred}}.
+
+\subsubsection{Regresión lineal}
+En aprendizaje supervisado, la regresión lineal es un algoritmo que tiene como objetivo optimizar la capacidad de predicción del modelo sobre nuevos datos.
+
+Se debe tener en cuenta que al aplicar este algoritmo, se asume que las variables predictora y dependiente presentan una relación lineal.
+
 \begin{minted}[breaklines, breakanywhere]{Python}
 import numpy as np
 from sklearn import linear_model
@@ -2484,10 +2517,17 @@ La siguiente gráfica mostrará qué tan cercanas son las predicciones hechas po
 	\includegraphics[width=0.7\linewidth]{prediccionesvsdatosreales.png}
 	\caption{Ejemplo de gráfica de predicciones vs datos reales}
 \end{figure}
+
+Sin embargo, la regresión lineal puede sufrir problemas como el overfitting. Para solucionar esto, se usa la regularización en la regresión lineal, la cual penaliza a los coeficientes del modelo reduciendo la complejidad del mismo. Existen dos normas principales de penalización: la norma L1 y la norma L2.
+\begin{enumerate}
+	\item Regularización de Lasso (L1): en esta técnica, se agrega un término de penalización proporcional al valor absoluto de los coeficientes del modelo. Tiende a reducir algunos coeficientes a cero. Ayuda a simplificar el modelo y eliminar variables irrelevantes.
+	\item Regularización de Ridge (L2): esta norma penaliza los coeficientes usando el cuadrado de sus valores. Tiende a mantener sus coeficientes pequeños, lo que es útil cuando todas las características son relevantes.
+	\item ElasticNet: combina las normas L1 y L2, el cual busca un equilibrio entre la selección de características y la reducción de coeficientes.
+\end{enumerate}
 \subsubsection{Regresión logística}
 La regresión logística se emplea para determinar la probabilidad de que un evento pertenezca a una de dos o más categorías. Se busca relacionar un conjunto de variables independientes con una dependiente, usando coeficientes que determinan un modelo lineal. Esta regresión busca predecir categorías.
 
-Por medio de la función logarítima o logit, transforma la salida en una escala log-odds con la función Sigmoide:
+Por medio de la función logarítmica o logit, transforma la salida en una escala log-odds con la función Sigmoide:
 \begin{equation}
 	f(x) = \frac{1}{1+e^{-x}}
 \end{equation}
@@ -2723,6 +2763,19 @@ predicciones = modelo_arbol.predict(X_test)
 accuracy = accuracy_score(y_test, predicciones)
 \end{minted}
 
+\subsubsection{Árboles de regresión}
+Los árboles de regresión se utilizan para predecir valores numéricos. Divide el espacio de características en regiones rectangulares donde a cada región se le asocia con una predicción numérica. Estas divisiones se realizan repetidamente a las características de entrada creando un árbol de decisiones donde cada nodo interno representa una pregunta sobre una características y cada hoja un valor de predicción.
+
+Son útiles cuando existe la sospecha de que la relación entre las características y la variable de respuesta son no lineales.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\linewidth]{arbolesderegresion.jpg}
+	\caption{Visualización de un árbol de decisión}
+\end{figure}
+
+El árbol inicia con un nodo raíz que contiene todos los datos de entrenamiento. En los siguientes pasos, se selecciona una característica y un cierto umbral que dividirá los datos en grupos. Luego, se calcula la predicción para cada región.
+
 \subsubsection{Naive Bayes}
 Naive Bayes es un conjunto de algoritmos de clasificación basados en el Teorema de Bayes. Se usa comúnmente para clasificar texto, como filtrado de spam.
 
@@ -2762,6 +2815,38 @@ confusion = confusion_matrix(y_test, y_pred)
 vis = ConfusionMatrixDisplay(confusion, display_labels =['False', 'True'])
 vis.plot()
 \end{minted}
+
+\subsubsection{Lazy predict}
+Lazy predict es una herramienta que aplica varios modelos a un conjunto de datos y calcula su exactitud, la curva ROC-AUC, el puntaje F1. No es tan preciso como un modelo de aprendizaje automático dado que se usa para predecir valores en un conjunto de datos sin necesidad de entrenar un modelo.
+\begin{minted}[breaklines, breakanywhere]{Python}
+# Clasificacion
+from lazypredict.Supervised import LazyClassifier
+from sklearn.datasets import load_breast_cancer
+from sklearn.model_selection import train_test_split
+	
+X = df
+y = df['target']
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=5, random_state=123)
+clf = LazyClassifier(verbose=0, ignore_warnings=True, custom_metric=None)
+models, predicctions = clf.fit(X_train, X_test, y_train, y_test)
+models
+
+# Regresion
+from lazypredict.Supervised import LazyRegressor
+from sklearn import datasets
+from sklearn.utils import shuffle
+import numpy as np
+
+
+X = df
+y = df['target']
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=5, random_state=123)
+reg = LazyRegressor(verbose=0,ignore_warnings=False, custom_metric=None )
+models,predictions = reg.fit(X_train, X_test, y_train, y_test)
+models
+\end{minted}
+
 \subsection{Aprendizaje no supervisado}
 Este modelo hace predicciones a partir de conjuntos de datos que no tienen una salida o datos etiquetados. La etiqueta es la respuesta o valor que se quiere que el modelo prediga. Su objetivo es identificar patrones en los datos de entrada. En lugar de predecir una salida, busca agrupar los datos en función de características comunes.
 
@@ -3031,12 +3116,12 @@ for cluster in range(3):
 \subsubsection{Reducción de dimensionalidad}
 
 
+
 \subsection{Aprendizaje reforzado}
 En este modelo se realizan predicciones mediante recompensas o penalizaciones dependiendo de las acciones de un agente dentro de un entorno. Estas retroalimentaciones le permiten aprender a tomar mejores decisiones, creando un conjunto de reglas o política que define la mejor estrategia para obtener recompensas.
 
 \subsection{Inteligencia artificial generativa}
 Es una clase de modelos que crea contenido por medio de las entradas de un usuario. Ejemplo: crear imágenes, contar chistes, resumir artículos. Estos modelos se entrenan inicialmente con un enfoque no supervisado, donde aprende a imitar datos con los que se entrena. En algunas ocasiones, el modelo se entrena más mediante el aprendizaje supervisado o por refuerzo dependiendo de las tareas que se le pida realizar.
-
 
 %
 %	CAPITULO
