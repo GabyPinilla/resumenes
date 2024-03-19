@@ -1105,7 +1105,7 @@ df['fecha']= pd.to_datetime(df['fecha'])
 \end{minted}
 Luego, es posible acceder a los métodos de las fechas usando .dt:
 \begin{minted}[breaklines, breakanywhere]{Python}
-# Accediendo a los annos de las fechas
+# Accediendo a los anios de las fechas
 df['fecha'].dt.year
 	
 # Accediendo a los meses de las fechas
@@ -1120,6 +1120,18 @@ df['fecha'].dt.day
 # Convirtiendo a formato de fecha y hora especificando el formato
 df['fecha'] = pd.to_datetime(df['fecha'], format='%d-%m-%Y')
 \end{minted}
+También, es posible reemplazar datos mediante \texttt{\textcolor{blue}{replace()}} y cambiar su tipo con \texttt{\textcolor{blue}{astype()}}
+\begin{minted}[breaklines, breakanywhere]{Python}
+# Reemplazando datos tipo str
+df2 = df['species'].str.replace('Adelie', 'Adelia')
+
+# Pasando de , a .
+# df['flipper_length_mm'] = df['flipper_length_mm'].str.replace(',', '.')
+
+# Tranformando el tipo de dato a int64
+# df['flipper_length_mm'] = df['flipper_length_mm'].astype('int64')
+\end{minted}
+
 
 %	SUBSUBSECCION
 \subsubsection{Búsqueda de valores}
@@ -2894,6 +2906,41 @@ models,predictions = reg.fit(X_train, X_test, y_train, y_test)
 models
 \end{minted}
 
+\subsubsection{Series de tiempo}
+En el análisis de datos, existen tres categorías importantes de datos: Cross-sectional data, Time series data y Panel data. Las principales características de cada uno son:
+\begin{enumerate}
+	\item Cross-sectional: en este conjunto de datos se suelen recopilar en un punto en específico en el tiempo sobre diferentes variables o unidades, donde cada observación corresponde a una entidad distinta.
+	\item Time series: son un tipo de datos en el que se recopilan observaciones en un orden cronológico y se registran datos en intervalos de tiempos regulares, los cuales permiten visualizar cómo cambian las variables a lo largo del tiempo.
+	\item Panel: estos datos contienen observaciones de múltiples identidades en diferentes momentos temporales, los cuales se utilizan para estudiar relaciones a lo largo del tiempo.
+\end{enumerate}
+
+En específico, las series de tiempo son una secuencia de puntos de datos organizados en el tiempo de forma cronológica. Los datos que son recopilados de forma irregular no son considerados como una serie de tiempo, aunque se pueden trabaja en intervalos regulares.
+
+Las series de tiempo tienen 3 componentes principales:
+\begin{enumerate}
+	\item Tendencia: captura la dirección general de la serie temporal. Puede ser ascendente, descendente o constante.
+	\item Estacionalidad: captura los efectos que ocurren con frecuencia específica. Las estadísticas no cambian con el tiempo, como la media, la varianza y la autocorrelación.
+	\item Residuos: son fluctuaciones aleatorias que no se pueden atribuir a ninguna tendencia.
+\end{enumerate}
+
+Existen dos modelos esenciales de series de tiempo: los modelos autorregresivos (AR) y los modelos de medias móviles (MA). Ambos capturan patrones en los datos secuenciales.
+
+Los modelos autoregresivos modelan la relación entre una observación actual y un conjunto de observaciones anteriores. Por otro lado, los modelos de medias móviles buscan una relación entre una observación y un conjunto de valores pasados de un término de error estocástico.
+
+Para el modelado de series de tiempo, es importante el análisis de autocorrelación (ACF) y la función de autocorrelación parcial (PACF). Estas funciones proporcionan información sobre las correlaciones entre valores presentes y antiguos.
+\begin{itemize}
+	\item La función de autocorrelación muestra la correlación entre un punto de tiempo y valores anteriores en intervalos de tiempo diferentes.
+	\item La función de autocorrelación parcial muestra la correlación entre un valor en un punto de tiempo y valores anteriores en un solo intervalo.
+\end{itemize}
+
+Para determinar si una serie es estacionaria o no, se utiliza el Test de Dickey-Fuller. Plantea una hipótesis nula (H0) que asume a no estacionalidad y la hipótesis alternativa que asume que es estacionaria. El test proporciona una estadística conocida como ADF Static. Mientras más negativa sea la estadística, estará más en favor de la estacionalidad. Este test también proporciona un valor p, que se usa para evaluar la significancia estadística del resultado. Si el valor p es menor que un umbral definido, se rechaza la hipótesis nula de que la serie es no estacionaria.
+
+\begin{minted}[breaklines, breakanywhere]{Python}
+
+\end{minted}
+
+
+
 \subsection{Aprendizaje no supervisado}
 Este modelo hace predicciones a partir de conjuntos de datos que no tienen una salida o datos etiquetados. La etiqueta es la respuesta o valor que se quiere que el modelo prediga. Su objetivo es identificar patrones en los datos de entrada. En lugar de predecir una salida, busca agrupar los datos en función de características comunes.
 
@@ -2905,7 +2952,7 @@ Posee dos categorías:
 Antes de entrar en detalle a los algoritmos de aprendizaje no supervisado, se debe tener en cuenta las métricas de evaluación para estos modelos.
 \subsubsection{Métricas de evaluación}
 Las métricas de evaluación para los modelos de aprendizaje no supervisados consta del puntaje de Silhouette y el de Davies Bouldin.
-\begin{minted}{Python}
+\begin{minted}[breaklines, breakanywhere]{Python}
 from sklearn.metrics import silhouette_score
 from sklearn.metrics import davies_bouldin_score
 # Metricas de evaluacion
