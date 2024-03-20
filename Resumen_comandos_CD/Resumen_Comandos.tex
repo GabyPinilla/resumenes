@@ -2933,13 +2933,180 @@ Para el modelado de series de tiempo, es importante el análisis de autocorrelac
 	\item La función de autocorrelación parcial muestra la correlación entre un valor en un punto de tiempo y valores anteriores en un solo intervalo.
 \end{itemize}
 
-Para determinar si una serie es estacionaria o no, se utiliza el Test de Dickey-Fuller. Plantea una hipótesis nula (H0) que asume a no estacionalidad y la hipótesis alternativa que asume que es estacionaria. El test proporciona una estadística conocida como ADF Static. Mientras más negativa sea la estadística, estará más en favor de la estacionalidad. Este test también proporciona un valor p, que se usa para evaluar la significancia estadística del resultado. Si el valor p es menor que un umbral definido, se rechaza la hipótesis nula de que la serie es no estacionaria.
+Para determinar si una serie es estacionaria o no, se utiliza el Test de Dickey-Fuller. Plantea una hipótesis nula (H0) que asume a no estacionalidad y la hipótesis alternativa que asume estacionalidad. El test proporciona una estadística conocida como ADF Static. Mientras más negativa sea la estadística, estará más en favor de la estacionalidad. Este test también proporciona un valor p, que se usa para evaluar la significancia estadística del resultado. Si el valor p es menor que un umbral definido, se rechaza la hipótesis nula de que la serie es no estacionaria.
 
+
+El modelo más ampliamente utilizado en el análisis de series de tiempo para modelar y predecir datos es ARIMA (Autoregressive Integrated Moving Average). Combina los componentes de PACF (p) y ACF (q) junto con la diferenciación (d) para manejar tendencia en los datos.
+
+
+Aplicando todos los conceptos anteriores, el código tendría la siguiente estructura.Luego de cargar los datos, se deben transformar el tipo de dato a datetime para las fechas con \texttt{\textcolor{blue}{pd.to$\_$datetime}} y se deben indexar las fechas con \texttt{\textcolor{blue}{set$\_$index()}}. Para poder visualizar la serie de tiempo, se puede crear un gráfico o descomponer la serie en tendencia, estacionalidad y residuo.
 \begin{minted}[breaklines, breakanywhere]{Python}
+from date import datetime
+import matplotlib.pyplot as plt
+import seaborn as sns
 
+# Suponiendo que df es el dataframe ya cargado
+# Si es necesario, cambiar el tipo de dato a datetime
+df['Fecha'] = pd.to_datetime(df['Fecha'])
+
+# Indexando las fechas
+df = df.set_index('Fecha')
+# Se puede crear una columna por mes:
+# df['mes'] = df.index.month
+# O por dias de la semana:
+# df['dia_semana'] = df.index.day_of_week + 1
+
+# Visualizacion general de los datos
+plt.plot(df)
+plt.title('Serie de tiempo')
+plt.xlabel('Fecha')
+plt.ylabel('Ventas')
+plt.show()
+
+# Descomponiendo la serie de tiempo
+result = seasonal_decompose(df, model='additive')
+trend = result.trend
+seasonal = result.seasonal
+residual = result.resid
+
+# Mostrando los componentes descompuestos
+plt.figure(figsize=(12, 8))
+# Original
+plt.subplot(411)
+plt.plot(df, label='Original')
+plt.legend(loc='upper left')
+# Tendencia
+plt.subplot(412)
+plt.plot(trend, label='Tendencia')
+plt.legend(loc='upper left')
+# Estacionalidad
+plt.subplot(413)
+plt.plot(seasonal,label='Estacionalidad')
+plt.legend(loc='upper left')
+# Residuo
+plt.subplot(414)
+plt.plot(residual, label='Residuo')
+plt.legend(loc='upper left')
+plt.tight_layout()
+plt.show()
+\end{minted}
+Posteriormente, el Test de Dickey-Fuller entregará un valor p señalando si la serie de tiempo es estacionaria o no. Si el resultado es menor o igual al umbral (0.05 en este caso), la hipótesis nula H0 es rechazada, por lo tanto los datos son estacionarios. De lo contrario, si el resultado es mayor al umbral establecido, la hipótesis nula H0 no puede ser rechazada y, por lo tanto, los datos no son estacionarios.
+\begin{minted}[breaklines, breakanywhere]{Python}
+from statsmodels.tsa.stattools import adfuller
+
+# Test de Dickey-Fuller
+result = adfuller(df['Ventas'])
+print('ADF Statistic:', result[0])
+print('p-value:', result[1])
+print('Critical Values:', result[4])
+# Resultado <= 0.05: H0 rechazada, los datos son estacionarios
+# Resultado > 0.05: H0 no rechazada, los datos no son estacionarios
 \end{minted}
 
+Si los datos son no estacionarios, se puede diferenciar la serie. Se le aplica el Test nuevamente para saber si los datos ahora son estacionarios. Esto se debe iterar hasta que se cumpla la estacionalidad.
+\begin{minted}[breaklines, breakanywhere]{Python}
+# Diferenciando
+df['Ventas_diff'] = df['Ventas'].diff()
+\end{minted}
 
+El siguiente paso es visualizar la autocorrelación y la autocorrelación parcial de los datos mediante gráficos.
+\begin{minted}[breaklines, breakanywhere]{Python}
+# Autocorrelacion ACF
+fig, axes = plt.subplots(1, 2, figsize=(10, 4))
+plot_acf(df, lags=20, title='ACF - Estacionaria', alpha=0.05, ax=axes[0])
+
+# Autocorrelacion parcial PACF
+plot_pacf(df, lags=20, title='PACF - Estacionaria', alpha=0.05, ax=axes[1])
+
+# Ajustando el espaciado entre subplots
+plt.tight_layout()
+
+# Mostrando el grafico
+plt.show()
+\end{minted}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\linewidth]{acfypacf.png}
+	\caption{Ejemplo de gráfica de ACF y PACF}
+\end{figure}
+Las bandas azules alrededor del cero representan los intervalos de confianza. Si un valor de autocorrelación cae fuera de estas bandas tanto en el gráfico de ACF como en el ed PACF, se considera estadísticamente significativo en esos puntos de tiempo.  Estos valores pueden ayudar a identificar el retardo óptimo de series de tiempo. En el caso de los gráficos anteriores, los valores pueden ser 12 en cada uno.
+
+
+Con esto, se tienen los parámetros p, q y d, los cuales corresponden a PACF, ACF y la diferenciación. Para poder modelar ARIMA se deben usar estos valores, sin embargo, antes se deben dividir los datos en un set de prueba y entrenamiento. Finalmente, se evalúa su rendimiento con las métricas de evaluación.
+\begin{minted}[breaklines, breakanywhere]{Python}
+from statsmodels.tsa.arima.model import ARIMA
+from sklearn.metrics import mean_squared_error, mean_absolute_percentage_error
+
+# Separando los datos en entrenamiento y prueba
+train_size = int(len(df) * 0.8)
+train_data, test_data = df[:train_size], df[train_size:]
+
+# Aplicando ARIMA
+model_arima = ARIMA(train_data['Ventas'], order=(p, d, q))
+model_arima_fit = model_arima.fit()
+
+# Predicciones
+forecast_arima = model_arima_fit.forecast(steps=len(test_data))
+
+# Visualizando resultados
+plt.figure(figsize=(12, 6))
+# Datos reales
+plt.plot(test_data.index, test_data['Ventas'], label='Real Data')
+# Predicciones con ARIMA
+plt.plot(test_data.index, forecast_arima, label='ARIMA Forecast')
+plt.xlabel('Fecha')
+plt.ylabel('Ventas')
+plt.title('Comparacion de Forecasting en Serie de Tiempo')
+plt.legend()
+plt.show()
+
+# Metricas de ARIMA
+mse = mean_squared_error(forecast_arima, test_data['Ventas'])
+mae = mean_absolute_percentage_error(forecast_arima, test_data['Ventas'])
+print(f'MSE ARIMA: {mse:.2f}')
+print(f'MAE ARIMA: {mae:.2f}')
+\end{minted}
+
+También, se puede modelar con Auto-ARIMA, donde el parámetro m se refiere al número de periodo para cada estacionalidad:
+\begin{itemize}
+	\item m=7: días.
+	\item m=12: meses.
+	\item m=52: semanas.
+	\item m=4: trimestral.
+	\item m=1: anual.
+\end{itemize}
+\begin{minted}[breaklines, breakanywhere]{Python}
+from statsmodels.tsa.arima.model import ARIMA
+from sklearn.metrics import mean_squared_error, mean_absolute_percentage_error
+	
+# Separando los datos en entrenamiento y prueba
+train_size = int(len(df) * 0.8)
+train_data, test_data = df[:train_size], df[train_size:]
+
+# auto arima
+model_auto_arima = auto_arima(train_data['Ventas'], seasonal=True, m=12)
+
+# Predicciones
+forecast_auto_arima = model_auto_arima.predict(n_periods=len(test_data))
+	
+# Visualizando resultados
+plt.figure(figsize=(12, 6))
+# Datos reales
+plt.plot(test_data.index, test_data['Ventas'], label='Real Data')
+# Predicciones con auto ARIMA
+plt.plot(test_data.index, forecast_auto_arima, label='AUTO ARIMA Forecast')
+plt.xlabel('Fecha')
+plt.ylabel('Ventas')
+plt.title('Comparacion de Forecasting en Serie de Tiempo')
+plt.legend()
+plt.show()
+
+# Metricas de AUTO ARIMA
+mse = mean_squared_error(forecast_auto_arima, test_data['Ventas'])
+mae = mean_absolute_percentage_error(forecast_auto_arima, test_data['Ventas'])
+print(f'MSE ARIMA: {mse:.2f}')
+print(f'MAE ARIMA: {mae:.2f}')
+\end{minted}
 
 \subsection{Aprendizaje no supervisado}
 Este modelo hace predicciones a partir de conjuntos de datos que no tienen una salida o datos etiquetados. La etiqueta es la respuesta o valor que se quiere que el modelo prediga. Su objetivo es identificar patrones en los datos de entrada. En lugar de predecir una salida, busca agrupar los datos en función de características comunes.
