@@ -13,7 +13,7 @@
 \usepackage{minted}
 \usemintedstyle{vs}
 \usepackage[dvipsnames]{xcolor} %color de las letras
-\setcounter{tocdepth}{4} % Incluye las secciones, subsecciones y subsubsecciones en el indice
+%\setcounter{tocdepth}{4} % Incluye las secciones, subsecciones y subsubsecciones en el indice
 % DEFINIENDO COLORES DE LOS CODIGOS
 % SQL
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
@@ -42,13 +42,14 @@ breaklines=true % las lineas de codigo se rompen si son muy largas
 \author{Gabriel Pinilla}
 \title{Resumen comandos para la Ciencia de Datos}
 
+
 \frontmatter
 \maketitle
 \tableofcontents %índice
-%\mainmatter %Número del capítulo sobre el título
+\mainmatter %Número del capítulo sobre el título
+
 % CAPÍTULOS
 %
-\pagenumbering{arabic} % Cambiar la numeración de página a arábica
 %	CAPITULO SQL
 \chapter{SQL en Postgres}
 % \textcolor{blue}{}
@@ -2296,7 +2297,7 @@ Las librerías más utilizadas en machine learning son:
 	\item XGBoost.
 \end{enumerate}
 
-\subsection{Conceptos previos}
+\section{Conceptos previos}
 Algunos conceptos de aprendizaje automático:
 \begin{itemize}
 	\item El entrenamiento se refiere a a que el modelo aprende por medio de ejemplos etiquetados.
@@ -3412,6 +3413,31 @@ En este modelo se realizan predicciones mediante recompensas o penalizaciones de
 
 \subsection{Inteligencia artificial generativa}
 Es una clase de modelos que crea contenido por medio de las entradas de un usuario. Ejemplo: crear imágenes, contar chistes, resumir artículos. Estos modelos se entrenan inicialmente con un enfoque no supervisado, donde aprende a imitar datos con los que se entrena. En algunas ocasiones, el modelo se entrena más mediante el aprendizaje supervisado o por refuerzo dependiendo de las tareas que se le pida realizar.
+
+% SECCION
+\section{Resumen}
+\begin{table}[H]
+	\resizebox{15cm}{!} {
+	\begin{tabular}{|ccccc|}
+		\hline
+		\multicolumn{5}{|c|}{Machine Learning} \\ \hline
+		\multicolumn{2}{|c|}{Aprendizaje supervisado} & \multicolumn{3}{c|}{Aprendizaje no supervisado} \\ \hline
+		\multicolumn{1}{|c|}{Clasificación} & \multicolumn{1}{c|}{Regresión} & \multicolumn{1}{c|}{Clustering} & \multicolumn{1}{c|}{Reducción de dimensionalidad} & Asociación \\ \hline
+		\multicolumn{1}{|c|}{Regresión logística} & \multicolumn{1}{c|}{Regresión lineal} & \multicolumn{1}{c|}{K-Means} & \multicolumn{1}{c|}{Análisis de componentes principales (PCA)} & Apriori \\ \hline
+		\multicolumn{1}{|c|}{Árboles de decisión} & \multicolumn{1}{c|}{Regresión Ridge} & \multicolumn{1}{c|}{DBSCAN} & \multicolumn{1}{c|}{Linear Discriminant Analysis (LDA)} & FP-Growth \\ \hline
+		\multicolumn{1}{|c|}{SVM} & \multicolumn{1}{c|}{Regresión Lasso} & \multicolumn{1}{c|}{Cluster jerárquico} & \multicolumn{1}{c|}{Non-negative Matrix Factorization (NMF)} &  \\ \hline
+		\multicolumn{1}{|c|}{KNN} & \multicolumn{1}{c|}{Regresión ElasticNet} & \multicolumn{1}{c|}{} & \multicolumn{1}{c|}{} &  \\ \hline
+		\multicolumn{1}{|c|}{Naive Bayes} & \multicolumn{1}{c|}{Árboles de regresión} & \multicolumn{1}{c|}{} & \multicolumn{1}{c|}{} &  \\ \hline
+		\multicolumn{5}{|c|}{Métricas de evaluación} \\ \hline
+		\multicolumn{1}{|c|}{Accuracy (Exactitud)} & \multicolumn{1}{c|}{MSE} & \multicolumn{1}{c|}{Coeficiente de Silhouette} & \multicolumn{1}{c|}{Varianza explicada} & Soporte \\ \hline
+		\multicolumn{1}{|c|}{Precision (Precisión)} & \multicolumn{1}{c|}{MAE} & \multicolumn{1}{c|}{Índice de Davies-Bouldin} & \multicolumn{1}{c|}{} & Confianza \\ \hline
+		\multicolumn{1}{|c|}{Recall} & \multicolumn{1}{c|}{R cuadrado} & \multicolumn{1}{c|}{} & \multicolumn{1}{c|}{} & Lift \\ \hline
+		\multicolumn{1}{|c|}{F1-Score} & \multicolumn{1}{c|}{} & \multicolumn{1}{c|}{} & \multicolumn{1}{c|}{} &  \\ \hline
+		\multicolumn{1}{|c|}{Matriz de confusión} & \multicolumn{1}{c|}{} & \multicolumn{1}{c|}{} & \multicolumn{1}{c|}{} &  \\ \hline
+		\multicolumn{1}{|c|}{Curva ROC AUC} & \multicolumn{1}{c|}{} & \multicolumn{1}{c|}{} & \multicolumn{1}{c|}{} &  \\ \hline
+	\end{tabular}
+	}
+\end{table}
 
 %
 %	CAPITULO
