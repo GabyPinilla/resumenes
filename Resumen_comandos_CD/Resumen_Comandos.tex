@@ -2323,8 +2323,8 @@ Este aprendizaje se divide en dos categorías:
 	\item Clasificación: se utiliza para predecir la probabilidad de que algo pertenezca a una categoría (puede se binaria o multiclase).
 	\item Regresión: predice un valor numérico.
 \end{enumerate}
-Antes de entrar en los algoritmos del aprendizaje supervisado, es importante tener en cuenta lo que es el overfitting y el underfitting, y las métricas de evaluación de los modelos.
-\subsubsection{Overfitting (Sobreajuste)}
+Antes de entrar en los algoritmos del aprendizaje supervisado, es importante tener en cuenta lo que es el overfitting y el underfitting, la búsqueda de hiperparámetros y las métricas de evaluación de los modelos.
+\subsubsection{Sobreajuste (Overfitting)}
 El sobreajuste ocurre cuando un modelo se ajusta de forma excesiva a los datos de entrenamiento. No aprende patrones para poder aplicarlo a datos nuevos. Su rendimiento es muy bueno en el conjunto de entrenamiento, pero pésimo en conjunto de prueba.
 
 Se puede identificar el sobreajuste cuando el rendimiento del modelo en el conjunto de entrenamiento es mejor que en el de conjunto de prueba.
@@ -2334,6 +2334,45 @@ El subajuste ocurre cuando el modelo no logra capturar los patrones en los datos
 
 Se puede identificar el subajuste cuando el modelo en el conjunto de entrenamiento y de prueba es bajo.
 
+\subsubsection{Búsqueda de hiperparámetros}
+Los hiperparámetros son parámetros que no se aprenden del conjunto de datos durante el entrenamiento de un modelo. Estos se establecen antes de entrenar el modelo. Mediante la búsqueda de hiperparámetros, se encuentra la combinación óptima (maximizar el rendimiento del modelo) de valores para los hiperparámetros de dicho modelo.
+
+Aquí se muestra un ejemplo de la búsqueda de los hiperparámetros penalty y C de una regresión logística:
+\begin{minted}[breaklines, breakanywhere]{Python}
+from sklearn.model_selection import GridSearchCV
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+
+# Cargando el conjunto de datos
+X = df.drop('target', axis=1)
+y = df['target']
+
+# Dividiendo los datos en conjuntos de entrenamiento y prueba
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+
+# Definiendo los hiperparametros a ajustar
+param_grid = {'C': [0.001, 0.01, 0.1, 1, 10, 100], 'penalty': ['l1', 'l2']}
+
+# Creando una instancia del modelo
+model = LogisticRegression()
+
+# Creando una instancia de GridSearchCV
+grid_search = GridSearchCV(model, param_grid, cv=5)
+
+# Ajustando GridSearchCV al conjunto de entrenamiento
+grid_search.fit(X_train, y_train)
+
+# Imprimiendo los mejores hiperparametros encontrados
+print("Mejores hiperparametros:", grid_search.best_params_)
+
+# Obteniendo el mejor modelo
+best_model = grid_search.best_estimator_
+
+# Evaluando el mejor modelo
+test_score = best_model.score(X_test, y_test) # Precision
+print("Puntuacion en el conjunto de prueba:", test_score)
+
+\end{minted}
 \subsubsection{Métricas de evaluación}
 \begin{enumerate}
 	\item Exactitud (Accuracy): Absoluto del porcentaje que se predijo correctamente. Mide la proporción de las predicciones que son correctas.
@@ -2355,7 +2394,7 @@ Otras métricas de evaluación que usualmente se usan en modelos de regresión s
 \end{itemize}
 En Python se calculan como:
 
-\begin{minted}{Python}
+\begin{minted}[breaklines, breakanywhere]{Python}
 import numpy as np
 from sklearn.metrics import r2_score, mean_squared_error, mean_absolute_percentage_error
 
