@@ -57,7 +57,7 @@ nombre_función <- function(argumentos) {
 
 En R, un paquete es una colección con funciones que no están en R base. CRAN es el repositorio de paquetes oficial de R, los cuales se pueden instalar mediante `install.packages()`. Por ejemplo:
 
-```{r}
+```
 install.packages("stats")
 ```
 
@@ -82,7 +82,8 @@ Los operadores aritméticos de R base que se pueden utilizar con datos enteros y
 -   \*: multiplicación.
 -   /: división.
 -   \^: exponencial.
--   %%: módulo, devuelve el residuo.
+-   %%: residuo de la división.
+-   %/%: cociente.
 -   %\*%: multiplicación entre matrices.
 
 Ejemplo:
@@ -106,15 +107,11 @@ El orden de las operaciones es el siguiente:
 
 ## Relacionales
 
-Los operadores relacionales se utilizan para comparar un valor con otro. Siempre devuelven TRUE o FALSE.
+Los operadores relacionales se utilizan para comparar un valor con otro. Siempre devuelven TRUE o FALSE (1 o 0, respectivamente).
 
--   
+-   > : mayor que.
 
-    > : mayor que.
-
--   
-
-    > =: mayor o igual que.
+-   > =: mayor o igual que.
 
 -   \<: menor que.
 
@@ -124,12 +121,20 @@ Los operadores relacionales se utilizan para comparar un valor con otro. Siempre
 
 -   !=: distinto.
 
-Ejemplo:
+Ejemplo 1:
 
 ```{r}
 234 > 243
 ```
-
+Ejemplo 2:
+```{r}
+"manzana" == "MANZANA"
+```
+Ejemplo 3:
+```{r}
+edad <- c(12, 35, 46, 2)
+edad > 20
+```
 ## Lógicos
 
 Los operadores lógicos se utilizan para crear condiciones. Devuelven TRUE o FALSE.
@@ -138,19 +143,32 @@ Los operadores lógicos se utilizan para crear condiciones. Devuelven TRUE o FAL
 -   \|: o.
 -   !: not, negación lógica.
 
-Ejemplo:
-
+Ejemplo 1:
 ```{r}
 # Al usar &, si uno de los valores es FALSE, devuelve FALSE
 # Como 234 es menor que 243, devuelve FALSE
 234 & 2000 > 243
 ```
-
+Ejemplo 2:
 ```{r}
 # Al usar |, si uno de los valores es TRUE, devuelve TRUE
 # Como 2000 es mayor que 243, devuelve TRUE
 234 | 2000 > 243
 ```
+
+# Números complejos
+En R, los números complejos se representan mediante la forma (a + bi), donde a y b son números realis e i es la unidad imaginaria. Se usa `complex()` para crear un número complejo de la siguiente forma:
+```{r}
+# Creando un numero complejo
+z_1 <- complex(real=14, imaginary=7)
+z_1
+```
+Otras funciones:
+
+-   `as.complex()`: declara un número real como complejo.
+-   `Conj()`: conjugado.
+-   `Mod()`: módulo.
+-   `Arg()`: argumento en radianes.
 
 # Tipos de datos
 
@@ -269,7 +287,24 @@ d
 
 ```         
 while (condicion){
-# operaciones
+  # operaciones
+  i <- i + 1 # se incrementa para evitar un loop infinito
+}
+```
+Ejemplo 1:
+```{r}
+num <- 1
+while (num <10){
+  print(num^2)
+  num <- num+1
+}
+```
+Ejemplo 2:
+```{r}
+auto <- 1
+while (auto <10){
+  print(paste("El numero de autos es", auto))
+  auto <- auto + 1
 }
 ```
 
@@ -277,6 +312,21 @@ while (condicion){
 
 El comando `break` interrumpe un bucle, mientras que `next` avanza a la siguiente iteración del bucle saltándose la actual. Estos comandos se ocupan para `for` y `while`.
 
+Ejemplo:
+```{r}
+auto <- 1
+bus <- 1
+while (num <10){
+  # Detiene el while cuando la suma de auto y bus es 8
+  if(auto + bus == 8){
+    break
+  }
+  print(paste("El numero de autos es", auto))
+  print(paste("El numero de buses es", bus))
+  bus <- bus + 1
+  auto <- auto + 1
+}
+```
 ## Repeat
 
 `repeat` es un bucle que se repetirá un número específico de veces. Se usa `break` para detenerlo. Ejemplo:
@@ -289,10 +339,52 @@ repeat{
     break
   }
 }
-# imprime el resultado
+# Imprime el resultado
 valor
 ```
 
+# lapply y sapply
+lapply y sapply son funciones que sirven para simplificar operaciones de manipulación de datos en R.
+## lapply
+lapply tiene como función principal aplicar una función definida a cada elemento de una lista, donde la salida será una lista con los resultados.
+
+Ejemplo 1:
+```{r}
+lista <- list(pop = 1868,
+              numeros = c(1,2,4,6,32,575,121,5))
+
+# lapply
+lapply(lista, class)
+
+# lapply
+nombres <- c("Roberto", " Marta", "Matias", "Ignacio")
+# devuelve el numero de letras de cada nombre
+lapply(nombres, nchar)
+```
+Ejemplo 2:
+```{r}
+# Creando un dataframe
+df_ejemplo <- data.frame(
+  col_1 = c(1, 2, 3),
+  col_2 = c(4, 5, 6),
+  col_3 = c(7, 8, 9)
+)
+
+# Aplicando el promedio (mean) a cada columna del dataframe
+medias <- lapply(df_ejemplo, mean)
+medias
+```
+Para que devuelva un vector:
+```{r}
+unlist(lapply(nombres, nchar))
+```
+## sapplay
+Por su parte, sapply también aplica una función a cada elemento de una lista, pero con la diferencia de que la salida es un formato más compacto, como un vector.
+
+Ejemplo:
+```{r}
+sapply(nombres, nchar)
+```
 # Estructuras de datos
 
 Una estructura de datos es una especie de contenedor que guarda datos en una posición específica. En R, las estructuras de datos más comunes son:
@@ -308,13 +400,21 @@ Una estructura de datos es una especie de contenedor que guarda datos en una pos
 Es la estructura de datos más básica en R. Almacena datos del mismo tipo y su única dimensión es el largo. Para crear un vector, se usa la función `c()` (concatenación). Ejemplo:
 
 ```{r}
-# Vector numerico
+# Creando un vector numerico
 v1<-c(1,2,3,4,5,6,7)
 v1
 
 # Vector numerico del 2 al 20
 v2<-c(2:20)
 v2
+
+# Creando un vector de caracteres
+v3 <- c("r", "a", "j")
+v3
+
+# Creando un vector logico
+v4 <- c(TRUE, FALSE, FALSE, TRUE)
+v4
 ```
 
 ### Propiedades
@@ -343,33 +443,33 @@ x
 Se pueden realizar operaciones aritméticas con los vectores e incluso operaciones realcionales, devolviendo un TRUE o un FALSE en este caso.
 
 ```{r}
-v3<-c(2,4,6,8)
-v4<-c(1,3,5,7)
+v5<-c(2,4,6,8)
+v6<-c(1,3,5,7)
 
 # 1.
-v3*2
-v3+2
+v5*2
+v6+2
 
 # 2.
-v4==3
+v6==3
 ```
 
 ### Extracción de valores
 
 ```{r}
-v3
+v5
 
 # Imprime el valor de la posicion 4 del vector v3
-v3[c(4)]
+v5[c(4)]
 
 # Entrega un rango de valores del vector v3
-v3[1:3]
+v5[1:3]
 
 # Elimina el valor de la posicion 1 (elimina el 2)
-v3[-1]
+v5[-1]
 
-# Elimina un rango de valores (elimina el 2,3 y 6)
-v3[-1:-3]
+# Elimina un rango de valores (elimina el 4 y 6)
+v5[-1:-3]
 ```
 
 ### Sucesiones
