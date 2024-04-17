@@ -1018,6 +1018,79 @@ Es una función que está contenida dentro de otra función. Se leen desde adent
 Tercero(Segundo(Primero(x)))
 ```
 
+# Gráficos
+R tiene la función `plot(x,y,...)` para graficar. Recibe más argumentos, como:
+-   `type()`: tipo de gráfica. p para puntos, l para líneas y h para histogramas.
+-   `main`: título del gráfico.
+-   `sub`: subtítulo.
+-   `xlab : título del eje x.
+-   `ylab`: título del eje y.
+
+Ejemplo 1:
+```
+plot(x,y,type="l", main="Grafico de ejemplo", xlab="meses", ylab="goles")
+```
+
+Ejemplo 2:
+```{r}
+x<-1:20
+y<-x^4
+plot(x, y, main="Grafico de ejemplo", type="l")
+```
+Para poder hacer dos gráficas en una misma, se usa `points()`:
+```{r}
+x<-1:20
+y2<-x^4.5
+plot(x,y2, pch=15)
+points(x,y, pch=4)
+```
+Con `pch` se pueden diferenciar las gráficas mediante símbolos. Mediante `col`, se le agregan colores:
+```{r}
+x<-1:20
+y2<-x^4.5
+plot(x,y2, pch=15, col=50)
+points(x,y, pch=4, col=60)
+```
+## Gráfico de barras
+Los gráficos de barras se usan para representar la frecuencia de datos en una variable discreta. En R, se crean con `barplot()`
+```{r}
+# Generando 60 numeros aleatorios
+n1 <- runif(60)
+
+barplot(n1, main="Ejemplo grafico de barras")
+```
+
+## Histograma
+Los histogramas se utilizan para visualizar la distribución de los datos, el cual lo hace por medio de barras que representan la frecuencia de datos. Para crearlo, se utiliza la función `hist()`:
+```{r}
+# Generando 60 numeros aleatorios con distribucion normal
+n2 <- rnorm(60)
+
+hist(n2, main="Ejemplo de histograma", xlab="Edad", ylab="Frec", col="blue", breaks=10)
+```
+`breaks` representa el número de barras del histograma. Es opcional.
+
+## Ruido
+La función `jitter` agrega una cantidad pequeña de ruido a las gráficas para evitar la superposición de puntos. Mediante el dataset Galton de R, se visualizará su funcionamiento:
+```{r}
+# install.packages("HistData")
+library(HistData)
+
+data(Galton)
+plot(Galton)
+```
+Agregando ruido a la columna parent:
+```{r}
+plot(jitter(Galton$parent), Galton$child)
+```
+Agregando ruido a la columna child:
+```{r}
+plot(Galton$parent, jitter(Galton$child))
+```
+Agregando ruido a ambas columnas:
+```{r}
+plot(jitter(Galton$parent), jitter(Galton$child))
+```
 # Importar y exportar datos
 
 Para importar archivos en R, se usa el paquete `readr`:
