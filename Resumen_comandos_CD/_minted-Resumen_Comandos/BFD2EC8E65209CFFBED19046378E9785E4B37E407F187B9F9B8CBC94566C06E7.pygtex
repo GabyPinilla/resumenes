@@ -1,0 +1,6 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} Funcion que genera un numero aleatorio entre 0 y 10}
+\PYG{k+kn}{import} \PYG{n+nn}{random}
+\PYG{n}{num} \PYG{o}{=} \PYG{n}{random}\PYG{o}{.}\PYG{n}{randit}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{l+m+mi}{10}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}El numero es \PYGZsq{}}\PYG{p}{,} \PYG{n}{num}\PYG{p}{)}
+\end{Verbatim}

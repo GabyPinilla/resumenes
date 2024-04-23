@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+	\PYG{k+kn}{from} \PYG{n+nn}{google.colab} \PYG{k+kn}{import} \PYG{n}{drive}
+	\PYG{n}{drive}\PYG{o}{.}\PYG{n}{mount}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}/content/drive\PYGZsq{}}\PYG{p}{)}
+\end{Verbatim}

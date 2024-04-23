@@ -1,0 +1,15 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+	\PYG{k+kn}{from} \PYG{n+nn}{sklearn.metrics} \PYG{k+kn}{import} \PYG{n}{accuracy\PYGZus{}score}\PYG{p}{,} \PYG{n}{precision\PYGZus{}score}\PYG{p}{,} \PYG{n}{recall\PYGZus{}score}\PYG{p}{,} \PYG{n}{classification\PYGZus{}report}
+	
+	\PYG{c+c1}{\PYGZsh{} Exactitud}
+	\PYG{n}{accuracy} \PYG{o}{=} \PYG{n}{accuracy\PYGZus{}score}\PYG{p}{(}\PYG{n}{y}\PYG{p}{,} \PYG{n}{y\PYGZus{}pred}\PYG{p}{)}
+	
+	\PYG{c+c1}{\PYGZsh{} Precision}
+	\PYG{n}{precision} \PYG{o}{=} \PYG{n}{precision\PYGZus{}score}\PYG{p}{(}\PYG{n}{y}\PYG{p}{,} \PYG{n}{y\PYGZus{}pred}\PYG{p}{)}
+	
+	\PYG{c+c1}{\PYGZsh{} Sensibilidad}
+	\PYG{n}{recall} \PYG{o}{=} \PYG{n}{recall\PYGZus{}score}\PYG{p}{(}\PYG{n}{y}\PYG{p}{,} \PYG{n}{y\PYGZus{}pred}\PYG{p}{)}
+	
+	\PYG{c+c1}{\PYGZsh{} Reporte que incluye precision, sensibilidad y f1}
+	\PYG{n}{reporte} \PYG{o}{=} \PYG{n}{classification\PYGZus{}report}\PYG{p}{(}\PYG{n}{y}\PYG{p}{,} \PYG{n}{y\PYGZus{}pred}\PYG{p}{)}
+\end{Verbatim}

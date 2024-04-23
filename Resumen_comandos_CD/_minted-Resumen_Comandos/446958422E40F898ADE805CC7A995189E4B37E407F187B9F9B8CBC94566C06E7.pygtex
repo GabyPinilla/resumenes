@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} Devuelve el df donde encuentre los valores 23 y 45 en la columna1}
+\PYG{n}{df}\PYG{p}{[}\PYG{n}{df}\PYG{o}{.}\PYG{n}{columna1}\PYG{o}{.}\PYG{n}{isin}\PYG{p}{([}\PYG{l+m+mi}{23}\PYG{p}{,}\PYG{l+m+mi}{45}\PYG{p}{])]}
+\end{Verbatim}

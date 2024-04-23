@@ -1,0 +1,13 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} Crea un arreglo de numeros aleatorios entre 0 y 1}
+\PYG{n}{a\PYGZus{}1} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{random}\PYG{o}{.}\PYG{n}{default\PYGZus{}rng}\PYG{p}{(}\PYG{n}{n}\PYG{p}{)}
+	
+\PYG{c+c1}{\PYGZsh{} Genera n valores aleatorios que siguen una distribucion normal.}
+\PYG{n}{normal}\PYG{p}{(}\PYG{n}{media}\PYG{p}{,} \PYG{n}{desv\PYGZus{}estandar}\PYG{p}{,}\PYG{n}{n}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Genera n numeros aleatorios entre el 0 y fin\PYGZhy{}1.}
+\PYG{n}{integers}\PYG{p}{(}\PYG{n}{fin}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{size} \PYG{o}{=} \PYG{n}{n}\PYG{p}{)}
+	
+\PYG{c+c1}{\PYGZsh{} Genera n numeros aleatorios entre el 0 y fin\PYGZhy{}1 sin repetirse.}
+\PYG{n}{choice}\PYG{p}{(}\PYG{n}{fin}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{size} \PYG{o}{=} \PYG{n}{n}\PYG{p}{,} \PYG{n}{replace} \PYG{o}{=} \PYG{k+kc}{False}\PYG{p}{)}
+\end{Verbatim}

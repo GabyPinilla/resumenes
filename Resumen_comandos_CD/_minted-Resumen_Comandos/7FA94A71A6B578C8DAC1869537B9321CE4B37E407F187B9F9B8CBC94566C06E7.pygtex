@@ -1,0 +1,10 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+	\PYG{c+c1}{\PYGZsh{} Devuelve los datos del df donde las ventas son mayores a 1000}
+	\PYG{n}{df}\PYG{p}{[}\PYG{n}{df}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}ventas\PYGZsq{}}\PYG{p}{]}\PYG{o}{\PYGZgt{}}\PYG{l+m+mi}{1000}\PYG{p}{]}
+	
+	\PYG{c+c1}{\PYGZsh{} Devuelve los datos del df donde las ventas son mayores a 1000 y el mes es igual a abril}
+	\PYG{n}{df}\PYG{p}{[(}\PYG{n}{df}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}ventas\PYGZsq{}}\PYG{p}{]}\PYG{o}{\PYGZgt{}}\PYG{l+m+mi}{1000}\PYG{p}{)} \PYG{o}{\PYGZam{}} \PYG{p}{(}\PYG{n}{df}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}mes\PYGZsq{}}\PYG{p}{]} \PYG{o}{==} \PYG{l+s+s1}{\PYGZsq{}abril\PYGZsq{}}\PYG{p}{)]}
+	
+	\PYG{c+c1}{\PYGZsh{} Devuelve los meses que contienen la subcadena a, como marzo, abril, mayo, agosto}
+	\PYG{n}{df}\PYG{p}{[}\PYG{n}{df}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}mes\PYGZsq{}}\PYG{p}{]}\PYG{o}{.}\PYG{n}{str}\PYG{o}{.}\PYG{n}{contains}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}a\PYGZsq{}}\PYG{p}{)]}
+\end{Verbatim}

@@ -1,0 +1,17 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+	\PYG{c+c1}{\PYGZsh{} Libreria}
+	\PYG{k+kn}{from} \PYG{n+nn}{sklearn.linear\PYGZus{}model} \PYG{k+kn}{import} \PYG{n}{LogisticRegression}
+	
+	\PYG{c+c1}{\PYGZsh{} Variables}
+	\PYG{n}{X} \PYG{o}{=} \PYG{n}{df}\PYG{p}{[[}\PYG{l+s+s1}{\PYGZsq{}var\PYGZus{}1\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}var\PYGZus{}2\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}var\PYGZus{}3\PYGZsq{}}\PYG{p}{]]}
+	\PYG{n}{y} \PYG{o}{=} \PYG{n}{df}\PYG{p}{[[}\PYG{l+s+s1}{\PYGZsq{}var\PYGZus{}y\PYGZsq{}}\PYG{p}{]]}
+	
+	\PYG{c+c1}{\PYGZsh{} Modelando}
+	\PYG{n}{LogReg} \PYG{o}{=} \PYG{n}{LogisticRegression}\PYG{p}{()}
+	
+	\PYG{c+c1}{\PYGZsh{} Ajustando el modelo}
+	\PYG{n}{LogReg}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{n}{X}\PYG{p}{,} \PYG{n}{y}\PYG{p}{)}
+	
+	\PYG{c+c1}{\PYGZsh{} Predicciones}
+	\PYG{n}{y\PYGZus{}pred} \PYG{o}{=} \PYG{n}{LogReg}\PYG{o}{.}\PYG{n}{predict}\PYG{p}{(}\PYG{n}{X}\PYG{p}{)}
+\end{Verbatim}

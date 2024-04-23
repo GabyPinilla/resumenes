@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} Diferenciando}
+\PYG{n}{df}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}Ventas\PYGZus{}diff\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{n}{df}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}Ventas\PYGZsq{}}\PYG{p}{]}\PYG{o}{.}\PYG{n}{diff}\PYG{p}{()}
+\end{Verbatim}

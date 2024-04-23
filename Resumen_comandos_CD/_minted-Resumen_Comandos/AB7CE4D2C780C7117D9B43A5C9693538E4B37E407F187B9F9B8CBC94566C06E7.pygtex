@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+	\PYG{c+c1}{\PYGZsh{} Devuelve los valores duplicados de columna1}
+	\PYG{n}{df}\PYG{p}{[}\PYG{n}{df}\PYG{o}{.}\PYG{n}{duplicated}\PYG{p}{(}\PYG{n}{subset}\PYG{o}{=}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}columna1\PYGZsq{}}\PYG{p}{])]}
+	
+	\PYG{c+c1}{\PYGZsh{} Borrando duplicados de las columnas columna1 y columna2 de df}
+	\PYG{n}{df\PYGZus{}sin\PYGZus{}duplicados} \PYG{o}{=} \PYG{n}{df}\PYG{o}{.}\PYG{n}{drop\PYGZus{}duplicates}\PYG{p}{(}\PYG{n}{subset}\PYG{o}{=}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}columna1\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}columna2\PYGZsq{}}\PYG{p}{])}
+\end{Verbatim}

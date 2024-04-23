@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{df} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{read\PYGZus{}csv}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}archivo.csv\PYGZsq{}}\PYG{p}{,} \PYG{n}{index\PYGZus{}col} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}nom\PYGZus{}indice\PYGZsq{}}\PYG{p}{)}
+\end{Verbatim}

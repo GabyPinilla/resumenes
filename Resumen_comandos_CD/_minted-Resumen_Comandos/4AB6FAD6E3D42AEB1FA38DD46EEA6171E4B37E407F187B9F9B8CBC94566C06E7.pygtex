@@ -1,0 +1,18 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import} \PYG{n+nn}{numpy} \PYG{k}{as} \PYG{n+nn}{np}
+\PYG{k+kn}{from} \PYG{n+nn}{sklearn.metrics} \PYG{k+kn}{import} \PYG{n}{r2\PYGZus{}score}\PYG{p}{,} \PYG{n}{mean\PYGZus{}squared\PYGZus{}error}\PYG{p}{,} \PYG{n}{mean\PYGZus{}absolute\PYGZus{}percentage\PYGZus{}error}
+
+\PYG{c+c1}{\PYGZsh{} Calculando el Error Cuadratico Medio (MSE)}
+\PYG{n}{mse} \PYG{o}{=} \PYG{n}{mean\PYGZus{}squared\PYGZus{}error}\PYG{p}{(}\PYG{n}{y\PYGZus{}predict}\PYG{p}{,} \PYG{n}{y\PYGZus{}test}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Calculando el Error Cuadratico Medio Explicado (MAPE)}
+\PYG{n}{mape} \PYG{o}{=} \PYG{n}{mean\PYGZus{}absolute\PYGZus{}percentage\PYGZus{}error}\PYG{p}{(}\PYG{n}{y\PYGZus{}predict}\PYG{p}{,} \PYG{n}{y\PYGZus{}test}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Calculando el valor R cuadrado del modelo}
+\PYG{n}{r2} \PYG{o}{=} \PYG{n}{r2\PYGZus{}score}\PYG{p}{(}\PYG{n}{y\PYGZus{}predict}\PYG{p}{,} \PYG{n}{y\PYGZus{}test}\PYG{p}{)}
+
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{n}{results}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}MSE: }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{mse}\PYG{l+s+si}{:}\PYG{l+s+s2}{.2f}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}MAPE: }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{mape}\PYG{l+s+si}{:}\PYG{l+s+s2}{.2f}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}R cuadrado: }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{r2}\PYG{l+s+si}{:}\PYG{l+s+s2}{.2f}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+\end{Verbatim}

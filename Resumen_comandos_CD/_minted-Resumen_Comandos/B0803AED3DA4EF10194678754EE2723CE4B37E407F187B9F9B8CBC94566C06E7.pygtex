@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+	\PYG{n}{df}\PYG{o}{.}\PYG{n}{sort\PYGZus{}values}\PYG{p}{(}\PYG{n}{by} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}columna\PYGZus{}a\PYGZus{}ordenar\PYGZsq{}}\PYG{p}{,} \PYG{n}{ascending}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{,} \PYG{n}{inplace}\PYG{o}{=}\PYG{k+kc}{False}\PYG{p}{)}
+\end{Verbatim}

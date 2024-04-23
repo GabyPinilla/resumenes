@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} Cruce entre tabla1 y tabla2}
+\PYG{n}{df\PYGZus{}merged} \PYG{o}{=} \PYG{n}{df\PYGZus{}tabla1}\PYG{o}{.}\PYG{n}{merge}\PYG{p}{(}\PYG{n}{df\PYGZus{}tabla2}\PYG{p}{,} \PYG{n}{left\PYGZus{}on} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}col1\PYGZus{}t1\PYGZsq{}}\PYG{p}{,} \PYG{n}{right\PYGZus{}on} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}col1\PYGZus{}t2\PYGZsq{}}\PYG{p}{,} \PYG{n}{how}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}inner\PYGZsq{}}\PYG{p}{,} \PYG{n}{validate} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}many\PYGZus{}to\PYGZus{}one\PYGZsq{}}\PYG{p}{)}
+\end{Verbatim}

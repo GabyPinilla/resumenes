@@ -1,0 +1,10 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+	\PYG{c+c1}{\PYGZsh{} Dimension del arreglo}
+	\PYG{n}{arreglo}\PYG{o}{.}\PYG{n}{ndim}
+	
+	\PYG{c+c1}{\PYGZsh{} Forma del arreglo (filas,columnas)}
+	\PYG{n}{arreglo}\PYG{o}{.}\PYG{n}{shape}
+	
+	\PYG{c+c1}{\PYGZsh{} Cantidad de datos en el arreglo}
+	\PYG{n}{arreglo}\PYG{o}{.}\PYG{n}{size}
+\end{Verbatim}

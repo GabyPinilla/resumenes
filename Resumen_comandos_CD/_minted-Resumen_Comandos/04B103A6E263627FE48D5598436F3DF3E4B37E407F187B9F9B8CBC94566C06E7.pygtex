@@ -1,0 +1,22 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} Crear una lista}
+\PYG{n}{lista\PYGZus{}1} \PYG{o}{=} \PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}elemento0\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}elemento1\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}elemento2\PYGZsq{}}\PYG{p}{]}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{n}{lista\PYGZus{}1}\PYG{p}{)} \PYG{c+c1}{\PYGZsh{} Imprime la lista}
+
+\PYG{c+c1}{\PYGZsh{} Para acceder a los elementos de la lista:}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{n}{lista\PYGZus{}1}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{])}
+\PYG{c+c1}{\PYGZsh{} salida: elemento0}
+	
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{n}{lista\PYGZus{}1}\PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{])} \PYG{c+c1}{\PYGZsh{} o print(lista\PYGZus{}1[\PYGZhy{}1])}
+\PYG{c+c1}{\PYGZsh{} salida: elemento2}
+	
+\PYG{c+c1}{\PYGZsh{} Para agregar un elemento al final de la lista}
+\PYG{n}{lista\PYGZus{}1}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}elemento3\PYGZsq{}}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{n}{lista\PYGZus{}1}\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{} salida: [\PYGZsq{}elemento0\PYGZsq{}, \PYGZsq{}elemento1\PYGZsq{}, \PYGZsq{}elemento2\PYGZsq{}, \PYGZsq{}elemento3\PYGZsq{}]}
+	
+\PYG{c+c1}{\PYGZsh{} Para obtener la longitud}
+\PYG{n}{longitud} \PYG{o}{=} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{lista\PYGZus{}1}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{n}{longitud}\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{} salida: 4}
+\end{Verbatim}

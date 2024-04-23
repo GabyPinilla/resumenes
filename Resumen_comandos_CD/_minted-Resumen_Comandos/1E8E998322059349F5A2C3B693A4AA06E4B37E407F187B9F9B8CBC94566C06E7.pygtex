@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{nom\PYGZus{}ds} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{read\PYGZus{}csv}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}ruta\PYGZhy{}del\PYGZhy{}archivo.csv\PYGZsq{}}\PYG{p}{)}
+\end{Verbatim}

@@ -1,0 +1,19 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+	\PYG{c+c1}{\PYGZsh{} Devuelve la cantidad de nulos en cada columna}
+	\PYG{n}{df}\PYG{o}{.}\PYG{n}{isna}\PYG{p}{()}\PYG{o}{.}\PYG{n}{sum}\PYG{p}{()}	
+	
+	\PYG{c+c1}{\PYGZsh{} Borra las columnas y filas que tengan datos faltantes}
+	\PYG{n}{df}\PYG{o}{.}\PYG{n}{dropna}\PYG{p}{()}
+	
+	\PYG{c+c1}{\PYGZsh{} Borrando definitivamente los valores nulos}
+	\PYG{n}{df}\PYG{o}{.}\PYG{n}{dropna}\PYG{p}{(}\PYG{n}{inplace}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{)}
+	
+	\PYG{c+c1}{\PYGZsh{} Creando un df nuevo sin nulos}
+	\PYG{n}{df\PYGZus{}nuevo} \PYG{o}{=} \PYG{n}{df}\PYG{o}{.}\PYG{n}{dropna}\PYG{p}{()}
+	
+	\PYG{c+c1}{\PYGZsh{} Reemplazando los valores nulos con 0}
+	\PYG{n}{df}\PYG{o}{.}\PYG{n}{dropna}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{)}
+	
+	\PYG{c+c1}{\PYGZsh{} Reemplazando los valores nulos con 0}
+	\PYG{n}{df}\PYG{o}{.}\PYG{n}{fillna}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{)}
+\end{Verbatim}

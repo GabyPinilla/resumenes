@@ -1,0 +1,44 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} Variables predictoras}
+\PYG{n}{X} \PYG{o}{=} \PYG{n}{df}\PYG{p}{[[}\PYG{l+s+s1}{\PYGZsq{}var\PYGZus{}1\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}var\PYGZus{}2\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}var\PYGZus{}3\PYGZsq{}}\PYG{p}{]]}
+\PYG{c+c1}{\PYGZsh{} Variables objetivo (1 o 0 en el caso de la clasificacion binaria)}
+\PYG{n}{y} \PYG{o}{=} \PYG{n}{df}\PYG{p}{[[}\PYG{l+s+s1}{\PYGZsq{}var\PYGZus{}y\PYGZsq{}}\PYG{p}{]]}
+
+\PYG{c+c1}{\PYGZsh{} Entrenando el modelo lineal}
+\PYG{n}{svc\PYGZus{}model} \PYG{o}{=} \PYG{n}{SVC}\PYG{p}{(}\PYG{n}{kernel}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}linear\PYGZsq{}}\PYG{p}{,} \PYG{n}{gamma}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{)}
+\PYG{n}{svc\PYGZus{}model}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{n}{X}\PYG{p}{,} \PYG{n}{y}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Prediciendo las clases para todo el espacio de caracteristicas}
+\PYG{n}{h} \PYG{o}{=} \PYG{l+m+mf}{0.02} \PYG{c+c1}{\PYGZsh{} Tamanno del paso en el meshgrid}
+\PYG{n}{x\PYGZus{}min}\PYG{p}{,} \PYG{n}{x\PYGZus{}max} \PYG{o}{=} \PYG{n}{X}\PYG{p}{[:,} \PYG{l+m+mi}{0}\PYG{p}{]}\PYG{o}{.}\PYG{n}{min}\PYG{p}{()} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{X}\PYG{p}{[:,} \PYG{l+m+mi}{0}\PYG{p}{]}\PYG{o}{.}\PYG{n}{max}\PYG{p}{()} \PYG{o}{+} \PYG{l+m+mi}{1}
+\PYG{n}{y\PYGZus{}min}\PYG{p}{,} \PYG{n}{y\PYGZus{}max} \PYG{o}{=} \PYG{n}{X}\PYG{p}{[:,} \PYG{l+m+mi}{1}\PYG{p}{]}\PYG{o}{.}\PYG{n}{min}\PYG{p}{()} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{X}\PYG{p}{[:,} \PYG{l+m+mi}{1}\PYG{p}{]}\PYG{o}{.}\PYG{n}{max}\PYG{p}{()} \PYG{o}{+} \PYG{l+m+mi}{1}
+\PYG{n}{xx}\PYG{p}{,} \PYG{n}{yy} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{meshgrid}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{arange}\PYG{p}{(}\PYG{n}{x\PYGZus{}min}\PYG{p}{,} \PYG{n}{x\PYGZus{}max}\PYG{p}{,} \PYG{n}{h}\PYG{p}{),} \PYG{n}{np}\PYG{o}{.}\PYG{n}{arange}\PYG{p}{(}\PYG{n}{y\PYGZus{}min}\PYG{p}{,} \PYG{n}{y\PYGZus{}max}\PYG{p}{,} \PYG{n}{h}\PYG{p}{))}
+\PYG{n}{Z} \PYG{o}{=} \PYG{n}{model}\PYG{o}{.}\PYG{n}{predict}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{c\PYGZus{}}\PYG{p}{[}\PYG{n}{xx}\PYG{o}{.}\PYG{n}{ravel}\PYG{p}{(),} \PYG{n}{yy}\PYG{o}{.}\PYG{n}{ravel}\PYG{p}{()])}
+\PYG{c+c1}{\PYGZsh{} Plot del resultado}
+\PYG{n}{Z} \PYG{o}{=} \PYG{n}{Z}\PYG{o}{.}\PYG{n}{reshape}\PYG{p}{(}\PYG{n}{xx}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{contourf}\PYG{p}{(}\PYG{n}{xx}\PYG{p}{,} \PYG{n}{yy}\PYG{p}{,} \PYG{n}{Z}\PYG{p}{,} \PYG{n}{cmap}\PYG{o}{=}\PYG{n}{plt}\PYG{o}{.}\PYG{n}{cm}\PYG{o}{.}\PYG{n}{Paired}\PYG{p}{,} \PYG{n}{alpha}\PYG{o}{=}\PYG{l+m+mf}{0.8}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{scatter}\PYG{p}{(}\PYG{n}{X}\PYG{p}{[:,} \PYG{l+m+mi}{0}\PYG{p}{],} \PYG{n}{X}\PYG{p}{[:,} \PYG{l+m+mi}{1}\PYG{p}{],} \PYG{n}{c}\PYG{o}{=}\PYG{n}{y}\PYG{p}{,} \PYG{n}{cmap}\PYG{o}{=}\PYG{n}{plt}\PYG{o}{.}\PYG{n}{cm}\PYG{o}{.}\PYG{n}{Paired}\PYG{p}{,} \PYG{n}{edgecolors}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}k\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{xlabel}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Caracteristica 1\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{ylabel}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Caracteristica 2\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{title}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Support Vector Machine con Kernel Lineal\PYGZsq{}}\PYG{p}{)}
+
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{subplot}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{l+m+mi}{2}\PYG{p}{,} \PYG{l+m+mi}{2}\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{} Entrenando el modelo rbf}
+\PYG{n}{model} \PYG{o}{=} \PYG{n}{SVC}\PYG{p}{(}\PYG{n}{kernel}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}rbf\PYGZsq{}}\PYG{p}{,} \PYG{n}{gamma}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{)}
+\PYG{n}{model}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{n}{X}\PYG{p}{,} \PYG{n}{y}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Predeciendo las clases para todo el espacio de caracteristicas}
+\PYG{n}{h} \PYG{o}{=} \PYG{l+m+mf}{0.02} \PYG{c+c1}{\PYGZsh{} Tamanno del paso en el meshgrid}
+\PYG{n}{x\PYGZus{}min}\PYG{p}{,} \PYG{n}{x\PYGZus{}max} \PYG{o}{=} \PYG{n}{X}\PYG{p}{[:,} \PYG{l+m+mi}{0}\PYG{p}{]}\PYG{o}{.}\PYG{n}{min}\PYG{p}{()} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{X}\PYG{p}{[:,} \PYG{l+m+mi}{0}\PYG{p}{]}\PYG{o}{.}\PYG{n}{max}\PYG{p}{()} \PYG{o}{+} \PYG{l+m+mi}{1}
+\PYG{n}{y\PYGZus{}min}\PYG{p}{,} \PYG{n}{y\PYGZus{}max} \PYG{o}{=} \PYG{n}{X}\PYG{p}{[:,} \PYG{l+m+mi}{1}\PYG{p}{]}\PYG{o}{.}\PYG{n}{min}\PYG{p}{()} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{X}\PYG{p}{[:,} \PYG{l+m+mi}{1}\PYG{p}{]}\PYG{o}{.}\PYG{n}{max}\PYG{p}{()} \PYG{o}{+} \PYG{l+m+mi}{1}
+\PYG{n}{xx}\PYG{p}{,} \PYG{n}{yy} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{meshgrid}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{arange}\PYG{p}{(}\PYG{n}{x\PYGZus{}min}\PYG{p}{,} \PYG{n}{x\PYGZus{}max}\PYG{p}{,} \PYG{n}{h}\PYG{p}{),} \PYG{n}{np}\PYG{o}{.}\PYG{n}{arange}\PYG{p}{(}\PYG{n}{y\PYGZus{}min}\PYG{p}{,} \PYG{n}{y\PYGZus{}max}\PYG{p}{,} \PYG{n}{h}\PYG{p}{))}
+\PYG{n}{Z} \PYG{o}{=} \PYG{n}{model}\PYG{o}{.}\PYG{n}{predict}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{c\PYGZus{}}\PYG{p}{[}\PYG{n}{xx}\PYG{o}{.}\PYG{n}{ravel}\PYG{p}{(),} \PYG{n}{yy}\PYG{o}{.}\PYG{n}{ravel}\PYG{p}{()])}
+\PYG{c+c1}{\PYGZsh{} Grafico del resultado}
+\PYG{n}{Z} \PYG{o}{=} \PYG{n}{Z}\PYG{o}{.}\PYG{n}{reshape}\PYG{p}{(}\PYG{n}{xx}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{contourf}\PYG{p}{(}\PYG{n}{xx}\PYG{p}{,} \PYG{n}{yy}\PYG{p}{,} \PYG{n}{Z}\PYG{p}{,} \PYG{n}{cmap}\PYG{o}{=}\PYG{n}{plt}\PYG{o}{.}\PYG{n}{cm}\PYG{o}{.}\PYG{n}{Paired}\PYG{p}{,} \PYG{n}{alpha}\PYG{o}{=}\PYG{l+m+mf}{0.8}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{scatter}\PYG{p}{(}\PYG{n}{X}\PYG{p}{[:,} \PYG{l+m+mi}{0}\PYG{p}{],} \PYG{n}{X}\PYG{p}{[:,} \PYG{l+m+mi}{1}\PYG{p}{],} \PYG{n}{c}\PYG{o}{=}\PYG{n}{y}\PYG{p}{,} \PYG{n}{cmap}\PYG{o}{=}\PYG{n}{plt}\PYG{o}{.}\PYG{n}{cm}\PYG{o}{.}\PYG{n}{Paired}\PYG{p}{,} \PYG{n}{edgecolors}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}k\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{xlabel}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Caracteristica 1\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{ylabel}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Caracteristica 2\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{title}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Support Vector Machine con Kernel RBF\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{()}
+\end{Verbatim}

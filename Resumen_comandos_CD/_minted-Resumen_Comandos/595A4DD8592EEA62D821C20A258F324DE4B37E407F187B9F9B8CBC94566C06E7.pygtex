@@ -1,0 +1,51 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{from} \PYG{n+nn}{date} \PYG{k+kn}{import} \PYG{n}{datetime}
+\PYG{k+kn}{import} \PYG{n+nn}{matplotlib.pyplot} \PYG{k}{as} \PYG{n+nn}{plt}
+\PYG{k+kn}{import} \PYG{n+nn}{seaborn} \PYG{k}{as} \PYG{n+nn}{sns}
+\PYG{k+kn}{from} \PYG{n+nn}{statsmodels.tsa.seasonal} \PYG{k+kn}{import} \PYG{n}{seasonal\PYGZus{}decompose}
+
+\PYG{c+c1}{\PYGZsh{} Suponiendo que df es el dataframe ya cargado}
+\PYG{c+c1}{\PYGZsh{} Si es necesario, cambiar el tipo de dato a datetime}
+\PYG{n}{df}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}Fecha\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{to\PYGZus{}datetime}\PYG{p}{(}\PYG{n}{df}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}Fecha\PYGZsq{}}\PYG{p}{])}
+
+\PYG{c+c1}{\PYGZsh{} Indexando las fechas}
+\PYG{n}{df} \PYG{o}{=} \PYG{n}{df}\PYG{o}{.}\PYG{n}{set\PYGZus{}index}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Fecha\PYGZsq{}}\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{} Se puede crear una columna por mes:}
+\PYG{c+c1}{\PYGZsh{} df[\PYGZsq{}mes\PYGZsq{}] = df.index.month}
+\PYG{c+c1}{\PYGZsh{} O por dias de la semana:}
+\PYG{c+c1}{\PYGZsh{} df[\PYGZsq{}dia\PYGZus{}semana\PYGZsq{}] = df.index.day\PYGZus{}of\PYGZus{}week + 1}
+
+\PYG{c+c1}{\PYGZsh{} Visualizacion general de los datos}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{df}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{title}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Serie de tiempo\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{xlabel}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Fecha\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{ylabel}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Ventas\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{()}
+
+\PYG{c+c1}{\PYGZsh{} Descomponiendo la serie de tiempo}
+\PYG{n}{result} \PYG{o}{=} \PYG{n}{seasonal\PYGZus{}decompose}\PYG{p}{(}\PYG{n}{df}\PYG{p}{,} \PYG{n}{model}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}additive\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{trend} \PYG{o}{=} \PYG{n}{result}\PYG{o}{.}\PYG{n}{trend}
+\PYG{n}{seasonal} \PYG{o}{=} \PYG{n}{result}\PYG{o}{.}\PYG{n}{seasonal}
+\PYG{n}{residual} \PYG{o}{=} \PYG{n}{result}\PYG{o}{.}\PYG{n}{resid}
+
+\PYG{c+c1}{\PYGZsh{} Mostrando los componentes descompuestos}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{figure}\PYG{p}{(}\PYG{n}{figsize}\PYG{o}{=}\PYG{p}{(}\PYG{l+m+mi}{12}\PYG{p}{,} \PYG{l+m+mi}{8}\PYG{p}{))}
+\PYG{c+c1}{\PYGZsh{} Original}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{subplot}\PYG{p}{(}\PYG{l+m+mi}{411}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{df}\PYG{p}{,} \PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}Original\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{legend}\PYG{p}{(}\PYG{n}{loc}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}upper left\PYGZsq{}}\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{} Tendencia}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{subplot}\PYG{p}{(}\PYG{l+m+mi}{412}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{trend}\PYG{p}{,} \PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}Tendencia\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{legend}\PYG{p}{(}\PYG{n}{loc}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}upper left\PYGZsq{}}\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{} Estacionalidad}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{subplot}\PYG{p}{(}\PYG{l+m+mi}{413}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{seasonal}\PYG{p}{,}\PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}Estacionalidad\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{legend}\PYG{p}{(}\PYG{n}{loc}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}upper left\PYGZsq{}}\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{} Residuo}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{subplot}\PYG{p}{(}\PYG{l+m+mi}{414}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{residual}\PYG{p}{,} \PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}Residuo\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{legend}\PYG{p}{(}\PYG{n}{loc}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}upper left\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{tight\PYGZus{}layout}\PYG{p}{()}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{()}
+\end{Verbatim}

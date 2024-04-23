@@ -1,0 +1,6 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{tupla\PYGZus{}1}\PYG{o}{=}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}elemento0\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}elemento1\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}elemento3\PYGZsq{}}\PYG{p}{)}
+	
+\PYG{c+c1}{\PYGZsh{} Para que devuelva \PYGZsq{}elemento0\PYGZsq{}}
+\PYG{n}{tupla\PYGZus{}1}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}
+\end{Verbatim}

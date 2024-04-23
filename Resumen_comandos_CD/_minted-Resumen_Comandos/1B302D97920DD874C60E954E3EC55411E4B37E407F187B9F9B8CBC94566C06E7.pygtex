@@ -1,0 +1,10 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{from} \PYG{n+nn}{sklearn.metrics} \PYG{k+kn}{import} \PYG{n}{confusion\PYGZus{}matrix}\PYG{p}{,} \PYG{n}{ConfusionMatrixDisplay}
+	
+\PYG{c+c1}{\PYGZsh{} Matriz de confusion}
+\PYG{n}{confusion} \PYG{o}{=} \PYG{n}{confusion\PYGZus{}matrix}\PYG{p}{(}\PYG{n}{y}\PYG{p}{,} \PYG{n}{y\PYGZus{}pred}\PYG{p}{)}
+	
+\PYG{c+c1}{\PYGZsh{} Visualizando la matriz de confusion cambiando el nombre de los ejes}
+\PYG{n}{vis} \PYG{o}{=} \PYG{n}{ConfusionMatrixDisplay}\PYG{p}{(}\PYG{n}{confusion}\PYG{p}{,} \PYG{n}{display\PYGZus{}labels} \PYG{o}{=}\PYG{p}{[}\PYG{k+kc}{False}\PYG{p}{,} \PYG{k+kc}{True}\PYG{p}{])}
+\PYG{n}{vis}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{()}
+\end{Verbatim}

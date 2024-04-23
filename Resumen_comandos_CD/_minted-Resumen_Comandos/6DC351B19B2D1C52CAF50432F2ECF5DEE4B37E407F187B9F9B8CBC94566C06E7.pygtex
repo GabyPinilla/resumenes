@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{edad} \PYG{o}{=} \PYG{n+nb}{int}\PYG{p}{(}\PYG{n+nb}{input}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Cual es tu edad?\PYGZsq{}}\PYG{p}{))}
+\end{Verbatim}

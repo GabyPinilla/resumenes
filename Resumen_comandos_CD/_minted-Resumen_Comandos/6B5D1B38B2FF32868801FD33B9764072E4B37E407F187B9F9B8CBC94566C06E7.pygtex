@@ -1,0 +1,13 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+	\PYG{c+c1}{\PYGZsh{} Rango}
+	\PYG{n}{rango} \PYG{o}{=} \PYG{n}{df}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}columna\PYGZsq{}}\PYG{p}{]}\PYG{o}{.}\PYG{n}{max}\PYG{p}{()} \PYG{o}{\PYGZhy{}} \PYG{n}{df}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}columna\PYGZsq{}}\PYG{p}{]}\PYG{o}{.}\PYG{n}{min}\PYG{p}{()}
+	
+	\PYG{c+c1}{\PYGZsh{} Rango intercuartil}
+	\PYG{n}{rango\PYGZus{}inter} \PYG{o}{=} \PYG{n}{df}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}columna\PYGZsq{}}\PYG{p}{]}\PYG{o}{.}\PYG{n}{quantile}\PYG{p}{(}\PYG{l+m+mf}{0.75}\PYG{p}{)} \PYG{o}{\PYGZhy{}} \PYG{n}{df}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}columna\PYGZsq{}}\PYG{p}{]}\PYG{o}{.}\PYG{n}{quantile}\PYG{p}{(}\PYG{l+m+mf}{0.25}\PYG{p}{)}
+	
+	\PYG{c+c1}{\PYGZsh{} Desviacion estandar}
+	\PYG{n}{des\PYGZus{}estandar} \PYG{o}{=} \PYG{n}{df}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}columna\PYGZsq{}}\PYG{p}{]}\PYG{o}{.}\PYG{n}{std}\PYG{p}{()}
+	
+	\PYG{c+c1}{\PYGZsh{} Devuelve indicadores estadisticos}
+	\PYG{n}{df}\PYG{o}{.}\PYG{n}{describe}\PYG{p}{()}
+\end{Verbatim}

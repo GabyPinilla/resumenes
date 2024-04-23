@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+	\PYG{n}{Series}\PYG{p}{(}\PYG{n}{data}\PYG{o}{=}\PYG{n}{datos}\PYG{p}{,} \PYG{n}{index}\PYG{o}{=} \PYG{n}{indices}\PYG{p}{,} \PYG{n}{dtype}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}int\PYGZsq{}}\PYG{p}{)} \PYG{c+c1}{\PYGZsh{} tipo de dato}
+\end{Verbatim}

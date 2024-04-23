@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+	\PYG{n}{df} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{DataFrame}\PYG{p}{(}\PYG{n}{data} \PYG{o}{=} \PYG{n}{datos}\PYG{p}{,} \PYG{n}{index} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}filas\PYGZsq{}}\PYG{p}{,} \PYG{n}{columns} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}columnas\PYGZsq{}}\PYG{p}{,} \PYG{n}{dtype} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}int\PYGZsq{}}\PYG{p}{)}
+	\PYG{c+c1}{\PYGZsh{} index=False: retorna indices numericos}
+\end{Verbatim}

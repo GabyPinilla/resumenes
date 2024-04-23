@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} Histograma}
+\PYG{n}{sns}\PYG{o}{.}\PYG{n}{histplot}\PYG{p}{(}\PYG{n}{x}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}x\PYGZsq{}}\PYG{p}{,} \PYG{n}{data}\PYG{o}{=}\PYG{n}{df}\PYG{p}{,} \PYG{n}{kde}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{()}
+\end{Verbatim}

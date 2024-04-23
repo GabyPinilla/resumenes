@@ -1,0 +1,11 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{from} \PYG{n+nn}{statsmodels.tsa.stattools} \PYG{k+kn}{import} \PYG{n}{adfuller}
+
+\PYG{c+c1}{\PYGZsh{} Test de Dickey\PYGZhy{}Fuller}
+\PYG{n}{result} \PYG{o}{=} \PYG{n}{adfuller}\PYG{p}{(}\PYG{n}{df}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}Ventas\PYGZsq{}}\PYG{p}{])}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}ADF Statistic:\PYGZsq{}}\PYG{p}{,} \PYG{n}{result}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{])}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}p\PYGZhy{}value:\PYGZsq{}}\PYG{p}{,} \PYG{n}{result}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{])}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Critical Values:\PYGZsq{}}\PYG{p}{,} \PYG{n}{result}\PYG{p}{[}\PYG{l+m+mi}{4}\PYG{p}{])}
+\PYG{c+c1}{\PYGZsh{} Resultado \PYGZlt{}= 0.05: H0 rechazada, los datos son estacionarios}
+\PYG{c+c1}{\PYGZsh{} Resultado \PYGZgt{} 0.05: H0 no rechazada, los datos no son estacionarios}
+\end{Verbatim}

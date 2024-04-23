@@ -1,0 +1,55 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} Librerias}
+\PYG{k+kn}{import} \PYG{n+nn}{numpy} \PYG{k}{as} \PYG{n+nn}{np}
+\PYG{k+kn}{import} \PYG{n+nn}{matplotlib.pyplot} \PYG{k}{as} \PYG{n+nn}{plt}
+\PYG{k+kn}{from} \PYG{n+nn}{sklearn.datasets} \PYG{k+kn}{import} \PYG{n}{load\PYGZus{}breast\PYGZus{}cancer}
+\PYG{k+kn}{from} \PYG{n+nn}{sklearn.model\PYGZus{}selection} \PYG{k+kn}{import} \PYG{n}{train\PYGZus{}test\PYGZus{}split}
+\PYG{k+kn}{from} \PYG{n+nn}{sklearn.linear\PYGZus{}model} \PYG{k+kn}{import} \PYG{n}{LogisticRegression}
+\PYG{k+kn}{from} \PYG{n+nn}{sklearn.preprocessing} \PYG{k+kn}{import} \PYG{n}{StandardScaler}
+	
+\PYG{c+c1}{\PYGZsh{} Variables predictoras}
+\PYG{n}{X} \PYG{o}{=} \PYG{n}{df}\PYG{p}{[[}\PYG{l+s+s1}{\PYGZsq{}var\PYGZus{}1\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}var\PYGZus{}2\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}var\PYGZus{}3\PYGZsq{}}\PYG{p}{]]}
+\PYG{c+c1}{\PYGZsh{} Variables objetivo (1 o 0 en el caso de la clasificacion binaria)}
+\PYG{n}{y} \PYG{o}{=} \PYG{n}{df}\PYG{p}{[[}\PYG{l+s+s1}{\PYGZsq{}var\PYGZus{}y\PYGZsq{}}\PYG{p}{]]}
+
+\PYG{c+c1}{\PYGZsh{} Escalando X}
+\PYG{n}{scaler} \PYG{o}{=} \PYG{n}{StandardScaler}\PYG{p}{()}
+\PYG{n}{X\PYGZus{}scaled} \PYG{o}{=} \PYG{n}{scaler}\PYG{o}{.}\PYG{n}{fit\PYGZus{}transform}\PYG{p}{(}\PYG{n}{X}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Seleccionando dos caracteristicas para el plot}
+\PYG{n}{caracteristica1} \PYG{o}{=} \PYG{l+m+mi}{0}
+\PYG{n}{caracteristica2} \PYG{o}{=} \PYG{l+m+mi}{1}
+\PYG{n}{X\PYGZus{}2d} \PYG{o}{=} \PYG{n}{X\PYGZus{}scaled}\PYG{p}{[:,} \PYG{p}{[}\PYG{n}{caracteristica1}\PYG{p}{,} \PYG{n}{caracteristica2}\PYG{p}{]]}
+
+\PYG{c+c1}{\PYGZsh{} Dividiendo los datos en conjunto de prueba y entrenamiento}
+\PYG{n}{X\PYGZus{}train}\PYG{p}{,} \PYG{n}{X\PYGZus{}test}\PYG{p}{,} \PYG{n}{y\PYGZus{}train}\PYG{p}{,} \PYG{n}{y\PYGZus{}test} \PYG{o}{=} \PYG{n}{train\PYGZus{}test\PYGZus{}split}\PYG{p}{(}\PYG{n}{X\PYGZus{}2d}\PYG{p}{,} \PYG{n}{y}\PYG{p}{,} \PYG{n}{test\PYGZus{}size}\PYG{o}{=}\PYG{l+m+mf}{0.2}\PYG{p}{,} \PYG{n}{random\PYGZus{}state}\PYG{o}{=}\PYG{l+m+mi}{42}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Entrenando el modelo de regresion logistica}
+\PYG{n}{LogReg} \PYG{o}{=} \PYG{n}{LogisticRegression}\PYG{p}{()}
+\PYG{n}{LogReg}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{n}{X\PYGZus{}train}\PYG{p}{,} \PYG{n}{y\PYGZus{}train}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Obteniendo los coeficientes y el intercepto del modelo}
+\PYG{n}{coeficientes} \PYG{o}{=} \PYG{n}{LogReg}\PYG{o}{.}\PYG{n}{coef\PYGZus{}}
+\PYG{n}{intercepto} \PYG{o}{=} \PYG{n}{LogReg}\PYG{o}{.}\PYG{n}{intercept\PYGZus{}}
+
+\PYG{n}{Crear} \PYG{n}{un} \PYG{n}{meshgrid} \PYG{n}{para} \PYG{n}{el} \PYG{n}{plot}
+\PYG{n}{x\PYGZus{}min}\PYG{p}{,} \PYG{n}{x\PYGZus{}max} \PYG{o}{=} \PYG{n}{X\PYGZus{}2d}\PYG{p}{[:,} \PYG{l+m+mi}{0}\PYG{p}{]}\PYG{o}{.}\PYG{n}{min}\PYG{p}{()} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{X\PYGZus{}2d}\PYG{p}{[:,} \PYG{l+m+mi}{0}\PYG{p}{]}\PYG{o}{.}\PYG{n}{max}\PYG{p}{()} \PYG{o}{+} \PYG{l+m+mi}{1}
+\PYG{n}{y\PYGZus{}min}\PYG{p}{,} \PYG{n}{y\PYGZus{}max} \PYG{o}{=} \PYG{n}{X\PYGZus{}2d}\PYG{p}{[:,} \PYG{l+m+mi}{1}\PYG{p}{]}\PYG{o}{.}\PYG{n}{min}\PYG{p}{()} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{X\PYGZus{}2d}\PYG{p}{[:,} \PYG{l+m+mi}{1}\PYG{p}{]}\PYG{o}{.}\PYG{n}{max}\PYG{p}{()} \PYG{o}{+} \PYG{l+m+mi}{1}
+\PYG{n}{xx}\PYG{p}{,} \PYG{n}{yy} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{meshgrid}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{arange}\PYG{p}{(}\PYG{n}{x\PYGZus{}min}\PYG{p}{,} \PYG{n}{x\PYGZus{}max}\PYG{p}{,} \PYG{l+m+mf}{0.1}\PYG{p}{),}
+\PYG{n}{np}\PYG{o}{.}\PYG{n}{arange}\PYG{p}{(}\PYG{n}{y\PYGZus{}min}\PYG{p}{,} \PYG{n}{y\PYGZus{}max}\PYG{p}{,} \PYG{l+m+mf}{0.1}\PYG{p}{))}
+
+\PYG{c+c1}{\PYGZsh{} Prediciendo las clases para cada punto del meshgrid}
+\PYG{n}{Z} \PYG{o}{=} \PYG{n}{LogReg}\PYG{o}{.}\PYG{n}{predict}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{c\PYGZus{}}\PYG{p}{[}\PYG{n}{xx}\PYG{o}{.}\PYG{n}{ravel}\PYG{p}{(),} \PYG{n}{yy}\PYG{o}{.}\PYG{n}{ravel}\PYG{p}{()])}
+\PYG{n}{Z} \PYG{o}{=} \PYG{n}{Z}\PYG{o}{.}\PYG{n}{reshape}\PYG{p}{(}\PYG{n}{xx}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Grafico de las regiones de decision y los puntos de entrenamiento}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{figure}\PYG{p}{(}\PYG{n}{figsize}\PYG{o}{=}\PYG{p}{(}\PYG{l+m+mi}{8}\PYG{p}{,} \PYG{l+m+mi}{6}\PYG{p}{))}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{contourf}\PYG{p}{(}\PYG{n}{xx}\PYG{p}{,} \PYG{n}{yy}\PYG{p}{,} \PYG{n}{Z}\PYG{p}{,} \PYG{n}{alpha}\PYG{o}{=}\PYG{l+m+mf}{0.6}\PYG{p}{,} \PYG{n}{cmap}\PYG{o}{=}\PYG{n}{plt}\PYG{o}{.}\PYG{n}{cm}\PYG{o}{.}\PYG{n}{coolwarm}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{scatter}\PYG{p}{(}\PYG{n}{X\PYGZus{}train}\PYG{p}{[:,} \PYG{l+m+mi}{0}\PYG{p}{],} \PYG{n}{X\PYGZus{}train}\PYG{p}{[:,} \PYG{l+m+mi}{1}\PYG{p}{],} \PYG{n}{c}\PYG{o}{=}\PYG{n}{y\PYGZus{}train}\PYG{p}{,} \PYG{n}{cmap}\PYG{o}{=}\PYG{n}{plt}\PYG{o}{.}\PYG{n}{cm}\PYG{o}{.}\PYG{n}{coolwarm}\PYG{p}{,}
+\PYG{n}{edgecolors}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}k\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{xlabel}\PYG{p}{(}\PYG{n}{caracteristica1}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{ylabel}\PYG{p}{(}\PYG{n}{caracteristica2}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{title}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Regresion Logistica \PYGZhy{} Regiones de Decision\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{colorbar}\PYG{p}{(}\PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}Clase\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{()}
+\end{Verbatim}

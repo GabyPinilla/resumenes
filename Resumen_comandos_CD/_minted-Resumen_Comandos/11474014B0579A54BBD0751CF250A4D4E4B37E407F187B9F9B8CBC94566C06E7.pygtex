@@ -1,0 +1,12 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} Busca el numero ubicado en la fila con indice 3 y columna con indice 1}
+\PYG{n}{df1}\PYG{o}{.}\PYG{n}{iloc}\PYG{p}{[}\PYG{l+m+mi}{3}\PYG{p}{,}\PYG{l+m+mi}{1}\PYG{p}{]}
+\PYG{c+c1}{\PYGZsh{} 21}
+	
+\PYG{c+c1}{\PYGZsh{} Busca los datos entre marzo y mayo de df1}
+\PYG{n}{df1}\PYG{o}{.}\PYG{n}{loc}\PYG{p}{[:,[}\PYG{l+s+s1}{\PYGZsq{}mes 1\PYGZsq{}}\PYG{p}{:} \PYG{l+s+s1}{\PYGZsq{}mes 3\PYGZsq{}}\PYG{p}{]]} \PYG{c+c1}{\PYGZsh{} puede ser el nombre de una fila o columna}
+\PYG{c+c1}{\PYGZsh{}        mes   ventas}
+\PYG{c+c1}{\PYGZsh{} mes 1  marzo   18}
+\PYG{c+c1}{\PYGZsh{} mes 2  abril   79}
+\PYG{c+c1}{\PYGZsh{} mes 3  mayo    18}
+\end{Verbatim}

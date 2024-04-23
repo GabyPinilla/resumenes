@@ -1,0 +1,12 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} Filtrando valores atipicos}
+\PYG{n}{data} \PYG{o}{=} \PYG{n}{df}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}columna\PYGZsq{}}\PYG{p}{]}
+\PYG{n}{Q1} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{percentile}\PYG{p}{(}\PYG{n}{data}\PYG{p}{,} \PYG{l+m+mi}{25}\PYG{p}{)}
+\PYG{n}{Q3} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{percentile}\PYG{p}{(}\PYG{n}{data}\PYG{p}{,} \PYG{l+m+mi}{75}\PYG{p}{)}
+\PYG{n}{IQR} \PYG{o}{=} \PYG{n}{Q3} \PYG{o}{\PYGZhy{}} \PYG{n}{Q1}
+\PYG{n}{lower\PYGZus{}bound} \PYG{o}{=} \PYG{n}{Q1} \PYG{o}{\PYGZhy{}} \PYG{l+m+mf}{1.5} \PYG{o}{*} \PYG{n}{IQR}
+\PYG{n}{upper\PYGZus{}bound} \PYG{o}{=} \PYG{n}{Q3} \PYG{o}{+} \PYG{l+m+mf}{1.5} \PYG{o}{*} \PYG{n}{IQR}
+\PYG{n}{var\PYGZus{}num}\PYG{o}{=}\PYG{n}{var\PYGZus{}num}\PYG{o}{.}\PYG{n}{iloc}\PYG{p}{[}\PYG{n}{np}\PYG{o}{.}\PYG{n}{where}\PYG{p}{((}\PYG{n}{data}\PYG{o}{\PYGZgt{}=} \PYG{n}{lower\PYGZus{}bound}\PYG{p}{)} \PYG{o}{*} \PYG{p}{(}\PYG{n}{data} \PYG{o}{\PYGZlt{}=} \PYG{n}{upper\PYGZus{}bound}\PYG{p}{))]}
+
+\PYG{n}{df}\PYG{o}{.}\PYG{n}{reset\PYGZus{}index}\PYG{p}{(}\PYG{n}{drop}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{,} \PYG{n}{inplace}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{)}
+\end{Verbatim}

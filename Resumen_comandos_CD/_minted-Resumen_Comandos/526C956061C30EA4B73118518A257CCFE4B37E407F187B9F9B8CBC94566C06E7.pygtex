@@ -1,0 +1,10 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} Reemplazando datos tipo str}
+\PYG{n}{df2} \PYG{o}{=} \PYG{n}{df}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}species\PYGZsq{}}\PYG{p}{]}\PYG{o}{.}\PYG{n}{str}\PYG{o}{.}\PYG{n}{replace}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Adelie\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}Adelia\PYGZsq{}}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Pasando de , a .}
+\PYG{c+c1}{\PYGZsh{} df[\PYGZsq{}flipper\PYGZus{}length\PYGZus{}mm\PYGZsq{}] = df[\PYGZsq{}flipper\PYGZus{}length\PYGZus{}mm\PYGZsq{}].str.replace(\PYGZsq{},\PYGZsq{}, \PYGZsq{}.\PYGZsq{})}
+
+\PYG{c+c1}{\PYGZsh{} Tranformando el tipo de dato a int64}
+\PYG{c+c1}{\PYGZsh{} df[\PYGZsq{}flipper\PYGZus{}length\PYGZus{}mm\PYGZsq{}] = df[\PYGZsq{}flipper\PYGZus{}length\PYGZus{}mm\PYGZsq{}].astype(\PYGZsq{}int64\PYGZsq{})}
+\end{Verbatim}

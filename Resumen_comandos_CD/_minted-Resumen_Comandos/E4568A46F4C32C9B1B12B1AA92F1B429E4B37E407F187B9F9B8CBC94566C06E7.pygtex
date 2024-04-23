@@ -1,0 +1,25 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} pip install fbprophet}
+\PYG{k+kn}{from} \PYG{n+nn}{prophet} \PYG{k+kn}{import} \PYG{n}{Prophet}
+
+\PYG{c+c1}{\PYGZsh{} Renombrando las columnas}
+\PYG{n}{df}\PYG{o}{.}\PYG{n}{rename}\PYG{p}{(}\PYG{n}{columns}\PYG{o}{=}\PYG{p}{\PYGZob{}}\PYG{l+s+s1}{\PYGZsq{}Fechas\PYGZsq{}} \PYG{p}{:} \PYG{l+s+s1}{\PYGZsq{}ds\PYGZsq{}}\PYG{p}{,}
+	\PYG{l+s+s1}{\PYGZsq{}Ventas\PYGZsq{}} \PYG{p}{:} \PYG{l+s+s1}{\PYGZsq{}y\PYGZsq{}}\PYG{p}{\PYGZcb{},} \PYG{n}{inplace}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Creando y ajustando el modelo}
+\PYG{n}{m} \PYG{o}{=} \PYG{n}{Prophet}\PYG{p}{()}
+\PYG{n}{m}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{n}{df}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Generando fechas turutas para las predicciones}
+\PYG{n}{future} \PYG{o}{=} \PYG{n}{m}\PYG{o}{.}\PYG{n}{make\PYGZus{}future\PYGZus{}dataframe}\PYG{p}{(}\PYG{n}{periods}\PYG{o}{=}\PYG{l+m+mi}{365}\PYG{p}{)} \PYG{c+c1}{\PYGZsh{} Periods es el numero de dias futuros a predecir}
+\PYG{n}{future}\PYG{o}{.}\PYG{n}{tail}\PYG{p}{()}
+
+\PYG{c+c1}{\PYGZsh{} Prediciendo}
+\PYG{n}{forecast} \PYG{o}{=} \PYG{n}{m}\PYG{o}{.}\PYG{n}{predict}\PYG{p}{(}\PYG{n}{future}\PYG{p}{)}
+\PYG{n}{forecast}\PYG{p}{[[}\PYG{l+s+s1}{\PYGZsq{}ds\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}yhat\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}yhat\PYGZus{}lower\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}yhat\PYGZus{}upper\PYGZsq{}}\PYG{p}{]]}\PYG{o}{.}\PYG{n}{tail}\PYG{p}{()}
+
+\PYG{c+c1}{\PYGZsh{} Grafico general}
+\PYG{n}{fig1} \PYG{o}{=} \PYG{n}{m}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{forecast}\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{} Grafico descompuesto}
+\PYG{n}{fig2} \PYG{o}{=} \PYG{n}{m}\PYG{o}{.}\PYG{n}{plot\PYGZus{}components}\PYG{p}{(}\PYG{n}{forecast}\PYG{p}{)}
+\end{Verbatim}

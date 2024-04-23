@@ -1,0 +1,12 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+	\PYG{k+kn}{import} \PYG{n+nn}{seaborn} \PYG{k}{as} \PYG{n+nn}{sns}
+	\PYG{k+kn}{import} \PYG{n+nn}{matplotlib.pyplot} \PYG{k}{as} \PYG{n+nn}{plt}
+	
+	\PYG{n}{sns}\PYG{o}{.}\PYG{n}{displot}\PYG{p}{(}\PYG{n}{data}\PYG{p}{,} \PYG{n}{color}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}skyblue\PYGZsq{}}\PYG{p}{,}\PYG{n}{bins}\PYG{o}{=}\PYG{l+m+mi}{10}\PYG{p}{)}
+	\PYG{c+c1}{\PYGZsh{} Agregando etiquetas y titulo}
+	\PYG{n}{plt}\PYG{o}{.}\PYG{n}{title}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Histograma con sns.displot()\PYGZsq{}}\PYG{p}{)}
+	\PYG{n}{plt}\PYG{o}{.}\PYG{n}{xlabel}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Valores\PYGZsq{}}\PYG{p}{)}
+	\PYG{n}{plt}\PYG{o}{.}\PYG{n}{ylabel}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Frecuencia\PYGZsq{}}\PYG{p}{)}
+	\PYG{c+c1}{\PYGZsh{} Mostrando el grafico}
+	\PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{()}
+\end{Verbatim}

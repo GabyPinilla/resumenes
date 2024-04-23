@@ -1,0 +1,26 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{optimal\PYGZus{}k} \PYG{o}{=} \PYG{l+m+mi}{3}
+\PYG{n}{kmeans} \PYG{o}{=} \PYG{n}{KMeans}\PYG{p}{(}\PYG{n}{n\PYGZus{}clusters}\PYG{o}{=}\PYG{n}{optimal\PYGZus{}k}\PYG{p}{,} \PYG{n}{random\PYGZus{}state}\PYG{o}{=}\PYG{l+m+mi}{42}\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{} Aplicando kmeans}
+\PYG{n}{kmeans}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{n}{X}\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{} Etiquetando los resutados}
+\PYG{n}{labels} \PYG{o}{=} \PYG{n}{kmeans}\PYG{o}{.}\PYG{n}{labels\PYGZus{}}
+\PYG{c+c1}{\PYGZsh{} Insertando una columna con las etiquetas de cluster}
+\PYG{n}{X}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}clusters\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{n}{labels}
+
+\PYG{c+c1}{\PYGZsh{} Graficando los clusters en el espacio reducido por PCA}
+\PYG{c+c1}{\PYGZsh{} Se utiliza la segunda y la tercera columna}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{scatter}\PYG{p}{(}\PYG{n}{X}\PYG{o}{.}\PYG{n}{iloc}\PYG{p}{[:,} \PYG{l+m+mi}{1}\PYG{p}{],} \PYG{n}{X}\PYG{o}{.}\PYG{n}{iloc}\PYG{p}{[:,} \PYG{l+m+mi}{2}\PYG{p}{],} \PYG{n}{c}\PYG{o}{=}\PYG{n}{labels}\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{}plt.xlabel(\PYGZsq{}Componente Principal 1\PYGZsq{})}
+\PYG{c+c1}{\PYGZsh{}plt.ylabel(\PYGZsq{}Componente Principal 2\PYGZsq{})}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{title}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Clusters K\PYGZhy{}means (k=3)\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{()}
+
+\PYG{c+c1}{\PYGZsh{} Metricas de evaluacion}
+\PYG{c+c1}{\PYGZsh{} Puntuacion de silhouette}
+\PYG{n}{silhouette\PYGZus{}scores} \PYG{o}{=} \PYG{n}{silhouette\PYGZus{}score}\PYG{p}{(}\PYG{n}{X}\PYG{p}{,} \PYG{n}{labels}\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{} Indice de David Boulding}
+\PYG{n}{dunn\PYGZus{}index} \PYG{o}{=} \PYG{n}{davies\PYGZus{}bouldin\PYGZus{}score}\PYG{p}{(}\PYG{n}{X}\PYG{p}{,} \PYG{n}{labels}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s1}{\PYGZsq{}Silhoutte Score : }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{silhouette\PYGZus{}scores}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s1}{\PYGZsq{}Davies Bouldin Score : }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{dunn\PYGZus{}index}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+\end{Verbatim}

@@ -1,0 +1,25 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+	\PYG{k+kn}{import} \PYG{n+nn}{pandas} \PYG{k}{as} \PYG{n+nn}{pd}
+	\PYG{k+kn}{import} \PYG{n+nn}{numpy} \PYG{k}{as} \PYG{n+nn}{np}
+	\PYG{k+kn}{import} \PYG{n+nn}{seaborn} \PYG{k}{as} \PYG{n+nn}{sns}
+	\PYG{k+kn}{import} \PYG{n+nn}{matplotlib.pyplot} \PYG{k}{as} \PYG{n+nn}{plt}
+	
+	\PYG{c+c1}{\PYGZsh{} df}
+	\PYG{n}{data} \PYG{o}{=} \PYG{p}{\PYGZob{}}
+		\PYG{l+s+s1}{\PYGZsq{}Grupo\PYGZsq{}}\PYG{p}{:} \PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}A\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}A\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}B\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}B\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}B\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}C\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}C\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}C\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}C\PYGZsq{}}\PYG{p}{],}
+		\PYG{l+s+s1}{\PYGZsq{}Valor\PYGZsq{}}\PYG{p}{:} \PYG{p}{[}\PYG{l+m+mi}{5}\PYG{p}{,} \PYG{l+m+mi}{8}\PYG{p}{,} \PYG{l+m+mi}{12}\PYG{p}{,} \PYG{l+m+mi}{15}\PYG{p}{,} \PYG{l+m+mi}{20}\PYG{p}{,} \PYG{l+m+mi}{7}\PYG{p}{,} \PYG{l+m+mi}{10}\PYG{p}{,} \PYG{l+m+mi}{14}\PYG{p}{,} \PYG{l+m+mi}{18}\PYG{p}{]}
+	\PYG{p}{\PYGZcb{}}
+	
+	\PYG{n}{df} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{DataFrame}\PYG{p}{(}\PYG{n}{data}\PYG{p}{)}
+	
+	\PYG{c+c1}{\PYGZsh{} Creaando un boxplot}
+	\PYG{n}{sns}\PYG{o}{.}\PYG{n}{boxplot}\PYG{p}{(}\PYG{n}{x}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}Grupo\PYGZsq{}}\PYG{p}{,} \PYG{n}{y}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}Valor\PYGZsq{}}\PYG{p}{,} \PYG{n}{data}\PYG{o}{=}\PYG{n}{df}\PYG{p}{)}
+	
+	\PYG{c+c1}{\PYGZsh{} Agregando etiquetas y titulo}
+	\PYG{n}{plt}\PYG{o}{.}\PYG{n}{xlabel}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Grupo\PYGZsq{}}\PYG{p}{)}
+	\PYG{n}{plt}\PYG{o}{.}\PYG{n}{ylabel}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Valor\PYGZsq{}}\PYG{p}{)}
+	\PYG{n}{plt}\PYG{o}{.}\PYG{n}{title}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Boxplot por Grupo\PYGZsq{}}\PYG{p}{)}
+	
+	\PYG{c+c1}{\PYGZsh{} Mostrando el grafico}
+	\PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{()}
+\end{Verbatim}

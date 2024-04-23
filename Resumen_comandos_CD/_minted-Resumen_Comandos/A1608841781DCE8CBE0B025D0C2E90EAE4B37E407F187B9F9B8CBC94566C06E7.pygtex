@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} Linea recta}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{df}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}x\PYGZsq{}}\PYG{p}{],} \PYG{n}{df}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}y\PYGZsq{}}\PYG{p}{],} \PYG{n}{color}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}red\PYGZsq{}}\PYG{p}{)}
+\end{Verbatim}

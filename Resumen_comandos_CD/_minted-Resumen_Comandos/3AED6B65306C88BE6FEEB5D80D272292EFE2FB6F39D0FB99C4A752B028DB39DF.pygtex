@@ -9,7 +9,6 @@
 \PYG{n+nf}{geom\PYGZus{}smooth}\PYG{p}{()}
 \PYG{c+c1}{\PYGZsh{} Crea un histograma.}
 \PYG{n+nf}{geom\PYGZus{}histogram}\PYG{p}{()}
-\PYG{c+c1}{\PYGZsh{} Crea un diagrama de dispersión y agrega una pequeña cantidad de ruido}
-\PYG{c+c1}{\PYGZsh{}  aleatorio para lidiar con la superposición de puntos.}
+\PYG{c+c1}{\PYGZsh{} Crea un diagrama de dispersión y agrega una pequeña cantidad de ruido aleatorio para lidiar con la superposición de puntos.}
 \PYG{n+nf}{geom\PYGZus{}jitter}\PYG{p}{()}
 \end{Verbatim}

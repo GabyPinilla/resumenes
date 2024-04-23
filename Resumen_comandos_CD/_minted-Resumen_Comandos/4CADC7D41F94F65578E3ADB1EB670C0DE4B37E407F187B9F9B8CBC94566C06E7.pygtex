@@ -1,0 +1,18 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+	\PYG{c+c1}{\PYGZsh{} Agrega cuadricula de fondo}
+	\PYG{n}{plt}\PYG{o}{.}\PYG{n}{grid}\PYG{p}{(}\PYG{k+kc}{True}\PYG{p}{)}
+	
+	\PYG{c+c1}{\PYGZsh{} marker: da opciones de la forma de los puntos}
+	\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{x}\PYG{p}{,} \PYG{n}{y}\PYG{p}{,} \PYG{n}{marker}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}o\PYGZsq{}}\PYG{p}{,} \PYG{n}{label} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}Linea\PYGZsq{}}\PYG{p}{)}
+	\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{x}\PYG{p}{,} \PYG{n}{y}\PYG{p}{,} \PYG{n}{marker}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}\PYGZhy{}\PYGZsq{}}\PYG{p}{,} \PYG{n}{label} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}Linea\PYGZsq{}}\PYG{p}{)}
+	
+	\PYG{c+c1}{\PYGZsh{} markersize: grosor de los puntos}
+	\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{x}\PYG{p}{,} \PYG{n}{y}\PYG{p}{,} \PYG{n}{marker}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}o\PYGZsq{}}\PYG{p}{,} \PYG{n}{markersize}\PYG{o}{=}\PYG{l+m+mi}{6}\PYG{p}{,} \PYG{n}{label} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}Linea\PYGZsq{}}\PYG{p}{)}
+	
+	\PYG{c+c1}{\PYGZsh{} linestyle: configura el tipo de linea}
+	\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{x}\PYG{p}{,} \PYG{n}{y}\PYG{p}{,} \PYG{n}{marker}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}o\PYGZsq{}}\PYG{p}{,} \PYG{n}{linestyle}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}\PYGZhy{}\PYGZsq{}} \PYG{n}{label} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}Linea\PYGZsq{}}\PYG{p}{)}
+	
+	\PYG{c+c1}{\PYGZsh{} color: agrega color a la linea}
+	\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{x}\PYG{p}{,} \PYG{n}{y}\PYG{p}{,} \PYG{n}{color}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}b\PYGZsq{}}\PYG{p}{,} \PYG{n}{label} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}Linea\PYGZsq{}}\PYG{p}{)} \PYG{c+c1}{\PYGZsh{} linea azul}
+	\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{x}\PYG{p}{,} \PYG{n}{y}\PYG{p}{,} \PYG{n}{color}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}r\PYGZsq{}}\PYG{p}{,} \PYG{n}{label} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}Linea\PYGZsq{}}\PYG{p}{)} \PYG{c+c1}{\PYGZsh{} linea roja}
+\end{Verbatim}

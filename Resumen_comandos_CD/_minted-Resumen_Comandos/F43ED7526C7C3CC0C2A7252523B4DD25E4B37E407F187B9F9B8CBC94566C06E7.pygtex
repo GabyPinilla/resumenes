@@ -1,0 +1,35 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{from} \PYG{n+nn}{sklearn.model\PYGZus{}selection} \PYG{k+kn}{import} \PYG{n}{GridSearchCV}
+\PYG{k+kn}{from} \PYG{n+nn}{sklearn.model\PYGZus{}selection} \PYG{k+kn}{import} \PYG{n}{train\PYGZus{}test\PYGZus{}split}
+\PYG{k+kn}{from} \PYG{n+nn}{sklearn.linear\PYGZus{}model} \PYG{k+kn}{import} \PYG{n}{LogisticRegression}
+
+\PYG{c+c1}{\PYGZsh{} Cargando el conjunto de datos}
+\PYG{n}{X} \PYG{o}{=} \PYG{n}{df}\PYG{o}{.}\PYG{n}{drop}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}target\PYGZsq{}}\PYG{p}{,} \PYG{n}{axis}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{)}
+\PYG{n}{y} \PYG{o}{=} \PYG{n}{df}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}target\PYGZsq{}}\PYG{p}{]}
+
+\PYG{c+c1}{\PYGZsh{} Dividiendo los datos en conjuntos de entrenamiento y prueba}
+\PYG{n}{X\PYGZus{}train}\PYG{p}{,} \PYG{n}{X\PYGZus{}test}\PYG{p}{,} \PYG{n}{y\PYGZus{}train}\PYG{p}{,} \PYG{n}{y\PYGZus{}test} \PYG{o}{=} \PYG{n}{train\PYGZus{}test\PYGZus{}split}\PYG{p}{(}\PYG{n}{X}\PYG{p}{,} \PYG{n}{y}\PYG{p}{,} \PYG{n}{test\PYGZus{}size}\PYG{o}{=}\PYG{l+m+mf}{0.3}\PYG{p}{,} \PYG{n}{random\PYGZus{}state}\PYG{o}{=}\PYG{l+m+mi}{42}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Definiendo los hiperparametros a ajustar}
+\PYG{n}{param\PYGZus{}grid} \PYG{o}{=} \PYG{p}{\PYGZob{}}\PYG{l+s+s1}{\PYGZsq{}C\PYGZsq{}}\PYG{p}{:} \PYG{p}{[}\PYG{l+m+mf}{0.001}\PYG{p}{,} \PYG{l+m+mf}{0.01}\PYG{p}{,} \PYG{l+m+mf}{0.1}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{10}\PYG{p}{,} \PYG{l+m+mi}{100}\PYG{p}{],} \PYG{l+s+s1}{\PYGZsq{}penalty\PYGZsq{}}\PYG{p}{:} \PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}l1\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}l2\PYGZsq{}}\PYG{p}{]\PYGZcb{}}
+
+\PYG{c+c1}{\PYGZsh{} Creando una instancia del modelo}
+\PYG{n}{model} \PYG{o}{=} \PYG{n}{LogisticRegression}\PYG{p}{()}
+
+\PYG{c+c1}{\PYGZsh{} Creando una instancia de GridSearchCV}
+\PYG{n}{grid\PYGZus{}search} \PYG{o}{=} \PYG{n}{GridSearchCV}\PYG{p}{(}\PYG{n}{model}\PYG{p}{,} \PYG{n}{param\PYGZus{}grid}\PYG{p}{,} \PYG{n}{cv}\PYG{o}{=}\PYG{l+m+mi}{5}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Ajustando GridSearchCV al conjunto de entrenamiento}
+\PYG{n}{grid\PYGZus{}search}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{n}{X\PYGZus{}train}\PYG{p}{,} \PYG{n}{y\PYGZus{}train}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Imprimiendo los mejores hiperparametros encontrados}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Mejores hiperparametros:\PYGZdq{}}\PYG{p}{,} \PYG{n}{grid\PYGZus{}search}\PYG{o}{.}\PYG{n}{best\PYGZus{}params\PYGZus{}}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Obteniendo el mejor modelo}
+\PYG{n}{best\PYGZus{}model} \PYG{o}{=} \PYG{n}{grid\PYGZus{}search}\PYG{o}{.}\PYG{n}{best\PYGZus{}estimator\PYGZus{}}
+
+\PYG{c+c1}{\PYGZsh{} Evaluando el mejor modelo}
+\PYG{n}{test\PYGZus{}score} \PYG{o}{=} \PYG{n}{best\PYGZus{}model}\PYG{o}{.}\PYG{n}{score}\PYG{p}{(}\PYG{n}{X\PYGZus{}test}\PYG{p}{,} \PYG{n}{y\PYGZus{}test}\PYG{p}{)} \PYG{c+c1}{\PYGZsh{} Precision}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Puntuacion en el conjunto de prueba:\PYGZdq{}}\PYG{p}{,} \PYG{n}{test\PYGZus{}score}\PYG{p}{)}
+
+\end{Verbatim}

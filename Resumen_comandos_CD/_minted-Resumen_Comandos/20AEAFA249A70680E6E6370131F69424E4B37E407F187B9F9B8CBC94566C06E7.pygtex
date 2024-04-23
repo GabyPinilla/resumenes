@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import} \PYG{n+nn}{libreria} \PYG{k}{as} \PYG{n+nn}{alias}
+\end{Verbatim}

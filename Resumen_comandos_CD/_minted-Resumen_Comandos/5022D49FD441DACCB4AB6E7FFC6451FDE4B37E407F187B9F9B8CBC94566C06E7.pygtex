@@ -1,0 +1,12 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+	\PYG{n}{residuals} \PYG{o}{=} \PYG{n}{datos}\PYG{p}{[}\PYG{l+s+s2}{\PYGZdq{}variable\PYGZus{}target\PYGZdq{}}\PYG{p}{]} \PYG{o}{\PYGZhy{}} \PYG{p}{(}\PYG{n}{slope} \PYG{o}{*} \PYG{n}{datos}\PYG{p}{[}\PYG{l+s+s2}{\PYGZdq{}variable\PYGZus{}independiente\PYGZdq{}}\PYG{p}{]} \PYG{o}{+} \PYG{n}{intercept}\PYG{p}{)}
+	
+	\PYG{c+c1}{\PYGZsh{} Mostrando el grafico de los residuos}
+	\PYG{n}{plt}\PYG{o}{.}\PYG{n}{figure}\PYG{p}{()}
+	\PYG{n}{plt}\PYG{o}{.}\PYG{n}{scatter}\PYG{p}{(}\PYG{n}{datos}\PYG{p}{[}\PYG{l+s+s2}{\PYGZdq{}variable\PYGZus{}independiente\PYGZdq{}}\PYG{p}{],} \PYG{n}{residuals}\PYG{p}{)}
+	\PYG{n}{plt}\PYG{o}{.}\PYG{n}{axhline}\PYG{p}{(}\PYG{n}{y}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{n}{color}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}r\PYGZsq{}}\PYG{p}{,} \PYG{n}{linestyle}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}\PYGZhy{}\PYGZhy{}\PYGZsq{}}\PYG{p}{)}
+	\PYG{n}{plt}\PYG{o}{.}\PYG{n}{title}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Grafico de Residuos\PYGZdq{}}\PYG{p}{)}
+	\PYG{n}{plt}\PYG{o}{.}\PYG{n}{xlabel}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}variable\PYGZus{}independiente\PYGZdq{}}\PYG{p}{)}
+	\PYG{n}{plt}\PYG{o}{.}\PYG{n}{ylabel}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Residuos\PYGZdq{}}\PYG{p}{)}
+	\PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{()}
+\end{Verbatim}

@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+	\PYG{c+c1}{\PYGZsh{} Rellenando con la media}
+	\PYG{n}{df}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}columna\PYGZsq{}}\PYG{p}{]}\PYG{o}{.}\PYG{n}{fillna}\PYG{p}{(}\PYG{n}{df}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}columna\PYGZsq{}}\PYG{p}{]}\PYG{o}{.}\PYG{n}{mean}\PYG{p}{(),} \PYG{n}{inplace}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{)}
+\end{Verbatim}

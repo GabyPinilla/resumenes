@@ -1,0 +1,28 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} Clasificacion}
+\PYG{k+kn}{from} \PYG{n+nn}{lazypredict.Supervised} \PYG{k+kn}{import} \PYG{n}{LazyClassifier}
+\PYG{k+kn}{from} \PYG{n+nn}{sklearn.datasets} \PYG{k+kn}{import} \PYG{n}{load\PYGZus{}breast\PYGZus{}cancer}
+\PYG{k+kn}{from} \PYG{n+nn}{sklearn.model\PYGZus{}selection} \PYG{k+kn}{import} \PYG{n}{train\PYGZus{}test\PYGZus{}split}
+	
+\PYG{n}{X} \PYG{o}{=} \PYG{n}{df}
+\PYG{n}{y} \PYG{o}{=} \PYG{n}{df}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}target\PYGZsq{}}\PYG{p}{]}
+\PYG{n}{X\PYGZus{}train}\PYG{p}{,} \PYG{n}{X\PYGZus{}test}\PYG{p}{,} \PYG{n}{y\PYGZus{}train}\PYG{p}{,} \PYG{n}{y\PYGZus{}test} \PYG{o}{=} \PYG{n}{train\PYGZus{}test\PYGZus{}split}\PYG{p}{(}\PYG{n}{X}\PYG{p}{,} \PYG{n}{y}\PYG{p}{,} \PYG{n}{test\PYGZus{}size}\PYG{o}{=}\PYG{l+m+mi}{5}\PYG{p}{,} \PYG{n}{random\PYGZus{}state}\PYG{o}{=}\PYG{l+m+mi}{123}\PYG{p}{)}
+\PYG{n}{clf} \PYG{o}{=} \PYG{n}{LazyClassifier}\PYG{p}{(}\PYG{n}{verbose}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{n}{ignore\PYGZus{}warnings}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{,} \PYG{n}{custom\PYGZus{}metric}\PYG{o}{=}\PYG{k+kc}{None}\PYG{p}{)}
+\PYG{n}{models}\PYG{p}{,} \PYG{n}{predicctions} \PYG{o}{=} \PYG{n}{clf}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{n}{X\PYGZus{}train}\PYG{p}{,} \PYG{n}{X\PYGZus{}test}\PYG{p}{,} \PYG{n}{y\PYGZus{}train}\PYG{p}{,} \PYG{n}{y\PYGZus{}test}\PYG{p}{)}
+\PYG{n}{models}
+
+\PYG{c+c1}{\PYGZsh{} Regresion}
+\PYG{k+kn}{from} \PYG{n+nn}{lazypredict.Supervised} \PYG{k+kn}{import} \PYG{n}{LazyRegressor}
+\PYG{k+kn}{from} \PYG{n+nn}{sklearn} \PYG{k+kn}{import} \PYG{n}{datasets}
+\PYG{k+kn}{from} \PYG{n+nn}{sklearn.utils} \PYG{k+kn}{import} \PYG{n}{shuffle}
+\PYG{k+kn}{import} \PYG{n+nn}{numpy} \PYG{k}{as} \PYG{n+nn}{np}
+
+
+\PYG{n}{X} \PYG{o}{=} \PYG{n}{df}
+\PYG{n}{y} \PYG{o}{=} \PYG{n}{df}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}target\PYGZsq{}}\PYG{p}{]}
+
+\PYG{n}{X\PYGZus{}train}\PYG{p}{,} \PYG{n}{X\PYGZus{}test}\PYG{p}{,} \PYG{n}{y\PYGZus{}train}\PYG{p}{,} \PYG{n}{y\PYGZus{}test} \PYG{o}{=} \PYG{n}{train\PYGZus{}test\PYGZus{}split}\PYG{p}{(}\PYG{n}{X}\PYG{p}{,} \PYG{n}{y}\PYG{p}{,} \PYG{n}{test\PYGZus{}size}\PYG{o}{=}\PYG{l+m+mi}{5}\PYG{p}{,} \PYG{n}{random\PYGZus{}state}\PYG{o}{=}\PYG{l+m+mi}{123}\PYG{p}{)}
+\PYG{n}{reg} \PYG{o}{=} \PYG{n}{LazyRegressor}\PYG{p}{(}\PYG{n}{verbose}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{,}\PYG{n}{ignore\PYGZus{}warnings}\PYG{o}{=}\PYG{k+kc}{False}\PYG{p}{,} \PYG{n}{custom\PYGZus{}metric}\PYG{o}{=}\PYG{k+kc}{None} \PYG{p}{)}
+\PYG{n}{models}\PYG{p}{,}\PYG{n}{predictions} \PYG{o}{=} \PYG{n}{reg}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{n}{X\PYGZus{}train}\PYG{p}{,} \PYG{n}{X\PYGZus{}test}\PYG{p}{,} \PYG{n}{y\PYGZus{}train}\PYG{p}{,} \PYG{n}{y\PYGZus{}test}\PYG{p}{)}
+\PYG{n}{models}
+\end{Verbatim}

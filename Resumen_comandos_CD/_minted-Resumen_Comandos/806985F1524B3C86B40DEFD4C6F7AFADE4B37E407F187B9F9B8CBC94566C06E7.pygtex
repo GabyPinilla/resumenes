@@ -1,0 +1,15 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+	\PYG{c+c1}{\PYGZsh{} POR INDICE}
+	\PYG{c+c1}{\PYGZsh{} Devuelve la fila con indice 0}
+	\PYG{n}{df}\PYG{o}{.}\PYG{n}{iloc}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}
+	
+	\PYG{c+c1}{\PYGZsh{} Devuelve desde la primera fila hasta la 4ta}
+	\PYG{n}{df}\PYG{o}{.}\PYG{n}{iloc}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{:}\PYG{l+m+mi}{5}\PYG{p}{]}
+	
+	\PYG{c+c1}{\PYGZsh{} Devuelve la fila con indice 0 y la 2}
+	\PYG{n}{df}\PYG{o}{.}\PYG{n}{iloc}\PYG{p}{[[}\PYG{l+m+mi}{0}\PYG{p}{,}\PYG{l+m+mi}{2}\PYG{p}{]]}
+	
+	\PYG{c+c1}{\PYGZsh{} POR ETIQUETAS}
+	\PYG{c+c1}{\PYGZsh{} Seleccionando las etiquetas ventas y annos}
+	\PYG{n}{df}\PYG{o}{.}\PYG{n}{loc}\PYG{p}{[[}\PYG{l+s+s1}{\PYGZsq{}ventas\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}anno\PYGZsq{}}\PYG{p}{]]}
+\end{Verbatim}

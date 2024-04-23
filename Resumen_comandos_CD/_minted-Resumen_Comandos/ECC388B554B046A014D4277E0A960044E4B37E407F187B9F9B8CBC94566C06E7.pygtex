@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+	\PYG{c+c1}{\PYGZsh{} Devuelve el promedio de los datos agrupados por sus paises}
+	\PYG{n}{df}\PYG{o}{.}\PYG{n}{groupby}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}pais\PYGZsq{}}\PYG{p}{)}\PYG{o}{.}\PYG{n}{mean}\PYG{p}{()}
+\end{Verbatim}

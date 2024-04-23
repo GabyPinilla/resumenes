@@ -1,0 +1,16 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+	\PYG{c+c1}{\PYGZsh{} Accediendo a los annos de las fechas}
+	\PYG{n}{df}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}fecha\PYGZsq{}}\PYG{p}{]}\PYG{o}{.}\PYG{n}{dt}\PYG{o}{.}\PYG{n}{year}
+	
+	\PYG{c+c1}{\PYGZsh{} Accediendo a los meses de las fechas}
+	\PYG{n}{df}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}fecha\PYGZsq{}}\PYG{p}{]}\PYG{o}{.}\PYG{n}{dt}\PYG{o}{.}\PYG{n}{month}
+	
+	\PYG{c+c1}{\PYGZsh{} Accediendo a los nombres de los meses de las fechas}
+	\PYG{n}{df}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}fecha\PYGZsq{}}\PYG{p}{]}\PYG{o}{.}\PYG{n}{dt}\PYG{o}{.}\PYG{n}{month\PYGZus{}name}\PYG{p}{()}
+	
+	\PYG{c+c1}{\PYGZsh{} Accediendo a los dias de las fechas}
+	\PYG{n}{df}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}fecha\PYGZsq{}}\PYG{p}{]}\PYG{o}{.}\PYG{n}{dt}\PYG{o}{.}\PYG{n}{day}
+	
+	\PYG{c+c1}{\PYGZsh{} Convirtiendo a formato de fecha y hora especificando el formato}
+	\PYG{n}{df}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}fecha\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{to\PYGZus{}datetime}\PYG{p}{(}\PYG{n}{df}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}fecha\PYGZsq{}}\PYG{p}{],} \PYG{n+nb}{format}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+si}{\PYGZpc{}d}\PYG{l+s+s1}{\PYGZhy{}\PYGZpc{}m\PYGZhy{}\PYGZpc{}Y\PYGZsq{}}\PYG{p}{)}
+\end{Verbatim}

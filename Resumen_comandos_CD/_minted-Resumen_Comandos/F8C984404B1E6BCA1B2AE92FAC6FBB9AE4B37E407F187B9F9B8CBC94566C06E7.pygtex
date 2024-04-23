@@ -1,0 +1,14 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+	\PYG{n}{diccionario\PYGZus{}1}\PYG{o}{=}\PYG{p}{\PYGZob{}}\PYG{l+s+s1}{\PYGZsq{}nombre\PYGZsq{}}\PYG{p}{:}\PYG{l+s+s1}{\PYGZsq{}Marcelo\PYGZsq{}}\PYG{p}{,}
+		\PYG{l+s+s1}{\PYGZsq{}apellido\PYGZsq{}}\PYG{p}{:}\PYG{l+s+s1}{\PYGZsq{}Soto\PYGZsq{}}\PYG{p}{,}
+		\PYG{l+s+s1}{\PYGZsq{}ciudad\PYGZsq{}}\PYG{p}{:}\PYG{l+s+s1}{\PYGZsq{}Santiago\PYGZsq{}}\PYG{p}{,}
+		\PYG{l+s+s1}{\PYGZsq{}edad\PYGZsq{}}\PYG{p}{:}\PYG{l+m+mi}{38}\PYG{p}{,}
+		\PYG{l+s+s1}{\PYGZsq{}profesion\PYGZsq{}}\PYG{p}{:}\PYG{l+s+s1}{\PYGZsq{}Presidente\PYGZsq{}}\PYG{p}{\PYGZcb{}}
+	
+	\PYG{c+c1}{\PYGZsh{} Imprimir un valor}
+	\PYG{n+nb}{print}\PYG{p}{(\PYGZob{}}\PYG{n}{diccionario\PYGZus{}1}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}profesion\PYGZsq{}}\PYG{p}{]\PYGZcb{})}
+	\PYG{c+c1}{\PYGZsh{} salida: Presidente}
+	
+	\PYG{c+c1}{\PYGZsh{} Agregar un nuevo par clave\PYGZhy{}valor}
+	\PYG{n}{diccionario\PYGZus{}1}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}estado civil\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}Soltero\PYGZsq{}}
+\end{Verbatim}

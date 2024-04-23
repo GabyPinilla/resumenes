@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{indice} \PYG{o}{=} \PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}mes 1\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}mes 2\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}mes 3\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}mes 4\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}mes 5\PYGZsq{}}\PYG{p}{]}
+\PYG{n}{df1} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{DataFrame}\PYG{p}{(\PYGZob{}}\PYG{l+s+s1}{\PYGZsq{}mes\PYGZsq{}}\PYG{p}{:} \PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}marzo\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}abril\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}mayo\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}junio\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}julio\PYGZsq{}}\PYG{p}{],} \PYG{l+s+s1}{\PYGZsq{}ventas\PYGZsq{}}\PYG{p}{:} \PYG{n}{np}\PYG{o}{.}\PYG{n}{random}\PYG{o}{.}\PYG{n}{randint}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{l+m+mi}{100}\PYG{p}{,} \PYG{l+m+mi}{5}\PYG{p}{)\PYGZcb{},} \PYG{n}{index} \PYG{o}{=} \PYG{n}{indice}\PYG{p}{)}
+\PYG{n}{df1}
+\end{Verbatim}

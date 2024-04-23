@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} Matriz de confusion}
+\PYG{n}{confusion} \PYG{o}{=} \PYG{n}{confusion\PYGZus{}matrix}\PYG{p}{(}\PYG{n}{y\PYGZus{}test}\PYG{p}{,} \PYG{n}{y\PYGZus{}pred}\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{} Visualizando la matriz de confusion cambiando el nombre de los ejes}
+\PYG{n}{vis} \PYG{o}{=} \PYG{n}{ConfusionMatrixDisplay}\PYG{p}{(}\PYG{n}{confusion}\PYG{p}{,} \PYG{n}{display\PYGZus{}labels} \PYG{o}{=}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}False\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}True\PYGZsq{}}\PYG{p}{])}
+\PYG{n}{vis}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{()}
+\end{Verbatim}

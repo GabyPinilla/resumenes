@@ -1,0 +1,11 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{from} \PYG{n+nn}{sklearn.metrics} \PYG{k+kn}{import} \PYG{n}{silhouette\PYGZus{}score}
+\PYG{k+kn}{from} \PYG{n+nn}{sklearn.metrics} \PYG{k+kn}{import} \PYG{n}{davies\PYGZus{}bouldin\PYGZus{}score}
+\PYG{c+c1}{\PYGZsh{} Metricas de evaluacion}
+\PYG{c+c1}{\PYGZsh{} Puntuacion de silhouette}
+\PYG{n}{silhouette\PYGZus{}scores} \PYG{o}{=} \PYG{n}{silhouette\PYGZus{}score}\PYG{p}{(}\PYG{n}{X}\PYG{p}{,} \PYG{n}{labels}\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{} Indice de David Boulding}
+\PYG{n}{dunn\PYGZus{}index} \PYG{o}{=} \PYG{n}{davies\PYGZus{}bouldin\PYGZus{}score}\PYG{p}{(}\PYG{n}{X}\PYG{p}{,} \PYG{n}{labels}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s1}{\PYGZsq{}Silhoutte Score : }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{silhouette\PYGZus{}scores}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s1}{\PYGZsq{}Davies Bouldin Score : }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{dunn\PYGZus{}index}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+\end{Verbatim}

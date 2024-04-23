@@ -3454,6 +3454,27 @@ En este modelo se realizan predicciones mediante recompensas o penalizaciones de
 Es una clase de modelos que crea contenido por medio de las entradas de un usuario. Ejemplo: crear imágenes, contar chistes, resumir artículos. Estos modelos se entrenan inicialmente con un enfoque no supervisado, donde aprende a imitar datos con los que se entrena. En algunas ocasiones, el modelo se entrena más mediante el aprendizaje supervisado o por refuerzo dependiendo de las tareas que se le pida realizar.
 
 % SECCION
+\section{Ensambles}
+En Machine Learning, los ensambles son métodos que mezclan modelos para obtener una mejor predicción. Los ensambles toman como input los datos de entrenamiento de un dataset para someterlos a múltiples modelos, donde cada uno entrega su estimación y, a partir de esto, determinar la clasificación para cada observación del conjunto de entrenamiento por medio de una votación por mayoría. Existen varios tipos de ensambles, pero solo se revisarán dos:
+\begin{enumerate}
+	\item Ensambles Bagging
+	\item Ensambles Random Forest
+\end{enumerate}
+En el contexto de los ensambles, un clasificador es un tipo de modelo que se usa para predecir la categoría a la que pertenecen los datos, con el objetivo de asignar una etiqueta de clase a cada instancia. Por otro lado, un estimador es un modelo que se utiliza para predecir un valor numérico.
+
+\subsection{Ensambles Bagging}
+También conocido como Agregación Bootstrap, Bagging es una técnica que extrae varias muertas llamadas bootstrap del conjunto de entrenamiento de los datos, realizado de forma aleatoria. Luego, los modelos se entrenan por separado para hacer sus predicciones sobre el conjunto de prueba y combinarlas para obtener una predicción final.
+
+Bagging se desempeña mejor cuando los modelos generan problemas de alta varianza.
+\subsection{Ensambles Random Forest}
+Random Forest está compuesto únicamente por estimadores de árboles de decisión. Este modelo sigue la misma estructura que Bagging, sin embargo, agrega un componente de aleatoriedad en el que se selecciona aleatoriamente un subconjunto de atributos en cada nodo de un árbol.
+
+Random Forest supera el problema de Bagging de estimadores altamente correlacionados.
+
+Tanto en Random Forest como en Bagging, se genera una bolsa de observaciones no seleccionadas en los procesos de muestreo bootstrap para cada clasificador, llamados OOB (Out Of Bag). Estos datos se utilizan para estimar el error cometido en cada clasificador. Este error del ensamble se obtiene promediando todos los errores de cada clasificador.
+
+\newpage
+% SECCION
 \section{Resumen}
 \begin{table}[H]
 	\resizebox{15cm}{!} {

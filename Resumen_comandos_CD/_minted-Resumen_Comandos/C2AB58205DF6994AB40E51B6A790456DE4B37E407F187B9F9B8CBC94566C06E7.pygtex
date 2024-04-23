@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} Muestra los primeros 5 datos}
+\PYG{n}{df}\PYG{o}{.}\PYG{n}{head}\PYG{p}{()}
+	
+\PYG{c+c1}{\PYGZsh{} Muestra los ultimos 5}
+\PYG{n}{df}\PYG{o}{.}\PYG{n}{tail}\PYG{p}{()}
+\end{Verbatim}

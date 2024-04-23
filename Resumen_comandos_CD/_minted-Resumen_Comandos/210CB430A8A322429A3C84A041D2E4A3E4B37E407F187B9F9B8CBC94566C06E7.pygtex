@@ -1,0 +1,17 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{clustering} \PYG{o}{=} \PYG{n}{AgglomerativeClustering}\PYG{p}{(}\PYG{n}{n\PYGZus{}clusters}\PYG{o}{=}\PYG{l+m+mi}{3}\PYG{p}{,} \PYG{n}{linkage}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}ward\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{labels} \PYG{o}{=} \PYG{n}{clustering}\PYG{o}{.}\PYG{n}{fit\PYGZus{}predict}\PYG{p}{(}\PYG{n}{X}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Analizando los clusters obtenidos}
+\PYG{k}{for} \PYG{n}{cluster} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{l+m+mi}{3}\PYG{p}{):}
+	\PYG{n}{cluster\PYGZus{}indices} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{where}\PYG{p}{(}\PYG{n}{labels} \PYG{o}{==} \PYG{n}{cluster}\PYG{p}{)[}\PYG{l+m+mi}{0}\PYG{p}{]}
+	\PYG{n}{cluster\PYGZus{}samples} \PYG{o}{=} \PYG{n}{wine}\PYG{o}{.}\PYG{n}{data}\PYG{p}{[}\PYG{n}{cluster\PYGZus{}indices}\PYG{p}{]}
+	\PYG{n}{cluster\PYGZus{}target} \PYG{o}{=} \PYG{n}{wine}\PYG{o}{.}\PYG{n}{target}\PYG{p}{[}\PYG{n}{cluster\PYGZus{}indices}\PYG{p}{]}
+	\PYG{n}{cluster\PYGZus{}name} \PYG{o}{=} \PYG{n}{wine}\PYG{o}{.}\PYG{n}{target\PYGZus{}names}\PYG{p}{[}\PYG{n}{cluster}\PYG{p}{]}
+	\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s1}{\PYGZsq{}Cluster }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{cluster}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s1}{: }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{cluster\PYGZus{}name}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+	\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s1}{\PYGZsq{}Numero de muestras: }\PYG{l+s+si}{\PYGZob{}}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{cluster\PYGZus{}samples}\PYG{p}{)}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+	\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s1}{\PYGZsq{}Caracteristicas mas repres: }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{np}\PYG{o}{.}\PYG{n}{mean}\PYG{p}{(}\PYG{n}{cluster\PYGZus{}samples}\PYG{p}{,}
+\PYG{+w}{	}\PYG{n}{axis}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{)}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+	\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s1}{\PYGZsq{}Etiquetas reales en cluster: }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{np}\PYG{o}{.}\PYG{n}{unique}\PYG{p}{(}\PYG{n}{cluster\PYGZus{}target}\PYG{p}{)}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+	\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZsq{}}\PYG{p}{)}
+\end{Verbatim}

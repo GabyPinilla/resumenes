@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+	\PYG{c+c1}{\PYGZsh{} Devuelve los valores de la columna ventas de df}
+	\PYG{n}{df}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}ventas\PYGZsq{}}\PYG{p}{]}
+	
+	\PYG{c+c1}{\PYGZsh{} Devuelve las columnas mes y ventas}
+	\PYG{n}{df}\PYG{p}{[[}\PYG{l+s+s1}{\PYGZsq{}mes\PYGZsq{}}\PYG{p}{,}\PYG{l+s+s1}{\PYGZsq{}ventas\PYGZsq{}}\PYG{p}{]]}
+\end{Verbatim}

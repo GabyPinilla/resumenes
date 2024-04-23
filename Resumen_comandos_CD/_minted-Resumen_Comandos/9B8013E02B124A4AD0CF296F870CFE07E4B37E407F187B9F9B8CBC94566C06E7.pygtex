@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} Devuelve la suma de seguidores y el promedio de menciones de df agreupados por pais}
+\PYG{n}{df}\PYG{o}{.}\PYG{n}{groupby}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}pais\PYGZsq{}}\PYG{p}{)}\PYG{o}{.}\PYG{n}{agg}\PYG{p}{(\PYGZob{}}\PYG{l+s+s1}{\PYGZsq{}seguidores\PYGZsq{}}\PYG{p}{:} \PYG{l+s+s1}{\PYGZsq{}sum\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}menciones\PYGZsq{}}\PYG{p}{:} \PYG{l+s+s1}{\PYGZsq{}mean\PYGZsq{}}\PYG{p}{\PYGZcb{})}
+\end{Verbatim}

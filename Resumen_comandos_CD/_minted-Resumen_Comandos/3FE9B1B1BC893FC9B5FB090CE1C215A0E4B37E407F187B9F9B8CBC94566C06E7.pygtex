@@ -1,0 +1,10 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+	\PYG{k+kn}{import} \PYG{n+nn}{matplotlib.pyplot} \PYG{k}{as} \PYG{n+nn}{plt}
+	
+	\PYG{c+c1}{\PYGZsh{} Creando un histograma con 10 bins de color azul transparente}
+	\PYG{n}{plt}\PYG{o}{.}\PYG{n}{hist}\PYG{p}{(}\PYG{n}{x}\PYG{p}{,} \PYG{n}{color}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}blue\PYGZsq{}}\PYG{p}{,} \PYG{n}{alpha}\PYG{o}{=}\PYG{l+m+mf}{.4}\PYG{p}{,} \PYG{n}{bins}\PYG{o}{=}\PYG{l+m+mi}{10}\PYG{p}{,} \PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}x\PYGZsq{}}\PYG{p}{)}
+	\PYG{c+c1}{\PYGZsh{} Agregando titulo}
+	\PYG{n}{plt}\PYG{o}{.}\PYG{n}{title}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Histograma de la variable x\PYGZsq{}}\PYG{p}{)}
+	\PYG{c+c1}{\PYGZsh{} Leyenda}
+	\PYG{n}{plt}\PYG{o}{.}\PYG{n}{legend}\PYG{p}{()}
+\end{Verbatim}

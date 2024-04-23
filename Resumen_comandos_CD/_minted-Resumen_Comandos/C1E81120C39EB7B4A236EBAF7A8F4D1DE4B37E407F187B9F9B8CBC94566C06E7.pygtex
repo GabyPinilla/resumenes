@@ -1,0 +1,24 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{from} \PYG{n+nn}{scipy} \PYG{k+kn}{import} \PYG{n}{stats}
+	
+\PYG{c+c1}{\PYGZsh{} Antes de realizar la regresion, se deben seleccionar las columnas}
+\PYG{n}{datos}\PYG{o}{=} \PYG{n}{df}\PYG{p}{[[}\PYG{l+s+s2}{\PYGZdq{}variable\PYGZus{}independiente\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}variable\PYGZus{}target\PYGZdq{}}\PYG{p}{]]}
+	
+\PYG{c+c1}{\PYGZsh{} Regresion lineal simple}
+\PYG{n}{sns}\PYG{o}{.}\PYG{n}{lmplot}\PYG{p}{(}\PYG{n}{x}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}variable\PYGZus{}independiente\PYGZdq{}}\PYG{p}{,} \PYG{n}{y}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}variable\PYGZus{}target\PYGZdq{}}\PYG{p}{,} \PYG{n}{data}\PYG{o}{=}\PYG{n}{datos}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{title}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Regresion lineal entre variable\PYGZus{}independiente y variable\PYGZus{}target\PYGZdq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{xlabel}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}variable\PYGZus{}independiente\PYGZdq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{ylabel}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}variable\PYGZus{}target\PYGZdq{}}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Calculando los parametros para evaluar el modelo}
+\PYG{n}{slope}\PYG{p}{,} \PYG{n}{intercept}\PYG{p}{,} \PYG{n}{r\PYGZus{}value}\PYG{p}{,} \PYG{n}{p\PYGZus{}value}\PYG{p}{,} \PYG{n}{std\PYGZus{}err} \PYG{o}{=} \PYG{n}{stats}\PYG{o}{.}\PYG{n}{linregress}\PYG{p}{(}\PYG{n}{datos}\PYG{p}{[}\PYG{l+s+s2}{\PYGZdq{}variable\PYGZus{}independiente\PYGZdq{}}\PYG{p}{],} \PYG{n}{datos}\PYG{p}{[}\PYG{l+s+s2}{\PYGZdq{}variable\PYGZus{}target\PYGZdq{}}\PYG{p}{])}
+	
+\PYG{c+c1}{\PYGZsh{} Mostrando el grafico completo}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{()}
+	
+\PYG{c+c1}{\PYGZsh{} Imprimiendo los parametros}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}Pendiente: }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{slope}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}Intercepto: }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{intercept}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}Error estandar: }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{std\PYGZus{}err}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}Coef. de correlacion: }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{r\PYGZus{}value}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+\end{Verbatim}

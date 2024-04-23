@@ -1,0 +1,33 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import} \PYG{n+nn}{numpy} \PYG{k}{as} \PYG{n+nn}{np}
+\PYG{k+kn}{from} \PYG{n+nn}{sklearn} \PYG{k+kn}{import} \PYG{n}{linear\PYGZus{}model}
+\PYG{k+kn}{from} \PYG{n+nn}{sklearn.model\PYGZus{}selection} \PYG{k+kn}{import} \PYG{n}{train\PYGZus{}test\PYGZus{}split}
+\PYG{k+kn}{from} \PYG{n+nn}{sklearn.metrics} \PYG{k+kn}{import} \PYG{n}{mean\PYGZus{}squared\PYGZus{}error}\PYG{p}{,} \PYG{n}{r2\PYGZus{}score}
+
+\PYG{c+c1}{\PYGZsh{} Definiendo las caracteristicas}
+\PYG{n}{X} \PYG{o}{=} \PYG{n}{df}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}col\PYGZus{}1\PYGZsq{}}\PYG{p}{]}
+\PYG{c+c1}{\PYGZsh{} Definiendo las etiquetas}
+\PYG{n}{y} \PYG{o}{=} \PYG{n}{df}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}col\PYGZus{}2\PYGZsq{}}\PYG{p}{]}
+
+\PYG{c+c1}{\PYGZsh{} Dividiendo los datos con train\PYGZus{}test\PYGZus{}split}
+\PYG{n}{X\PYGZus{}train}\PYG{p}{,} \PYG{n}{X\PYGZus{}test}\PYG{p}{,} \PYG{n}{y\PYGZus{}train}\PYG{p}{,} \PYG{n}{y\PYGZus{}test} \PYG{o}{=} \PYG{n}{train\PYGZus{}test\PYGZus{}split}\PYG{p}{(}\PYG{n}{X}\PYG{p}{,} \PYG{n}{y}\PYG{p}{,} \PYG{n}{test\PYGZus{}size}\PYG{o}{=} \PYG{l+m+mf}{0.2}\PYG{p}{,} \PYG{n}{random\PYGZus{}state}\PYG{o}{=}\PYG{l+m+mi}{42}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Instanciando el objeto de la regresion lineal}
+\PYG{n}{regr} \PYG{o}{=} \PYG{n}{linear\PYGZus{}model}\PYG{o}{.}\PYG{n}{LinearRegression}\PYG{p}{()}
+
+\PYG{c+c1}{\PYGZsh{} Entrenando el objeto}
+\PYG{n}{regr}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{n}{X\PYGZus{}train}\PYG{p}{,} \PYG{n}{y\PYGZus{}train}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Prediciendo}
+\PYG{n}{y\PYGZus{}pred} \PYG{o}{=} \PYG{n}{regr}\PYG{o}{.}\PYG{n}{predict}\PYG{p}{(}\PYG{n}{X\PYGZus{}test}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Coeficientes del modelo}
+\PYG{n}{y\PYGZus{}pred} \PYG{o}{=} \PYG{n}{regr}\PYG{o}{.}\PYG{n}{predict}\PYG{p}{(}\PYG{n}{X\PYGZus{}test}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Coeficientes: }\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{n}{regr}\PYG{o}{.}\PYG{n}{coef\PYGZus{}}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Evaluando el modelo}
+\PYG{n}{mse} \PYG{o}{=} \PYG{n}{mean\PYGZus{}squared\PYGZus{}error}\PYG{p}{(}\PYG{n}{y\PYGZus{}test}\PYG{p}{,} \PYG{n}{y\PYGZus{}pred}\PYG{p}{)}
+\PYG{n}{r2} \PYG{o}{=} \PYG{n}{r2\PYGZus{}score}\PYG{p}{(}\PYG{n}{y\PYGZus{}test}\PYG{p}{,} \PYG{n}{y\PYGZus{}pred}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s1}{\PYGZsq{}Error cuadratico medio: }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{mse}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s1}{\PYGZsq{}r2: }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{r2}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+\end{Verbatim}

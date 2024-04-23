@@ -1,0 +1,25 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{from} \PYG{n+nn}{sklearn.model\PYGZus{}selection} \PYG{k+kn}{import} \PYG{n}{train\PYGZus{}test\PYGZus{}split}
+\PYG{k+kn}{from} \PYG{n+nn}{sklearn.tree} \PYG{k+kn}{import} \PYG{n}{DecisionTreeClassifier}
+\PYG{k+kn}{from} \PYG{n+nn}{sklearn.metrics} \PYG{k+kn}{import} \PYG{n}{accuracy\PYGZus{}score}
+\PYG{k+kn}{from} \PYG{n+nn}{sklearn.naive\PYGZus{}bayes} \PYG{k+kn}{import} \PYG{n}{GaussianNB}
+\PYG{k+kn}{from} \PYG{n+nn}{sklearn.metrics} \PYG{k+kn}{import} \PYG{n}{accuracy\PYGZus{}score}
+
+\PYG{c+c1}{\PYGZsh{} Dividiendo los datos en caracteristicas (X) y target (y)}
+\PYG{n}{X} \PYG{o}{=} \PYG{n}{datos}\PYG{o}{.}\PYG{n}{drop}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}target\PYGZsq{}}\PYG{p}{,} \PYG{n}{axis}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{)}
+\PYG{n}{y} \PYG{o}{=} \PYG{n}{datos}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}target\PYGZsq{}}\PYG{p}{]}
+
+\PYG{c+c1}{\PYGZsh{} Dividiendo los datos en conjuntos de entrenamiento (70) y prueba (30)}
+\PYG{n}{X\PYGZus{}train}\PYG{p}{,} \PYG{n}{X\PYGZus{}test}\PYG{p}{,} \PYG{n}{y\PYGZus{}train}\PYG{p}{,} \PYG{n}{y\PYGZus{}test} \PYG{o}{=} \PYG{n}{train\PYGZus{}test\PYGZus{}split}\PYG{p}{(}\PYG{n}{X}\PYG{p}{,} \PYG{n}{y}\PYG{p}{,} \PYG{n}{test\PYGZus{}size}\PYG{o}{=}\PYG{l+m+mf}{0.3}\PYG{p}{,} \PYG{n}{random\PYGZus{}state}\PYG{o}{=}\PYG{l+m+mi}{42}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Naive Bayes}
+\PYG{n}{modelo\PYGZus{}nb} \PYG{o}{=} \PYG{n}{GaussianNB}\PYG{p}{()}
+
+\PYG{c+c1}{\PYGZsh{} Entrenando el modelo}
+\PYG{n}{modelo\PYGZus{}nb}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{n}{X\PYGZus{}train}\PYG{p}{,} \PYG{n}{y\PYGZus{}train}\PYG{p}{)}
+
+\PYG{n}{predicciones} \PYG{o}{=} \PYG{n}{modelo\PYGZus{}nb}\PYG{o}{.}\PYG{n}{predict}\PYG{p}{(}\PYG{n}{X\PYGZus{}test}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Evaluando el modelo}
+\PYG{n}{accuracy} \PYG{o}{=} \PYG{n}{accuracy\PYGZus{}score}\PYG{p}{(}\PYG{n}{y\PYGZus{}test}\PYG{p}{,} \PYG{n}{predicciones}\PYG{p}{)}
+\end{Verbatim}

@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} Seleccionando solo columnas de tipo object del df}
+\PYG{n}{df}\PYG{o}{.}\PYG{n}{select\PYGZus{}dtypes}\PYG{p}{([}\PYG{l+s+s1}{\PYGZsq{}object\PYGZsq{}}\PYG{p}{])}
+\end{Verbatim}

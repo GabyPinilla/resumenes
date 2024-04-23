@@ -1,0 +1,9 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+		\PYG{c+c1}{\PYGZsh{} Esto es un comentario}
+\PYG{+w}{		}
+\PYG{+w}{		}\PYG{l+s+sd}{\PYGZsq{}\PYGZsq{}\PYGZsq{}}
+\PYG{l+s+sd}{		Esto}
+\PYG{l+s+sd}{		es un}
+\PYG{l+s+sd}{		comentario}
+\PYG{l+s+sd}{		\PYGZsq{}\PYGZsq{}\PYGZsq{}}
+\end{Verbatim}

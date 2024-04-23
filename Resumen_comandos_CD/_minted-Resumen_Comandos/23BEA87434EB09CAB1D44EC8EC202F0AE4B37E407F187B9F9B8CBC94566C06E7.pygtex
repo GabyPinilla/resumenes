@@ -1,0 +1,29 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{texto} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}Hola a todos\PYGZsq{}}
+\PYG{c+c1}{\PYGZsh{} 1. lower(): convierte los caracteres a minusculas}
+\PYG{n}{texto\PYGZus{}1} \PYG{o}{=} \PYG{n}{texto}\PYG{o}{.}\PYG{n}{lower}\PYG{p}{()}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{n}{texto\PYGZus{}1}\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{} salida: hola a todos}
+	
+\PYG{c+c1}{\PYGZsh{} 2. upper(): convierte los caracteres a mayusculas}
+\PYG{n}{texto\PYGZus{}2} \PYG{o}{=} \PYG{n}{texto}\PYG{o}{.}\PYG{n}{upper}\PYG{p}{()}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{n}{texto\PYGZus{}2}\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{} salida: HOLA A TODOS}
+	
+\PYG{c+c1}{\PYGZsh{} 3. replace(sub, new\PYGZus{}sub): reemplaza texto por uno nuevo}
+\PYG{n}{texto\PYGZus{}3} \PYG{o}{=} \PYG{n}{texto}\PYG{o}{.}\PYG{n}{replace}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}todos\PYGZsq{}}\PYG{p}{,}\PYG{l+s+s1}{\PYGZsq{}Marta\PYGZsq{}}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{n}{texto\PYGZus{}3}\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{} salida: Hola a Marta}
+	
+\PYG{c+c1}{\PYGZsh{} 4. split(sep): divide una cadena en una lista con un separador}
+\PYG{n}{textonuevo} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}Hola,Josesa\PYGZsq{}}
+\PYG{n}{lista} \PYG{o}{=} \PYG{n}{textonuevo}\PYG{o}{.}\PYG{n}{split}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{},\PYGZsq{}}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{n}{lista}\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{} salida: [\PYGZsq{}Hola\PYGZsq{}, \PYGZsq{}Josefa\PYGZsq{}]}
+	
+\PYG{c+c1}{\PYGZsh{} 5. strip(): elimina los espacios en blanco al inicio y final de una cadena}
+\PYG{n}{otrotexto} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}	Hola	\PYGZsq{}}
+\PYG{n}{texto\PYGZus{}4} \PYG{o}{=} \PYG{n}{otrotexto}\PYG{o}{.}\PYG{n}{strip}\PYG{p}{()}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{n}{texto\PYGZus{}4}\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{} salida: Hola}
+\end{Verbatim}

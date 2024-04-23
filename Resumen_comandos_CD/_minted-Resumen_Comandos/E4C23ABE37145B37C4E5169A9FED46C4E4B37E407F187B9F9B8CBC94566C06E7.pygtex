@@ -1,0 +1,28 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+	\PYG{k+kn}{import} \PYG{n+nn}{statsmodels.api} \PYG{k}{as} \PYG{n+nn}{sm}
+	
+	\PYG{c+c1}{\PYGZsh{} Definiendo las variables predictoras (X) y la variable de respuesta (y)}
+	\PYG{n}{X} \PYG{o}{=} \PYG{n}{df}\PYG{p}{[}\PYG{l+s+s2}{\PYGZdq{}variable\PYGZus{}independiente\PYGZdq{}}\PYG{p}{]}
+	\PYG{n}{y} \PYG{o}{=} \PYG{n}{df}\PYG{p}{[}\PYG{l+s+s2}{\PYGZdq{}variable\PYGZus{}target\PYGZdq{}}\PYG{p}{]}
+	
+	\PYG{c+c1}{\PYGZsh{} Agregando una constante al predictor (intercepto)}
+	\PYG{n}{X} \PYG{o}{=} \PYG{n}{sm}\PYG{o}{.}\PYG{n}{add\PYGZus{}constant}\PYG{p}{(}\PYG{n}{X}\PYG{p}{)}
+	
+	\PYG{c+c1}{\PYGZsh{} Creando el modelo de regresion lineal}
+	\PYG{n}{model} \PYG{o}{=} \PYG{n}{sm}\PYG{o}{.}\PYG{n}{OLS}\PYG{p}{(}\PYG{n}{y}\PYG{p}{,} \PYG{n}{X}\PYG{p}{)}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{()}
+	
+	\PYG{c+c1}{\PYGZsh{} Obteniendo los resultados del modelo}
+	\PYG{n}{results} \PYG{o}{=} \PYG{n}{model}\PYG{o}{.}\PYG{n}{summary}\PYG{p}{()}
+	
+	\PYG{c+c1}{\PYGZsh{} Imprimiendo los resultados}
+	\PYG{n+nb}{print}\PYG{p}{(}\PYG{n}{results}\PYG{p}{)}
+	
+	\PYG{c+c1}{\PYGZsh{} Graficando la regresion lineal}
+	\PYG{n}{plt}\PYG{o}{.}\PYG{n}{scatter}\PYG{p}{(}\PYG{n}{df}\PYG{p}{[}\PYG{l+s+s2}{\PYGZdq{}variable\PYGZus{}independiente\PYGZdq{}}\PYG{p}{],} \PYG{n}{df}\PYG{p}{[}\PYG{l+s+s2}{\PYGZdq{}variable\PYGZus{}target\PYGZdq{}}\PYG{p}{],} \PYG{n}{label}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}Datos\PYGZdq{}}\PYG{p}{)}
+	\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{df}\PYG{p}{[}\PYG{l+s+s2}{\PYGZdq{}variable\PYGZus{}independiente\PYGZdq{}}\PYG{p}{],} \PYG{n}{model}\PYG{o}{.}\PYG{n}{predict}\PYG{p}{(}\PYG{n}{X}\PYG{p}{),} \PYG{n}{color}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}red\PYGZsq{}}\PYG{p}{,} \PYG{n}{label}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}Regresion Lineal\PYGZdq{}}\PYG{p}{)}
+	\PYG{n}{plt}\PYG{o}{.}\PYG{n}{title}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Regresion lineal entre variable\PYGZus{}independiente y variable target\PYGZdq{}}\PYG{p}{)}
+	\PYG{n}{plt}\PYG{o}{.}\PYG{n}{xlabel}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}variable\PYGZus{}independiente\PYGZdq{}}\PYG{p}{)}
+	\PYG{n}{plt}\PYG{o}{.}\PYG{n}{ylabel}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}variable\PYGZus{}target\PYGZdq{}}\PYG{p}{)}
+	\PYG{n}{plt}\PYG{o}{.}\PYG{n}{legend}\PYG{p}{()}
+	\PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{()}
+\end{Verbatim}

@@ -1,0 +1,55 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} Instalar fuzzy}
+\PYG{c+c1}{\PYGZsh{} !pip install scikit\PYGZhy{}fuzzy}
+\PYG{k+kn}{import} \PYG{n+nn}{skfuzzy} \PYG{k}{as} \PYG{n+nn}{fuzz}
+
+\PYG{c+c1}{\PYGZsh{} Definiendo una lista de posibles valores de m}
+\PYG{n}{m\PYGZus{}values} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{arange}\PYG{p}{(}\PYG{l+m+mf}{1.1}\PYG{p}{,} \PYG{l+m+mf}{3.1}\PYG{p}{,} \PYG{l+m+mf}{0.1}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Inicializando listas para almacenar las metricas}
+\PYG{n}{silhouette\PYGZus{}scores\PYGZus{}fuzzy} \PYG{o}{=} \PYG{p}{[]}
+\PYG{n}{davies\PYGZus{}bouldin\PYGZus{}scores\PYGZus{}fuzzy} \PYG{o}{=} \PYG{p}{[]}
+
+\PYG{c+c1}{\PYGZsh{} Clustering fuzzy}
+\PYG{k}{for} \PYG{n}{m} \PYG{o+ow}{in} \PYG{n}{m\PYGZus{}values}\PYG{p}{:}
+\PYG{n}{cntr}\PYG{p}{,} \PYG{n}{u}\PYG{p}{,} \PYG{n}{u0}\PYG{p}{,} \PYG{n}{d}\PYG{p}{,} \PYG{n}{jm}\PYG{p}{,} \PYG{n}{p}\PYG{p}{,} \PYG{n}{fpc} \PYG{o}{=} \PYG{n}{fuzz}\PYG{o}{.}\PYG{n}{cluster}\PYG{o}{.}\PYG{n}{cmeans}\PYG{p}{(}\PYG{n}{X}\PYG{o}{.}\PYG{n}{T}\PYG{p}{,} \PYG{l+m+mi}{3}\PYG{p}{,} \PYG{n}{m}\PYG{p}{,} \PYG{n}{error}\PYG{o}{=}\PYG{l+m+mf}{0.005}\PYG{p}{,} \PYG{n}{maxiter}\PYG{o}{=}\PYG{l+m+mi}{1000}\PYG{p}{)}
+\PYG{n}{labels} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{argmax}\PYG{p}{(}\PYG{n}{u}\PYG{p}{,} \PYG{n}{axis}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Silhouette}
+\PYG{n}{silhouette\PYGZus{}scores\PYGZus{}fuzzy}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{silhouette\PYGZus{}score}\PYG{p}{(}\PYG{n}{X}\PYG{p}{,} \PYG{n}{labels}\PYG{p}{))}
+
+\PYG{c+c1}{\PYGZsh{} Davies bouldin}
+\PYG{n}{dunn\PYGZus{}index} \PYG{o}{=} \PYG{n}{davies\PYGZus{}bouldin\PYGZus{}score}\PYG{p}{(}\PYG{n}{X}\PYG{p}{,} \PYG{n}{labels}\PYG{p}{)}
+\PYG{n}{davies\PYGZus{}bouldin\PYGZus{}scores\PYGZus{}fuzzy}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{dunn\PYGZus{}index}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Buscando el valor optimo de m basado en silhouette}
+\PYG{n}{optimal\PYGZus{}index} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{argmax}\PYG{p}{(}\PYG{n}{silhouette\PYGZus{}scores\PYGZus{}fuzzy}\PYG{p}{)}
+\PYG{n}{optimal\PYGZus{}m} \PYG{o}{=} \PYG{n}{m\PYGZus{}values}\PYG{p}{[}\PYG{n}{optimal\PYGZus{}index}\PYG{p}{]}
+
+\PYG{c+c1}{\PYGZsh{} Clustering con el valor optimo}
+\PYG{n}{optimal\PYGZus{}cntr}\PYG{p}{,} \PYG{n}{optimal\PYGZus{}u}\PYG{p}{,} \PYG{n}{optimal\PYGZus{}u0}\PYG{p}{,} \PYG{n}{optimal\PYGZus{}d}\PYG{p}{,} \PYG{n}{optimal\PYGZus{}jm}\PYG{p}{,} \PYG{n}{optimal\PYGZus{}p}\PYG{p}{,} \PYG{n}{optimal\PYGZus{}fpc} \PYG{o}{=} \PYG{n}{fuzz}\PYG{o}{.}\PYG{n}{cluster}\PYG{o}{.}\PYG{n}{cmeans}\PYG{p}{(}\PYG{n}{X}\PYG{o}{.}\PYG{n}{T}\PYG{p}{,} \PYG{l+m+mi}{3}\PYG{p}{,} \PYG{n}{optimal\PYGZus{}m}\PYG{p}{,} \PYG{n}{error}\PYG{o}{=}\PYG{l+m+mf}{0.005}\PYG{p}{,} \PYG{n}{maxiter}\PYG{o}{=}\PYG{l+m+mi}{1000}\PYG{p}{)}
+\PYG{n}{optimal\PYGZus{}labels} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{argmax}\PYG{p}{(}\PYG{n}{optimal\PYGZus{}u}\PYG{p}{,} \PYG{n}{axis}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Graficando los resultados}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{figure}\PYG{p}{(}\PYG{n}{figsize}\PYG{o}{=}\PYG{p}{(}\PYG{l+m+mi}{10}\PYG{p}{,} \PYG{l+m+mi}{4}\PYG{p}{))}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{subplot}\PYG{p}{(}\PYG{l+m+mi}{121}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{scatter}\PYG{p}{(}\PYG{n}{X}\PYG{o}{.}\PYG{n}{iloc}\PYG{p}{[:,} \PYG{l+m+mi}{1}\PYG{p}{],} \PYG{n}{X}\PYG{o}{.}\PYG{n}{iloc}\PYG{p}{[:,} \PYG{l+m+mi}{2}\PYG{p}{],} \PYG{n}{c}\PYG{o}{=}\PYG{n}{wine}\PYG{o}{.}\PYG{n}{target}\PYG{p}{,} \PYG{n}{cmap}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}viridis\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{title}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Clasificación real\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{subplot}\PYG{p}{(}\PYG{l+m+mi}{122}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{scatter}\PYG{p}{(}\PYG{n}{X}\PYG{o}{.}\PYG{n}{iloc}\PYG{p}{[:,} \PYG{l+m+mi}{1}\PYG{p}{],} \PYG{n}{X}\PYG{o}{.}\PYG{n}{iloc}\PYG{p}{[:,} \PYG{l+m+mi}{2}\PYG{p}{],} \PYG{n}{c}\PYG{o}{=}\PYG{n}{optimal\PYGZus{}labels}\PYG{p}{,} \PYG{n}{cmap}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}viridis\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{title}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Clustering Fuzzy C\PYGZhy{}means\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{()}
+
+\PYG{c+c1}{\PYGZsh{} Imprimiendo el valor optimo de m}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}Valor optimo de m: }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{optimal\PYGZus{}m}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{}Graficando Silhouette y Davies bouldin}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{figure}\PYG{p}{(}\PYG{n}{figsize}\PYG{o}{=}\PYG{p}{(}\PYG{l+m+mi}{8}\PYG{p}{,} \PYG{l+m+mi}{4}\PYG{p}{))}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{m\PYGZus{}values}\PYG{p}{,} \PYG{n}{silhouette\PYGZus{}scores\PYGZus{}fuzzy}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}bo\PYGZhy{}\PYGZsq{}}\PYG{p}{,} \PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}Puntuación de silueta\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{m\PYGZus{}values}\PYG{p}{,} \PYG{n}{davies\PYGZus{}bouldin\PYGZus{}scores\PYGZus{}fuzzy}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}ro\PYGZhy{}\PYGZsq{}}\PYG{p}{,} \PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}Indice de Dunn\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{xlabel}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Valor de m\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{ylabel}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Metrica\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{title}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Evaluacion de Clustering Fuzzy C\PYGZhy{}means\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{legend}\PYG{p}{()}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{()}
+\end{Verbatim}

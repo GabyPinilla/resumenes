@@ -1,0 +1,20 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} Graficando los dendrogramas}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{figure}\PYG{p}{(}\PYG{n}{figsize}\PYG{o}{=}\PYG{p}{(}\PYG{l+m+mi}{12}\PYG{p}{,} \PYG{l+m+mi}{4}\PYG{p}{))}
+\PYG{k}{for} \PYG{n}{i}\PYG{p}{,} \PYG{n}{method} \PYG{o+ow}{in} \PYG{n+nb}{enumerate}\PYG{p}{(}\PYG{n}{linkage\PYGZus{}methods}\PYG{p}{):}
+\PYG{c+c1}{\PYGZsh{} Clustering jerarquico con el metodo de enlace actual}
+\PYG{n}{Z} \PYG{o}{=} \PYG{n}{linkage}\PYG{p}{(}\PYG{n}{X}\PYG{p}{,} \PYG{n}{method}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Convirtiendo la matriz de enlace a tipo float}
+\PYG{n}{Z} \PYG{o}{=} \PYG{n}{Z}\PYG{o}{.}\PYG{n}{astype}\PYG{p}{(}\PYG{n+nb}{float}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Graficando el dendrograma}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{subplot}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{4}\PYG{p}{,} \PYG{n}{i}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{)}
+\PYG{n}{dendrogram}\PYG{p}{(}\PYG{n}{Z}\PYG{p}{,} \PYG{n}{labels}\PYG{o}{=}\PYG{n}{wine}\PYG{o}{.}\PYG{n}{target}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{xlabel}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Indice de muestra\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{ylabel}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Distancia\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{title}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s1}{\PYGZsq{}Dendrograma \PYGZhy{} Enlace: }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{method}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{tight\PYGZus{}layout}\PYG{p}{()}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{()}
+\end{Verbatim}
