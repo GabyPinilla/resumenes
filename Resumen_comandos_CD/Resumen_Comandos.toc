@@ -153,10 +153,10 @@
 \contentsline {section}{\numberline {8.3}Ensambles}{120}{section.8.3}%
 \contentsline {subsection}{\numberline {8.3.1}Ensambles Bagging}{120}{subsection.8.3.1}%
 \contentsline {subsection}{\numberline {8.3.2}Ensambles Random Forest}{121}{subsection.8.3.2}%
-\contentsline {section}{\numberline {8.4}Resumen}{122}{section.8.4}%
-\contentsline {chapter}{\numberline {9}Git y GitHub}{123}{chapter.9}%
-\contentsline {section}{\numberline {9.1}Git}{123}{section.9.1}%
-\contentsline {subsection}{\numberline {9.1.1}Repositorios}{123}{subsection.9.1.1}%
-\contentsline {subsection}{\numberline {9.1.2}.gitignore}{124}{subsection.9.1.2}%
-\contentsline {subsection}{\numberline {9.1.3}Ramas}{124}{subsection.9.1.3}%
-\contentsline {chapter}{\numberline {10}Glosario de términos de programación}{127}{chapter.10}%
+\contentsline {section}{\numberline {8.4}Resumen}{123}{section.8.4}%
+\contentsline {chapter}{\numberline {9}Git y GitHub}{125}{chapter.9}%
+\contentsline {section}{\numberline {9.1}Git}{125}{section.9.1}%
+\contentsline {subsection}{\numberline {9.1.1}Repositorios}{125}{subsection.9.1.1}%
+\contentsline {subsection}{\numberline {9.1.2}.gitignore}{126}{subsection.9.1.2}%
+\contentsline {subsection}{\numberline {9.1.3}Ramas}{126}{subsection.9.1.3}%
+\contentsline {chapter}{\numberline {10}Glosario de términos de programación}{129}{chapter.10}%

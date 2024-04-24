@@ -3401,7 +3401,7 @@ El criterio de enlace determina cómo se mide la distancia entre los clusters. A
 \end{itemize}
 
 \subsubsection{Dendograma}
-Un dendograma es una grádica que muestra la estructura de los clusters formados durante el proceso de agrupamiento.
+Un dendograma es una gráfica que muestra la estructura de los clusters formados durante el proceso de agrupamiento.
 
 Se puede graficar un dendograma mediante el siguiente código:
 \begin{minted}[breaklines, breakanywhere]{Python}
@@ -3466,12 +3466,42 @@ En el contexto de los ensambles, un clasificador es un tipo de modelo que se usa
 También conocido como Agregación Bootstrap, Bagging es una técnica que extrae varias muertas llamadas bootstrap del conjunto de entrenamiento de los datos, realizado de forma aleatoria. Luego, los modelos se entrenan por separado para hacer sus predicciones sobre el conjunto de prueba y combinarlas para obtener una predicción final.
 
 Bagging se desempeña mejor cuando los modelos generan problemas de alta varianza.
+
+El siguiente código muestra un ejemplo de un modelo Bagging:
+\begin{minted}[breaklines, breakanywhere]{Python}
+from sklearn.ensemble import BaggingRegressor
+
+RSTATE = 23124
+model = BaggingRegressor(base_estimator=LinearRegression(), n_estimators=100, oob_score=True, random_state=RSTATE, n_jobs=-1)
+\end{minted}
+donde:
+\begin{itemize}
+	\item \texttt{\textcolor{blue}{base$\_$estimator}}: estimador. Por defecto, los estimadores base son árboles de decisión.
+	\item \texttt{\textcolor{blue}{n$\_$estimators=100}}: señala el número de estimadores (modelos base) en el conjunto. En este caso, se utilizan 100 estimadores base.
+	\item \texttt{\textcolor{blue}{oob$\_$score=True}}: calcula el rendimiento OOB (out-of-bag score).
+	\item \texttt{\textcolor{blue}{random$\_$state=RSTATE}}: se establece la semilla para la reproducibilidad del modelo y obtener los mismos resultados en cada ejecución.
+	\item \texttt{\textcolor{blue}{n$\_$jobs=-1}}: indica el número de núcleos de CPU que se utilizarán
+	para entrenar los modelos base de forma paralela. En este caso, se utiliza -1 para utilizar todos los núcleos disponibles.
+\end{itemize}
+De esta forma, la estimación de $R^{2}$ con datos OOB se obtendría mediante:
+\begin{minted}[breaklines, breakanywhere]{Python}
+model.oob_score_
+\end{minted}
+
 \subsection{Ensambles Random Forest}
 Random Forest está compuesto únicamente por estimadores de árboles de decisión. Este modelo sigue la misma estructura que Bagging, sin embargo, agrega un componente de aleatoriedad en el que se selecciona aleatoriamente un subconjunto de atributos en cada nodo de un árbol.
 
 Random Forest supera el problema de Bagging de estimadores altamente correlacionados.
 
 Tanto en Random Forest como en Bagging, se genera una bolsa de observaciones no seleccionadas en los procesos de muestreo bootstrap para cada clasificador, llamados OOB (Out Of Bag). Estos datos se utilizan para estimar el error cometido en cada clasificador. Este error del ensamble se obtiene promediando todos los errores de cada clasificador.
+
+El siguiente código muestra un ejemplo de un modelo Random Forest:
+\begin{minted}[breaklines, breakanywhere]{Python}
+from sklearn.ensemble import RandomForestRegressor
+
+model = RandomForestRegressor(max_features='sqrt', random_state=RSTATE, oob_score=True, n_jobs=-1)
+\end{minted}
+el cual posee los mismos argumentos que Bagging, menos \texttt{\textcolor{blue}{max$\_$features='sqrt'}}. Este controla la cantidad máxima de características igual a la raíz cuadrada del total de características de los datos. Otros valores que puede tomar es \texttt{\textcolor{blue}{None}}, donde el algoritmo considera todas las características en cada división.
 
 \newpage
 % SECCION

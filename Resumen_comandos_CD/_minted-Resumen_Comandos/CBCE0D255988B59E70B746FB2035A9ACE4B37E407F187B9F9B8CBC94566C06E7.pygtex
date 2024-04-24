@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{from} \PYG{n+nn}{sklearn.ensemble} \PYG{k+kn}{import} \PYG{n}{RandomForestRegressor}
+
+\PYG{n}{model} \PYG{o}{=} \PYG{n}{RandomForestRegressor}\PYG{p}{(}\PYG{n}{max\PYGZus{}features}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}sqrt\PYGZsq{}}\PYG{p}{,} \PYG{n}{random\PYGZus{}state}\PYG{o}{=}\PYG{n}{RSTATE}\PYG{p}{,} \PYG{n}{oob\PYGZus{}score}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{,} \PYG{n}{n\PYGZus{}jobs}\PYG{o}{=\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{)}
+\end{Verbatim}
