@@ -1,0 +1,24 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} SMOTE}
+\PYG{c+c1}{\PYGZsh{}agregamos la librería (las anteriores las supondremos cargadas}
+\PYG{k+kn}{from} \PYG{n+nn}{imblearn.over\PYGZus{}sampling} \PYG{k+kn}{import} \PYG{n}{SMOTE}
+\PYG{k+kn}{from} \PYG{n+nn}{sklearn.preprocessing} \PYG{k+kn}{import} \PYG{n}{StandardScaler}
+\PYG{k+kn}{from} \PYG{n+nn}{sklearn.linear\PYGZus{}model} \PYG{k+kn}{import} \PYG{n}{LogisticRegression}
+
+\PYG{c+c1}{\PYGZsh{} Caracteristicas}
+\PYG{n}{X} \PYG{o}{=} \PYG{n}{df}\PYG{o}{.}\PYG{n}{drop}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}target\PYGZsq{}}\PYG{p}{,} \PYG{n}{axis}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{o}{.}\PYG{n}{values}
+\PYG{c+c1}{\PYGZsh{} Target}
+\PYG{n}{y} \PYG{o}{=} \PYG{n}{df}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}target\PYGZsq{}}\PYG{p}{]}\PYG{o}{.}\PYG{n}{values}
+\PYG{c+c1}{\PYGZsh{} Aplicando SMOTE para balancear las clases}
+\PYG{n}{smote} \PYG{o}{=} \PYG{n}{SMOTE}\PYG{p}{(}\PYG{n}{random\PYGZus{}state}\PYG{o}{=}\PYG{l+m+mi}{42}\PYG{p}{)}
+\PYG{n}{X\PYGZus{}resampled}\PYG{p}{,} \PYG{n}{y\PYGZus{}resampled} \PYG{o}{=} \PYG{n}{smote}\PYG{o}{.}\PYG{n}{fit\PYGZus{}resample}\PYG{p}{(}\PYG{n}{X}\PYG{p}{,} \PYG{n}{y}\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{} Estandarizando las caracteristicas (opcional pero recomendado)}
+\PYG{n}{scaler} \PYG{o}{=} \PYG{n}{StandardScaler}\PYG{p}{()}
+\PYG{n}{X\PYGZus{}resampled} \PYG{o}{=} \PYG{n}{scaler}\PYG{o}{.}\PYG{n}{fit\PYGZus{}transform}\PYG{p}{(}\PYG{n}{X\PYGZus{}resampled}\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{} Creando el modelo de Regresion Logistica}
+\PYG{n}{logistic\PYGZus{}regression\PYGZus{}model} \PYG{o}{=} \PYG{n}{LogisticRegression}\PYG{p}{(}\PYG{n}{random\PYGZus{}state}\PYG{o}{=}\PYG{l+m+mi}{42}\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{} Ajustando el modelo}
+\PYG{n}{logistic\PYGZus{}regression\PYGZus{}model}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{n}{X\PYGZus{}resampled}\PYG{p}{,} \PYG{n}{y\PYGZus{}resampled}\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{} Predicciones}
+\PYG{n}{y\PYGZus{}pred} \PYG{o}{=} \PYG{n}{logistic\PYGZus{}regression\PYGZus{}model}\PYG{o}{.}\PYG{n}{predict}\PYG{p}{(}\PYG{n}{X\PYGZus{}resampled}\PYG{p}{)}
+\end{Verbatim}

@@ -2371,8 +2371,36 @@ best_model = grid_search.best_estimator_
 # Evaluando el mejor modelo
 test_score = best_model.score(X_test, y_test) # Precision
 print("Puntuacion en el conjunto de prueba:", test_score)
-
 \end{minted}
+
+\subsubsection{SMOTE}
+La librería SMOTE (Synthetic Minority Over-sampling Technique) se usa para el problema de desbalanceo de clases. Genera muestras sintéticas de la clase minoritaria para aumentar el número de muestras de dicha clase.
+\begin{minted}[breaklines, breakanywhere]{Python}
+# SMOTE
+#agregamos la librería (las anteriores las supondremos cargadas
+from imblearn.over_sampling import SMOTE
+from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LogisticRegression
+
+# Caracteristicas
+X = df.drop('target', axis=1).values
+# Target
+y = df['target'].values
+# Aplicando SMOTE para balancear las clases
+smote = SMOTE(random_state=42)
+X_resampled, y_resampled = smote.fit_resample(X, y)
+# Estandarizando las caracteristicas (opcional pero recomendado)
+scaler = StandardScaler()
+X_resampled = scaler.fit_transform(X_resampled)
+# Creando el modelo de Regresion Logistica
+logistic_regression_model = LogisticRegression(random_state=42)
+# Ajustando el modelo
+logistic_regression_model.fit(X_resampled, y_resampled)
+# Predicciones
+y_pred = logistic_regression_model.predict(X_resampled)
+\end{minted}
+
+
 \subsubsection{Métricas de evaluación}
 \begin{enumerate}
 	\item Exactitud (Accuracy): Absoluto del porcentaje que se predijo correctamente. Mide la proporción de las predicciones que son correctas.
@@ -3502,6 +3530,37 @@ from sklearn.ensemble import RandomForestRegressor
 model = RandomForestRegressor(max_features='sqrt', random_state=RSTATE, oob_score=True, n_jobs=-1)
 \end{minted}
 el cual posee los mismos argumentos que Bagging, menos \texttt{\textcolor{blue}{max$\_$features='sqrt'}}. Este controla la cantidad máxima de características igual a la raíz cuadrada del total de características de los datos. Otros valores que puede tomar es \texttt{\textcolor{blue}{None}}, donde el algoritmo considera todas las características en cada división.
+
+% SECCION
+\section{Redes neuronales}
+Las redes neuronales se inspiran en el sistema neuronal biológico del cerebro. Una neurona biológica es una célula que recibe señales por medio de las dendritas, un núcleo que procesa la información y transmite los impulsos por el axón a otras neuronas.
+
+El perceptrón es una de las primeras formas de red neuronal de aprendizaje supervisado. Consiste en un algoritmo que toma un conjunto de entradas (X), las que multiplica por sus pesos (w) y calcula una suma ponderada junto el bias (u), para luego someter el resultado a una función de activación (f(u)) que asigna un valor de 1 si la suma ponderada entre pesos y entradas supera un umbral, o 0 en el caso contrario. La función de activación siempre estará al final de la red neuronal y corresponde a la salida del perceptrón.
+\begin{figure}[H] 
+	\centering 
+	\includegraphics[width=0.6\linewidth]{perceptron.jpg}
+	\caption{Esquema de un perceptrón}
+\end{figure}
+
+La siguiente ecuación representa la suma ponderada de las entradas y los pesos más el bias:
+\begin{equation}
+	u=(\sum_{i=0}^{N}x_{i}w_{i})+b_{0}
+\end{equation}
+
+Los perceptrones conectados a otros perceptrones que forman capas se le conoce como red neuronal:
+
+\begin{figure}[H] 
+	\centering 
+	\includegraphics[width=0.6\linewidth]{redneuronal.jpg}
+	\caption{Red neuronal}
+\end{figure}
+
+Cada vez que se transfieren valores de una neurona a otra, se evalúa una discrepancia entre la predicción el valor verdadero y la predicción, con la que se ajustan los pesos mediante la función de pérdida:
+\begin{gather}
+	w_{i+1}= w_{i}+ \Delta w_{i} \\
+	= w_{i}+ \eta (y - \hat{y})x_{i}
+\end{gather}
+donde $\eta$ representa la tasa con la que se ajustará cada vez los pesos.
 
 \newpage
 % SECCION
