@@ -1,0 +1,45 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import} \PYG{n+nn}{tensorflow} \PYG{k}{as} \PYG{n+nn}{tf}
+\PYG{k+kn}{import} \PYG{n+nn}{keras}
+\PYG{k+kn}{from} \PYG{n+nn}{keras.models} \PYG{k+kn}{import} \PYG{n}{Sequential}
+\PYG{k+kn}{from} \PYG{n+nn}{keras.layers} \PYG{k+kn}{import} \PYG{n}{Dense}
+\PYG{k+kn}{from} \PYG{n+nn}{keras.optimizers} \PYG{k+kn}{import} \PYG{n}{SGD} \PYG{c+c1}{\PYGZsh{} Gradiente Descendente estocastico}
+
+\PYG{n}{X} \PYG{o}{=} \PYG{n}{df}\PYG{o}{.}\PYG{n}{drop}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}target\PYGZsq{}}\PYG{p}{,} \PYG{n}{axis}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{)}
+\PYG{n}{y} \PYG{o}{=} \PYG{n}{df}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}target\PYGZsq{}}\PYG{p}{]}
+\PYG{c+c1}{\PYGZsh{} Dividiendo el set}
+\PYG{n}{X\PYGZus{}train}\PYG{p}{,} \PYG{n}{X\PYGZus{}test}\PYG{p}{,} \PYG{n}{y\PYGZus{}train}\PYG{p}{,} \PYG{n}{y\PYGZus{}test} \PYG{o}{=} \PYG{n}{train\PYGZus{}test\PYGZus{}split}\PYG{p}{(}\PYG{n}{X}\PYG{p}{,} \PYG{n}{y}\PYG{p}{,} \PYG{n}{test\PYGZus{}size}\PYG{o}{=}\PYG{l+m+mf}{.33}\PYG{p}{,} \PYG{n}{random\PYGZus{}state}\PYG{o}{=}\PYG{l+m+mi}{23}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Creando un modelo secuencial}
+\PYG{n}{model\PYGZus{}sec} \PYG{o}{=} \PYG{n}{Sequential}\PYG{p}{()}
+\PYG{c+c1}{\PYGZsh{} Agregando capa de entrada tipo densa (las neuronas se conectan con todas las neuronas de la siguiente capa)}
+\PYG{n}{model\PYGZus{}sec}\PYG{o}{.}\PYG{n}{add}\PYG{p}{(}
+	\PYG{n}{Dense}\PYG{p}{(}
+		\PYG{n}{units}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{c+c1}{\PYGZsh{} Neuronas}
+		\PYG{n}{activation}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}linear\PYGZsq{}}\PYG{p}{,} \PYG{c+c1}{\PYGZsh{} Funcion de activacion}
+		\PYG{n}{use\PYGZus{}bias}\PYG{o}{=}\PYG{k+kc}{True} \PYG{c+c1}{\PYGZsh{} Considerando un bias}
+	\PYG{p}{)}
+\PYG{p}{)}
+\PYG{c+c1}{\PYGZsh{} Resumen}
+\PYG{n}{model\PYGZus{}sec}\PYG{o}{.}\PYG{n}{summary}\PYG{p}{()}
+
+\PYG{c+c1}{\PYGZsh{} Compilando con optimizador descenso del gradiente estocastico y funcion de perdida error cuadratico medio}
+\PYG{n}{model\PYGZus{}sec}\PYG{o}{.}\PYG{n}{compile}\PYG{p}{(}\PYG{n}{optimizer}\PYG{o}{=}\PYG{n}{SGD}\PYG{p}{(}\PYG{n}{learning\PYGZus{}rate}\PYG{o}{=}\PYG{l+m+mf}{0.01}\PYG{p}{),} \PYG{n}{loss}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}mean\PYGZus{}squared\PYGZus{}error)}
+
+\PYG{c+c1}{\PYGZsh{} Entrenando el modelo con 100 epocas}
+\PYG{n}{model\PYGZus{}sec}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{n}{X\PYGZus{}train}\PYG{p}{,} \PYG{n}{y\PYGZus{}train}\PYG{p}{,} \PYG{n}{epochs}\PYG{o}{=}\PYG{l+m+mi}{100}\PYG{p}{,} \PYG{n}{verbose}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Midiendo el rendimiento}
+\PYG{n}{y\PYGZus{}pred} \PYG{o}{=} \PYG{n}{model\PYGZus{}sec}\PYG{o}{.}\PYG{n}{predict}\PYG{p}{(}\PYG{n}{X\PYGZus{}test}\PYG{p}{)}\PYG{o}{.}\PYG{n}{ravel}\PYG{p}{()}
+
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s1}{Métricas conjunto de test\PYGZsq{}}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s1}{\PYGZsq{}r2 = }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{r2\PYGZus{}score}\PYG{p}{(}\PYG{n}{y\PYGZus{}test}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{y\PYGZus{}pred}\PYG{p}{)}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s1}{\PYGZsq{}RMSE = }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{mean\PYGZus{}squared\PYGZus{}error}\PYG{p}{(}\PYG{n}{y\PYGZus{}test}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{y\PYGZus{}pred}\PYG{p}{,}\PYG{+w}{ }\PYG{n}{squared}\PYG{o}{=}\PYG{k+kc}{False}\PYG{p}{)}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{()}
+\PYG{c+c1}{\PYGZsh{} Graficando}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{scatter}\PYG{p}{(}\PYG{n}{X\PYGZus{}test}\PYG{p}{,} \PYG{n}{y\PYGZus{}test}\PYG{p}{,} \PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}Datos reales\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{X\PYGZus{}test}\PYG{p}{,} \PYG{n}{y\PYGZus{}pred}\PYG{p}{,} \PYG{n}{ls}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}\PYGZhy{}\PYGZhy{}\PYGZsq{}}\PYG{p}{,} \PYG{n}{color}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}gray\PYGZsq{}}\PYG{p}{,} \PYG{n}{lw}\PYG{o}{=}\PYG{l+m+mf}{1.5}\PYG{p}{,} \PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}Prediccion\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{xlabel}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Rut\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{ylabel}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Edad\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{legend}\PYG{p}{();}
+\end{Verbatim}

@@ -3555,12 +3555,60 @@ Los perceptrones conectados a otros perceptrones que forman capas se le conoce c
 	\caption{Red neuronal}
 \end{figure}
 
-Cada vez que se transfieren valores de una neurona a otra, se evalúa una discrepancia entre la predicción el valor verdadero y la predicción, con la que se ajustan los pesos mediante la función de pérdida:
+Cada vez que se transfieren valores de una neurona a otra, se evalúa una discrepancia entre la predicción el valor verdadero y la predicción, con la que se ajustan los pesos mediante la función de pérdida o de costo:
 \begin{gather}
 	w_{i+1}= w_{i}+ \Delta w_{i} \\
 	= w_{i}+ \eta (y - \hat{y})x_{i}
 \end{gather}
 donde $\eta$ representa la tasa con la que se ajustará cada vez los pesos.
+
+Ejemplo de código de una red neuronal:
+\begin{minted}[breaklines, breakanywhere]{Python}
+import tensorflow as tf
+import keras
+from keras.models import Sequential
+from keras.layers import Dense
+from keras.optimizers import SGD # Gradiente Descendente estocastico
+
+X = df.drop('target', axis=1)
+y = df['target']
+# Dividiendo el set
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=.33, random_state=23)
+
+# Creando un modelo secuencial
+model_sec = Sequential()
+# Agregando capa de entrada tipo densa (las neuronas se conectan con todas las neuronas de la siguiente capa)
+model_sec.add(
+	Dense(
+		units=1, # Neuronas
+		activation='linear', # Funcion de activacion
+		use_bias=True # Considerando un bias
+	)
+)
+# Resumen
+model_sec.summary()
+
+# Compilando con optimizador descenso del gradiente estocastico y funcion de perdida error cuadratico medio 
+model_sec.compile(optimizer=SGD(learning_rate=0.01), loss='mean_squared_error)
+
+# Entrenando el modelo con 100 epocas
+model_sec.fit(X_train, y_train, epochs=100, verbose=0)
+
+# Midiendo el rendimiento
+y_pred = model_sec.predict(X_test).ravel()
+
+print('\nMétricas conjunto de test')
+print(f'r2 = {r2_score(y_test, y_pred)}')
+print(f'RMSE = {mean_squared_error(y_test, y_pred, squared=False)}')
+print()
+# Graficando
+plt.scatter(X_test, y_test, label='Datos reales')
+plt.plot(X_test, y_pred, ls='--', color='gray', lw=1.5, label='Prediccion')
+plt.xlabel('Rut')
+plt.ylabel('Edad')
+plt.legend();
+\end{minted}
+
 
 \newpage
 % SECCION
