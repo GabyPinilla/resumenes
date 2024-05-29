@@ -2306,8 +2306,14 @@ Algunos conceptos de aprendizaje automático:
 	\item Las características son las propiedades que se utilizan para representar cada instancia o ejemplo en el set de datos sobre el que se entrena un modelo. Se refiere a los datos de entrada que el modelo usa para hacer sus predicciones.
 \end{itemize}
 
-\section{Tipos de aprendizajes}
-Tipos de aprendizajes automáticos:
+Antes de entrar en los algoritmos del aprendizaje supervisado, es importante tener en cuenta lo que es el overfitting y el underfitting, la búsqueda de hiperparámetros y las métricas de evaluación de los modelos.
+\begin{enumerate}
+	\item Overfitting: El sobreajuste ocurre cuando un modelo se ajusta de forma excesiva a los datos de entrenamiento. No aprende patrones para poder aplicarlo a datos nuevos. Su rendimiento es muy bueno en el conjunto de entrenamiento, pero pésimo en conjunto de prueba. Se puede identificar el sobreajuste cuando el rendimiento del modelo en el conjunto de entrenamiento es mejor que en el de conjunto de prueba.
+	\item Underfitting: El subajuste ocurre cuando el modelo no logra capturar los patrones en los datos. Se ajusta bien a los datos de entrenamiento y tiene un rendimiento deficiente en el conjunto de entrenamiento y en el de prueba. Se puede identificar el subajuste cuando el modelo en el conjunto de entrenamiento y de prueba es bajo.
+\end{enumerate}
+
+
+En el aprendizaje automático, existen cuatro tipos de aprendizaje que se verán con detalle en las siguientes secciones:
 \begin{enumerate}
 	\item Aprendizaje supervisado.
 	\item Aprendizaje no supervisado.
@@ -2315,7 +2321,7 @@ Tipos de aprendizajes automáticos:
 	\item Inteligencia artificial generativa.
 \end{enumerate}
 
-\subsection{Aprendizaje supervisado}
+\section{Aprendizaje supervisado}
 Los modelos de aprendizaje supervisado se entrenan con conjuntos de datos etiquetados, es decir, ejemplos de entradas con sus correspondientes salidas. De esta forma, el modelo aprende a asociar los datos de entradas con sus correspondientes salidas para liego predecir la salida cuando se le presenten nuevos datos de entrada. Finalmente, se evalúa el modelo usando un conjunto de prueba, el cual también está conformado por datos etiquetados.
 
 Este aprendizaje se divide en dos categorías:
@@ -2323,16 +2329,12 @@ Este aprendizaje se divide en dos categorías:
 	\item Clasificación: se utiliza para predecir la probabilidad de que algo pertenezca a una categoría (puede se binaria o multiclase).
 	\item Regresión: predice un valor numérico.
 \end{enumerate}
+
 Antes de entrar en los algoritmos del aprendizaje supervisado, es importante tener en cuenta lo que es el overfitting y el underfitting, la búsqueda de hiperparámetros y las métricas de evaluación de los modelos.
-\subsubsection{Sobreajuste (Overfitting)}
-El sobreajuste ocurre cuando un modelo se ajusta de forma excesiva a los datos de entrenamiento. No aprende patrones para poder aplicarlo a datos nuevos. Su rendimiento es muy bueno en el conjunto de entrenamiento, pero pésimo en conjunto de prueba.
-
-Se puede identificar el sobreajuste cuando el rendimiento del modelo en el conjunto de entrenamiento es mejor que en el de conjunto de prueba.
-
-\subsubsection{Subajuste (Underfitting)}
-El subajuste ocurre cuando el modelo no logra capturar los patrones en los datos. Se ajusta bien a los datos de entrenamiento y tiene un rendimiento deficiente en el conjunto de entrenamiento y en el de prueba.
-
-Se puede identificar el subajuste cuando el modelo en el conjunto de entrenamiento y de prueba es bajo.
+\begin{enumerate}
+	\item Overfitting: El sobreajuste ocurre cuando un modelo se ajusta de forma excesiva a los datos de entrenamiento. No aprende patrones para poder aplicarlo a datos nuevos. Su rendimiento es muy bueno en el conjunto de entrenamiento, pero pésimo en conjunto de prueba. Se puede identificar el sobreajuste cuando el rendimiento del modelo en el conjunto de entrenamiento es mejor que en el de conjunto de prueba.
+	\item Underfitting: El subajuste ocurre cuando el modelo no logra capturar los patrones en los datos. Se ajusta bien a los datos de entrenamiento y tiene un rendimiento deficiente en el conjunto de entrenamiento y en el de prueba. Se puede identificar el subajuste cuando el modelo en el conjunto de entrenamiento y de prueba es bajo.
+\end{enumerate}
 
 \subsubsection{Búsqueda de hiperparámetros}
 Los hiperparámetros son parámetros que no se aprenden del conjunto de datos durante el entrenamiento de un modelo. Estos se establecen antes de entrenar el modelo. Mediante la búsqueda de hiperparámetros, se encuentra la combinación óptima (maximizar el rendimiento del modelo) de valores para los hiperparámetros de dicho modelo.
@@ -3531,21 +3533,46 @@ model = RandomForestRegressor(max_features='sqrt', random_state=RSTATE, oob_scor
 \end{minted}
 el cual posee los mismos argumentos que Bagging, menos \texttt{\textcolor{blue}{max$\_$features='sqrt'}}. Este controla la cantidad máxima de características igual a la raíz cuadrada del total de características de los datos. Otros valores que puede tomar es \texttt{\textcolor{blue}{None}}, donde el algoritmo considera todas las características en cada división.
 
-% SECCION
-\section{Redes neuronales}
+%
+% CAPITULO
+\chapter{Redes neuronales}
 Las redes neuronales se inspiran en el sistema neuronal biológico del cerebro. Una neurona biológica es una célula que recibe señales por medio de las dendritas, un núcleo que procesa la información y transmite los impulsos por el axón a otras neuronas.
-
+\section{Perceptrón}
 El perceptrón es una de las primeras formas de red neuronal de aprendizaje supervisado. Consiste en un algoritmo que toma un conjunto de entradas (X), las que multiplica por sus pesos (w) y calcula una suma ponderada junto el bias (u), para luego someter el resultado a una función de activación (f(u)) que asigna un valor de 1 si la suma ponderada entre pesos y entradas supera un umbral, o 0 en el caso contrario. La función de activación siempre estará al final de la red neuronal y corresponde a la salida del perceptrón.
 \begin{figure}[H] 
 	\centering 
-	\includegraphics[width=0.6\linewidth]{perceptron.jpg}
+	\includegraphics[width=0.5\linewidth]{perceptron.jpg}
 	\caption{Esquema de un perceptrón}
 \end{figure}
 
-La siguiente ecuación representa la suma ponderada de las entradas y los pesos más el bias:
+En las redes neuronales, se diferencian las capas de entrada, ocultas y de salida por su posición dentro del modelo.
+\begin{enumerate}
+	\item La capa de entrada (input layer) es la que recibe los datos y se determina con el parámetro \texttt{\textcolor{blue}{Input(shape=())}}. No tiene neuronas ni función de activación, solo especifica la forma de los datos.
+	\item En las capas ocultas (hidden layer) reciben los valores de la capa de entrada, ponderándose por los pesos. Se definen las neuronas y las funciones de activación, y se sitúan entre la capa de entrada y la de salida.
+	\item La última capa de la red es la de salida (output layer), la cual produce la salida final del modelo, es decir, genera la predicción.
+\end{enumerate}
+
+Por lo tanto, luego de recibir los datos en la capa de entrada, las capas ocultas harán una suma ponderada de las entradas y los pesos más el bias, representada en la siguiente ecuación:
 \begin{equation}
 	u=(\sum_{i=0}^{N}x_{i}w_{i})+b_{0}
 \end{equation}
+
+Luego, este valor pasa por la función de activación, que lo transforma en un valor de salida. Las funciones más conocidas son:
+\begin{enumerate}
+	\item Función escalón
+	\item Función sigmoidal: se usa principalmente para problemas de clasificación binaria.
+	\item Función rectificadora (ReLu): activa la neurona solo si la entrada está por sobre cero. Si este valor es menor a cero, la salida será cero. De lo contrario, aumentará la salida de forma lineal.
+	\item Función tangente hiperbólica
+	\item Función lineal
+	\item Función logística multiclase (softmax): se usa para problemas de clasificación multiclase.
+\end{enumerate}
+
+La función de pérdida evalúa qué tan bien realiza la predicción el modelo comparando los datos de entrenamiento con los reales. Esto se usa para ajustar los pesos en la red. La elección de la función de pérdida depende del problema:
+\begin{enumerate}
+	\item Error cuadrático medio: se usa para problemas de regresión, es decir, en la predicción de valores numéricos.
+	\item Entropía cruzada binaria: se usa para problemas de clasificación binaria.
+	\item Entropía cruzada categórica: se usa para problemas de clasificación multiclase.
+\end{enumerate}
 
 Los perceptrones conectados a otros perceptrones que forman capas se le conoce como red neuronal:
 
@@ -3555,14 +3582,7 @@ Los perceptrones conectados a otros perceptrones que forman capas se le conoce c
 	\caption{Red neuronal}
 \end{figure}
 
-Cada vez que se transfieren valores de una neurona a otra, se evalúa una discrepancia entre la predicción el valor verdadero y la predicción, con la que se ajustan los pesos mediante la función de pérdida o de costo:
-\begin{gather}
-	w_{i+1}= w_{i}+ \Delta w_{i} \\
-	= w_{i}+ \eta (y - \hat{y})x_{i}
-\end{gather}
-donde $\eta$ representa la tasa con la que se ajustará cada vez los pesos.
-
-Ejemplo de código de una red neuronal:
+Ejemplo de código de una red neuronal feedforward o secuencial:
 \begin{minted}[breaklines, breakanywhere]{Python}
 import tensorflow as tf
 import keras
@@ -3608,6 +3628,30 @@ plt.xlabel('Rut')
 plt.ylabel('Edad')
 plt.legend();
 \end{minted}
+
+Ejemplo de una red neuronal con una capa oculta:
+\begin{minted}[breaklines, breakanywhere]{Python}
+# Modelo red neuronal feedforward=Sequencial
+model_sec = Sequential()
+
+# Agregando capa de entrada
+model_sec.add(keras.Input(shape=(X_train.shape[1],)))
+
+# Agregando capa oculta
+model_sec.add(Dense(
+	units=20,
+	activation='sigmoid',
+	use_bias=True
+))
+
+# Agregando capa de salida
+model_sec.add(Dense(
+	units=1,
+	activation='sigmoid',
+	use_bias=True
+))
+\end{minted}
+
 
 
 \newpage
