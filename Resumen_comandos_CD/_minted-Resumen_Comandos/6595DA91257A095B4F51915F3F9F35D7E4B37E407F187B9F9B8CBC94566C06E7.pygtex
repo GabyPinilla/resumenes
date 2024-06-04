@@ -1,0 +1,33 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{from} \PYG{n+nn}{keras.models} \PYG{k+kn}{import} \PYG{n}{Sequential}
+\PYG{k+kn}{from} \PYG{n+nn}{keras.layers} \PYG{k+kn}{import} \PYG{n}{Conv2D}\PYG{p}{,} \PYG{n}{MaxPooling2D}\PYG{p}{,} \PYG{n}{Flatten}\PYG{p}{,} \PYG{n}{Dense}\PYG{p}{,} \PYG{n}{Dropout}
+
+\PYG{c+c1}{\PYGZsh{} Numero de clases para capa de salida}
+\PYG{n}{n\PYGZus{}class} \PYG{o}{=} \PYG{n}{y\PYGZus{}test}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]}
+
+\PYG{n}{sec} \PYG{o}{=} \PYG{n}{Sequential}\PYG{p}{()}
+
+\PYG{c+c1}{\PYGZsh{} Capa entrada}
+\PYG{n}{sec}\PYG{o}{.}\PYG{n}{add}\PYG{p}{(}\PYG{n}{Input}\PYG{p}{(}\PYG{n}{shape}\PYG{o}{=}\PYG{p}{(}\PYG{n}{X\PYGZus{}train}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{],} \PYG{n}{X\PYGZus{}train}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{],} \PYG{n}{X\PYGZus{}train}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mi}{3}\PYG{p}{])))}
+
+\PYG{c+c1}{\PYGZsh{} Capa convolucional}
+\PYG{n}{sec}\PYG{o}{.}\PYG{n}{add}\PYG{p}{(}\PYG{n}{Conv2D}\PYG{p}{(}\PYG{l+m+mi}{32}\PYG{p}{,} \PYG{p}{(}\PYG{l+m+mi}{3}\PYG{p}{,} \PYG{l+m+mi}{3}\PYG{p}{),} \PYG{n}{activation}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}relu\PYGZsq{}}\PYG{p}{,} \PYG{n}{kernel\PYGZus{}constraint}\PYG{o}{=}\PYG{n}{MaxNorm}\PYG{p}{(}\PYG{l+m+mi}{3}\PYG{p}{),} \PYG{n}{padding}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}same\PYGZsq{}}\PYG{p}{))}
+
+\PYG{n}{sec}\PYG{o}{.}\PYG{n}{add}\PYG{p}{(}\PYG{n}{Dropout}\PYG{p}{(}\PYG{l+m+mf}{.3}\PYG{p}{))}
+\PYG{n}{sec}\PYG{o}{.}\PYG{n}{add}\PYG{p}{(}\PYG{n}{Conv2D}\PYG{p}{(}\PYG{l+m+mi}{32}\PYG{p}{,} \PYG{p}{(}\PYG{l+m+mi}{3}\PYG{p}{,} \PYG{l+m+mi}{3}\PYG{p}{),} \PYG{n}{activation}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}relu\PYGZsq{}}\PYG{p}{,} \PYG{n}{kernel\PYGZus{}constraint}\PYG{o}{=}\PYG{n}{MaxNorm}\PYG{p}{(}\PYG{l+m+mi}{3}\PYG{p}{),} \PYG{n}{padding}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}same\PYGZsq{}}\PYG{p}{))}
+
+\PYG{c+c1}{\PYGZsh{} Capa agrupacion}
+\PYG{n}{sec}\PYG{o}{.}\PYG{n}{add}\PYG{p}{(}\PYG{n}{MaxPooling2D}\PYG{p}{(}\PYG{n}{pool\PYGZus{}size}\PYG{o}{=}\PYG{p}{(}\PYG{l+m+mi}{2}\PYG{p}{,} \PYG{l+m+mi}{2}\PYG{p}{)))}
+\PYG{n}{sec}\PYG{o}{.}\PYG{n}{add}\PYG{p}{(}\PYG{n}{Flatten}\PYG{p}{())}
+
+\PYG{c+c1}{\PYGZsh{} Capa oculta}
+\PYG{n}{sec}\PYG{o}{.}\PYG{n}{add}\PYG{p}{(}\PYG{n}{Dense}\PYG{p}{(}\PYG{l+m+mi}{512}\PYG{p}{,} \PYG{n}{activation}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}relu\PYGZsq{}}\PYG{p}{,} \PYG{n}{kernel\PYGZus{}constraint}\PYG{o}{=}\PYG{n}{MaxNorm}\PYG{p}{(}\PYG{l+m+mi}{3}\PYG{p}{)))}
+\PYG{n}{sec}\PYG{o}{.}\PYG{n}{add}\PYG{p}{(}\PYG{n}{Dropout}\PYG{p}{(}\PYG{l+m+mf}{.2}\PYG{p}{))}
+
+\PYG{c+c1}{\PYGZsh{} Capa de salida}
+\PYG{n}{sec}\PYG{o}{.}\PYG{n}{add}\PYG{p}{(}\PYG{n}{Dense}\PYG{p}{(}\PYG{n}{n\PYGZus{}class}\PYG{p}{,} \PYG{n}{activation}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}softmax\PYGZsq{}}\PYG{p}{,} \PYG{n}{kernel\PYGZus{}constraint}\PYG{o}{=}\PYG{n}{MaxNorm}\PYG{p}{(}\PYG{l+m+mi}{3}\PYG{p}{)))}
+
+\PYG{n}{sec}\PYG{o}{.}\PYG{n}{compile}\PYG{p}{(}\PYG{n}{loss}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}categorical\PYGZus{}crossentropy\PYGZsq{}}\PYG{p}{,} \PYG{n}{optimizer}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}adam\PYGZsq{}}\PYG{p}{,} \PYG{n}{metrics}\PYG{o}{=}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}accuracy\PYGZsq{}}\PYG{p}{])}
+
+\PYG{n}{sec}\PYG{o}{.}\PYG{n}{summary}\PYG{p}{()}
+\end{Verbatim}

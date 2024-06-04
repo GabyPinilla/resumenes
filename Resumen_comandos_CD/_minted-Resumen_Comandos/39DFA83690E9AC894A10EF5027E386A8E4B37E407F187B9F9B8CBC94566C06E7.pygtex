@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{sec}\PYG{o}{.}\PYG{n}{add}\PYG{p}{(}\PYG{n}{MaxPooling2D}\PYG{p}{((}\PYG{l+m+mi}{3}\PYG{p}{,} \PYG{l+m+mi}{3}\PYG{p}{),} \PYG{l+m+mi}{2}\PYG{p}{))}
+\PYG{n}{sec}\PYG{o}{.}\PYG{n}{add}\PYG{p}{(}\PYG{n}{Flatten}\PYG{p}{())}
+\end{Verbatim}

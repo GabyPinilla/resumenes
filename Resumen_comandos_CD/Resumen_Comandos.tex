@@ -3533,6 +3533,31 @@ model = RandomForestRegressor(max_features='sqrt', random_state=RSTATE, oob_scor
 \end{minted}
 el cual posee los mismos argumentos que Bagging, menos \texttt{\textcolor{blue}{max$\_$features='sqrt'}}. Este controla la cantidad máxima de características igual a la raíz cuadrada del total de características de los datos. Otros valores que puede tomar es \texttt{\textcolor{blue}{None}}, donde el algoritmo considera todas las características en cada división.
 
+\newpage
+% SECCION
+\section{Resumen}
+\begin{table}[H]
+	\resizebox{15cm}{!} {
+		\begin{tabular}{|ccccc|}
+			\hline
+			\multicolumn{5}{|c|}{Machine Learning} \\ \hline
+			\multicolumn{2}{|c|}{Aprendizaje supervisado} & \multicolumn{3}{c|}{Aprendizaje no supervisado} \\ \hline
+			\multicolumn{1}{|c|}{Clasificación} & \multicolumn{1}{c|}{Regresión} & \multicolumn{1}{c|}{Clustering} & \multicolumn{1}{c|}{Reducción de dimensionalidad} & Asociación \\ \hline
+			\multicolumn{1}{|c|}{Regresión logística} & \multicolumn{1}{c|}{Regresión lineal} & \multicolumn{1}{c|}{K-Means} & \multicolumn{1}{c|}{Análisis de componentes principales (PCA)} & Apriori \\ \hline
+			\multicolumn{1}{|c|}{Árboles de decisión} & \multicolumn{1}{c|}{Regresión Ridge} & \multicolumn{1}{c|}{DBSCAN} & \multicolumn{1}{c|}{Linear Discriminant Analysis (LDA)} & FP-Growth \\ \hline
+			\multicolumn{1}{|c|}{SVM} & \multicolumn{1}{c|}{Regresión Lasso} & \multicolumn{1}{c|}{Cluster jerárquico} & \multicolumn{1}{c|}{Non-negative Matrix Factorization (NMF)} &  \\ \hline
+			\multicolumn{1}{|c|}{KNN} & \multicolumn{1}{c|}{Regresión ElasticNet} & \multicolumn{1}{c|}{} & \multicolumn{1}{c|}{} &  \\ \hline
+			\multicolumn{1}{|c|}{Naive Bayes} & \multicolumn{1}{c|}{Árboles de regresión} & \multicolumn{1}{c|}{} & \multicolumn{1}{c|}{} &  \\ \hline
+			\multicolumn{5}{|c|}{Métricas de evaluación} \\ \hline
+			\multicolumn{1}{|c|}{Accuracy (Exactitud)} & \multicolumn{1}{c|}{MSE} & \multicolumn{1}{c|}{Coeficiente de Silhouette} & \multicolumn{1}{c|}{Varianza explicada} & Soporte \\ \hline
+			\multicolumn{1}{|c|}{Precision (Precisión)} & \multicolumn{1}{c|}{MAE} & \multicolumn{1}{c|}{Índice de Davies-Bouldin} & \multicolumn{1}{c|}{} & Confianza \\ \hline
+			\multicolumn{1}{|c|}{Recall} & \multicolumn{1}{c|}{R cuadrado} & \multicolumn{1}{c|}{} & \multicolumn{1}{c|}{} & Lift \\ \hline
+			\multicolumn{1}{|c|}{F1-Score} & \multicolumn{1}{c|}{} & \multicolumn{1}{c|}{} & \multicolumn{1}{c|}{} &  \\ \hline
+			\multicolumn{1}{|c|}{Matriz de confusión} & \multicolumn{1}{c|}{} & \multicolumn{1}{c|}{} & \multicolumn{1}{c|}{} &  \\ \hline
+			\multicolumn{1}{|c|}{Curva ROC AUC} & \multicolumn{1}{c|}{} & \multicolumn{1}{c|}{} & \multicolumn{1}{c|}{} &  \\ \hline
+		\end{tabular}
+	}
+\end{table}
 %
 % CAPITULO
 \chapter{Redes neuronales}
@@ -3567,13 +3592,20 @@ Luego, este valor pasa por la función de activación, que lo transforma en un v
 	\item Función logística multiclase (softmax): se usa para problemas de clasificación multiclase.
 \end{enumerate}
 
-La función de pérdida evalúa qué tan bien realiza la predicción el modelo comparando los datos de entrenamiento con los reales. Esto se usa para ajustar los pesos en la red. La elección de la función de pérdida depende del problema:
+Finalmente, la capa de salida dará el resultado final. Dependiendo del tipo de problema, se debe definir el número de neuronas de esta capa:
+\begin{itemize}
+	\item Binaria: una neurona.
+	\item Multiclase: dependiendo de la cantidad de clases de la variable target.
+\end{itemize}
+
+Otro término importante en las redes neuronales es la función de pérdida, la cual evalúa qué tan bien realiza la predicción el modelo comparando los datos de entrenamiento con los reales. Esto se usa para ajustar los pesos en la red. La elección de la función de pérdida depende del problema:
 \begin{enumerate}
 	\item Error cuadrático medio: se usa para problemas de regresión, es decir, en la predicción de valores numéricos.
 	\item Entropía cruzada binaria: se usa para problemas de clasificación binaria.
 	\item Entropía cruzada categórica: se usa para problemas de clasificación multiclase.
 \end{enumerate}
-
+Esta función se defina en la compilación de la red neuronal, un proceso que va luego de especificar la estructura de la red.
+\section{Redes neuronales}
 Los perceptrones conectados a otros perceptrones que forman capas se le conoce como red neuronal:
 
 \begin{figure}[H] 
@@ -3652,33 +3684,71 @@ model_sec.add(Dense(
 ))
 \end{minted}
 
+\section{Redes neuronales convolucionales}
+Las redes convolucionales (CNN) son redes diseñadas específicamente para procesar datos con una estructura cuadrada, como las imágenes. Se usan para el reconocimiento de imágenes o clasificación de objetos.
+
+La capa de entrada recibe un pixel para cada neurona. Por ejemplo, si una imagen es de 28x28 pixeles, entonces su capa de entrada será de 784. Luego pasa a la capa de convolución, la cual extraerá características relevantes de la imagen seguida de la capa de agrupación.
 
 
-\newpage
-% SECCION
-\section{Resumen}
-\begin{table}[H]
-	\resizebox{15cm}{!} {
-	\begin{tabular}{|ccccc|}
-		\hline
-		\multicolumn{5}{|c|}{Machine Learning} \\ \hline
-		\multicolumn{2}{|c|}{Aprendizaje supervisado} & \multicolumn{3}{c|}{Aprendizaje no supervisado} \\ \hline
-		\multicolumn{1}{|c|}{Clasificación} & \multicolumn{1}{c|}{Regresión} & \multicolumn{1}{c|}{Clustering} & \multicolumn{1}{c|}{Reducción de dimensionalidad} & Asociación \\ \hline
-		\multicolumn{1}{|c|}{Regresión logística} & \multicolumn{1}{c|}{Regresión lineal} & \multicolumn{1}{c|}{K-Means} & \multicolumn{1}{c|}{Análisis de componentes principales (PCA)} & Apriori \\ \hline
-		\multicolumn{1}{|c|}{Árboles de decisión} & \multicolumn{1}{c|}{Regresión Ridge} & \multicolumn{1}{c|}{DBSCAN} & \multicolumn{1}{c|}{Linear Discriminant Analysis (LDA)} & FP-Growth \\ \hline
-		\multicolumn{1}{|c|}{SVM} & \multicolumn{1}{c|}{Regresión Lasso} & \multicolumn{1}{c|}{Cluster jerárquico} & \multicolumn{1}{c|}{Non-negative Matrix Factorization (NMF)} &  \\ \hline
-		\multicolumn{1}{|c|}{KNN} & \multicolumn{1}{c|}{Regresión ElasticNet} & \multicolumn{1}{c|}{} & \multicolumn{1}{c|}{} &  \\ \hline
-		\multicolumn{1}{|c|}{Naive Bayes} & \multicolumn{1}{c|}{Árboles de regresión} & \multicolumn{1}{c|}{} & \multicolumn{1}{c|}{} &  \\ \hline
-		\multicolumn{5}{|c|}{Métricas de evaluación} \\ \hline
-		\multicolumn{1}{|c|}{Accuracy (Exactitud)} & \multicolumn{1}{c|}{MSE} & \multicolumn{1}{c|}{Coeficiente de Silhouette} & \multicolumn{1}{c|}{Varianza explicada} & Soporte \\ \hline
-		\multicolumn{1}{|c|}{Precision (Precisión)} & \multicolumn{1}{c|}{MAE} & \multicolumn{1}{c|}{Índice de Davies-Bouldin} & \multicolumn{1}{c|}{} & Confianza \\ \hline
-		\multicolumn{1}{|c|}{Recall} & \multicolumn{1}{c|}{R cuadrado} & \multicolumn{1}{c|}{} & \multicolumn{1}{c|}{} & Lift \\ \hline
-		\multicolumn{1}{|c|}{F1-Score} & \multicolumn{1}{c|}{} & \multicolumn{1}{c|}{} & \multicolumn{1}{c|}{} &  \\ \hline
-		\multicolumn{1}{|c|}{Matriz de confusión} & \multicolumn{1}{c|}{} & \multicolumn{1}{c|}{} & \multicolumn{1}{c|}{} &  \\ \hline
-		\multicolumn{1}{|c|}{Curva ROC AUC} & \multicolumn{1}{c|}{} & \multicolumn{1}{c|}{} & \multicolumn{1}{c|}{} &  \\ \hline
-	\end{tabular}
-	}
-\end{table}
+En la capa de convolución, se definen los parámetros como la cantidad de núcleos (kernel) y su tamaño, el cual consiste en aplicar una matriz a cada pixel de una imagen multiplicando elemento a elemento, es decir, aplica un filtro a una imagen y su objetivo es capturar alguna característica importante de ella.
+En Python, se definen como:
+\begin{minted}[breaklines, breakanywhere]{Python}
+sec.add(Conv2D(32, (3, 3), input_shape=(28,28,1), activation='relu'))
+\end{minted}
+donde los argumentos de Conv2D son:
+\begin{itemize}
+	\item 32: número de núcleos.
+	\item (3,3): tamaño de los núcleos (matriz).
+	\item \texttt{\textcolor{blue}{input$\_$shape=(28,28,1)}}: tamaño de la imagen de entrada y su número de canales (en el caso de blanco y negro es 1).
+\end{itemize}
+A continuación, la capa de agrupación (o pooling o submuestreo) reduce el tamaño de la imagen y resalta la características de la misma. A diferencia de la capa anterior, la de agrupación no avanza pixel por pixel, sino que avanza según el tamaño de la matriz, eligiendo los pixeles con mayor valor.
+
+Se colocan una capa de convolución seguida de una de agrupación. De esta forma, extrae patrones complejos, al igual que lo hace el cerebro humano. El siguiente código muestra una capa de agrupación:
+\begin{minted}[breaklines, breakanywhere]{Python}
+sec.add(MaxPooling2D((3, 3), 2))
+sec.add(Flatten())
+\end{minted}
+donde:
+\begin{itemize}
+	\item \texttt{\textcolor{blue}{MaxPooling2D()}}: es la función que define una capa de Max Pooling en dos dimensiones.
+	\item (3, 3): especifica el tamaño de la matriz.
+	\item 2: es el stride, el parámetro que indica el desplazamiento de la matriz. Un stride de 2 significa que se mueve 2 pixeles a la vez.
+	\item \texttt{\textcolor{blue}{Flatten()}}: transforma las características 2D que entrega Max Pooling en un vector 1D. Es necesario antes de pasar a las capas densas.
+\end{itemize}
+Luego, se agregan capas de ocultas y se finaliza con la capa de salida, como en el siguiente código:
+\begin{minted}[breaklines, breakanywhere]{Python}
+from keras.models import Sequential
+from keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout
+
+# Numero de clases para capa de salida
+n_class = y_test.shape[1]
+
+sec = Sequential()
+
+# Capa entrada
+sec.add(Input(shape=(X_train.shape[1], X_train.shape[2], X_train.shape[3])))
+
+# Capa convolucional
+sec.add(Conv2D(32, (3, 3), activation='relu', kernel_constraint=MaxNorm(3), padding='same'))
+
+sec.add(Dropout(.3))
+sec.add(Conv2D(32, (3, 3), activation='relu', kernel_constraint=MaxNorm(3), padding='same'))
+
+# Capa agrupacion
+sec.add(MaxPooling2D(pool_size=(2, 2)))
+sec.add(Flatten())
+
+# Capa oculta
+sec.add(Dense(512, activation='relu', kernel_constraint=MaxNorm(3)))
+sec.add(Dropout(.2))
+
+# Capa de salida
+sec.add(Dense(n_class, activation='softmax', kernel_constraint=MaxNorm(3)))
+
+sec.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
+
+sec.summary()
+\end{minted}
 
 %
 %	CAPITULO
