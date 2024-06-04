@@ -155,6 +155,7 @@
 \contentsline {chapter}{\numberline {9}Redes neuronales}{125}{chapter.9}%
 \contentsline {section}{\numberline {9.1}Perceptrón}{125}{section.9.1}%
 \contentsline {section}{\numberline {9.2}Redes neuronales}{127}{section.9.2}%
+\contentsline {subsection}{\numberline {9.2.1}Dropout}{130}{subsection.9.2.1}%
 \contentsline {section}{\numberline {9.3}Redes neuronales convolucionales}{130}{section.9.3}%
 \contentsline {chapter}{\numberline {10}Git y GitHub}{133}{chapter.10}%
 \contentsline {section}{\numberline {10.1}Git}{133}{section.10.1}%

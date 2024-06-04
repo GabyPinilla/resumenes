@@ -3684,6 +3684,16 @@ model_sec.add(Dense(
 ))
 \end{minted}
 
+\subsection{Dropout}
+El Dropout es una técnica de regularización que se utiliza para reducir el overfitting. Su función es apagar aleatoriamente neuronas durante el entrenamiento.
+\begin{minted}[breaklines, breakanywhere]{Python}
+from keras.layers import Dropout
+
+model_sec.add(
+Dropout(rate=dropout_rate)
+)
+\end{minted}
+
 \section{Redes neuronales convolucionales}
 Las redes convolucionales (CNN) son redes diseñadas específicamente para procesar datos con una estructura cuadrada, como las imágenes. Se usan para el reconocimiento de imágenes o clasificación de objetos.
 
