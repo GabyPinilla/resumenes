@@ -3586,7 +3586,7 @@ Luego, este valor pasa por la función de activación, que lo transforma en un v
 \begin{enumerate}
 	\item Función escalón
 	\item Función sigmoidal: se usa principalmente para problemas de clasificación binaria.
-	\item Función rectificadora (ReLu): activa la neurona solo si la entrada está por sobre cero. Si este valor es menor a cero, la salida será cero. De lo contrario, aumentará la salida de forma lineal.
+	\item Función rectificadora (ReLu): activa la neurona solo si la entrada está por sobre cero. Si este valor es menor a cero, la salida será cero. De lo contrario, aumentará la salida de forma lineal. Se usa con datos no lineales.
 	\item Función tangente hiperbólica
 	\item Función lineal
 	\item Función logística multiclase (softmax): se usa para problemas de clasificación multiclase.
@@ -3653,13 +3653,19 @@ print('\nMétricas conjunto de test')
 print(f'r2 = {r2_score(y_test, y_pred)}')
 print(f'RMSE = {mean_squared_error(y_test, y_pred, squared=False)}')
 print()
-# Graficando
-plt.scatter(X_test, y_test, label='Datos reales')
-plt.plot(X_test, y_pred, ls='--', color='gray', lw=1.5, label='Prediccion')
-plt.xlabel('Rut')
-plt.ylabel('Edad')
-plt.legend();
 \end{minted}
+
+Al ajustar el modelo, se debe definir la cantidad de épocas en \texttt{\textcolor{blue}{epochs}}. Las épocas consisten en pasar todo el conjunto de entrenamiento por el modelo. Otro parámetro del ajuste es \texttt{\textcolor{blue}{batch$\_$size}}, el cual determina la cantidad de datos de entrenamiento que se utilizan en una época. Por lo general se usan batch size de 8, 16, 32, 64, 128, 256, etc. Se recomienda comenzar con 32 o 64 para luego modificarlo. \texttt{\textcolor{blue}{validation$\_$data}} se usa para evaluar el rendimiento del modelo durante el entrenamiento al final de cada época. Finalmente, \texttt{\textcolor{blue}{evaluate}} evalúa el modelo con el conjunto de prueba.
+\begin{minted}[breaklines, breakanywhere]{Python}
+# Cant de epocas
+epochs = 5
+# Ajuste
+cnn_hist = cnn.fit(X_train, y_train, batch_size=128, epochs=epochs, validation_data=(X_test, y_test))
+# Evaluando el modelo
+score = cnn.evaluate(X_test, y_test, verbose=0)
+print(f'accuracy: {score[1]*100}%')
+\end{minted}
+
 
 Ejemplo de una red neuronal con una capa oculta:
 \begin{minted}[breaklines, breakanywhere]{Python}
@@ -3689,9 +3695,7 @@ El Dropout es una técnica de regularización que se utiliza para reducir el ove
 \begin{minted}[breaklines, breakanywhere]{Python}
 from keras.layers import Dropout
 
-model_sec.add(
-Dropout(rate=dropout_rate)
-)
+model_sec.add(Dropout(rate=dropout_rate))
 \end{minted}
 
 \section{Redes neuronales convolucionales}
@@ -3709,7 +3713,7 @@ donde los argumentos de Conv2D son:
 \begin{itemize}
 	\item 32: número de núcleos.
 	\item (3,3): tamaño de los núcleos (matriz).
-	\item \texttt{\textcolor{blue}{input$\_$shape=(28,28,1)}}: tamaño de la imagen de entrada y su número de canales (en el caso de blanco y negro es 1).
+	\item \texttt{\textcolor{blue}{keras.Input(shape=(28,28,1))}}: tamaño de la imagen de entrada y su número de canales (en el caso de blanco y negro es 1). Otra forma de definirlo es \texttt{\textcolor{blue}{keras.Input(shape=(X$\_$train.shape[1], X$\_$train.shape[2], X$\_$train.shape[3]))}}.
 \end{itemize}
 A continuación, la capa de agrupación (o pooling o submuestreo) reduce el tamaño de la imagen y resalta la características de la misma. A diferencia de la capa anterior, la de agrupación no avanza pixel por pixel, sino que avanza según el tamaño de la matriz, eligiendo los pixeles con mayor valor.
 
@@ -3760,6 +3764,21 @@ sec.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accurac
 sec.summary()
 \end{minted}
 
+\newpage
+\section{Resumen}
+\begin{table}[H]
+	\resizebox{15cm}{!} {
+	\begin{tabular}{|l|l|l|}
+		\hline
+		Función activación & Función pérdida & Inicializador peso \\ \hline
+		ReLu & Mean Square Error & HeNormal o HeUniforme \\ \hline
+		Sigmoid & Binary cross entropy & GlorotNormal o GlorotUniforme \\ \hline
+		Lineal & Mean Square Error & GlorotNormal o GlorotUniforme \\ \hline
+		Tanh & Mean Square Error o Categorical cross entropy & GlorotNormal o GlorotUniforme \\ \hline
+		Softmax & Categorical cross entropy & GlorotNormal o GlorotUniforme \\ \hline
+	\end{tabular}
+	}
+\end{table}
 %
 %	CAPITULO
 \chapter{Git y GitHub}

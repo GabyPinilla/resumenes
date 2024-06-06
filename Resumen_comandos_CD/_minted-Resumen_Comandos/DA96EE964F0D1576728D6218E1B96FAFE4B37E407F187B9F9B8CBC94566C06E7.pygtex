@@ -1,7 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{k+kn}{from} \PYG{n+nn}{keras.layers} \PYG{k+kn}{import} \PYG{n}{Dropout}
-
-\PYG{n}{model\PYGZus{}sec}\PYG{o}{.}\PYG{n}{add}\PYG{p}{(}
-\PYG{n}{Dropout}\PYG{p}{(}\PYG{n}{rate}\PYG{o}{=}\PYG{n}{dropout\PYGZus{}rate}\PYG{p}{)}
-\PYG{p}{)}
-\end{Verbatim}

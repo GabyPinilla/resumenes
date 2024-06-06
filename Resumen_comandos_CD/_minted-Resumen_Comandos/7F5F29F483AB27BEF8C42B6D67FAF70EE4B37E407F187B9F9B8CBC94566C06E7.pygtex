@@ -1,0 +1,9 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} Cant de epocas}
+\PYG{n}{epochs} \PYG{o}{=} \PYG{l+m+mi}{5}
+\PYG{c+c1}{\PYGZsh{} Ajuste}
+\PYG{n}{cnn\PYGZus{}hist} \PYG{o}{=} \PYG{n}{cnn}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{n}{X\PYGZus{}train}\PYG{p}{,} \PYG{n}{y\PYGZus{}train}\PYG{p}{,} \PYG{n}{batch\PYGZus{}size}\PYG{o}{=}\PYG{l+m+mi}{128}\PYG{p}{,} \PYG{n}{epochs}\PYG{o}{=}\PYG{n}{epochs}\PYG{p}{,} \PYG{n}{validation\PYGZus{}data}\PYG{o}{=}\PYG{p}{(}\PYG{n}{X\PYGZus{}test}\PYG{p}{,} \PYG{n}{y\PYGZus{}test}\PYG{p}{))}
+\PYG{c+c1}{\PYGZsh{} Evaluando el modelo}
+\PYG{n}{score} \PYG{o}{=} \PYG{n}{cnn}\PYG{o}{.}\PYG{n}{evaluate}\PYG{p}{(}\PYG{n}{X\PYGZus{}test}\PYG{p}{,} \PYG{n}{y\PYGZus{}test}\PYG{p}{,} \PYG{n}{verbose}\PYG{o}{=}\PYG{l+m+mi}{0}\PYG{p}{)}
+\PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s1}{\PYGZsq{}accuracy: }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{score}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]}\PYG{o}{*}\PYG{l+m+mi}{100}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s1}{\PYGZpc{}\PYGZsq{}}\PYG{p}{)}
+\end{Verbatim}

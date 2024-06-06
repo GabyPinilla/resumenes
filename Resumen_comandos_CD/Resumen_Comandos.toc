@@ -157,9 +157,10 @@
 \contentsline {section}{\numberline {9.2}Redes neuronales}{127}{section.9.2}%
 \contentsline {subsection}{\numberline {9.2.1}Dropout}{130}{subsection.9.2.1}%
 \contentsline {section}{\numberline {9.3}Redes neuronales convolucionales}{130}{section.9.3}%
-\contentsline {chapter}{\numberline {10}Git y GitHub}{133}{chapter.10}%
-\contentsline {section}{\numberline {10.1}Git}{133}{section.10.1}%
-\contentsline {subsection}{\numberline {10.1.1}Repositorios}{133}{subsection.10.1.1}%
-\contentsline {subsection}{\numberline {10.1.2}.gitignore}{134}{subsection.10.1.2}%
-\contentsline {subsection}{\numberline {10.1.3}Ramas}{134}{subsection.10.1.3}%
-\contentsline {chapter}{\numberline {11}Glosario de términos de programación}{137}{chapter.11}%
+\contentsline {section}{\numberline {9.4}Resumen}{133}{section.9.4}%
+\contentsline {chapter}{\numberline {10}Git y GitHub}{135}{chapter.10}%
+\contentsline {section}{\numberline {10.1}Git}{135}{section.10.1}%
+\contentsline {subsection}{\numberline {10.1.1}Repositorios}{135}{subsection.10.1.1}%
+\contentsline {subsection}{\numberline {10.1.2}.gitignore}{136}{subsection.10.1.2}%
+\contentsline {subsection}{\numberline {10.1.3}Ramas}{136}{subsection.10.1.3}%
+\contentsline {chapter}{\numberline {11}Glosario de términos de programación}{139}{chapter.11}%
