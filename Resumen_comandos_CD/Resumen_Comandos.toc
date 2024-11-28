@@ -3,117 +3,117 @@
 \contentsline {section}{\numberline {1.1}Notas previas...}{1}{section.1.1}%
 \contentsline {section}{\numberline {1.2}Comandos básicos}{1}{section.1.2}%
 \contentsline {subsection}{\numberline {1.2.1}Estructura básica de una consulta}{1}{subsection.1.2.1}%
-\contentsline {subsection}{\numberline {1.2.2}Where vs Having}{2}{subsection.1.2.2}%
-\contentsline {subsection}{\numberline {1.2.3}Crear una base de datos}{2}{subsection.1.2.3}%
-\contentsline {subsection}{\numberline {1.2.4}Crear una tabla}{2}{subsection.1.2.4}%
-\contentsline {subsection}{\numberline {1.2.5}Insertar datos a una tabla}{2}{subsection.1.2.5}%
-\contentsline {subsection}{\numberline {1.2.6}Ver todos los datos}{2}{subsection.1.2.6}%
-\contentsline {section}{\numberline {1.3}Limpieza, orden y transformación de datos}{3}{section.1.3}%
-\contentsline {subsection}{\numberline {1.3.1}Manipulación de filas y columnas}{3}{subsection.1.3.1}%
-\contentsline {subsection}{\numberline {1.3.2}Orden}{4}{subsection.1.3.2}%
-\contentsline {subsection}{\numberline {1.3.3}Conversión de tipos}{4}{subsection.1.3.3}%
+\contentsline {subsection}{\numberline {1.2.2}Crear una base de datos}{2}{subsection.1.2.2}%
+\contentsline {subsection}{\numberline {1.2.3}Crear una tabla}{2}{subsection.1.2.3}%
+\contentsline {subsection}{\numberline {1.2.4}Insertar datos a una tabla}{2}{subsection.1.2.4}%
+\contentsline {subsection}{\numberline {1.2.5}Ver todos los datos}{2}{subsection.1.2.5}%
+\contentsline {section}{\numberline {1.3}Limpieza, orden y transformación de datos}{2}{section.1.3}%
+\contentsline {subsection}{\numberline {1.3.1}Manipulación de filas y columnas}{2}{subsection.1.3.1}%
+\contentsline {subsection}{\numberline {1.3.2}Orden y filtrado}{4}{subsection.1.3.2}%
+\contentsline {subsection}{\numberline {1.3.3}Where vs Having}{4}{subsection.1.3.3}%
+\contentsline {subsection}{\numberline {1.3.4}Conversión de tipos}{5}{subsection.1.3.4}%
 \contentsline {section}{\numberline {1.4}Análisis y visualización}{5}{section.1.4}%
 \contentsline {subsection}{\numberline {1.4.1}Cálculos matemáticos básicos}{5}{subsection.1.4.1}%
-\contentsline {subsection}{\numberline {1.4.2}Número de caracteres de cada fila}{5}{subsection.1.4.2}%
-\contentsline {subsection}{\numberline {1.4.3}Extraer un substring de un string}{6}{subsection.1.4.3}%
-\contentsline {subsection}{\numberline {1.4.4}Devolver valores nulos}{6}{subsection.1.4.4}%
-\contentsline {subsection}{\numberline {1.4.5}Subconsulta}{6}{subsection.1.4.5}%
-\contentsline {subsection}{\numberline {1.4.6}Consultas en múltiples tablas}{6}{subsection.1.4.6}%
-\contentsline {chapter}{\numberline {2}Terminal Windows}{9}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Comandos comunes}{9}{section.2.1}%
-\contentsline {chapter}{\numberline {3}Excel y Google Sheets}{11}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Notas previas...}{11}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Comandos básicos}{11}{section.3.2}%
-\contentsline {section}{\numberline {3.3}Limpieza, orden y transformación de datos}{11}{section.3.3}%
-\contentsline {subsection}{\numberline {3.3.1}Filtrado}{11}{subsection.3.3.1}%
-\contentsline {subsection}{\numberline {3.3.2}Orden}{12}{subsection.3.3.2}%
-\contentsline {subsection}{\numberline {3.3.3}Quitar duplicados}{12}{subsection.3.3.3}%
-\contentsline {subsection}{\numberline {3.3.4}Funciones lógicas}{12}{subsection.3.3.4}%
-\contentsline {subsection}{\numberline {3.3.5}Manipulación de strings}{12}{subsection.3.3.5}%
-\contentsline {subsection}{\numberline {3.3.6}Formatos de fechas}{13}{subsection.3.3.6}%
-\contentsline {subsection}{\numberline {3.3.7}BURSCARV y BURSCARH}{13}{subsection.3.3.7}%
-\contentsline {subsection}{\numberline {3.3.8}Formato de datos}{14}{subsection.3.3.8}%
-\contentsline {subsection}{\numberline {3.3.9}Formato condicional}{14}{subsection.3.3.9}%
-\contentsline {section}{\numberline {3.4}Análisis y visualización}{14}{section.3.4}%
-\contentsline {subsection}{\numberline {3.4.1}Cálculos matemáticos básicos}{14}{subsection.3.4.1}%
-\contentsline {subsection}{\numberline {3.4.2}Cálculos con múltiples criterios}{15}{subsection.3.4.2}%
-\contentsline {subsection}{\numberline {3.4.3}Tablas dinámicas}{15}{subsection.3.4.3}%
-\contentsline {subsection}{\numberline {3.4.4}Creación de gráficos}{15}{subsection.3.4.4}%
-\contentsline {section}{\numberline {3.5}Importación de datos}{15}{section.3.5}%
-\contentsline {section}{\numberline {3.6}Errores}{15}{section.3.6}%
-\contentsline {chapter}{\numberline {4}Tableau Public}{17}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Creación de visualizaciones}{17}{section.4.1}%
-\contentsline {subsection}{\numberline {4.1.1}Importación de datos y conexiones}{17}{subsection.4.1.1}%
-\contentsline {subsection}{\numberline {4.1.2}Campos calculados}{18}{subsection.4.1.2}%
-\contentsline {subsection}{\numberline {4.1.3}Conceptos y elementos de Tableau}{20}{subsection.4.1.3}%
-\contentsline {subsection}{\numberline {4.1.4}Filtros}{21}{subsection.4.1.4}%
-\contentsline {section}{\numberline {4.2}Creación de visualizaciones básicas}{23}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Diseño y personalización de paneles}{29}{section.4.3}%
-\contentsline {subsection}{\numberline {4.3.1}Funciones de agregación}{30}{subsection.4.3.1}%
-\contentsline {subsection}{\numberline {4.3.2}Funciones LOD}{30}{subsection.4.3.2}%
-\contentsline {section}{\numberline {4.4}Dashboards}{31}{section.4.4}%
-\contentsline {subsection}{\numberline {4.4.1}Creación de un dashboard}{31}{subsection.4.4.1}%
-\contentsline {chapter}{\numberline {5}Python}{33}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Notas previas...}{33}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Librerías}{33}{section.5.2}%
-\contentsline {subsection}{\numberline {5.2.1}Importación de datos}{33}{subsection.5.2.1}%
-\contentsline {section}{\numberline {5.3}Conceptos previos}{34}{section.5.3}%
-\contentsline {subsection}{\numberline {5.3.1}Manipulación de strings}{34}{subsection.5.3.1}%
-\contentsline {subsection}{\numberline {5.3.2}Estructuras de datos}{36}{subsection.5.3.2}%
-\contentsline {section}{\numberline {5.4}Limpieza, orden y transformación de datos}{37}{section.5.4}%
-\contentsline {subsection}{\numberline {5.4.1}Bibliotecas}{37}{subsection.5.4.1}%
-\contentsline {subsection}{\numberline {5.4.2}NumPy Arrays}{38}{subsection.5.4.2}%
-\contentsline {subsection}{\numberline {5.4.3}Tipos de datos de Pandas}{39}{subsection.5.4.3}%
-\contentsline {subsubsection}{Series}{39}{section*.2}%
-\contentsline {subsubsection}{DataFrame}{40}{section*.3}%
-\contentsline {subsection}{\numberline {5.4.4}Importación datos}{41}{subsection.5.4.4}%
-\contentsline {subsection}{\numberline {5.4.5}Resúmenes de datos}{41}{subsection.5.4.5}%
-\contentsline {subsection}{\numberline {5.4.6}Manipulación y limpieza de datos}{41}{subsection.5.4.6}%
-\contentsline {subsubsection}{Transformación de datos}{41}{section*.4}%
-\contentsline {subsubsection}{Búsqueda de valores}{42}{section*.5}%
-\contentsline {subsubsection}{Tratamiento de datos nulos}{42}{section*.6}%
-\contentsline {subsubsection}{Tratamiento de datos duplicados}{43}{section*.7}%
-\contentsline {subsubsection}{Tratamiento de datos atípicos}{44}{section*.8}%
-\contentsline {subsubsection}{Filtros}{44}{section*.9}%
-\contentsline {subsubsection}{Orden}{45}{section*.10}%
-\contentsline {subsubsection}{Agrupación de datos}{45}{section*.11}%
-\contentsline {subsection}{\numberline {5.4.7}Cruce de tablas}{47}{subsection.5.4.7}%
-\contentsline {section}{\numberline {5.5}Probabilidad y estadística}{47}{section.5.5}%
-\contentsline {subsection}{\numberline {5.5.1}Estadística}{47}{subsection.5.5.1}%
-\contentsline {subsubsection}{Tipos de datos en estadística}{47}{section*.12}%
-\contentsline {subsubsection}{Medidas de tendencia central}{48}{section*.13}%
-\contentsline {subsubsection}{Indicadores de posición}{48}{section*.14}%
-\contentsline {subsubsection}{Medidas de dispersión}{49}{section*.15}%
-\contentsline {subsection}{\numberline {5.5.2}Probabilidad}{50}{subsection.5.5.2}%
-\contentsline {subsubsection}{Probabilidad condicional}{50}{section*.16}%
-\contentsline {subsubsection}{Variable aleatoria}{51}{section*.17}%
-\contentsline {subsubsection}{Distribución de probabilidad}{51}{section*.18}%
-\contentsline {subsubsection}{Distribución binomial}{52}{section*.19}%
-\contentsline {subsubsection}{Distribución normal}{52}{section*.20}%
-\contentsline {subsubsection}{Ley de los grandes números}{53}{section*.21}%
-\contentsline {subsubsection}{Teorema del límite central}{53}{section*.22}%
-\contentsline {section}{\numberline {5.6}Estadística inferencial}{53}{section.5.6}%
-\contentsline {subsection}{\numberline {5.6.1}Prueba de hipótesis}{54}{subsection.5.6.1}%
-\contentsline {section}{\numberline {5.7}Regresión}{55}{section.5.7}%
-\contentsline {subsection}{\numberline {5.7.1}Coeficiente de correlación}{55}{subsection.5.7.1}%
-\contentsline {subsection}{\numberline {5.7.2}Coeficiente de determinación}{56}{subsection.5.7.2}%
-\contentsline {subsection}{\numberline {5.7.3}Regresión lineal}{56}{subsection.5.7.3}%
-\contentsline {subsubsection}{Regresión lineal múltiple}{59}{section*.23}%
-\contentsline {subsection}{\numberline {5.7.4}Residuos}{60}{subsection.5.7.4}%
-\contentsline {section}{\numberline {5.8}Gráficas con matplotlib y seaborn}{61}{section.5.8}%
-\contentsline {subsubsection}{Gráfico de líneas}{64}{section*.24}%
-\contentsline {subsubsection}{Histograma}{65}{section*.25}%
-\contentsline {subsubsection}{Distribución normal}{67}{section*.26}%
-\contentsline {subsubsection}{Boxplot}{68}{section*.27}%
-\contentsline {subsubsection}{Gráfico de barras}{70}{section*.28}%
-\contentsline {subsubsection}{Scatterplot}{70}{section*.29}%
+\contentsline {subsection}{\numberline {1.4.2}Número de caracteres de cada fila}{6}{subsection.1.4.2}%
+\contentsline {subsection}{\numberline {1.4.3}Extraer un substring de un string}{7}{subsection.1.4.3}%
+\contentsline {subsection}{\numberline {1.4.4}Devolver valores nulos}{7}{subsection.1.4.4}%
+\contentsline {subsection}{\numberline {1.4.5}Subconsulta}{7}{subsection.1.4.5}%
+\contentsline {subsection}{\numberline {1.4.6}Consultas en múltiples tablas}{7}{subsection.1.4.6}%
+\contentsline {chapter}{\numberline {2}Terminal Windows}{11}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Comandos comunes}{11}{section.2.1}%
+\contentsline {chapter}{\numberline {3}Excel y Google Sheets}{13}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Notas previas...}{13}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Comandos básicos}{13}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Limpieza, orden y transformación de datos}{13}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Filtrado}{13}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.3.2}Orden}{14}{subsection.3.3.2}%
+\contentsline {subsection}{\numberline {3.3.3}Quitar duplicados}{14}{subsection.3.3.3}%
+\contentsline {subsection}{\numberline {3.3.4}Funciones lógicas}{14}{subsection.3.3.4}%
+\contentsline {subsection}{\numberline {3.3.5}Manipulación de strings}{14}{subsection.3.3.5}%
+\contentsline {subsection}{\numberline {3.3.6}Formatos de fechas}{15}{subsection.3.3.6}%
+\contentsline {subsection}{\numberline {3.3.7}BURSCARV y BURSCARH}{15}{subsection.3.3.7}%
+\contentsline {subsection}{\numberline {3.3.8}Formato de datos}{16}{subsection.3.3.8}%
+\contentsline {subsection}{\numberline {3.3.9}Formato condicional}{16}{subsection.3.3.9}%
+\contentsline {section}{\numberline {3.4}Análisis y visualización}{16}{section.3.4}%
+\contentsline {subsection}{\numberline {3.4.1}Cálculos matemáticos básicos}{16}{subsection.3.4.1}%
+\contentsline {subsection}{\numberline {3.4.2}Cálculos con múltiples criterios}{17}{subsection.3.4.2}%
+\contentsline {subsection}{\numberline {3.4.3}Tablas dinámicas}{17}{subsection.3.4.3}%
+\contentsline {subsection}{\numberline {3.4.4}Creación de gráficos}{17}{subsection.3.4.4}%
+\contentsline {section}{\numberline {3.5}Importación de datos}{17}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Errores}{17}{section.3.6}%
+\contentsline {chapter}{\numberline {4}Tableau Public}{19}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Creación de visualizaciones}{19}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Importación de datos y conexiones}{19}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.2}Campos calculados}{20}{subsection.4.1.2}%
+\contentsline {subsection}{\numberline {4.1.3}Conceptos y elementos de Tableau}{22}{subsection.4.1.3}%
+\contentsline {subsection}{\numberline {4.1.4}Filtros}{23}{subsection.4.1.4}%
+\contentsline {section}{\numberline {4.2}Creación de visualizaciones básicas}{25}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Diseño y personalización de paneles}{31}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Funciones de agregación}{32}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}Funciones LOD}{32}{subsection.4.3.2}%
+\contentsline {section}{\numberline {4.4}Dashboards}{33}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}Creación de un dashboard}{33}{subsection.4.4.1}%
+\contentsline {chapter}{\numberline {5}Python}{35}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Notas previas...}{35}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Librerías}{35}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Importación de datos}{35}{subsection.5.2.1}%
+\contentsline {section}{\numberline {5.3}Conceptos previos}{36}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}Manipulación de strings}{36}{subsection.5.3.1}%
+\contentsline {subsection}{\numberline {5.3.2}Estructuras de datos}{38}{subsection.5.3.2}%
+\contentsline {section}{\numberline {5.4}Limpieza, orden y transformación de datos}{39}{section.5.4}%
+\contentsline {subsection}{\numberline {5.4.1}Bibliotecas}{39}{subsection.5.4.1}%
+\contentsline {subsection}{\numberline {5.4.2}NumPy Arrays}{40}{subsection.5.4.2}%
+\contentsline {subsection}{\numberline {5.4.3}Tipos de datos de Pandas}{41}{subsection.5.4.3}%
+\contentsline {subsubsection}{Series}{41}{section*.2}%
+\contentsline {subsubsection}{DataFrame}{41}{section*.3}%
+\contentsline {subsection}{\numberline {5.4.4}Importación datos}{43}{subsection.5.4.4}%
+\contentsline {subsection}{\numberline {5.4.5}Resúmenes de datos}{43}{subsection.5.4.5}%
+\contentsline {subsection}{\numberline {5.4.6}Manipulación y limpieza de datos}{43}{subsection.5.4.6}%
+\contentsline {subsubsection}{Transformación de datos}{43}{section*.4}%
+\contentsline {subsubsection}{Búsqueda de valores}{44}{section*.5}%
+\contentsline {subsubsection}{Tratamiento de datos nulos}{44}{section*.6}%
+\contentsline {subsubsection}{Tratamiento de datos duplicados}{45}{section*.7}%
+\contentsline {subsubsection}{Tratamiento de datos atípicos}{46}{section*.8}%
+\contentsline {subsubsection}{Filtros}{46}{section*.9}%
+\contentsline {subsubsection}{Orden}{47}{section*.10}%
+\contentsline {subsubsection}{Agrupación de datos}{47}{section*.11}%
+\contentsline {subsection}{\numberline {5.4.7}Cruce de tablas}{48}{subsection.5.4.7}%
+\contentsline {section}{\numberline {5.5}Probabilidad y estadística}{49}{section.5.5}%
+\contentsline {subsection}{\numberline {5.5.1}Estadística}{49}{subsection.5.5.1}%
+\contentsline {subsubsection}{Tipos de datos en estadística}{49}{section*.12}%
+\contentsline {subsubsection}{Medidas de tendencia central}{50}{section*.13}%
+\contentsline {subsubsection}{Indicadores de posición}{50}{section*.14}%
+\contentsline {subsubsection}{Medidas de dispersión}{51}{section*.15}%
+\contentsline {subsection}{\numberline {5.5.2}Probabilidad}{52}{subsection.5.5.2}%
+\contentsline {subsubsection}{Probabilidad condicional}{52}{section*.16}%
+\contentsline {subsubsection}{Variable aleatoria}{53}{section*.17}%
+\contentsline {subsubsection}{Distribución de probabilidad}{53}{section*.18}%
+\contentsline {subsubsection}{Distribución binomial}{53}{section*.19}%
+\contentsline {subsubsection}{Distribución normal}{54}{section*.20}%
+\contentsline {subsubsection}{Ley de los grandes números}{55}{section*.21}%
+\contentsline {subsubsection}{Teorema del límite central}{55}{section*.22}%
+\contentsline {section}{\numberline {5.6}Estadística inferencial}{55}{section.5.6}%
+\contentsline {subsection}{\numberline {5.6.1}Prueba de hipótesis}{56}{subsection.5.6.1}%
+\contentsline {section}{\numberline {5.7}Regresión}{57}{section.5.7}%
+\contentsline {subsection}{\numberline {5.7.1}Coeficiente de correlación}{57}{subsection.5.7.1}%
+\contentsline {subsection}{\numberline {5.7.2}Coeficiente de determinación}{57}{subsection.5.7.2}%
+\contentsline {subsection}{\numberline {5.7.3}Regresión lineal}{58}{subsection.5.7.3}%
+\contentsline {subsubsection}{Regresión lineal múltiple}{61}{section*.23}%
+\contentsline {subsection}{\numberline {5.7.4}Residuos}{62}{subsection.5.7.4}%
+\contentsline {section}{\numberline {5.8}Gráficas con matplotlib y seaborn}{63}{section.5.8}%
+\contentsline {subsubsection}{Gráfico de líneas}{66}{section*.24}%
+\contentsline {subsubsection}{Histograma}{67}{section*.25}%
+\contentsline {subsubsection}{Distribución normal}{68}{section*.26}%
+\contentsline {subsubsection}{Boxplot}{70}{section*.27}%
+\contentsline {subsubsection}{Gráfico de barras}{71}{section*.28}%
+\contentsline {subsubsection}{Scatterplot}{72}{section*.29}%
 \contentsline {chapter}{\numberline {6}R}{73}{chapter.6}%
 \contentsline {section}{\numberline {6.1}Notas previas...}{73}{section.6.1}%
 \contentsline {section}{\numberline {6.2}Paquetes}{73}{section.6.2}%
 \contentsline {section}{\numberline {6.3}Limpieza}{74}{section.6.3}%
 \contentsline {subsection}{\numberline {6.3.1}Resúmenes de datos}{74}{subsection.6.3.1}%
 \contentsline {section}{\numberline {6.4}Orden}{74}{section.6.4}%
-\contentsline {section}{\numberline {6.5}Transformación de datos}{75}{section.6.5}%
+\contentsline {section}{\numberline {6.5}Transformación de datos}{74}{section.6.5}%
 \contentsline {section}{\numberline {6.6}Cálculos matemáticos}{75}{section.6.6}%
 \contentsline {section}{\numberline {6.7}Visualización}{75}{section.6.7}%
 \contentsline {subsection}{\numberline {6.7.1}Suavizado}{77}{subsection.6.7.1}%
@@ -137,21 +137,21 @@
 \contentsline {subsubsection}{Árboles de decisión}{99}{section*.41}%
 \contentsline {subsubsection}{Árboles de regresión}{100}{section*.42}%
 \contentsline {subsubsection}{Naive Bayes}{102}{section*.43}%
-\contentsline {subsubsection}{Lazy predict}{104}{section*.44}%
-\contentsline {subsubsection}{Series de tiempo}{105}{section*.45}%
-\contentsline {subsection}{\numberline {8.2.1}Aprendizaje no supervisado}{112}{subsection.8.2.1}%
+\contentsline {subsubsection}{Lazy predict}{103}{section*.44}%
+\contentsline {subsubsection}{Series de tiempo}{104}{section*.45}%
+\contentsline {subsection}{\numberline {8.2.1}Aprendizaje no supervisado}{111}{subsection.8.2.1}%
 \contentsline {subsubsection}{Métricas de evaluación}{112}{section*.46}%
-\contentsline {subsubsection}{K-means}{113}{section*.47}%
-\contentsline {subsubsection}{Fuzzy C-Means (FCM)}{116}{section*.48}%
-\contentsline {subsubsection}{Clustering jerárquico}{118}{section*.49}%
-\contentsline {subsubsection}{Dendograma}{119}{section*.50}%
-\contentsline {subsubsection}{Reducción de dimensionalidad}{121}{section*.51}%
-\contentsline {subsection}{\numberline {8.2.2}Aprendizaje reforzado}{121}{subsection.8.2.2}%
-\contentsline {subsection}{\numberline {8.2.3}Inteligencia artificial generativa}{121}{subsection.8.2.3}%
-\contentsline {section}{\numberline {8.3}Ensambles}{121}{section.8.3}%
-\contentsline {subsection}{\numberline {8.3.1}Ensambles Bagging}{121}{subsection.8.3.1}%
-\contentsline {subsection}{\numberline {8.3.2}Ensambles Random Forest}{122}{subsection.8.3.2}%
-\contentsline {section}{\numberline {8.4}Resumen}{124}{section.8.4}%
+\contentsline {subsubsection}{K-means}{112}{section*.47}%
+\contentsline {subsubsection}{Fuzzy C-Means (FCM)}{115}{section*.48}%
+\contentsline {subsubsection}{Clustering jerárquico}{117}{section*.49}%
+\contentsline {subsubsection}{Dendograma}{118}{section*.50}%
+\contentsline {subsubsection}{Reducción de dimensionalidad}{119}{section*.51}%
+\contentsline {subsection}{\numberline {8.2.2}Aprendizaje reforzado}{119}{subsection.8.2.2}%
+\contentsline {subsection}{\numberline {8.2.3}Inteligencia artificial generativa}{120}{subsection.8.2.3}%
+\contentsline {section}{\numberline {8.3}Ensambles}{120}{section.8.3}%
+\contentsline {subsection}{\numberline {8.3.1}Ensambles Bagging}{120}{subsection.8.3.1}%
+\contentsline {subsection}{\numberline {8.3.2}Ensambles Random Forest}{121}{subsection.8.3.2}%
+\contentsline {section}{\numberline {8.4}Resumen}{123}{section.8.4}%
 \contentsline {chapter}{\numberline {9}Redes neuronales}{125}{chapter.9}%
 \contentsline {section}{\numberline {9.1}Perceptrón}{125}{section.9.1}%
 \contentsline {section}{\numberline {9.2}Redes neuronales}{127}{section.9.2}%
