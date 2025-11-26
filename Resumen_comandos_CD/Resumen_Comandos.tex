@@ -2383,6 +2383,32 @@ En el aprendizaje automático, existen cuatro tipos de aprendizaje que se verán
 	\item Inteligencia artificial generativa.
 \end{enumerate}
 
+\subsection{Normalización y estandarización}
+Las técnicas de escalado de datos más usadas son Standard scaler y Min Max.
+
+Standard scaler se usa para escalar características a una media de 0 y una desviación estándar de 1. Mejora el rendimiento del modelo dado que previene que las características con valores más grandes dominen por sobre otras.
+
+\begin{lstlisting}[style=pythonstyle]
+# Estandarizando las caracteristicas
+scaler = StandardScaler()
+
+variable_escalada = scaler.fit_transform(variable)
+\end{lstlisting}
+
+Por otra parte, Min Max scaler escala el conjunto de datos entre 0 (mínimo) y 1 (máximo). Se utiliza para evitar la media cero y varianza unitaria.
+\begin{lstlisting}[style=pythonstyle]
+# Normalizando las caracteristicas
+scaler_norm = MinMaxScaler()
+
+variable_escalada = scaler_norm.fit_transform(variable)
+\end{lstlisting}
+
+¿Cuándo normalizar y cuándo estandarizar?
+
+La normalización es útil cuando la distribución de los datos no se conoce o no sigue una distribución gaussiana, y en algoritmos que se basan en distancias entre puntos de datos, como K-NN.
+
+Por otra parte, la estandarización se usa en algoritmos basados en el gradiente, como SVM, o si las regresiones lineales y logísticas se pueden beneficiar de ella. También se usa como técnica de reducción de dimensionalidad.
+
 \section{Aprendizaje supervisado}
 Los modelos de aprendizaje supervisado se entrenan con conjuntos de datos etiquetados, es decir, ejemplos de entradas con sus correspondientes salidas. De esta forma, el modelo aprende a asociar los datos de entradas con sus correspondientes salidas para liego predecir la salida cuando se le presenten nuevos datos de entrada. Finalmente, se evalúa el modelo usando un conjunto de prueba, el cual también está conformado por datos etiquetados.
 
@@ -2465,7 +2491,7 @@ y_pred = logistic_regression_model.predict(X_resampled)
 \end{lstlisting}
 
 
-\subsubsection{Métricas de evaluación}
+\subsection{Métricas de evaluación}
 \begin{enumerate}
 	\item Exactitud (Accuracy): Absoluto del porcentaje que se predijo correctamente. Mide la proporción de las predicciones que son correctas.
 	\item Precisión (Precision): Se busca minimizar los falsos positivos. Mide cuando algo positivo sea realmente positivo. Minimiza los falsos positivos.
@@ -2607,6 +2633,7 @@ Mientras que los datos de salida del comando son:
 \end{enumerate}
 Luego, se crea una instancia del objeto de regresión lineal para entrenar el modelo con \texttt{\textcolor{blue}{X$\_$train}} e \texttt{\textcolor{blue}{y$\_$train}} y predecir con \texttt{\textcolor{blue}{X$\_$test}}, guardando las predicciones en \texttt{\textcolor{blue}{y$\_$pred}}. Finalmente, se evalúa el modelo mediante las métricas de evaluación usando \texttt{\textcolor{blue}{y$\_$test}} e \texttt{\textcolor{blue}{y$\_$pred}}.
 
+\subsection{Modelos}
 \subsubsection{Regresión lineal}
 En aprendizaje supervisado, la regresión lineal es un algoritmo que tiene como objetivo optimizar la capacidad de predicción del modelo sobre nuevos datos.
 
@@ -2670,6 +2697,7 @@ Sin embargo, la regresión lineal puede sufrir problemas como el overfitting. Pa
 	\item ElasticNet: combina las normas L1 y L2, el cual busca un equilibrio entre la selección de características y la reducción de coeficientes.
 \end{enumerate}
 La regularización también se puede utilizar en la regresión logística, modelos de regresión polinomial, no lineal o de clasificación, como SVM, árboles de decisión y random forests.
+
 \subsubsection{Regresión logística}
 La regresión logística se emplea para determinar la probabilidad de que un evento pertenezca a una de dos o más categorías. Se busca relacionar un conjunto de variables independientes con una dependiente, usando coeficientes que determinan un modelo lineal. Esta regresión busca predecir categorías.
 
@@ -3269,7 +3297,7 @@ fig1 = m.plot(forecast)
 # Grafico descompuesto
 fig2 = m.plot_components(forecast)
 \end{lstlisting}
-\subsection{Aprendizaje no supervisado}
+\section{Aprendizaje no supervisado}
 Este modelo hace predicciones a partir de conjuntos de datos que no tienen una salida o datos etiquetados. La etiqueta es la respuesta o valor que se quiere que el modelo prediga. Su objetivo es identificar patrones en los datos de entrada. En lugar de predecir una salida, busca agrupar los datos en función de características comunes.
 
 Posee dos categorías:
@@ -3278,7 +3306,7 @@ Posee dos categorías:
 	\item Reducción de dimensionalidad: utilizan técnicas para reducir la cantidad de variables en un conjunto.
 \end{enumerate}
 Antes de entrar en detalle a los algoritmos de aprendizaje no supervisado, se debe tener en cuenta las métricas de evaluación para estos modelos.
-\subsubsection{Métricas de evaluación}
+\subsection{Métricas de evaluación}
 Las métricas de evaluación para los modelos de aprendizaje no supervisados consta del puntaje de Silhouette y el de Davies Bouldin.
 \begin{lstlisting}[style=pythonstyle]
 from sklearn.metrics import silhouette_score
@@ -3299,6 +3327,7 @@ Para validar un modelo de clustering, se usan los siguientes métodos:
 	\item Validación de expertos: se refiere a la participación de personas con experiencia en el dominio de los datos para evaluar los resultados.
 \end{itemize}
 
+\subsection{Modelos}
 \subsubsection{K-means}
 El algoritmo K-means busca agrupar conjuntos de datos similares en clusteres. El proceso de este algoritmo es el siguiente:
 \begin{enumerate}
@@ -3535,12 +3564,15 @@ for cluster in range(3):
 	print(f'Etiquetas reales en cluster: {np.unique(cluster_target)}')
 	print('---')
 \end{lstlisting}
+
+\subsubsection{DBSCAN}
+Este modelo se utiliza cuando los datos no se agrupan en conjuntos bien definidos. Los agrupa basándose en la densidad e identificando los datos por su proximidad.
+
 \subsubsection{Reducción de dimensionalidad}
 
 
-
-\subsection{Aprendizaje reforzado}
-En este modelo se realizan predicciones mediante recompensas o penalizaciones dependiendo de las acciones de un agente dentro de un entorno. Estas retroalimentaciones le permiten aprender a tomar mejores decisiones, creando un conjunto de reglas o política que define la mejor estrategia para obtener recompensas.
+\section{Aprendizaje reforzado}
+En este modelo se realizan predicciones mediante recompensas o penalizaciones, dependiendo de las acciones de un agente dentro de un entorno. Estas retroalimentaciones le permiten aprender a tomar mejores decisiones, creando un conjunto de reglas o política que define la mejor estrategia para obtener recompensas.
 
 \subsection{Inteligencia artificial generativa}
 Es una clase de modelos que crea contenido por medio de las entradas de un usuario. Ejemplo: crear imágenes, contar chistes, resumir artículos. Estos modelos se entrenan inicialmente con un enfoque no supervisado, donde aprende a imitar datos con los que se entrena. En algunas ocasiones, el modelo se entrena más mediante el aprendizaje supervisado o por refuerzo dependiendo de las tareas que se le pida realizar.
